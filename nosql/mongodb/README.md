@@ -5,7 +5,7 @@
 ## Index
 
 * [Introduction](#introduction)
-* [Best Practices](best-practices)
+* [Best Practices](#best-practices)
 * [References](#references)
 
 ## Introduction
