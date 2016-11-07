@@ -43,6 +43,7 @@ If you think any information is wrong or missing please write us an email or dir
 * [CSS & Styling](frontend/general/css/README.md)
 * [Frontend Tool Ecosystem](frontend/general/tools/README.md)
 * [Polymer](frontend/polymer/README.md)
+* [Emberjs](frontend/emberjs/README.md)
 
 ### IT Security & Hardening
 * [Server Security](it_security/server_security/README.md)
