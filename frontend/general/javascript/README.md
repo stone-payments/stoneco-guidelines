@@ -14,7 +14,7 @@
 ### Testing
 
 ```javascript
-  function () {
+  function test () {
     return true;
   }
 ```
@@ -109,9 +109,24 @@
   - [Dmitry Baranovskiy](http://dmitry.baranovskiy.com/)
   - [Dustin Diaz](http://dustindiaz.com/)
   - [nettuts](http://code.tutsplus.com/?s=javascript)
+  
+**News/Blogs Collection Sites**
+
+  - [EchoJS](http://www.echojs.com/)
+  - [HotJS](https://www.hotjs.net/)
 
 **Podcasts**
 
   - [JavaScript Jabber](https://devchat.tv/js-jabber/)
+  
+**Others**
+  - [W3C JS APIs](https://www.w3.org/standards/techs/js#w3c_all)
+  - [MDN Web Documentation](https://developer.mozilla.org/es/)
+  - [DevDocs](http://devdocs.io/) (works offline)
+  - [TodoMVC: framework / library comparision](http://todomvc.com/)
+  - [Framework / Library comparision](http://jeffcarp.github.io/frontend-hyperpolyglot/)
+  - [Rendering performance benchmark](http://matt-esch.github.io/mercury-perf/)
+  - [RegExp Builder / Test](https://regex101.com/)
+  - [WebComponents](http://webcomponents.org/)
 
 [BEEVA](https://www.beeva.com) | 2016
