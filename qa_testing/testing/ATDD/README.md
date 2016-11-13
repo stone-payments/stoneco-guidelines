@@ -19,7 +19,7 @@ At this point we're going to talk about atdd
 The definition of wikipedia express:
 > "Acceptance Test-Driven Development (ATDD) is a development methodology based on communication between the business customers, the developers, and the testers.ATDD encompasses many of the same practices as Specification by Example, Behavior Driven Development (BDD), Example-Driven Development (EDD), and Story Test-Driven Development (SDD). All these processes aid developers and testers in understanding the customer’s needs prior to implementation and allow customers to be able to converse in their own domain language. ATDD is closely related to Test-Driven Development[TDD]. It differs by the emphasis on developer-tester-business customer collaboration. ATDD encompasses acceptance testing, but highlights writing acceptance tests before developers begin coding"
 
-Its acronym define it as test driven development of acceptance. ATDD is a requirements specification methodology that more testing methodology. ATDD is the beginning of the iterative development cycle level, because the basis of an acceptance test we deepen implementation through successive TDD unit testing to shape the code that finally meets the defined acceptance criteria.
+Its acronym define it as test driven development of acceptance. ATDD is a requirements specification methodology more than testing methodology. ATDD is the beginning of the iterative development cycle level, because the basis of an acceptance test we deepen implementation through successive TDD unit testing to shape the code that finally meets the defined acceptance criteria.
 
 ### Based Features
 ATDD methodology provides a basis features:
@@ -48,7 +48,7 @@ People often make mistakes when defining the criteria and acceptance test. Often
 
 * Who should write the test for acceptance?
 
-> The acceptance test must write the Product Owner, but unlike what many people think do not have to do alone, this methodology is based ultimately on communication and collaboration among all stakeholders of the system. We all know that the tests require a technical component that in some cases the customer can get to have it but in other cases, so the customer can ask for help from developers or QA technical aspects. The same happens in reverse when developers need help understanding the test as business rules are often confusing.
+> The acceptance test must be written by the Product Owner, but unlike what many people think do not have to do alone, this methodology is based ultimately on communication and collaboration among all stakeholders of the system. We all know that the tests require a technical component that in some cases the customer can get to have it but in other cases, so the customer can ask for help from developers or QA technical aspects. The same happens in reverse when developers need help understanding the test as business rules are often confusing.
 
 ### Writing acceptance tests
 The acceptance test must be automated to be meaningful in an agile environment. The tests must be specific and not allow ambiguity and avoid generic scenarios. An example of incorrect test could be "add cards to the system ", this is very generic. Instead "Add Card 4777308023346398" , making specific test.
@@ -77,7 +77,6 @@ As best practices we can enumerate:
 
 As bad practices we can enumerate:
 
-> * Developers write test of acceptance for themselves.
 > * Acceptance test as write unit tests.
 > * Developers write test of acceptance for themselves.
 > * Write acceptance tests which are dependent on implementation details or data structures.
@@ -85,7 +84,7 @@ As bad practices we can enumerate:
 ### Workflow ATDD
 The iterative cycle ATDD:
 
-![alt text](https://github.com/beeva-danielpetrovic/beeva-best-practices/blob/master/agile/developerTeamScrum/ATDD/static/Flujo_atdd_tdd_v3.png "WorkFlow ATDD")
+<img src="static/Flujo_atdd_tdd_v3.png" width="512" alt="WorkFlow ATDD">
 
 The components that interact in the flow are:
 
@@ -94,7 +93,7 @@ The components that interact in the flow are:
 > * Automated test criteria generated from the history.
 > * The acceptance test development refined level.
 > * Exploratory tests performed by the QA team.
-> * Las pruebas no funcionales.
+> * Non functional test.
 
 Example of use of flow ATDD-TDD:
 
@@ -153,4 +152,3 @@ QA team implements the feature and proceeds to launch every time you make a spec
 ___
 
 [BEEVA](http://www.beeva.com) | 2016
-
