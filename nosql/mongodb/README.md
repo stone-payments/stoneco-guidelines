@@ -6,6 +6,7 @@
 
 * [Introduction](#introduction)
 * [Best Practices](#best-practices)
+* [Storage engine] (#storage-engine)
 * [References](#references)
 
 ## Introduction
@@ -28,7 +29,7 @@ Every document has the field "_id". If this field is not provided by the user, i
 ### Create indexes
 
 One of the most important things in any data base system are indexes. They are very important to improve query performance, so indexes should be created to support queries.
-On the other hand, indexes spend space and, more important, maintaining much indexes makes lower inserting performance, so don�t create indexes that queries do not use.
+On the other hand, indexes spend space and, more important, maintaining much indexes makes lower inserting performance, so don’t create indexes that queries do not use.
 
 MongoDb always create a default unique _id index for every collection. This index cannot be dropped.
 
@@ -39,7 +40,7 @@ When you create indexes you can define order ascending or descending. Next index
 * __Geospatial index__: index for geospatial coordinate data. MongoDB support 2 types of geospatial index:
 ..* _2d index_ uses planar geometry. You can find more information about this type of index [here](https://docs.mongodb.com/manual/core/2d/)
 ..* _2dsphere index_ uses spherical geometry. You can find more information about this type of index [here](https://docs.mongodb.com/manual/core/2dsphere/)
-* __Text index__: index to support text queries over string content. It does not store language-specific stop words like �the�, �a�, �or�, etc.
+* __Text index__: index to support text queries over string content. It does not store language-specific stop words like “the”, “a”, “or”, etc.
 * __Hashed index__: indexes the hash of the value of a field instead the value itself. Due to their nature, these indexes only support equality matches and cannot support range-based queries.
 
 Moreover, indexes can have special properties:
@@ -165,6 +166,98 @@ CPU
 ### Keep current with versions
 
 Keep your version of MongoDB current. Each release has significant performance enhancements, improvements and fixes.
+
+## Storage Engine
+
+This component is responsible of managing how data is stored, both in memory and on disk. There are many storage engines that you can choose to adapt to your application with the purpose of obtaining an improvement of performance.
+In MongoDB 3.2 the default storage engine is WiredTiger. It provides a document-level concurrency model, checkpointing, compression and other features. On lower versions the default storage engine is MMAPv1, which works well with high volumes of reads and writes, as well as in place updates.
+
+
+### WiredTiger Storage Engine
+
+WiredTiger designed to maximize the performance of multi-core hardware and minimize the disk access thanks to the use of a compact file format and data compression. It provides a set of utilities for storage, which are detailed below:
+
+####Document level concurrency
+
+WiredTiger uses document-level concurrency control for write operations. As a result, multiple clients can modify different documents of a collection at the same time, Which substantially increases the performance of MongoDB.
+
+For most read and write operations, WiredTiger uses optimistic concurrency control. WiredTiger uses only intent locks at the global, database and collection levels. When the storage engine detects conflicts between two operations, one will incur a write conflict causing MongoDB to transparently retry that operation.
+
+####Snapshots and Checkpoints
+
+WT provides a MultiVersion Concurrency Control (MVCC) that uses a point-in-time snapshot of the data to present a consistent view of the in-memory data.
+
+When a write operation arrives, WT writes all data in a snapshot to disk. This data now acts as a checkpoint that ensures the data files are consistent up to and including the last checkpoint. This makes possible that a checkpoint can be used for recovering purposes. MongoDB configures WT to create checkpoints at intervals of 60 seconds or 2 gigabytes of journal data.
+
+The new checkpoint becomes accessible and permanent when WiredTiger’s metadata table is atomically updated to reference the new checkpoint. Once the new checkpoint is accessible, WT frees pages from the old checkpoints.
+
+You can recover from the last checkpoint using WT, but all the data written since the last checkpoint will be lost. To can recovery this data you must to use journaling.
+
+####Journal
+
+WT uses a write-ahead transaction log in combination with checkpoints to ensure data durability. WT uses journaling to persist all write operations between checkpoints. The journal is compressed using snappy library.
+Journaling is important for standalone instances to avoid losing data when Mongo falls down between checkpoints. It isn’t as critical for replica set members because the replication process provides sufficient durability for our data.
+
+####Compression
+
+WT uses block compression with the snappy library for all collections and a prefix compression for all indexes. We can use for collections the zlib compression library too. Compression settings are also configurable on a per-collection and per-index basis during collection and index creation.
+
+####Memory use
+
+With WT, Mongo uses the internal cache of WT and the filesystem cache. The WT cache uses a 60% of RAM minus 1 GB or 1GB, whichever is larger.
+
+
+### MMAPv1 Storage Engine
+
+MMAPv1 is MongoDB’s original storage engine based on memory mapped files. It excels at workloads with high volume inserts, reads, and in-place updates.
+
+####Journal
+
+MongoDB, by default, records all modifications to an on-disk journal. MongoDB writes more frequently to the journal than it writes the data files (MongoDB writes to the data files on disk every 60 seconds and writes to the journal files roughly every 100 milliseconds).
+The journal allows MongoDB to successfully recover data from data files after a mongod instance exits without flushing all changes.
+
+####Record Storage Characteristics
+
+All records are contiguously located on disk, and when a document becomes larger than the allocated record, MongoDB must allocate a new record.
+
+New allocations require MongoDB to move a document and update all indexes that refer to the document, which takes more time than in-place updates and leads to storage fragmentation. To avoid this situation we can use two different record allocation strategies:
+
+* __Power of 2 sized allocations__: Because documents in MongoDB may grow after insertion and all records are contiguous on disk, the padding can reduce the need to relocate documents on disk following updates. Relocations are less efficient than in-place updates and can lead to storage fragmentation. As a result, all padding strategies trade additional space for increased efficiency and decreased fragmentation.
+
+   With the power of 2 sizes allocation strategy, each record has a size in bytes that is a power of 2 (e.g. 32, 64, 128, 256, 512 ... 2    MB). For documents larger than 2 MB, the allocation is rounded up to the nearest multiple of 2 MB.  
+   This allows the document to grow without having to reallocate it and to reduce fragmentation, because a new document can reuse freed    records.
+
+   This strategy works more efficient for insert/update/delete workloads.
+
+* __No padding allocation__: This strategy can be used for collections whose workloads do not change the document sizes, such as workloads that consist of insert-only operations or update operations that do not increase document size.
+
+####Memory use
+
+MMAPv1 uses all free memory on the machine as its cache. System resource monitors show that MongoDB uses a lot of memory, but its usage is dynamic. If another process suddenly needs half the server’s RAM, MongoDB will yield cached memory to the other process.
+Technically, the operating system’s virtual memory subsystem manages MongoDB’s memory. This means that MongoDB will use as much free memory as it can, swapping to disk as needed. Deployments with enough memory to fit the application’s working data set in RAM will achieve the best performance.
+
+
+### In-Memory Storage Engine
+
+The in-memory storage engine is part of general availability (GA) in the 64-bit builds. This kind of memory doesn't persist the data on disk, including configuration data, indexes, user credentials, etc.
+
+By avoiding disk I/O, the in-memory storage engine allows for more predictable latency of database operations.
+
+####Concurrency
+
+The in-memory storage engine uses document-level concurrency control for write operations. As a result, multiple clients can modify different documents of a collection at the same time.
+
+####Memory use
+
+By default, the in-memory storage engine uses 50% of physical RAM minus 1 GB.
+
+####Durability
+
+The in-memory storage engine is non-persistent and does not write data to a persistent storage. That is non-persisted data includes application data and system data, such as users, permissions, indexes, replica set configuration, sharded cluster configuration, etc.
+As such, the concept of journal or waiting for data to become durable does not apply to the in-memory storage engine.
+
+Write operations that specify a write concern journaled are acknowledged immediately. When a mongod instance shuts down, either as result of the shutdown command or due to a system error, recovery of in-memory data is impossible.
+
 
 ## References
 
