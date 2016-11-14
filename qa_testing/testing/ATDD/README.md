@@ -132,7 +132,7 @@ Now captured as acceptance test using a framework adapted to the format that wil
 | | No  | 0317    | 4406687108633651|
 | | No  | 0215    | 4406687108633641|
 
-Then the QA team has clear acceptance tests and can automate them through the framework of **Cucumber**. QA begins with the **Gherkin** language translation of the acceptance test:
+Then the QA team has clear acceptance tests and can automate them through the framework of **[Cucumber](../../../cucumber/README.md)**. QA begins with the **Gherkin** language translation of the acceptance test:
 
 ```
 #languaje en
