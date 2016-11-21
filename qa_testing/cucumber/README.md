@@ -36,7 +36,7 @@ One of the Cucumber main features is use it to describe the requirements of the 
 
 The ideal life cycle for cucumber test is as follows:
 
-1. Write behavior scenarios with Gherkin
+**Write behavior scenarios with Gherkin**
 
 The scenarios on Cucumber are written using Gherkin, which is a business readable, domain specific language that Cucumber understands. It is really useful because it lets you describe software’s behavior without detailing how that behavior is implemented.
 
@@ -78,7 +78,7 @@ On a feature file it can be found other parts like:
 
 The detail of the different features implementation could be found on main cucumber [page](https://cucumber.io/docs#reference)
 
-2. Scenarios implementation
+**Scenarios implementation**
 
 When the scenarios are properly written and business people and developers have reached an agreement, it is the moment to implement those scenarios. Using cucumber it can be given functionality to all of the Gherkin steps. Thus every step will interact with the application, getting automated test for the application.
 
@@ -90,11 +90,11 @@ end
 
 The step implementations can have variables as property fields or tables with multiple values.
 
-3. Implementing the application functionality
+**Implementing the application functionality**
 
 The next logic step is to implement the application functionality, which should works as described on the scenario. To ensure that the application behaves properly, the new functionality should pass the test described on the scenario.
 
-4. Automation of scenarios
+**Automation of scenarios**
 
 And finally, as the funcionalities are being created, we should create executable scenarios with as against the application. Making the execution of those scenarios automatic, we will ensure that the application behave as expected without being worry about possible application errors and problems.
 
@@ -104,17 +104,17 @@ That way, we also get an alive documentation that will be updated next to applic
 
 One of the advantages and at the same time, one of the dangers of cucumber, is the flexibility that provides to write examples like we want. Thus there are a simple guide lines to write scenarios that will make the life easier for us:
 
-1. Keep only the scenarios with the same functionality under the same feature file. 
+- Keep only the scenarios with the same functionality under the same feature file. 
 
-We quickly see how easy is to write scenarios with cucumber. But to be organized and keep all the features coherent, it is better to save under the same feature, only the scenarios that describes the same functionality. This will help us to understand the different functionalities of the application.
+	We quickly see how easy is to write scenarios with cucumber. But to be organized and keep all the features coherent, it is better to save under the same feature, only the scenarios that describes the same functionality. This will help us to understand the different functionalities of the application.
 
-2. Put together all common steps under the "background".
+- Put together all common steps under the "background".
 
-This will keep our scenarios more simple and easy to read and understand.
+	This will keep our scenarios more simple and easy to read and understand.
 
-3. Keep the scenarios simple.
+- Keep the scenarios simple.
 
-As it is said on the writing scenarios part, it is better to only have three simple "Given, When, Then" steps to keep our scenarios more simple and readable. 
+	As it is said on the writing scenarios part, it is better to only have three simple "Given, When, Then" steps to keep our scenarios more simple and readable. 
 
 ### Cucumber implementations
 
