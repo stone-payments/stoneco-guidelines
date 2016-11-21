@@ -64,17 +64,17 @@ As can be seen on the example, all features files have 3 main parts:
 
 - Scenario declaration: Like the Feature header, it has a brief but accurate description about the scenario functionality and the specific behaviour of the application. Every scenario should have one or more of the 3 main steps:
 
-    - Given steps: On the "Given" steps is detailed the initial state of the application. It is set the application on an starting point to describe the funcionality.
-    - When steps: On the "When" steps, is described the funcionality that the application will execute, like on the example "go to the home page". 
-    - Then steps: On the "Them" steps, is checked that the application behaves properly as expected.
+> * Given steps: On the "Given" steps is detailed the initial state of the application. It is set the application on an starting point to describe the funcionality.
+> * When steps: On the "When" steps, is described the funcionality that the application will execute, like on the example "go to the home page". 
+> * Then steps: On the "Them" steps, is checked that the application behaves properly as expected.
 
 Those 3 types of steps could be used as desired, but it is advisable that every scenario should have only 3 of those simple steps. This will keep the scenario simple and understandable.
 
 On a feature file it can be found other parts like:
 
-    - Background: Only can be 1 "background" for a feature. It declares the steps that will be the same for all the scenarios of the feature.
+> * Background: Only can be 1 "background" for a feature. It declares the steps that will be the same for all the scenarios of the feature.
 
-    - Example: When some scenarios are really similar between them and only differ on the data tested, all of them could be grouped on an only one scenario with an "example" table, which contains all the data for every scenario.
+> * Example: When some scenarios are really similar between them and only differ on the data tested, all of them could be grouped on an only one scenario with an "example" table, which contains all the data for every scenario.
 
 The detail of the different features implementation could be found on main cucumber [page](https://cucumber.io/docs#reference)
 
