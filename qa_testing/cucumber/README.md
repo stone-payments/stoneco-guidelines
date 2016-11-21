@@ -9,7 +9,7 @@ Test, automation and alive documentation with Cucumber
 * [ATDD & BDD with Cucumber](#atdd-and-bdd-with-cucumber)
 * [Alive Documentation](#alive-documentation)
 * [Life cycle](#life-cycle)
-* [Cucumber writting tips](#cucumber-writting-tips)
+* [Cucumber writing tips](#cucumber-writing-tips)
 * [Cucumber implementations](#cucumber-implementations)
 
 ### What is Cucumber?
@@ -60,21 +60,21 @@ Then I should see the welcome message
 
 As can be seen on the example, all features files have 3 main parts:
 
-> * Feature declaration: It is always de same. "Feature:" header with a brief description about the common functionality of the scenarios.
+- Feature declaration: It is always de same. "Feature:" header with a brief description about the common functionality of the scenarios.
 
-> * Scenario declaration: Like the Feature header, it has a brief but accurate description about the scenario functionality and the specific behaviour of the application. Every scenario should have one or more of the 3 main steps:
+- Scenario declaration: Like the Feature header, it has a brief but accurate description about the scenario functionality and the specific behaviour of the application. Every scenario should have one or more of the 3 main steps:
 
-- Given steps: On the "Given" steps is detailed the initial state of the application. It is set the application on an starting point to describe the funcionality.
-- When steps: On the "When" steps, is described the funcionality that the application will execute, like on the example "go to the home page". 
-- Then steps: On the "Them" steps, is checked that the application behaves properly as expected.
+    - Given steps: On the "Given" steps is detailed the initial state of the application. It is set the application on an starting point to describe the funcionality.
+    - When steps: On the "When" steps, is described the funcionality that the application will execute, like on the example "go to the home page". 
+    - Then steps: On the "Them" steps, is checked that the application behaves properly as expected.
 
 Those 3 types of steps could be used as desired, but it is advisable that every scenario should have only 3 of those simple steps. This will keep the scenario simple and understandable.
 
 On a feature file it can be found other parts like:
 
-> * Background: Only can be 1 "background" for a feature. It declares the steps that will be the same for all the scenarios of the feature.
+    - Background: Only can be 1 "background" for a feature. It declares the steps that will be the same for all the scenarios of the feature.
 
-> * Example: When some scenarios are really similar between them and only differ on the data tested, all of them could be grouped on an only one scenario with an "example" table, which contains all the data for every scenario.
+    - Example: When some scenarios are really similar between them and only differ on the data tested, all of them could be grouped on an only one scenario with an "example" table, which contains all the data for every scenario.
 
 The detail of the different features implementation could be found on main cucumber [page](https://cucumber.io/docs#reference)
 
@@ -120,10 +120,10 @@ As it is said on the writing scenarios part, it is better to only have three sim
 
 Initially, Cucumber was created for Ruby, so all other implementations are based on it. On Cucumber for Ruby, the standard directory structure is:
 
-> * features - Contains feature files, which all have a .feature extension. May contain subdirectories to organize feature files.
+- features - Contains feature files, which all have a .feature extension. May contain subdirectories to organize feature files.
 
-> * features/step_definitions - Contains step definition files, which are Ruby code and have a .rb extension.
+- features/step_definitions - Contains step definition files, which are Ruby code and have a .rb extension.
 
-> * features/support - Contains supporting Ruby code. Files in support load before those in step_definitions, which makes it useful for such things as environment configuration (commonly done in a file called env.rb).
+- features/support - Contains supporting Ruby code. Files in support load before those in step_definitions, which makes it useful for such things as environment configuration (commonly done in a file called env.rb).
 
 There are Cucumber implementations for mostly common programming languages and all of it could be found on it's [main page](https://cucumber.io/docs#reference)
