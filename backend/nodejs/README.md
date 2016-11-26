@@ -39,7 +39,7 @@ Since developments are made in Javacript Node.js, we recommend reading the langu
 The two main challenges to be resolved by a developer to program begins with Node.js are:
 
 * Asynchrony: Although there are several ways to manage the async flow as libraries (i.e. [async](https://www.npmjs.com/package/async), [co](https://www.npmjs.com/package/co)), promises ([q](https://www.npmjs.com/package/q), [mpromise](https://www.npmjs.com/package/mpromise), ...) or conventions ([CPS](https://en.wikipedia.org/wiki/Continuation-passing_style)), it should handle them properly and avoid excessive nesting callbacks ([Pyramid of Doom](http://tritarget.org/blog/2012/11/28/the-pyramid-of-doom-a-javascript-style-trap/)) and the excessive reliance on a particular library. A major problem arises when we are trying to follow the execution flow of our code and the error handling. Initially it's difficult to adopt this way of work and can be perceived as a loss of control over it. However, it is a powerful tool that allows us to make better use of resources.
- 
+
 * Duality between Application and Server: When we are working with Node.js, we must understand that it's slightly different from those other familiar languages ​​like Java and PHP,  which for develop web applications usually have the support of Apache or Tomcat or other application servers. Although this is usually shielded by frameworks, we should not forget this part of work, which requires us to delve deeper into DevOps issues as the application log, error handling or profiling application issues ports and performance parameters.
 
 ### Purpose
@@ -67,9 +67,10 @@ This brief section it's intended to give some easy and quick tips to rememeber d
 * Complete your developments with automated testing.
 * Always use a CVS like GIT, SVN, and follow its best practices like GitFlow, Trunk, Branching,...
 
-* Avoid using console.log() in your code. 
+* Avoid using console.log() in your code.
 * Using configuration files against variables for ports, ips of other machines, ...
 * Implement differente logs for application and for Node.js.
+* Use arrow function, to make the Scope safety and your code more concise and clarity. Check the examples [here](#Arrow).
 * Use domains facing try-catch blocks for error handling.
 * In public servers add a safety middleware as [helmet](https://www.npmjs.com/package/helmet) or [lusca](https://www.npmjs.com/package/lusca).
 
@@ -81,14 +82,14 @@ This brief section it's intended to give some easy and quick tips to rememeber d
 * Use [retire](https://www.npmjs.com/package/retire) to verify outdated or unsafe dependencies.
 * Do not install units in our global development environment.
 * Before deployments delete the *node_modules* folder and check file dependencies [package.json](https://docs.npmjs.com/files/package.json).
- 
+
 * Use tools like [PM2](https://www.npmjs.com/package/pm2) or [forever](https://www.npmjs.com/package/forever) as a tool for application restart.
 
 * [Use LTS versions of Node.js for Production](https://nodejs.org/en/blog/community/node-v5/), since 4.2.* all even versions are *LTS* and odd like 5.3.* are *Stable with latest features*.
-* Install node and npm interperters localy through [NVN](https://github.com/creationix/nvm) without using sudo. 
+* Install node and npm interperters localy through [NVN](https://github.com/creationix/nvm) without using sudo.
 * Clear the local cache after each update NPM version: *$npm cache clean*
 
-Another interesting point thinking on how web applications should be written it's follow [The Twelve-Factor application manifesto](http://12factor.net/). 
+Another interesting point thinking on how web applications should be written it's follow [The Twelve-Factor application manifesto](http://12factor.net/).
 
 * One codebase tracked in revision control, many deploys.
 * Explicitly declare and isolate dependencies.
@@ -103,16 +104,29 @@ Another interesting point thinking on how web applications should be written it'
 * Treat logs as event streams.
 * Run admin/management tasks as one-off processes.
 
+#### Arrow Functions
+
+```javascript
+// Traditional function
+var reflect = function(value) {
+    return value;
+};
+// Arrow function
+var reflect = value => value;
+
+
+```
+
 ## Frameworks
 
 In this section we're going to talk about three main frameworks that we are using on productive projects. Some of them are in microservices environments, RESTful APIs and web servers.
 Finally we offer a comparative in order to help to choose a tool for future projects with Node.js.
 
-The node frameworks are layers on the top of http and use Middleware plugins to interact with the requests and responses. 
+The node frameworks are layers on the top of http and use Middleware plugins to interact with the requests and responses.
 Middlewares are a powerful yet simple concept: the output of one unit/function is the input for the next.
 
 At this point we're going to describe three popular node frameworks but there [are many others out there](https://www.devsaran.com/blog/10-best-nodejs-frameworks-developers).
- 
+
 ### Express
 
 ![alt text](static/express.png "Express")
@@ -123,11 +137,11 @@ Express provides a thin layer of fundamental web application features.
 
 #### Application structure
 
-One of the strengths of Express is the community and large number of application examples and proposals it has published on its [repository](https://github.com/strongloop/express/tree/master/examples). 
+One of the strengths of Express is the community and large number of application examples and proposals it has published on its [repository](https://github.com/strongloop/express/tree/master/examples).
 
-Anyway one of the profits its the flexibility to divide the logic of our app. 
+Anyway one of the profits its the flexibility to divide the logic of our app.
 
-##### Main file: src/index.js 
+##### Main file: src/index.js
 
 ```javascript
 var express = require('../..');
@@ -182,7 +196,7 @@ All these techniques are summarized and extracted from the creators of Express, 
 
 * Don’t use deprecated or vulnerable versions of Express.
 * Use TLS. If your app deals with or transmits sensitive data, use Transport Layer Security (TLS) to secure the connection and the data.
-* Use security middleware as [helmet](#helmet) or [lusca](#lusca) and at a minimum, disable X-Powered-By header. 
+* Use security middleware as [helmet](#helmet) or [lusca](#lusca) and at a minimum, disable X-Powered-By header.
 * Use cookies securely. To ensure cookies don’t open your app to exploits, don’t use the default session cookie name and set cookie security options appropriately.
 * Ensure your dependencies are secure with [nsp](https://www.npmjs.com/package/nsp) or [requireSafe](https://www.npmjs.com/package/requiresafe).
 * Implement rate-limiting to prevent brute-force attacks against authentication. You can use middleware such as express-limiter, but doing so will require you to modify your code somewhat.
@@ -808,10 +822,10 @@ At this section we're going to cover the areas related with staging, logging sec
 ### Logging
 
 An important part for developers is the ability to do logs, to have control over the code was developed. The default form to do this in Nodejs is to use *console.log*. But isn't a good practices.
-Don't write *console.log* all over the code to debug it and then commenting them out when they are no longer needed. For this purpose it's better to use a library to logging. 
+Don't write *console.log* all over the code to debug it and then commenting them out when they are no longer needed. For this purpose it's better to use a library to logging.
 
 In some projects we're using a dual system of logging with:
-#### [Morgan](https://www.npmjs.com/package/morgan) for the apache style logs. 
+#### [Morgan](https://www.npmjs.com/package/morgan) for the apache style logs.
 
 Morgan is a HTTP request logger middleware for node.js.
 
@@ -826,18 +840,18 @@ var morgan = require('morgan')
 
 morgan('combined', { skip: function (req, res) { return res.statusCode < 400 } });
 ```
-  
+
 #### [Bunyan](https://www.npmjs.com/package/bunyan) for the business logic logs.
-Bunyan is a simple and fast JSON logging library for node.js services. 
+Bunyan is a simple and fast JSON logging library for node.js services.
 Manifesto: Server logs should be structured. JSON's a good format. Let's do that. A log record is one line of *JSON.stringify*'d output.
 
-Output example: 
+Output example:
 ´´´bash
 {"name":"myserver","hostname":"banana.local","pid":123,"req":{"method":"GET","url":"/path?q=1#anchor","headers":{"x-hi":"Mom","connection":"close"}},"level":3,"msg":"start request","time":"2012-02-03T19:02:46.178Z","v":0}
 
 ´´´
 Note: Be careful with the content write to this kind of logs. the message it's fully customizable but export all the http request object or the full error stack could damage the performance.
- 
+
 example of use:
 
 ```javascript
@@ -871,7 +885,7 @@ It's very important to check and verify these areas in any Node.js development, 
 
 All these areas are deeply covered in the security and hardening [section of this repository](../../it_security/security_hardening/README.md).
 
-In this section we're going to show you some references and middlewares that are easy to include as first protection. 
+In this section we're going to show you some references and middlewares that are easy to include as first protection.
 
 #### [Lusca](https://www.npmjs.com/package/lusca)
 
@@ -882,14 +896,14 @@ var express = require('express'),
 	app = express(),
 	session = require('express-session'),
 	lusca = require('lusca');
-	
-//this or other session management will be required 
+
+//this or other session management will be required
 app.use(session({
 	secret: 'abc',
 	resave: true,
 	saveUninitialized: true
 }));
- 
+
 app.use(lusca({
     csrf: true,
     csp: { /* ... */},
@@ -898,7 +912,7 @@ app.use(lusca({
     hsts: {maxAge: 31536000, includeSubDomains: true, preload: true},
     xssProtection: true
 }));
-```	
+```
 
 You can opt into methods one by one:
 
@@ -961,8 +975,8 @@ It's useful to add a mechanism to respawn the threads and count the number of re
 ### Staging
 
 As any other server it's relevant to provide some profiling options. The common way to do this it's through a property file.
- 
-* Manually through merging files with lodash. 
+
+* Manually through merging files with lodash.
 
 *config.json* managed by SysOps
 ```javascript
@@ -1930,7 +1944,7 @@ Node.js and Best Practices
 
 Cheatsheets
 * [Overapi Cheatsheet](http://overapi.com/nodejs)
-* [NPM Cheatsheet](http://browsenpm.org/help) 
+* [NPM Cheatsheet](http://browsenpm.org/help)
 
 Frameworks
 * [Express Framework](http://expressjs.com)
