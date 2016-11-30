@@ -13,9 +13,10 @@
 * [Functional programming](#functional-programming)
 * [Object oriented programming](#object-oriented-programming)
 * [Error handling](#error-handling)
+* [Tools](#tools)
 * [References](#references)
 
-### Introduction
+### <a name="introduction"></a>Introduction
 
 This is not an introduction to Scala we assume the reader is familiar with the language. Some resources for learning Scala are:
 
@@ -27,7 +28,7 @@ This is a living document that will change to reflect our current “best practi
 
 **[Index](#index)**
 
-### Formatting
+### <a name="formatting"></a>Formatting
 
 Style cannot be inherently good or bad and almost everybody differs in personal preference. However the consistent application of the same formatting rules will almost always enhance readability. A reader already familiar with a particular style does not have to grasp yet another set of local conventions, or decipher yet another corner of the language grammar.
 
@@ -202,7 +203,7 @@ Use Scaladoc when something deserves explanation. In general we must try use use
 
 **[Index](#index)**
 
-### Types and Generics
+### <a name="types-and-generics"></a>Types and Generics
 
 The primary objective of a type system is to detect programming errors. Use of the type system should reflect this goal, but we must remain mindful of the reader: judicious use of types can serve to enhance clarity, being unduly clever only obfuscates.
 
@@ -271,7 +272,7 @@ It’s definitely OK to use implicits in the following situations:
 
 **[Index](#index)**
 
-### Collections
+### <a name="collections"></a>Collections
 Scala has a very generic, rich, powerful, and composable collections library. Collections are high level and expose a large set of operations.
 Always use the simplest collection that meets your needs.
 
@@ -309,7 +310,7 @@ It is often appropriate to use lower level collections in situations that requir
 
 **[Index](#index)**
 
-### Concurrency
+### <a name="concurrency"></a>Concurrency
 
 Modern services are highly concurrent, _Threads_ provide a means of expressing concurrency but they are dificult to manage. Also you have to consider issues such as cancellations and timeouts and your code usually lost modularity and it becomes difficult to maintain
 
@@ -338,7 +339,7 @@ Mutable concurrent collections have complicated semantics, and make use of subtl
 
 **[Index](#index)**
 
-### Control structures
+### <a name="control-structures"></a>Control structures
 
 Functional programs tend to require fewer traditional control structures, and read better when written in the declarative style. This typically implies breaking your logic skills. Functional programs also tend to be more expression-oriented.
 
@@ -469,7 +470,7 @@ def fib(n: Int) = {
 
 **[Index](#index)**
 
-### Functional programming
+### <a name="functional-programming"></a>Functional programming
 
 OOP confers many advantages, especially when used in conjunction with functional programming constructs. This style emphasizes the transformation of values over stateful mutation, yielding code that is referentially transparent, providing stronger invariants and thus also easier to reason about. Case classes, pattern matching, destructuring bindings, type inference, and lightweight closure and method-creation syntax are the tools of this trade.
 
@@ -776,7 +777,7 @@ The use of *flatMap* in Futures is discussed in the futures section.
 
 **[Index](#index)**
 
-### Object oriented programming
+### <a name="object-oriented-programming"></a>Object oriented programming
 
 Scala is a pure language in the sense that all values are objects. There is no distinction between primitive types and composite ones. Scala also features mixins allowing for more orthogonal and piecemeal construction of modules that can be flexibly put together at compile time with all the benefits of static type checking.
 
@@ -886,7 +887,7 @@ obj.asInstanceOf[{def close()}].close()
 
 **[Index](#index)**
 
-### Error handling
+### <a name="error-handling"></a>Error handling
 
 Scala provides an exception facility, but do not use it for commonplace errors, when the programmer must handle errors properly for correctness. Instead, encode such errors explicitly: using Option are good, idiomatic choices, as they harness the type system to ensure that the user is properly considering error handling.
 
@@ -929,11 +930,26 @@ try {
 
 is almost always wrong, as it would catch fatal errors that need to be propagated.
 
-### References
+If handling exceptions is mandatory for your system a better option to deal with it's usign [Try](http://www.scala-lang.org/api/current/scala/util/Try.html) class. It allows us to manage errors with pattern matching and monoid operations  
+
+### <a name="tools"></a>Tools
+There is a set of tools and sbt plugins that help us to prevent bugs and and follow coding best practises in Scala Projects.
+
+* [**sCoverage**](http://scoverage.org/) It is a Scala coverage tool that provides statement and branch coverage. It has plugins available for [Maven](https://github.com/scoverage/scoverage-maven-plugin), [Sbt](https://github.com/scoverage/sbt-scoverage) and [Gradle](https://github.com/scoverage/gradle-scoverage).
+* [**WartRemover**](https://github.com/puffnfresh/wartremover) It is a Scala code linting tool that allows control which kind of errors and warnings you want to receive and excluding code from analysis.
+* [**CPD4SBT**](https://github.com/sbt/cpd4sbt) Integrates the classic PMD Copy Paste Detection into SBT.
+* [**ScalaStyle**](http://www.scalastyle.org/) It's Scala equivalence to Java CheckStyle
+* [**ScapeGoat**](https://github.com/sksamuel/scapegoat) It's an static code analyzer that provides an equivalent functionality of Java's FindBugs
+* [**Scalariform**](https://github.com/daniel-trinh/scalariform) or [**Scalafmt**](https://olafurpg.github.io/scalafmt/) aren't properly a QA tools but a code formatters for Scala
+
+All of them are or provide plugins to be integrated in SBT.
+
+### <a name="references"></a>References
 
 * [Scala Lang](http://www.scala-lang.org/) Documentation and download
 * [Scala Cheat Sheet](http://docs.scala-lang.org/cheatsheets/) A scala full cheatsheet
 * [Scala Effective](http://twitter.github.io/effectivescala/)
+* [Scala Style Guide](http://docs.scala-lang.org/style/)
 
 ___
 
