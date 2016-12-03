@@ -70,7 +70,7 @@ This brief section it's intended to give some easy and quick tips to rememeber d
 * Avoid using console.log() in your code.
 * Using configuration files against variables for ports, ips of other machines, ...
 * Implement differente logs for application and for Node.js.
-* Use arrow function, to make the Scope safety and your code more concise and clarity. Check the examples [here](#Arrow).
+* Use arrow function, to make the Scope safety and your code more concise and clarity. Check the examples [Arrow Functions](#arrow-functions).
 * Use domains facing try-catch blocks for error handling.
 * In public servers add a safety middleware as [helmet](https://www.npmjs.com/package/helmet) or [lusca](https://www.npmjs.com/package/lusca).
 
@@ -144,14 +144,16 @@ Anyway one of the profits its the flexibility to divide the logic of our app.
 ##### Main file: src/index.js
 
 ```javascript
-var express = require('../..');
+import express  from 'express'
+import api_v1 from './controllers/api_v1'
+import api_v2 from './controllers/api_v2'
 
-var app = module.exports = express();
+export const app = express();
 
-app.use('/api/v1', require('./controllers/api_v1'));
-app.use('/api/v2', require('./controllers/api_v2'));
+app.use('/api/v1', api_v1);
+app.use('/api/v2', api_v2);
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.send('Hello form root route.');
 });
 
@@ -165,25 +167,25 @@ if (!module.parent) {
 ##### A controller foreach version related with the endpoint i.e. src/controller/api_v1.js & src/controller/api_v2.js  
 
 ```javascript
-var express = require('../../..');
+import express from '../../..'
 
-var apiv1 = express.Router();
+const apiv1 = express.Router();
 
-apiv1.get('/', function(req, res) {
+apiv1.get('/', (req, res) => {
   res.send('Hello from APIv1 root route.');
 });
 
-apiv1.get('/users', function(req, res) {
+apiv1.get('/users', (req, res) => {
   res.send('List of APIv1 users.');
 });
 
-module.exports = apiv1;
+export = apiv1;
 ```
 
 ```javascript
 ...
 // Another different implementation
-apiv2.get('/', function(req, res) {
+apiv2.get('/', (req, res) => {
   res.send('Hello from APIv2 root route.');
 });
 ...
@@ -219,13 +221,12 @@ All these techniques are summarized and extracted from the creators of Express, 
 Try-catch is a JavaScript language construct that you can use to catch exceptions in synchronous code. Use try-catch, for example, to handle JSON parsing errors as shown below.
 
 ```javascript
-app.get('/search', function (req, res) {
+app.get('/search', (req, res) => {
   // Simulating async operation
-  setImmediate(function () {
-    var jsonStr = req.query.params;
+  setImmediate(() => {
+    const jsonStr = req.query.params;
     try {
-      var jsonObj = JSON.parse(jsonStr);
-      res.send('Success');
+      res.send(JSON.parse(jsonStr););
     } catch (e) {
       res.status(400).send('Invalid JSON string');
     }
@@ -239,20 +240,20 @@ Promises will handle any exceptions (both explicit and implicit) in asynchronous
 
 ```javascript
  // Now all errors asynchronous and synchronous get propagated to the error middleware.
-app.get('/', function (req, res, next) {
+app.get('/', (req, res, next) => {
   // do some sync stuff
   queryDb()
-    .then(function (data) {
+    .then((data) => {
       // handle data
       return makeCsv(data)
     })
-    .then(function (csv) {
+    .then((csv) => {
       // handle csv
     })
     .catch(next)
 })
 
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   // handle error
 })
 ```
@@ -270,7 +271,7 @@ Here is a basic example in **Hapi** to launch an application and to open *http:/
 ```javascript
 'use strict';
 
-const Hapi = require('hapi');
+import Hapi from 'hapi ';
 
 // Create a server with a host and port
 const server = new Hapi.Server();
@@ -283,13 +284,11 @@ server.connection({
 server.route({
   method: 'GET',
   path:'/hello',
-  handler: function (request, reply) {
-    return reply('hello world');
-  }
+  handler: (request, reply) => reply('hello world');
 });
 
 // Start the server
-server.start(function() {
+server.start(() => {
   console.log('Server running at:', server.info.uri);
 });
 ```
@@ -299,7 +298,7 @@ As we mentioned sooner, the Hapi's great power are the plugins. Hapi has an exte
 There are a lot of plugins in the community but we can write our own plugin so easy. A very simple plugin looks like:
 
 ```javascript
-exports.register = function(server, options, next) {
+exports.register = (server, options, next) => {
   // Code
   // ...
 
@@ -327,7 +326,7 @@ server.register(
       key: 'value'
     },
   },
-  function (err) {
+  (err) => {
     if (err) {
     console.error('Failed to load plugin:', err);
     }
@@ -345,7 +344,7 @@ server.register(
       register: require('yourplugin')
     }
   ],
-  function (err) {
+  (err) => {
     if (err) {
       console.error('Failed to load a plugin:', err);
     }
@@ -386,11 +385,11 @@ To create a new API server with **Hapi** we can use the following structure:
 The **app.js** file is the main file of the application. We start the server here and configure all the plugins.
 
 ```javascript
-var Hapi = require('hapi');
-var config = require('./config/environment');
+import Hapi from 'hapi';
+import config from './config/environment';
 
 // Create a server with a host and port
-var server = new Hapi.Server();
+const server = new Hapi.Server();
 server.connection({ host: config.ip,  port: config.port , routes: { cors: true }});
 
 // Register the server and start the application
@@ -408,10 +407,10 @@ server.register([
       prefix: config.routes.prefix // prefix for all the api routes
     }
   },
-  function(err) {
+  (err) => {
     if (err) throw err;
 
-    server.start(function() {
+    server.start(() => {
       console.log('Server running at', server.info.uri);
     })
   }
@@ -427,12 +426,12 @@ In the **routes.js** file is configured all routes of the services. We define th
 
 'use strict';
 
-exports.register = function(server, options, next) {
-  require('./api/my-endpoints')(server);
+exports.register = (server, options, next) => {
+  import myEndPoints from './api/my-endpoints';
+  myEndPoints(server);
 
   next();
 };
-
 exports.register.attributes = {
   name: 'my-routes',
   version: '0.1.0'
@@ -445,13 +444,13 @@ In **config/environment** we put the external configuration of the application b
 ```javascript
 'use strict';
 
-var Assets = require('./assets.controller');
+import Assets from './assets.controller';
 
-module.exports = function(server) {
+module.exports = (server) => {
   server.route({
     method: 'GET',
     path: '/assets',
-    handler: function(request, reply, next) {
+    handler: (request, reply, next) => {
       Assets.getAssetsByAttributes(request, reply, next);
     }
   });
@@ -459,7 +458,7 @@ module.exports = function(server) {
   server.route({
     method: 'POST',
     path: '/assets',
-    handler: function(request, reply, next) {
+    handler: (request, reply, next) => {
       Assets.create(request, reply, next);
     }
   });
@@ -467,7 +466,7 @@ module.exports = function(server) {
   server.route({
     method: 'PUT',
     path: '/assets/{key}',
-    handler: function(request, reply, next) {
+    handler: (request, reply, next) => {
       Assets.modify(request, reply, next);
     }
   });
@@ -475,7 +474,7 @@ module.exports = function(server) {
   server.route({
     method: 'DELETE',
     path: '/assets/{key}',
-    handler: function(request, reply, next) {
+    handler: (request, reply, next) => {
       Assets.remove(request, reply, next);
     }
   });
@@ -486,21 +485,13 @@ module.exports = function(server) {
 ```javascript
 'use strict';
 
-exports.getAssetsByAttributes = function(req, res, next) {
-  return res([]).code(200);
-};
+export const getAssetsByAttributes = (req, res, next) => res([]).code(200);
 
-exports.create = function(req, res, next) {
-  return res({}).code(201);
-};
+export const create = (req, res, next) => res({}).code(201);
 
-exports.modify = function(req, res, next) {
-  return res({}).code(200);
-};
+export const modify = (req, res, next) => res({}).code(200);
 
-exports.remove = function(req, res, next) {
-  return res({}).code(200);
-};
+export const remove = (req, res, next) => res({}).code(200);
 ```
 
 #### Plugins
@@ -562,14 +553,14 @@ The API is divided in four blocks:
 Restify is a light framework similar to Express and very easy for building REST APIs. This is the easy way to create a REST API application:
 
 ``` javascript
-var restify = require('restify');
-var server = restify.createServer();
+import restify from 'restify';
+const server = restify.createServer();
 
-server.get('/hello/:name', function(req, res, next) {
+server.get('/hello/:name', (req, res, next) => {
 	res.send('hello ' + req.params.name);
 });
 
-server.listen(3000, function() {
+server.listen(3000, () => {
 	console.log('Listening on port 3000');
 });
 ```
@@ -652,28 +643,28 @@ my-application/
 7. Stop function.
 
 ```javascript
-var 	restify = require('restify'), //1
-	Q = require('q'),
-	static_server = require('./static-server'),
-	extend = require('extend'),
-	logger = require('./lib/log/logger');
+import restify from 'restify'; //1
+import Q from 'q';
+import static_server from './static-server';
+import extend from 'extend';
+import logger from './lib/log/logger';
 
-module.exports = (function() {
-	var listener = null, store = null;
+module.exports = (() => {
+	let listener = null, store = null;
 
-	process.on("error", function() {
+	process.on("error", () => {
 		logger.error(arguments);
 	});
 
 	return {
-		start: function(config) {//2
-			var deferred = Q.defer();
+		start: (config) => {//2
+			const deferred = Q.defer();
 			logger.init(config.log);
-			var server = restify.createServer({//3
+			const server = restify.createServer({//3
 				name: config.name,
 				version: require('./package.json').version
 			});
-			server.on('uncaughtException', function (req, res, route, err) {
+			server.on('uncaughtException', (req, res, route, err) => {
 				logger.error(err.message, {
 					event: 'uncaughtException'
 				});
@@ -682,7 +673,7 @@ module.exports = (function() {
 				});
 			});
 			store = require('./lib/store')(config);
-			store.init().then(function (storage) {//4
+			store.init().then((storage) => {//4
 				config.storage = storage;
 				logger.info("Storage initialized");
 				server.use(restify.CORS());//5
@@ -690,26 +681,26 @@ module.exports = (function() {
 				server.use(restify.queryParser());
 				server.use(restify.fullResponse());
 				server.use(restify.authorizationParser());
-				server.use(function (req, res, next) {
+				server.use((req, res, next) => {
 					req.rawBody = '';
 					req.setEncoding('utf8');
-					req.on('data', function (chunk) {
+					req.on('data', (chunk) => {
 						req.rawBody += chunk;
 						req.body = JSON.parse(req.rawBody);
 					});
-					req.on('end', function() {
+					req.on('end', () => {
 						next();
 					});
 				});
-				server.use(function (req, res, next) {
+				server.use((req, res, next) => {
 					logger.info(req.method + ' - ' + req.url, req);
 					next();
 				});
 				require('./lib/api')(server, config);
-				listener = server.listen(config.port || 3000, function() {//6
-					var static_config = extend(true, {}, config);
+				listener = server.listen(config.port || 3000, () => {//6
+					let static_config = extend(true, {}, config);
 					static_config.port = (static_config.port + 5) || 3005;
-					static_server.start(static_config).then(function (data) {
+					static_server.start(static_config).then((data) => {
 						logger.info("Server " + server.name + " started, listening on " + config.port);
 						deferred.resolve({
 							name: server.name,
@@ -717,13 +708,13 @@ module.exports = (function() {
 						});
 					});
 				});
-			}).fail(function (error) {
+			}).fail((error) => {
 				logger.error('Failure to start storage');
 				deferred.reject(error);
 			});
 			return deferred.promise;
 		},
-		stop: function() {//7
+		stop: () => {//7
 			if (listener) {
 				logger.info("Stopping service", {
 					file: __filename
@@ -744,24 +735,24 @@ module.exports = (function() {
 This file it's recommended for creating listener to server.
 
 ```javascript
-var 	restify = require('restify'),
-	Q = require('q');
+import restify from 'restify';
+import Q from 'q';
 
-module.exports = (function () {
+module.exports = (() => {
 	var listener = null;
 
 	return {
-		start: function (config) {
-			var deferred = Q.defer();
+		start: (config) => {
+			const deferred = Q.defer();
 			config = config || {};
 			config.port = config.port || 3005;
-			var server = restify.createServer();
-			listener = server.listen(config.port, function () {
+			const server = restify.createServer();
+			listener = server.listen(config.port, () => {
 				deferred.resolve(config);
 			});
 			return deferred.promise;
 		},
-		stop: function () {
+		stop: () => {
 			if (listener) {
 				listener.close();
 			}
@@ -775,14 +766,13 @@ module.exports = (function () {
 This file it's recommended for starting application server.
 
 ```javascript
-var 	server = require('../server'),
-	config = require('../config.json'),
-	logger = require('../lib/log/logger');
+  import server from '../server');
+	import config from '../config.json');
+	import logger from '../lib/log/logger');
 
-server.start(config).then(
-	function (server) {
+server.start(config).then((server) => {
 		logger.info('%s listening at %s', server.name, server.url);
-	}).fail(function (err) {
+	}).fail((err) => {
 		console.error(err);
 		process.exit(1);
 	}
@@ -836,9 +826,9 @@ Output example:
 ´´´  
 example of use:
 ```javascript
-var morgan = require('morgan')
+import morgan from 'morgan';
 
-morgan('combined', { skip: function (req, res) { return res.statusCode < 400 } });
+morgan('combined', { skip: (req, res) => { return res.statusCode < 400 } });
 ```
 
 #### [Bunyan](https://www.npmjs.com/package/bunyan) for the business logic logs.
@@ -855,8 +845,8 @@ Note: Be careful with the content write to this kind of logs. the message it's f
 example of use:
 
 ```javascript
-var bunyan = require('bunyan');
-var log = bunyan.createLogger({name: "myapp"});
+import bunyan from 'bunyan';
+const log = bunyan.createLogger({name: "myapp"});
 log.info("hi");
 ```
 *Features*
@@ -892,10 +882,10 @@ In this section we're going to show you some references and middlewares that are
 Lusca is Web application security middleware for Express. **It requires express-session**.
 
 ```javascript
-var express = require('express'),
-	app = express(),
-	session = require('express-session'),
-	lusca = require('lusca');
+  import express from 'express';
+  const app = express();
+	import session from 'express-session';
+	import lusca from 'lusca';
 
 //this or other session management will be required
 app.use(session({
@@ -933,10 +923,10 @@ Next, you can use helmet in your application (for example in Express):
 Running app.use(helmet()) will include 6 of the 9, leaving out *contentSecurityPolicy*, *hpkp*, and *noCache*.
 
 ```javascript
-var express = require('express');
-var helmet =  require('helmet');
+import express from 'express';
+import helmet from 'helmet';
 
-var app = express();
+const app = express();
     app.use(helmet());
 ```
 
@@ -981,7 +971,7 @@ As any other server it's relevant to provide some profiling options. The common 
 *config.json* managed by SysOps
 ```javascript
 
-var config = {
+const config = {
     app : {
         name : 'Config Backend',
         url : 'http://192.168.0.77',
