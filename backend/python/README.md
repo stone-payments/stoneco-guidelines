@@ -43,7 +43,7 @@ The language allows the programmer to choose between different programming parad
 
 Python is an __interpreted language__ as well. While files containing code have the .py extension, when executing the file it is partially compiled to a [bytecode](https://en.wikipedia.org/wiki/Bytecode) file with the .pyc extension. Hence, the .py file is only compiled for the first time (unless the code is changed) an then the .pyc file is executed upon every invocation. The bytecode is then translated to machine instructions by the Python Virtual Machine (PVM) during the execution. Since the bytecode needs to be interpreted by the PVM, Python's  performance is in general lower than the one provided by a compiled language.
 
-As an interpreted language, an interactive console is provided as a tool that its part of the language. The console allows to easily ensure that the code that has been just developed performs as expected. As an example, the console supports defining functions and then testing them or loading whole modules just developed and using their inner objects or functions.
+As an interpreted language, an interactive console is provided as a tool that is part of the language. The console allows to easily ensure that the code that has been just developed performs as expected. As an example, the console supports defining functions and then testing them or loading whole modules just developed and using their inner objects or functions.
 
 Python allows employing object oriented design, or procedural programming depending on the needs. And the fact that it is an interpreted language, has led to its use for scripting purposes.
 
@@ -97,7 +97,7 @@ The Zen of Python:
 
 #### 2.2.1. The Zen through examples
 
-Python's Zen can be followed through example sin the following link:
+Python's Zen can be followed through examples in the following link:
 
 http://artifex.org/~hblanks/talks/2011/pep20_by_example.html
 
@@ -499,15 +499,15 @@ Constants are usually defined on a module level and written in all capital lette
 
 ### 4. Python 2 vs Python 3
 
-When people talk or write for what version they should use of Python, the typical response is this appointment: “Python 2.x is legacy, Python 3.x is the present and future of the language” [1]. For this reason It shoulds use Python 3 in new projects and it is more important, if the project will be long in time. Because Python 2.x won’t receive new improvements, it only has bug support and it finishes in 2020 [2].
+When people talk or write for what version they should use of Python, the typical response is this appointment: “Python 2.x is legacy, Python 3.x is the present and future of the language” [1]. For this reason Python 3 should be used in new projects, especially if the project will be long in time. Because Python 2.x won’t receive new improvements, it only has bug support and it will finish in 2020 [2].
 
-The biggest disadvantage of  Python 3 is the support from libraries, frameworks, packages… Because nowadays have a libraries, which they only support Python 2.x, but this problem is fixing bit by bit. For this reason we only should use Python 2.x , if it needs a library that only support  Python 2.x. If the project will use Python 2.x, we should write the code thinking in the future port. For this reason we can start write code used for example:
+The biggest disadvantage of Python 3 is the support from libraries, frameworks, packages… Because nowadays we have libraries which are only supported in Python 2.x, but this problem is fixing bit by bit. For this reason we only should use Python 2.x if our project requires a library that is only supported in Python 2.x. If the project will use Python 2.x, we should write the code thinking in the future port to Python 3.x. For this reason we can start writing code using the following:
 
 * modules `__future__`
 * Create class with inheritance from base class `Object`
 * Using the new syntaxes, for example: `exceptions, prints, …`
 
-To help this work, it’s possible use tools to help write code to make a future port. For example in IDE Pycharm can be configured to check for compatibility. Of course nowadays exists tools to try to port code in Python 2.x to Python 3.x automatically, but it doesn’t always work correctly.
+To help us with this work, it’s possible use tools to help writing code to make a future port. For example the Pycharm IDE can be configured to check for compatibility. Of course nowadays exists tools to try to port code in Python 2.x to Python 3.x automatically, but they don’t always work correctly.
 
 Main changes in Python 3.x respect to Python 2.x [1]:
 
@@ -613,7 +613,7 @@ print string.capwords(s)
 ### 6. Importing libraries
 
 The best practice is to just import what you need. 
-So, do not you use ___import *___ if you do not want to hear about the lint.
+So, you do not use ___import *___ if you do not want to hear about the lint.
 
 Instead, import exactly the modules you really need.
 
@@ -795,10 +795,10 @@ True
 The built-in print does not work fully with unicode strings. You can encode() first to print in utf-8 or whatever.
 
 ### 10. Operators
-In this section explain about the basics of operators in Python.
+This section explains the basics of operators in Python.
 
 #### 10.1. Assignment
-The assignment in python is with **=**. It is important know that the assignment th basic types in python is by value, but complex types is by reference. For example:
+The assignment in python is made with **=**. It is important to know that the assignment for basic types in python is made by value, but for complex types is made by reference. For example:
 
 Basic type:
 ```python
@@ -832,13 +832,13 @@ Python have the basic arithmetic operators like other languages: **+**, **-**, *
 
 #### 10.3.Logic operators
 
-Python have the basic arithmetic operators like other languages: **==**, **not**, **is**, **in**, **and**, **or** ...
+Python have the basic logic operators like other languages: **==**, **not**, **is**, **in**, **and**, **or** ...
 
 You should know the difference between **==** and **is**.
-* **is** compare object by reference, that is to say if two object point to same object, it will return True.
-* **==** compare if two object are equals.
+* **is** compare objects by reference, i.e. if two objects point to same object, it will return True.
+* **==** compare if two objects are equal.
 
-Other advise is to compare a object with **True**, **False** or **None**, it must be done with operator **is** and not with **==**.
+Other advise: when comparing an object with **True**, **False** or **None**, the comparison must be done with the **is** operator and not with **==**.
 
 The operators **and**, **or** are short-circuiting.
 
@@ -895,9 +895,9 @@ if not var:
   ...
 ```
 
-Python doesn't have statement switch, because it is not readable. It is replace by elif statement, but if the **if** will be big, it is not a good practice. Because It is not readable and it is inefficient. It is possible use a **dict** to do it. For example:
+Python doesn't have switch statement, because it is not readable. It is replaced by elif statement, but if the **if** will be long, it is not considered a good practice. Because it is not readable and it is inefficient. It is possible use a **dict** to do it. For example:
 
-* If necessary return a single value, do with this:
+* If it is necessary to return a single value, do this:
 
 ```python
 value = 2
@@ -905,7 +905,7 @@ switch_value = {1: 'one', 2: 'two', 3: 'three'}
 name_value = switch_value[value]
 ```
 
-* If you need a more complex process, it can do with assignment with a function:
+* If you need a more complex process, it can be done with a dict whose values are functions:
 
 ```python
 value = '3'
@@ -921,7 +921,7 @@ def _function_three():
 ```
 
 #### 10.5. Loops
-Python has the **for** and **while** loops like other languages. If you want iterate a dictionary or list use the statement **for**, it has a implicit iterator. Example:
+Python has the **for** and **while** loops like other languages. If you want to iterate a dictionary or a list use the statement **for**, it has a implicit iterator. Example:
 
 ```python
 >>> my_list = [1,2,3,4]
@@ -933,7 +933,7 @@ Python has the **for** and **while** loops like other languages. If you want ite
 4
 ```
 
-To do a loops for x length use statement **for** with function **range** in Python 3 or **xrange** in Python 2. Don't use function **range** in python 2, because it is inefficient respect **xrange**. Example:
+To do a loops for x length use statement **for** with function **range** in Python 3 or **xrange** in Python 2. Don't use function **range** in python 2, because it is inefficient compared to **xrange**. Example:
 
 ```python
 >>>for i in range(5):
@@ -947,7 +947,7 @@ To do a loops for x length use statement **for** with function **range** in Pyth
 
 ### 11. Functions
 
-Functions in Python can be used as part of a script and as part of modules, in a similar fashion as methods of a class as well. In this section their use and possibilities are covered as well as the recommended practice with functions.
+Functions in Python can be used as part of a script and as part of modules, in a similar fashion as methods of a class as well. In this section their use and possibilities are covered as well as the recommended practices with functions.
 
 #### 11.1. General use of functions
 
@@ -981,7 +981,7 @@ Functions may or may not have a return statement. Please take into account that 
 
 The first thing to take into account in Python in relation to functions is that they are just another type of object. Hence, it is possible to pass a function's object reference to another function in order to perform operations with it.
 
-The following code shows how to obtain a the hello function's object reference:
+The following code shows how to obtain the hello function's object reference:
 
 ```python
 >>> hello
@@ -1020,7 +1020,7 @@ This approach allows developing functions or frameworks that provide a greater l
 
 ##### 11.1.2. Function polymorfism
 
-In Python, objects of different types can have a the same type of interfaces or protocols implemented, while the operation performed is understood in a different way. For example, the + operation can be applied both to strings and to numbers with a different interpretation, concatenation in the first case and addition in the second:
+In Python, objects of different types can have the same type of interfaces or protocols implemented, while the operation performed is understood in a different way. For example, the + operation can be applied both to strings and to numbers with a different interpretation, concatenation in the first case and addition in the second:
 
 ```python
 >>> 'spam' + 'eggs'
@@ -1042,7 +1042,7 @@ And therefore, a function that does not force its parameters to be of a fixed ty
 9
 ```
 
-In general, functions developed in Python should take advantage of this property since the become more generic and can be reused in the future without having to worry about the type of objects they receive as parameters. In this way, a function will be able to operate on object types that do not even exist yet. In case one of the objects processed by the function does not support the interfaces or protocols that are required by the function, the function will raise an error to indicate the case.
+In general, functions developed in Python should take advantage of this property since they become more generic and can be reused in the future without having to worry about the type of objects they receive as parameters. In this way, a function will be able to operate on object types that do not even exist yet. In case one of the objects processed by the function does not support the interfaces or protocols that are required by the function, the function will raise an error to indicate the case.
 
 ##### 11.1.3. Scopes
 
@@ -1061,7 +1061,7 @@ More importantly, cross file variable modifications should be avoided as well. T
 
 #### 11.2. Lambda functions
 
-The Lambda expression, allows defining and applying an inline function (functions contained in a single line), an they are usually used within another function call. The same line therefore is a function definition and function call.
+The Lambda expression, allows defining and applying an inline function (functions contained in a single line), and they are usually used within another function call. The same line therefore is a function definition and function call.
 
 For example, in the case of the previous complexfunc, instead of passing an existing function, lambda can be used to define one for it:
 
@@ -1076,7 +1076,7 @@ For example, in the case of the previous complexfunc, instead of passing an exis
 
 As it can be noticed, the function passed to complexfunc is no longer defined one or several lines separated from the call. This allows understanding the call to complexfunc just when read, because no other function's definition needs to be looked for.
 
-As another example, the Spark data processing engine allows developing against its API through Python with pyspark. Spark creates datasets (RDDs) by transforming and or combining other datasets, and requires the developer to pass a function to perform the conversion. Within the same dode line it is possible to define the function and to call it as it can bee seen below:
+As another example, the Spark data processing engine allows developing against its API through Python with pyspark. Spark creates datasets (RDDs) by transforming and or combining other datasets, and requires the developer to pass a function to perform the conversion. Within the same code line it is possible to define the function and to call it as it can bee seen below:
 
 ```python
 newrdd = inputrdd.filter(lambda x: x if (x.get('postalcode') != 'SW1A0AA') else None)
@@ -1234,7 +1234,7 @@ reduce(lambda x,y: ''.join([x,y]), ['B','EE','VA'])
 
 Python handles all errors with exceptions.
 
-An exception is a signal that an error has occurred. There are a number of built-in exceptions for example dividing by zero. You can also define your own exceptions.
+An exception is a signal that an error has occurred. There are a number of built-in exceptions for example dividing by zero. You can also define your own exceptions creating a class that inherits from Exception.
 
 
 #### 13.1. Catching exceptions
@@ -1307,16 +1307,16 @@ finally:
 
 #### 13.4 Built-in Exceptions
 
-The exceptions are defined in the module exceptions. This module not needs to be imported: the exceptions are provided in the built-in namespace as well as the exceptions module.
+The exceptions are defined in the module exceptions. This module does not needs to be imported: the exceptions are provided in the built-in namespace as well as the exceptions module.
 
 [Built-in Exceptions](https://docs.python.org/2/library/exceptions.html)
 
 
 ### 14. Input Output
-In this chapter, it is to explain the basics for input and output in Python. If the programmer need a more advanced tips, go to the official documentation.
+In this chapter, the basics of input and output in Python will be explained. If the programmer needs more advanced tips, go to the official documentation.
 
 #### 14.1 Print
-Like others programming languages, Python have a function for print the result in console. This function is to easy to use, it is only necessary call the function with a string and it write in console. The programmer need remember, this function change in Python 3 respect Python 2. For this reason it is advisable, to use this function always with parenthesis, because in Python 3 is mandatory use their and in Python 2 is optional. Examples below:  
+Like others programming languages, Python have a function for print the result in console. This function is easy to use, it is only necessary to call the function with a string and it will be writen in the console. The programmer needs to remember that this function has changed in Python 3 with respect to Python 2. For this reason it is advisable to use this function always with parenthesis, because this is mandatory in Python 3 while it is optional in Python 2. Examples below:  
 
 ```python
 >>>print(“Hello world”)
@@ -1328,7 +1328,7 @@ String with things
 10
 ```
 
-On the other hand, if the programer want print a big Python objects, It has a special module to print it beautiful. The name of the module is pprint. It is necessary import it before use. Example of usage:
+On the other hand, if the programer wants to print big Python objects, it has a special module to print them in a beautiful way. The name of the module is pprint. It is necessary import it before use. Example of usage:
 
 ```python
 >>>from pprint import pprint
@@ -1343,7 +1343,7 @@ On the other hand, if the programer want print a big Python objects, It has a sp
 
 #### 14.2 Input
 
-Python have a function to read from console inputs and it can interact with user. The name of the function is raw_input() in Python 2 and input() in Python 3. This function will read line until the user press enter, it will transform to string.
+Python have a function to read from console inputs and it can be used to interact with the user. The name of the function is raw_input() in Python 2 and input() in Python 3. This function will read lines until the user press enter and it will transform the lines to string.
 Example:
 
 ```python
@@ -1359,20 +1359,20 @@ Tell your age
 This chapter is to explain how the files work in Python.
 
 ##### 14.3.1 Open
-To work with files is necessary open their before to use. This is done with the following line:
+To work with files is necessary open them before using them. This is done with the following line:
 
 ```python
 file = open(filename, mode)
 ```
 
-When open a file, it is necessary say the mode. In Python exists this modes:
+When opening a file, it is necessary say the mode. In Python there exist these modes:
 
-* 'r' → read only, it is for default. But it is a good practice write it.
+* 'r' → read only, the default mode. But it is a good practice to write it.
 * 'w' → write only, if the file exists, it will be erased.
-* 'a' → when write it appends in the end of the file.
+* 'a' → when writing it appends the content at the end of the file.
 * '+r' → read and write.
 
-But open with the last code is a bad practice. Because it doesn't ensure that the file will close. For this reason use the following code:
+But open with the last code is a bad practice. Because it doesn't ensure that the file will be closed. For this reason use the following code:
 
 ```python
 with open(filename, mode) as f:
@@ -1383,15 +1383,15 @@ With this code if you don't close the file, it will raise a exception.
 
 ##### 14.3.2 Read
 
-To read a file in python exists several methods:
+To read a file in python there exists several methods:
 
-* file.read(size): This read all file or the size indicate. This size is optional. When the end of the file has been reached it returns an empty string ("").
+* file.read(size): Read all file or the size indicate. This size is optional. When the end of the file has been reached it returns an empty string ("").
 * file.readline(): Read a single line. It stops when find a \n. When the end of the file has been reached it returns an empty string ("").
 * To save all lines in a list, it is possible used this list(f) or file.readlines()
 
 ##### 14.3.3
 
-To write, it is only necessary call this function:
+To write, it is only necessary to call this function:
 
 ```python
 file.write(“some thing”)
@@ -1400,7 +1400,7 @@ file.write(“some thing”)
 The writer function only accepts Strings.
 
 ##### 14.3.4
-When finished the use of the file, the programmer must close it to freeze the resorce:
+When finished the use of the file, the programmer must close it to unlock the resource:
 
 ```python
 file.close()
@@ -1540,7 +1540,7 @@ Python has in their core the package **unittest**, this package has the basic cl
 
 #### 16.2. Utils
 
-Coverage is a external package, it is recommendable use, to verify the coverage of your code. It is easy to use:
+Coverage is a external package that is recommended to verify the coverage of your code. It is easy to use:
 
 * Discover and execute the test with this code:
 
@@ -1590,7 +1590,7 @@ In Python, there are several ways for packaging and distributing applications, l
 
 #### 18.1 PyPI
 
-The most well known distribution scheme is PyPI  (Python Package Index). This makes the application freely available to anyone that uses Python to download it through pip. It is the recommended solution for open source projects since other developers will expect an active and well maintained project to be available in this form.
+The most well known distribution scheme is PyPI (Python Package Index). This makes the application freely available to anyone that uses Python to download it through pip. It is the recommended solution for open source projects since other developers will expect an active and well maintained project to be available in this form.
 
 In order to distribute the application in this way, it must be packaged in certain format. The following page indicates how to perform the packaging for this case:
 
@@ -1602,7 +1602,7 @@ https://wiki.python.org/moin/CheeseShopTutorial
 
 #### 18.2 Package for Linux distributions
 
-It is possible to package Python code in a native package of a Linux distribution. This would be a .deb package in Debian and derivative distros and .rpm packages in RHEL and derivatives. The package would be then available for installation trough the distribution repositories or personal repositories would need to be created in the case of proprietary software.
+It is possible to package Python code in a native package of a Linux distribution. This would be a .deb package in Debian and derivative distros and .rpm packages in RHEL and derivatives. The package would be then available for installation through the distribution repositories or personal repositories would need to be created in the case of proprietary software.
 
 If the company already has a policy for software packaging and other software it is already packaged by the same or other teams, this approach might be interesting in order to align it with the company policy and because the development teams already have the knowledge for packaging applications in this way.
 
@@ -1618,45 +1618,45 @@ http://docs.python-guide.org/en/latest/shipping/freezing/#freezing-your-code-ref
 
 ### 19. Development Environments (IDEs)
 
-To develop a Python program, it isn’t necessary to have a IDE. You can develop it in text editor, for example gedit, Sublime Text, Atom… and run it Python console. But if you want a IDE to develop, because you want features how debugger, autocomplete… Nowadays exist a lot of for Python, exists commercial and noncommercial and they have different features. In this document will list only the most popular at this moment (you should know exist other options) and it won’t compare that is the best IDE. You are free to decide, which one to use.
+To develop a Python program, it isn’t necessary to have a IDE. You can develop it in a text editor, for example gedit, Sublime Text, Atom… and run it in the Python console. But if you want an IDE to develop, because you want features such as debugger, autocomplete… Nowadays exist a lot of them for Python, both commercial and noncommercial and they have different features. This document will list only the most popular at this moment (you should know there exist other options) and it won’t compare which is the best IDE. You are free to decide which one to use.
 
 List of IDEs:
-* Pycharm [1] is nowadays one of the most used for python developers. It has a free licence, named  free community and other commercial named professional. The free licence, it is very nice and include a lot of features, for example:
+* Pycharm [1] is nowadays one of the most used for python developers. It has a free licence, named free community and other commercial named professional. The free licence is very nice and includes a lot of features, for example:
   * Debugger
   * Intelligent Code Editor, autocomplete, code analice...
   * Refactor code to PEP 8
   * And other features.
-* Eric [2], it is other IDE for python, it is really nice, because it is open source and you can use free. A few features for this IDE are the following:
+* Eric [2], it is other IDE for python, it is really nice, because it is open source and you can use it for free. A few features for this IDE are the following:
   * Debugger
   * Intelligent Code Editor, autocomplete, code analice...
   * Integrated version control interface
   * And other features.
-* WingWare [3], this is another nice IDE for develop with Python, It is a commercial IDE and you will need pay to use it. A few features for this IDE are the following (similar to before IDEs):
+* WingWare [3], this is another nice IDE for develop with Python, It is a commercial IDE and you will need to pay to use it. A few features for this IDE are the following (similar to before IDEs):
   * Debugger
   * Intelligent Code Editor, autocomplete, code analice...
   * And other features.
-* Eclipse with Pydev [4], other nice IDE to develop with Python is Eclipse. This IDE is famed in JAVA, but you can use with Python adding the plugin Pydev. It is free and you don’t need pay for use it. A few features for this IDE are the following (similar to before IDEs):
+* Eclipse with Pydev [4], other nice IDE to develop with Python is Eclipse. This IDE is famed in JAVA, but you can use with Python adding the plugin Pydev. It is free and you don’t need to pay for use it. A few features for this IDE are the following (similar to before IDEs):
   * Debugger
   * Intelligent Code Editor, autocomplete, code analice...
   * And other features.
 
-You can discovered other IDEs for Python and  their description in the following link:
+You can discovered other IDEs for Python and their description in the following link:
 
 ### 20. Library and virtual environment management
 
-In this chapter explains, how add new libraries or packages to the project. It is possible thanks to pip and when you use PIP, it is necessary explain virtual environments.
+This chapter explains how to add new libraries or packages to the project. This is possible thanks to pip and when you use PIP, it is necessary to explain virtual environments.
 
 #### 20.1. pip
 
-PIP is the package manager for Python. When the project need a extra library, it’s really easy add it. Only need execute the following command, if the package exist in PIP:
+PIP is the package manager for Python. When the project needs an extra library, it’s really easy to add it. If the package exists in PIP, just execute the following command to install it:
 
 `pip install <name package>`
 
-The before command install the latest version of the package. If the project need a specific version, it’s possible indicate it. Use the following command:
+The previous command installs the latest version of the package. If the project needs a specific version, it’s possible to indicate it. Use the following command:
 
 `pip install <name package>==<version>`
 
-If the package doesn’t exist in PIP, it’s possible add the url of repository to install it. Use the following command:
+If the package doesn’t exist in PIP, it’s possible to add the url of a repository to install it. Use the following command:
 
 `pip install <CVS+URL>`
 
@@ -1664,15 +1664,15 @@ example:
 
 `pip install git+https://github.com/mirepo.git`
 
-It is possible export all packages, that the project has install to a config file. The convention say, that name of this file is requirements.txt. To do this, execute the following command:
+It is possible to export all packages that the project has installed to a config file. The convention says that name of this file is requirements.txt. To do this, execute the following command:
 
 `pip freeze > requirements.txt`
 
-When the project has file requirements.txt, it possible install all packages inside of the file. Use the next command:
+When the project has a requirements.txt file, it is possible to install all the packages included in the file. Use the next command:
 
 `pip install -r requirements.txt `
 
-Pay attention if the project contains a package that was installed with a url of repository. The command pip freeze will not correctly generate the file, because it will put the name of package with the version (not the repository url) and when pip try to install this package, it will not install the desired package. It’s possible to fix this problem manually. It is only necessary to change its line with <CVS+URL> that belongs to package repository (This url is the same used when it was installed with pip).
+Pay attention if the project contains a package that was installed with a repository url. The command pip freeze will not correctly generate the file, because it will put the name of package with the version (not the repository url) and when pip tries to install this package, it will not install the desired package. It’s possible to fix this problem manually. It is only necessary to change its line with <CVS+URL> that belongs to package repository (This url is the same used when it was installed with pip).
 
 The documentation can be read in the next link:
 
@@ -1680,19 +1680,23 @@ The documentation can be read in the next link:
 
 #### 20.2. virtualenv
 
-Virtualenv is a tool to generate a virtual environments for Python. It is really useful, because when in the same machine has several projects use python and their use some differents packages. This packages can have conflicts among themself or need use the same package with different versions, without virtualenv have a big problem, because the packages install in Python and all projects use it. But it is possible fix it with this tool and can have unlimited differents virtual environments in the same machine. For this reasons and because it is a bad practice, you never install packages in python without create a virtualenv and use pip with sudo.
+Virtualenv is a tool to generate a virtual environments for Python. It is really useful, because when in the same machine you have several projects that use different Python version and different packages, you can have conflicts among themselves or need to use the same package with different versions. This is difficult to handle without a tool like virtualenv. With virtualenv you don't install packages globally on your system, you install packages in an isolated way in your virtualenv. For this reasons and because it is a bad practice, you should never install packages globally in python without create a virtualenv and use pip with sudo.
 
-To use virtualenv, it is necessary install it. When it is installed, it necessary create a virtual environment, it is doing with this command:
+To use virtualenv, it is necessary to install it. When it is installed, a new virtual environment can be created with this command:
 
 `virtualenv <dir/name_environment>`
 
-Now to use or install packages you need active, it is easy only execute this code:
+Now to use or install packages you need active it. This can be done with this code:
 
 `source route_environment/bin/activate`
 
-When the environment is not necessary, remove the directory.
+You can also deactivate the environment with the following command:
 
-Of course virtualenv has several options, you can see in the documentation:
+`deactivate`
+
+When the environment is not necessary, you can remove the directory.
+
+Of course virtualenv has several options, as you can see in the documentation:
 
 <http://virtualenv.readthedocs.org/en/latest/index.html>
 
