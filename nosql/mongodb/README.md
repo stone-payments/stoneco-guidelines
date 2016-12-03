@@ -120,8 +120,8 @@ The first (and obvious) consideration is that every document in the collection m
 For the choice of the shard key, you will have to consider the importance of distribuiton of data, write performance and read performance, and which is more important to you. Depending on it, to choose a shard key as good as possible try to:
 * Create a shard key easily divisible. For it, consider fields (or combination of fields) that can take a large number of distinct values, and that are not expected to have the same value in many different documents. This will provide distribution of data.
 * Create a shard key with high degree of randomness. In this way write operations will be distributed among the cluster, preventing that a single shard becomes a bottleneck. This will provide write performance.
-..* Do not create monotonically changing shard key. A shard key on a value that always increases or that always decreases is more likely to distribute inserts to a single shard within the cluster, becoming it a bottleneck.
-..* If the nature of your data makes dificult to choose an enought random shard key or you are considering to select a monotically changing field because of other selecting criteria, you may consider to use a hashed index for the shard key. In this case you can only use a single field. 
+··* Do not create monotonically changing shard key. A shard key on a value that always increases or that always decreases is more likely to distribute inserts to a single shard within the cluster, becoming it a bottleneck.
+··* If the nature of your data makes dificult to choose an enought random shard key or you are considering to select a monotically changing field because of other selecting criteria, you may consider to use a hashed index for the shard key. In this case you can only use a single field. 
 * Create a shard key that targets a single shard. Thus, balancer can easily redirect queries to specific shard. This will provide read performance.
 * Create a shard key based on a compound index. Selecting a group of fields as the shard key instead of a single field, will facilitate you to get a more ideal shard key.
  
