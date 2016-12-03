@@ -1556,6 +1556,118 @@ Tests should be isolated. Don't interact with a real database or network. Use a 
 
 Because too many mocks can complicate a test, making it harder for you to track down a failure, the best practice is to limit a test case to one or two mocks, or use separate test cases for each mock/subject pairing.
 
+**Mock** is the most used mocking library in Python. In Python 3, mock is part of the standard library, but in Python 2 you need to install it. You can install it with the following command:
+
+```pip install mock```
+
+The following sections introduce some testing examples using Mock.
+
+##### 16.3.1. Mocking functions
+
+Let's assume we are testing the following module:
+
+weather_function.py:
+
+```python
+def get_current_temperature(city):
+    api_result = call_weather_api(city)
+    return format_api_result(api_result)
+
+
+def call_weather_api(city):
+    # HTTP request to a weather API
+
+
+def format_api_result(api_result):
+    return "The temperature is {0}".format(api_result['temp'])
+```
+
+We would like to mock the *call_weather_api* to avoid a real call to an external API and to control the result this function generates.
+
+Let's take a look at how it can be done using Mock:
+
+```python
+import unittest
+from unittest import mock
+from weather_function import get_current_temperature
+
+class TestWeatherFunction(unittest.TestCase):
+
+    @mock.patch('weather_function.call_weather_api')
+    def test_get_current_temperature(self, mocked_api_call):
+        mocked_api_call.return_value = {'temp': 40}
+        actual_result = get_current_temperature('test city')
+        expected_result = "The temperature is 40"
+        self.assertEqual(actual_result, expected_result)
+        mocked_api_call.assert_called_once_with('test city')
+
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+As it can be seen, the *call_weather_api* function has been patched with the decorator *mock.patch*. It is important to note that the function should be patched in the same place it is used. In this case, the function is used in the weather_function module, so the argument we use in *mock.patch* is *'weather_function.call_weather_api'*.
+
+Mock allows us to control the result the mocked function generates using *return_value*. In our example we are setting return_value to {'temp': 40}.
+
+In addition, Mock provides different assertions that we can use to ensure that the mocked function has been called correctly. In our example we are using the *assert_called_once_with* method, which allows us to check that the function has been called only once, and that the arguments passed to it are correct.
+
+##### 16.3.2. Mocking classes
+
+We can also use Mock to mock classes. Consider the following code:
+
+weather.py:
+
+```python
+class WeatherAPIService():
+
+    def __init__(self, city):
+        self.city = city
+
+    def get_weather(self):
+        # HTTP request to a weather API
+
+
+class Weather():
+
+    def __init__(self, city):
+        self.city = city
+        self._api = WeatherAPIService(city)
+
+    def get_current_temperature(self):
+        api_result = self._api.get_weather()
+        return self._get_temp_msg(api_result)
+
+    def _get_temp_msg(self, api_result):
+        return "The temperature is {0}".format(api_result['temp'])
+```
+
+We would like to test our Weather class, but without making a real HTTP request. The HTTP request is fired on the get_weather method of the WeatherAPIService, so let's see how we can mock it:
+
+```python
+import unittest
+from unittest import mock
+from weather import Weather
+
+class TestWeather(unittest.TestCase):
+
+    @mock.patch('weather.WeatherAPIService')
+    def test_get_current_temperature(self, mocked_api_service):
+        mocked_api = mocked_api_service.return_value
+        mocked_api.get_weather.return_value = {'temp': 40}
+        actual_result = Weather('test city').get_current_temperature()
+        expected_result = "The temperature is 40"
+        self.assertEqual(actual_result, expected_result)
+
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+In this case we are mocking the *WeatherAPIService* class in the place where it is used (the *weather* module). With the reference to the mock (*mocked_api_service*), we can control the result of get_weather method. More concretelly, we first obtain a reference to the mocked_api_service return_value. Thus, mocked_api is a reference to a mocked WeatherAPIService instance. With mocked_api, we can define the result of get_weather, using mocked_api.get_weather.return_value = {'temp': 40}
+
+The Mock library is very powerful and you should use it in your Python unit tests to avoid interacting with real databases or networks. You can find more information about Mock in the following link: https://docs.python.org/3/library/unittest.mock.html
+
 ### 17. Project structure
 
 Projects in Python can have different structures depending on the target that they have, or depending on the needs and policies of development teams. In general, Python does not introduce hard requirements in this aspect and the development team has flexibility to decide on the best approach.
