@@ -884,8 +884,8 @@ Lusca is Web application security middleware for Express. **It requires express-
 ```javascript
   import express from 'express';
   const app = express();
-	import session from 'express-session';
-	import lusca from 'lusca';
+  import session from 'express-session';
+  import lusca from 'lusca';
 
 //this or other session management will be required
 app.use(session({
