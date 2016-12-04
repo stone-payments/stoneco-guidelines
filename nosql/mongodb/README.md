@@ -228,14 +228,14 @@ Also provides some useful commands:
 
 There are also some third party tools:
 * __Self Hosted__ (you must install, configure and maintain on your own servers). Most are open source. 
-··* __[mongodb-ganglia](https://github.com/quiiver/mongodb-ganglia)__: Python script to report operations per second, memory usage, btree statistics, master/slave status and current connections.
-··* __[gmond_python_modules](https://github.com/ganglia/gmond_python_modules)__: Parses output from the serverStatus and replSetGetStatus commands.
-··* __[motop](https://github.com/tart/motop)__: Realtime monitoring tool for MongoDB servers. Shows current operations ordered by durations every second.
-··* __[mtop](https://github.com/beaufour/mtop)__: A top like tool.
-··* __[mongo-munin](https://github.com/erh/mongo-munin)__: Retrieves server statistics.
-··* __[mongomom](https://github.com/pcdummy/mongomon)__: Retrieves collection statistics (sizes, index sizes, and each (configured) collection count for one DB).
-··* __[nagios-plugin-mongodb](https://github.com/mzupan/nagios-plugin-mongodb)__: A simple Nagios check script, written in Python.
-··* __[spm-agent-mongodb](https://hub.docker.com/r/sematext/spm-agent-mongodb/)__: Monitoring, Anomaly Detection and Alerting SPM monitors all key MongoDB metrics together with infrastructure incl. Docker and other application metrics e.g. Node.js, Java, NGINX, Apache, HAProxy or Elasticsearch. SPM is available On Premises and in the Cloud (SaaS) and provides correlation of metrics and logs.
+  * __[mongodb-ganglia](https://github.com/quiiver/mongodb-ganglia)__: Python script to report operations per second, memory usage, btree statistics, master/slave status and current connections.
+  * __[gmond_python_modules](https://github.com/ganglia/gmond_python_modules)__: Parses output from the serverStatus and replSetGetStatus commands.
+  * __[motop](https://github.com/tart/motop)__: Realtime monitoring tool for MongoDB servers. Shows current operations ordered by durations every second.
+  * __[mtop](https://github.com/beaufour/mtop)__: A top like tool.
+  * __[mongo-munin](https://github.com/erh/mongo-munin)__: Retrieves server statistics.
+  * __[mongomom](https://github.com/pcdummy/mongomon)__: Retrieves collection statistics (sizes, index sizes, and each (configured) collection count for one DB).
+  * __[nagios-plugin-mongodb](https://github.com/mzupan/nagios-plugin-mongodb)__: A simple Nagios check script, written in Python.
+  * __[spm-agent-mongodb](https://hub.docker.com/r/sematext/spm-agent-mongodb/)__: Monitoring, Anomaly Detection and Alerting SPM monitors all key MongoDB metrics together with infrastructure incl. Docker and other application metrics e.g. Node.js, Java, NGINX, Apache, HAProxy or Elasticsearch. SPM is available On Premises and in the Cloud (SaaS) and provides correlation of metrics and logs.
 * __Hosted (SaaS) Monitoring Tools__. These are monitoring tools provided as a hosted service, usually through a paid subscription. More info [here](https://docs.mongodb.com/manual/administration/monitoring/#self-hosted-monitoring-tools)
 
 MongoDB also can provide database metrics via SNMP, available for [Linux](https://docs.mongodb.com/manual/tutorial/monitor-with-snmp/) and [Windows](https://docs.mongodb.com/manual/tutorial/monitor-with-snmp-on-windows/), but only in MongoDB Enterprise Advanced.
