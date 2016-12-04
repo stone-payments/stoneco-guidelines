@@ -60,7 +60,7 @@ When you create indexes, you must keep in mind the next limitations:
 ### Always use replica sets
 
 A replica set in MongoDB is a group of mongod processes that maintain the same data set. 
-Replication provides high availability of your data if node fails in your cluster. Replica Set provides automatic failover mechanism. If your primary node fails, a secondary node will be elected as primary and your cluster will remain functional. 
+Replication provides high availability of your data if node fails in your cluster. Replica Set provides automatic failover mechanism. If your primary node fails, a secondary node will be elected as primary and your cluster will remain functional.  
 In some cases, replication can provide increased read capacity as clients can send read operations to different servers.
 In a replica set there always is a primary node that receives write operations and some secondaries that replicate the data thorught an oplog, applying operations asynchronously.
 You should replicate with at least 3 nodes in any MongoDB deployment.
@@ -142,16 +142,18 @@ Nevertheless, for the new In-Memory Storage Engine of MongoDB Enterprise version
 
 ### Hardware
 
-### Keep each mongo instance on its own machine
+#### Keep each mongo instance on its own machine
 
 Mongo instances always try to use as resources as it can. So you should not run more than one instance on the same machine.
 If you run more than one mongo instance in a single machine, all of that instances will contend for the same resources.
 
 #### Don't run MongoDB on 32-bit systems
+
 MongoDB has a 2GB data limit on 32-bit system and 32-bit systems has memory limitations too, so you should have mongo running on a 64-bit processor and not on 32-bit.
 Furthermore, since version 3.0 MongoDB has not commercial support for 32bit platforms; and starting in MongoDB 3.2, 32-bit binaries are deprecated and will be unavailable in future releases.
 
-#### Use Solid State Disks (SSD) 
+#### Use Solid State Disks (SSD)
+
 MongoDB has good results and a good price-performance ratio with SATA SSD.
 
 Use SSD if available and economical. Spinning disks can be performant, but the capacity of SSD drives for random I/O operations works well with the update model of MMAPv1.
@@ -159,6 +161,7 @@ Use SSD if available and economical. Spinning disks can be performant, but the c
 Commodity (SATA) spinning drives are often a good option, as the random I/O performance increase with more expensive spinning drives is not that dramatic (only on the order of 2x). But using SSD drives may be more effective in increasing I/O throughput.
 
 #### Prefer local disks
+
 Local disks should be used if possible as network storage can cause high latency and poor performance for your deployment.
 
 With the MMAPv1 storage engine, the Network File System protocol (NFS) is not recommended as you may see performance problems when both the data files and the journal files are hosted on NFS. You may experience better performance if you place the journal on local or iscsi volumes.
@@ -168,6 +171,7 @@ With the WiredTiger storage engine, WiredTiger objects may be stored on remote f
 If you decide to use NFS, add the following NFS options to your /etc/fstab file: bg, nolock, and noatime.
 
 #### Use RAID-10
+
 With solid state drives seek-time is significantly reduced. SSDs also provide more gradual performance degradation if the working set no longer fits in memory.
 
 If using disk arrays, the recommend is to use RAID-10, as RAID-5 and RAID-6 do not provide sufficient performance. RAID-0 offers good write performance but limited read performance and insufficient fault tolerance.
@@ -188,27 +192,58 @@ For the WiredTiger storage engine, given sufficient memory pressure, WiredTiger 
 
 
 #### MongoDB and NUMA Hardware
+
 Running MongoDB on a system with Non-Uniform Access Memory (NUMA) can cause a number of operational problems, including slow performance for periods of time and high system process usage.
 
 When running MongoDB servers and clients on NUMA hardware, you should configure a memory interleave policy so that the host behaves in a non-NUMA fashion. MongoDB checks NUMA settings on start up when deployed on Linux (since version 2.0) and Windows (since version 2.6) machines. If the NUMA configuration may degrade performance, MongoDB prints a warning.
 
-####CPU
+#### CPU
+
 MongoDB will deliver better performance on faster CPUs. When running a MongoDB instance with the majority of the data being in memory, clock speed can have a major impact on overall performance.
 
 For the MMAPv1 storage engine, the core speed is clearly more important than the number of cores. Increasing the number of cores will not improve performance significantly.
 
 However the WiredTiger storage engine is multithreaded and can take advantage of additional CPU cores. 
 
+### Monitoring and testing
 
-### Testing
-...
+An important thing to do once you have determined yor deployment stratedy is to test it with a data set similar to your production data.
 
-### Monitoring
-...
+Test within the context of your application and against traffic patterns that are representative of your production system. A test environment that does not resemble your production traffic will block you from discovering performance bottlenecks and architectural design flaws.
+
+MongoDB provides some tools that will help you to test and monitor your deployment.
+
+It provides some products like __[Mongo MMS](https://www.mongodb.com/post/10764757533/announcing-mongodb-monitoring-service-mms)__, now called __[MongoDB Cloud Manager](https://www.mongodb.com/cloud/cloud-manager)__, a SaaS based tool that monitors your MongoDB cluster and makes it easy for you to see what's going on in a production deployment; or __[MongoDB Ops Manager](https://www.mongodb.com/products/ops-manager)__, available in MongoDB Enterprise Advanced.
+
+Some useful monitoring utilities in MongoDB are:
+* __mongostat__ captures and returns the counts of database operations by type (e.g. insert, query, update, delete, etc.). These counts report on the load distribution on the server. More info about this utility [here](https://docs.mongodb.com/manual/reference/program/mongostat/)
+* __mongotop__ tracks and reports the current read and write activity of a MongoDB instance, and reports these statistics on a per collection basis. More info about this utility [here](https://docs.mongodb.com/manual/reference/program/mongotop/)
+* __HTTP console__ (Deprecated since version 3.2) is a HTTP interface for MongoDB that exposes diagnostic and monitoring information in a simple web page. 
+
+Also provides some useful commands:
+* __serverStatus__ returns a general overview of the status of the database, detailing disk usage, memory use, connection, journaling, and index access. The command returns quickly and does not impact MongoDB performance. More info about this command [here](https://docs.mongodb.com/manual/reference/command/serverStatus/)
+* __dbStats__ returns a document that addresses storage use and data volumes. The dbStats reflect the amount of storage used, the quantity of data contained in the database, and object, collection, and index counters. More info about this command [here](https://docs.mongodb.com/manual/reference/command/dbStats/)
+* __collStats__ provides statistics that resemble dbStats on the collection level, including a count of the objects in the collection, the size of the collection, the amount of disk space used by the collection, and information about its indexes. More info about this command [here](https://docs.mongodb.com/manual/reference/command/collStats/)
+* __replSetGetStatus__ returns an overview of your replica set’s status. The replSetGetStatus document details the state and configuration of the replica set and statistics about its members. More info about this command [here](https://docs.mongodb.com/manual/reference/command/replSetGetStatus/)
+
+There are also some third party tools:
+* __Self Hosted__ (you must install, configure and maintain on your own servers). Most are open source. 
+··* __[mongodb-ganglia](https://github.com/quiiver/mongodb-ganglia)__: Python script to report operations per second, memory usage, btree statistics, master/slave status and current connections.
+··* __[gmond_python_modules](https://github.com/ganglia/gmond_python_modules)__: Parses output from the serverStatus and replSetGetStatus commands.
+··* __[motop](https://github.com/tart/motop)__: Realtime monitoring tool for MongoDB servers. Shows current operations ordered by durations every second.
+··* __[mtop](https://github.com/beaufour/mtop)__: A top like tool.
+··* __[mongo-munin](https://github.com/erh/mongo-munin)__: Retrieves server statistics.
+··* __[mongomom](https://github.com/pcdummy/mongomon)__: Retrieves collection statistics (sizes, index sizes, and each (configured) collection count for one DB).
+··* __[nagios-plugin-mongodb](https://github.com/mzupan/nagios-plugin-mongodb)__: A simple Nagios check script, written in Python.
+··* __[spm-agent-mongodb](https://hub.docker.com/r/sematext/spm-agent-mongodb/)__: Monitoring, Anomaly Detection and Alerting SPM monitors all key MongoDB metrics together with infrastructure incl. Docker and other application metrics e.g. Node.js, Java, NGINX, Apache, HAProxy or Elasticsearch. SPM is available On Premises and in the Cloud (SaaS) and provides correlation of metrics and logs.
+* __Hosted (SaaS) Monitoring Tools__. These are monitoring tools provided as a hosted service, usually through a paid subscription. More info [here](https://docs.mongodb.com/manual/administration/monitoring/#self-hosted-monitoring-tools)
+
+MongoDB also can provide database metrics via SNMP, available for [Linux](https://docs.mongodb.com/manual/tutorial/monitor-with-snmp/) and [Windows](https://docs.mongodb.com/manual/tutorial/monitor-with-snmp-on-windows/), but only in MongoDB Enterprise Advanced.
 
 ### Keep current with versions
 
 Keep your version of MongoDB current. Each release has significant performance enhancements, improvements and fixes.
+
 
 ## Storage Engine
 
