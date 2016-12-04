@@ -70,7 +70,7 @@ This brief section it's intended to give some easy and quick tips to rememeber d
 * Avoid using console.log() in your code.
 * Using configuration files against variables for ports, ips of other machines, ...
 * Implement differente logs for application and for Node.js.
-* Use arrow function, to make the Scope safety and your code more concise and clarity. Check the examples [Arrow Functions](#arrow-functions).
+* Use ES6 new features i.e. arrow function, to make the Scope safety and your code more concise and clarity. Check the examples in the Javascript section of this guide: [Arrow Functions](https://github.com/beeva/beeva-best-practices/tree/master/frontend/general/javascript/es6#arrow_functions).
 * Use domains facing try-catch blocks for error handling.
 * In public servers add a safety middleware as [helmet](https://www.npmjs.com/package/helmet) or [lusca](https://www.npmjs.com/package/lusca).
 
@@ -103,19 +103,6 @@ Another interesting point thinking on how web applications should be written it'
 * Keep development, staging, and production as similar as possible.
 * Treat logs as event streams.
 * Run admin/management tasks as one-off processes.
-
-#### Arrow Functions
-
-```javascript
-// Traditional function
-var reflect = function(value) {
-    return value;
-};
-// Arrow function
-var reflect = value => value;
-
-
-```
 
 ## Frameworks
 
