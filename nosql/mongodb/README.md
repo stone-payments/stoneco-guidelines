@@ -15,6 +15,7 @@
   * [Scale up if your metrics show heavy use](#scale-up-if-your-metrics-show-heavy-use)
   * [When to shard](#when-to-shard)
   * [Hardware](#hardware)
+  * [Monitoring and testing](#monitoring-and-testing)
   * [Keep current with versions](#keep-current-with-versions)
 * [Storage engine] (#storage-engine)
   * [WiredTiger Storage Engine](#wiredtiger-storage-engine)
