@@ -1,6 +1,8 @@
+# MongoDB Best Practices
+
 ![alt text](static/mongodb-logo.png "MongoDB")
 
-# MongoDB Best Practices
+---
 
 ## Index
 
