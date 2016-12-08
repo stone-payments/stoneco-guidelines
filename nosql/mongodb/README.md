@@ -6,8 +6,21 @@
 
 * [Introduction](#introduction)
 * [Best Practices](#best-practices)
+  * [Create indexes](#create-indexes)
+  * [Always use replica sets](#always-use-replica-sets)
+  * [Turn journaling on by default](#turn-journaling-on-by-default)
+  * [Your working set should fit in memory (for MMAPv1)](#your-working-set-should-fit-in-memory-for-mmapv1)
+  * [Scale up if your metrics show heavy use](#scale-up-if-your-metrics-show-heavy-use)
+  * [When to shard](#when-to-shard)
+  * [Hardware](#hardware)
+  * [Keep current with versions](#keep-current-with-versions)
 * [Storage engine] (#storage-engine)
+  * [WiredTiger Storage Engine](#wiredtiger-storage-engine)
+  * [MMAPv1 Storage Engine](#mmapv1-storage-engine)
+  * [In-Memory Storage Engine](#in-memory-storage-engine)
 * [References](#references)
+
+---
 
 ## Introduction
 
@@ -23,6 +36,8 @@ The advantages of using documents are:
 Documents are stored in collections. A collection in MongoDb is comparable to a table in a relational database, with the difference that the documents in a collection does not need to have the same scema.
 
 Every document has the field "_id". If this field is not provided by the user, it will be automatically generated.
+
+---
 
 ## Best Practices
 
@@ -59,19 +74,22 @@ When you create indexes, you must keep in mind the next limitations:
 
 ### Always use replica sets
 
-A replica set in MongoDB is a group of mongod processes that maintain the same data set. 
+A replica set in MongoDB is a group of mongod processes that maintain the same data set.
+
 Replication provides high availability of your data if node fails in your cluster. Replica Set provides automatic failover mechanism. If your primary node fails, a secondary node will be elected as primary and your cluster will remain functional.  
 In some cases, replication can provide increased read capacity as clients can send read operations to different servers.
-In a replica set there always is a primary node that receives write operations and some secondaries that replicate the data thorught an oplog, applying operations asynchronously.
+
+In a replica set there always is a primary node that receives write operations and some secondaries that replicate the data thorught an oplog, applying operations asynchronously.  
 You should replicate with at least 3 nodes in any MongoDB deployment.
 
-If the primary node goes down, a secondary must be elected to be the new primary. This is done with an election where each node emites a vote. Therefore, it is highly recommended to have an odd number of nodes.
-If you have an even number of nodes in your replica set, and you do not want to increase your hardware for break down elections, use an arbiter node. An arbiter is a node of the replica set that do not maintain data but takes part in the election. An arbiter do not maintain data, so it is not elegible to be the primary, thus you do not need a great hardware on it.
+If the primary node goes down, a secondary must be elected to be the new primary. This is done with an election where each node emites a vote. Therefore, it is highly recommended to have an odd number of nodes.  
+If you have an even number of nodes in your replica set, and you do not want to increase your hardware for break down elections, use an arbiter node. An arbiter is a node of the replica set that do not maintain data but takes part in the election. An arbiter do not maintain data, so it is not elegible to be the primary, thus you do not need a great hardware on it.  
 Anyway, remember that, although a replica set can have up to 50 members (12 members before version 3.0), there can be no more than seven voting members in a replica set.
 
 In any cases you may want to have secondary nodes in a replica set that are not be able to convert to primary members. In these cases yo must set priority 0 for those nodes.
 
-Aditionally, you could want to have some special node for dedicated task. In this case you should also mark the node as hidden. Doing it, you maintain that node invisible to client applications. Furthermore, in a sharded cluster, balancers do not interact with hidden members. So a hidden member will not receive read operations.
+Aditionally, you could want to have some special node for dedicated task. In this case you should also mark the node as hidden. Doing it, you maintain that node invisible to client applications.   Furthermore, in a sharded cluster, balancers do not interact with hidden members. So a hidden member will not receive read operations.
+
 This is an example of hidding the member at the index 0 in the members array of a replica set:
 ```javascript
 cfg = rs.conf()
@@ -80,37 +98,51 @@ cfg.members[0].hidden = true
 rs.reconfig(cfg)
 ```
 
-Often, human errors take place. To help to recover these errors when they are detected in a reasonable time, you can set a delayed member in your replica set.
-A delayed member is a hidden member that apply de oplog operations with a delay. Therefore you could recover from it the data that you had in realtime nodes the "delayed" time ago.
-So, you should apply big enought delay to your expected recover or maintenance duration. On the other hand, the delay must not be big enought to exceed the capacity of the oplog.
+Often, human errors take place. To help to recover these errors when they are detected in a reasonable time, you can set a delayed member in your replica set.  
+A delayed member is a hidden member that apply de oplog operations with a delay. Therefore you could recover from it the data that you had in realtime nodes the "delayed" time ago.  
+So, you should apply big enought delay to your expected recover or maintenance duration. On the other hand, the delay must not be big enought to exceed the capacity of the oplog.  
 Nevertheless, delayed members are not recommended in sharded clusters because of the possible chunk migrations during the delay. 
 
-### Your working set should fit in memory
+### Turn journaling on by default
 
-The working set is the set of data and indexes accessed during normal operations. Proper capacity planning is important for a highly performant application
-Being able to keep the working set in memory is an important factor in overall cluster performance.
+MongoDB supports write-ahead journaling of operations to facilitate crash recovery and node durability.
+
+Journaling basically holds write-ahead redo logs, in the event of crash, the journal files will be used for recovery and this enables data consistency and durability.
+
+Journal process differs depending on storage engine. Journaling is recommended storage engines that make use of disk, like MMAPv1 or the newer WiredTiger.
+
+Nevertheless, for the new In-Memory Storage Engine since MongoDB Enterprise version 3.2.6, there is no separate journal, because its data is kept in memory.
+
+### Your working set should fit in memory (for MMAPv1)
+
+The working set is the set of data and indexes accessed during normal operations. Proper capacity planning is important for a highly performant application.
+Being able to keep the working set in memory is an important factor in overall cluster performance.  
 MongoDB works best when the data set can reside in memory. Nothing performs better than a MongoDB instance that does not require disk I/O. 
 Whenever possible select a platform that has more available RAM than your working data set size.
 
 If you notice the number of page faults increasing, there is a very high probability that your working set is larger than your available RAM.
 When this happens, you should increase your instance RAM size. If you can do it, consider using sharding to increase the amount of available RAM in a cluster.
 
+This is important if you are using MMAPv1 storage engine.
+
 ### Scale up if your metrics show heavy use
 
 If your instance shows a load over 60% - 65%, you should consider scaling up. Your load should be consistently below this threshold during normal operations. This also impacts recovery and vertical scaling scenarios.
+
 At the moment you identify that you wanted to scale, you should consider sharding. By sharding, MongoDB distributes the data across sharded cluster.
 
 ### When to shard
 
-In addition to mentioned previously, you should consider sharding if you anticipate a large data set.
+In addition to mentioned previously, you should consider sharding if you anticipate a large data set.  
 Sharding may also help write performance so it is also possible that you may elect to shard even if your data set is small but requires a high amount of updates or inserts.
 
 However, sharding may not be the solution to a bad performance. If you have worse performance than expected, you should reconsider your schema and indexes.
 
-When you decide to shard, a very important decision you maust take is the choice of the shard key, since the distribution of the data will depend on it, and affects the overall efficiency and performance of operations within the sharded cluster. 
+When you decide to shard, a very important decision you must take is the choice of the shard key, since the distribution of the data will depend on it, and affects the overall efficiency and performance of operations within the sharded cluster.  
 Furthermore shard key is inmutable, so once you create a shard key you will not be able to change it.
 
 To shard a collection use the method `sh.shardCollection()` specifying the target collection and the shard key.
+
 All sharded collections must have an index that supports the shard key; i.e. the index can be an index on the shard key or a compound index where the shard key is a prefix of the index. So if you want to shard a non empty collection, you previously must create the index. However, if the collection is empty, the index will be created if it does not exist.
 
 The choice of a shard key will depend on your data and their nature. Based on it, you should keep in mind some important criteria.
@@ -125,7 +157,7 @@ For the choice of the shard key, you will have to consider the importance of dis
 * Create a shard key that targets a single shard. Thus, balancer can easily redirect queries to specific shard. This will provide read performance.
 * Create a shard key based on a compound index. Selecting a group of fields as the shard key instead of a single field, will facilitate you to get a more ideal shard key.
  
-In addition, whe you are going to create the shard key, you must keep in mind the next limitations:
+In addition, when you are going to create the shard key, you must keep in mind the next limitations:
 * If the shard key index is not a hasehd index, then the index, or the prefix part of the index corresponding to shard key must have ascending order.
 * A shard key index cannot be an index that specifies a multikey index, a text index or a geospatial index on the shard key fields.
 * As mentioned, shard key is inmutable.
@@ -133,23 +165,17 @@ In addition, whe you are going to create the shard key, you must keep in mind th
 * A shard key cannot exceed 512 bytes.
 
 
-### Turn journaling on by default
-
-MongoDB supports write-ahead journaling of operations to facilitate crash recovery and node durability.
-Journaling basically holds write-ahead redo logs, in the event of crash, the journal files will be used for recovery and this enables data consistency and durability.
-Journal process differs depending on storage engine. Journaling is recommended storage engines that make use of disk, like MMAPv1 or the newer WiredTiger.
-Nevertheless, for the new In-Memory Storage Engine of MongoDB Enterprise version 3.2.6, there is no separate journal, because its data is kept in memory.
-
 ### Hardware
 
 #### Keep each mongo instance on its own machine
 
-Mongo instances always try to use as resources as it can. So you should not run more than one instance on the same machine.
+Mongo instances always try to use as resources as it can. So you should not run more than one instance on the same machine.  
 If you run more than one mongo instance in a single machine, all of that instances will contend for the same resources.
 
 #### Don't run MongoDB on 32-bit systems
 
 MongoDB has a 2GB data limit on 32-bit system and 32-bit systems has memory limitations too, so you should have mongo running on a 64-bit processor and not on 32-bit.
+
 Furthermore, since version 3.0 MongoDB has not commercial support for 32bit platforms; and starting in MongoDB 3.2, 32-bit binaries are deprecated and will be unavailable in future releases.
 
 #### Use Solid State Disks (SSD)
@@ -244,6 +270,7 @@ MongoDB also can provide database metrics via SNMP, available for [Linux](https:
 
 Keep your version of MongoDB current. Each release has significant performance enhancements, improvements and fixes.
 
+---
 
 ## Storage Engine
 
@@ -282,7 +309,10 @@ WT uses block compression with the snappy library for all collections and a pref
 
 ####Memory use
 
-With WT, Mongo uses the internal cache of WT and the filesystem cache. The WT cache uses a 60% of RAM minus 1 GB or 1GB, whichever is larger.
+With WT, Mongo uses the internal cache of WT and the filesystem cache. By default, WT cache will use:
+* In version 3.0, 50% of RAM, or 1 GB, whichever is larger.
+* In version 3.2, 60% of RAM minus 1 GB, or 1GB, whichever is larger.
+* In version 3.4, 50% of RAM minus 1 GB, or 256MB, whichever is larger. 
 
 
 ### MMAPv1 Storage Engine
@@ -303,7 +333,7 @@ New allocations require MongoDB to move a document and update all indexes that r
 * __Power of 2 sized allocations__: Because documents in MongoDB may grow after insertion and all records are contiguous on disk, the padding can reduce the need to relocate documents on disk following updates. Relocations are less efficient than in-place updates and can lead to storage fragmentation. As a result, all padding strategies trade additional space for increased efficiency and decreased fragmentation.
 
    With the power of 2 sizes allocation strategy, each record has a size in bytes that is a power of 2 (e.g. 32, 64, 128, 256, 512 ... 2    MB). For documents larger than 2 MB, the allocation is rounded up to the nearest multiple of 2 MB.  
-   This allows the document to grow without having to reallocate it and to reduce fragmentation, because a new document can reuse freed    records.
+   This allows the document to grow without having to reallocate it and to reduce fragmentation, because a new document can reuse freed records.
 
    This strategy works more efficient for insert/update/delete workloads.
 
