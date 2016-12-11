@@ -277,7 +277,7 @@ MongoDB provides the following methods for inserting documents into a collection
 
 This operation inserts a single document into a collection.
 
-````json
+````javascript
 db.getCollection('zips').insertOne({_id:"28015", city:"Madrid", loc:[40.418889,-3.691944], pop:6543031})
 ````
 
@@ -285,7 +285,7 @@ db.getCollection('zips').insertOne({_id:"28015", city:"Madrid", loc:[40.418889,-
 
 It inserts a set of documents into a collection. These documents are informed within an array:
 
-````json
+````javascript
 	db.getCollection('zips').insertMany([{"_id":"27001","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
   	{"_id":"27002","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
   	{"_id":"27003","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
@@ -296,11 +296,11 @@ It inserts a set of documents into a collection. These documents are informed wi
 
 This operation inserts a single document or multiple documents into a collection. To insert a single document, pass a document to the method; to insert multiple documents, pass an array of documents to the method.
 
-````json
+````javascript
 db.getCollection('zips').insert({_id:"28015", city:"Madrid", loc:[ 40.418889,-3.691944], pop: 6543031})
 ````
 
-````json
+````javascript
 db.getCollection('zips').insert([{"_id":"27001","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
  	{"_id":"27002","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
   {"_id":"27003","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
@@ -314,14 +314,114 @@ On the other hand, you should bear in mind that there are other forms of creatio
 
 ## Read documents
 
+MongoDB provides the db.collection.find() method to read documents from a collection. The db.collection.find() method returns a cursor to the matching documents.
+
+
+````javascript
+db.collection.find( <query filter>, <projection> )
+
+````
+
+To use the db.collection.find() method, you can specify the following optional fields:
+
+* a query filter to specify which documents to return.
+
+* a query projection to specifies which fields from the matching documents to return. The projection limits the amount of data that MongoDB returns to the client over the network.
+
+You can optionally add a cursor modifier to impose limits, skips, and sort orders:
+
+* __sort__
+
+This operation specifies the order in which the query returns matching documents. You can specify in the sort parameter the field or fields to sort by and a value of 1 or -1 to specify an ascending or descending sort respectively.
+
+````javascript
+db.orders.find().sort( { amount: -1 } )
+````
+The following sample document specifies a descending sort by the age field and then an ascending sort by the posts field:
+
+````javascript
+db.user.find().sort( { age : -1, posts: 1 }} )
+````
+
+* __limit__
+
+This operation specifies the maximum number of documents the cursor will return.
+
+````javascript
+db.collection.find(<query>).limit(<number>)
+````
+
+* __skip__
+
+This operation controls where MongoDB begins returning results. This approach may be useful in implementing “paged” results. For use it, you must specify a numeric value.
+
+Consider the following JavaScript function as an example of the skip function:
+
+````javascript
+function printStudents(pageNumber, nPerPage) {
+   print("Page: " + pageNumber);
+   db.students.find().skip(pageNumber > 0 ? ((pageNumber-1)*nPerPage) : 0).limit(nPerPage).forEach( function(student) { print(student.name + "<p>"); } );
+}
+````
+
+Now lets see a few uses of this find operation.
+
+### Select All Documents in a Collection
+
+An empty query filter document ({}) selects all documents in the collection:
+
+````javascript
+db.users.find( {} )
+````
+### Specify Query Filter Conditions
+
+We can use a query filter to specify condition for the query:
+
+#### Specify Equality Condition
+````javascript
+db.cities.find( { name: "Roma" } )
+````
+#### Specify Conditions Using Query Operators
+A query filter document can use the query operators to specify conditions. Although you can express this query using the $or operator, use the $in operator rather than the $or operator when performing equality checks on the same field.
+
+````
+db.users.find( { status: { $in: [ "P", "D" ] } } )
+````
+
+#### Specify OR Conditions
+Using the $or operator, you can specify a compound query that joins each clause with a logical OR conjunction so that the query selects the documents in the collection that match at least one condition.
+
+````javascript
+db.zips.find({$or:[{pop: {$lt:2000}}, {state: "MA"}]})
+````
+
+#### Specify AND as well as OR Conditions
+
+With additional clauses, you can specify precise conditions for matching documents.
+
+````javascript
+db.getCollection('zips').find({ city:"BELCHERTOWN", $or: [ { pop: { $lt: 30000 } }, { state: "MA" } ]  })
+````
+
+### Query on Embedded Documents
+
+When the field holds an embedded document, a query can either specify an exact match on the embedded document or specify a match by individual fields in the embedded document using the dot notation.
 
 
 
 
 
+````javascript
+````
 
+````javascript
+````
 
+````javascript
+````
 
+````javascript
+````
 
 
 
@@ -344,7 +444,7 @@ Delete operations do not drop indexes, even if deleting all documents from a col
 
 The db.collection.remove() method can have one of two syntaxes. The remove() method can take a query document and an optional justOne boolean.
 
-````json
+````javascript
   db.collection.remove(
       <query>,
       <justOne>
@@ -353,7 +453,7 @@ The db.collection.remove() method can have one of two syntaxes. The remove() met
 
 Or the method can take a query document and an optional remove options document:
 
-````json
+````javascript
   db.collection.remove(
     <query>,
 	   {
@@ -365,7 +465,7 @@ Or the method can take a query document and an optional remove options document:
 
 And here we have an example:
 
-````json
+````javascript
 	db.products.remove(
 	   { qty: { $gt: 20 } },
 	   {justOne:true, writeConcern: {w:"majority", wtimeout:5000 } }
@@ -376,7 +476,7 @@ And here we have an example:
 
 This operation removes a single document from a collection. deleteOne deletes the first document that matches the filter, so you must use a field that is part of a unique index such as _id for precise deletions.
 
-````json
+````javascript
   db.collection.deleteOne(
 	   <filter>,
 	   {
@@ -387,11 +487,11 @@ This operation removes a single document from a collection. deleteOne deletes th
 
 And here we have examples:
 
-````json
+````javascript
 db.orders.deleteOne( { "productCode" : "78452dfa25564l") } );
 ````
 
-````json
+````javascript
  	db.orders.deleteOne(
     { "_id" : ObjectId("563237a41a4d68582c2509da") },
        { w : "majority", wtimeout : 100 }
@@ -402,7 +502,7 @@ db.orders.deleteOne( { "productCode" : "78452dfa25564l") } );
 
 This method removes all documents that match the filter from a collection.
 
-````json
+````javascript
 	db.collection.deleteMany(
 	   <filter>,
 	   {
@@ -411,7 +511,7 @@ This method removes all documents that match the filter from a collection.
 	)
 ````
 
-````json
+````javascript
 db.orders.deleteMany( { "stock" : "Brent Crude Futures", "limit" : { $gt : 48.88 } } );
 ````
 
