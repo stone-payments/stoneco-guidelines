@@ -7,6 +7,7 @@
 * [Introduction](#introduction)
 * [Best Practices](#best-practices)
 * [Storage engine] (#storage-engine)
+* [CRUD] (#crud)
 * [References](#references)
 
 ## Introduction
@@ -258,6 +259,139 @@ As such, the concept of journal or waiting for data to become durable does not a
 
 Write operations that specify a write concern journaled are acknowledged immediately. When a mongod instance shuts down, either as result of the shutdown command or due to a system error, recovery of in-memory data is impossible.
 
+## CRUD
+
+MongoDB provides a series of commands to perform operations of create, delete, query and update documents. These operations are summarized below:
+
+### Create documents
+
+This operation creates a document into a collection given. If the collection does not currently exist, insert operations will create the collection. When a document is created, each document stored in a collection requires a unique _id field that acts as a primary key. If an inserted document omits the _id field, the MongoDB driver automatically generates an ObjectId for the _id field. All write operations in MongoDB are atomic on the level of a single document.
+
+MongoDB provides the following methods for inserting documents into a collection:
+
+### db.collection.insertOne()
+
+This operation inserts a single document into a collection.
+
+````json
+db.getCollection('zips').insertOne({_id:"28015", city:"Madrid", loc:[40.418889,-3.691944], pop:6543031})
+````
+
+### db.collection.insertMany()
+
+It inserts a set of documents into a collection. These documents are informed within an array:
+
+````json
+	db.getCollection('zips').insertMany([{"_id":"27001","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  	{"_id":"27002","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  	{"_id":"27003","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  	{"_id":"27004","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134}])
+````
+
+### db.collection.insert() 
+
+This operation inserts a single document or multiple documents into a collection. To insert a single document, pass a document to the method; to insert multiple documents, pass an array of documents to the method.
+
+````json
+db.getCollection('zips').insert({_id:"28015", city:"Madrid", loc:[ 40.418889,-3.691944], pop: 6543031})
+````
+
+````json
+db.getCollection('zips').insert([{"_id":"27001","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+ 	{"_id":"27002","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  {"_id":"27003","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  {"_id":"27004","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134}])
+````
+
+First of all, don’t worry about the data modeling of the examples. No matter if the collection zips is modeled appropriately.
+
+On the other hand, you should bear in mind that there are other forms of creation of documents in a collection. The updates operations with the option upsert with a true value persists the documents if they don’t exist. 
+
+
+## Read documents
+
+
+## Update documents
+
+
+## Delete documents
+
+Delete operations do not drop indexes, even if deleting all documents from a collection. All write operations in MongoDB are atomic on the level of a single document. MongoDB provides the following methods for document elimination:
+
+### db.collection.remove()
+
+The db.collection.remove() method can have one of two syntaxes. The remove() method can take a query document and an optional justOne boolean.
+
+````json
+  db.collection.remove(
+      <query>,
+      <justOne>
+  )
+````
+
+Or the method can take a query document and an optional remove options document:
+
+````json
+  db.collection.remove(
+    <query>,
+	   {
+	     justOne: <boolean>,
+	     writeConcern: <document>
+	   }
+	 )
+````
+
+And here we have an example:
+
+````json
+	db.products.remove(
+	   { qty: { $gt: 20 } },
+	   {justOne:true, writeConcern: {w:"majority", wtimeout:5000 } }
+  )
+````
+
+### db.collection.deleteOne()
+
+This operation removes a single document from a collection. deleteOne deletes the first document that matches the filter, so you must use a field that is part of a unique index such as _id for precise deletions.
+
+````json
+  db.collection.deleteOne(
+	   <filter>,
+	   {
+	      writeConcern: <document>
+	   }
+ 	)
+````
+
+And here we have examples:
+
+````json
+db.orders.deleteOne( { "productCode" : "78452dfa25564l") } );
+````
+
+````json
+ 	db.orders.deleteOne(
+    { "_id" : ObjectId("563237a41a4d68582c2509da") },
+       { w : "majority", wtimeout : 100 }
+  );
+````
+
+### db.collection.deleteMany()
+
+This method removes all documents that match the filter from a collection.
+
+````json
+	db.collection.deleteMany(
+	   <filter>,
+	   {
+	      writeConcern: <document>
+	   }
+	)
+````
+
+````json
+db.orders.deleteMany( { "stock" : "Brent Crude Futures", "limit" : { $gt : 48.88 } } );
+````
 
 ## References
 
