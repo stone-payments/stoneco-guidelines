@@ -259,9 +259,13 @@ As such, the concept of journal or waiting for data to become durable does not a
 
 Write operations that specify a write concern journaled are acknowledged immediately. When a mongod instance shuts down, either as result of the shutdown command or due to a system error, recovery of in-memory data is impossible.
 
+
 ## CRUD
 
-MongoDB provides a series of commands to perform operations of create, delete, query and update documents. These operations are summarized below:
+MongoDB provides a series of commands to perform operations of create, delete, query and update documents. Please bear in mind that these operations are based on the version 3.2 of MongoDB.
+
+These operations are summarized below:
+
 
 ### Create documents
 
@@ -311,7 +315,25 @@ On the other hand, you should bear in mind that there are other forms of creatio
 ## Read documents
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ## Update documents
+
+**_Building..._**
+
+
+
+
 
 
 ## Delete documents
