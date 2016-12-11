@@ -267,7 +267,7 @@ We are going to take a look at the CRUD operations in MongoDB. Through these ope
 Here we have some records of the __zips__ collection as an example:
 
 ````json
-{
+[
 	{"_id":"07017","city":"EAST ORANGE","loc":[-74.207723,40.769614],"pop":41737,"state":"NJ"},
 	{"_id":"06040","city":"MANCHESTER","loc":[-72.52444,41.777732],"pop":51618,"state":"CT"},
 	{"_id":"10011","city":"NEW YORK","loc":[-73.99963,40.740225],"pop":46560,"state":"NY"},
@@ -279,7 +279,7 @@ Here we have some records of the __zips__ collection as an example:
 						.
 						.
 	{"_id":"99205","city":"SPOKANE","loc":[-117.439912,47.69641],"pop":42032,"state":"WA"}						
-}
+]
 ````
 
 MongoDB provides a series of commands to perform operations of create, delete, query and update documents. Please bear in mind that these operations are based on the version 3.2 of MongoDB. These operations are summarized below:
