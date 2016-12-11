@@ -262,10 +262,27 @@ Write operations that specify a write concern journaled are acknowledged immedia
 
 ## CRUD
 
-MongoDB provides a series of commands to perform operations of create, delete, query and update documents. Please bear in mind that these operations are based on the version 3.2 of MongoDB.
+We are going to take a look at the CRUD operations in MongoDB. Through these operations we can see and manipulate the content of our collections. A collection stores a series of documents that should be linked between if (although MongoDB is without a schema, the collections should store documents with a same functional sense).
 
-These operations are summarized below:
+Here we have some records of the __zips__ collection as an example:
 
+````json
+{
+	{"_id":"07017","city":"EAST ORANGE","loc":[-74.207723,40.769614],"pop":41737,"state":"NJ"},
+	{"_id":"06040","city":"MANCHESTER","loc":[-72.52444,41.777732],"pop":51618,"state":"CT"},
+	{"_id":"10011","city":"NEW YORK","loc":[-73.99963,40.740225],"pop":46560,"state":"NY"},
+	{"_id":"10468","city":"BRONX","loc":[-73.900259,40.866231],"pop":65854,"state":"NY"},
+	{"_id":"11225","city":"BROOKLYN","loc":[-73.954588,40.662776],"pop":66752,"state":"NY"},
+	{"_id":"22110","city":"MANASSAS","loc":[-77.489474,38.768922],"pop":50680,"state":"VA"},
+	{"_id":"37311","city":"CLEVELAND","loc":[-84.875006,35.131257],"pop":40633,"state":"TN"},
+						.
+						.
+						.
+	{"_id":"99205","city":"SPOKANE","loc":[-117.439912,47.69641],"pop":42032,"state":"WA"}						
+}
+````
+
+MongoDB provides a series of commands to perform operations of create, delete, query and update documents. Please bear in mind that these operations are based on the version 3.2 of MongoDB. These operations are summarized below:
 
 ### Create documents
 
@@ -407,25 +424,35 @@ db.getCollection('zips').find({ city:"BELCHERTOWN", $or: [ { pop: { $lt: 30000 }
 
 When the field holds an embedded document, a query can either specify an exact match on the embedded document or specify a match by individual fields in the embedded document using the dot notation.
 
+#### Exact Match on the Embedded Document
 
-
-
-
-````javascript
-````
+To specify an exact equality match on the whole embedded document, use the query document { <field>: <value> } where <value> is the document to match. Equality matches on an embedded document require an exact match of the specified <value>, __including the field order__.
 
 ````javascript
+db.getCollection('zips').find({"_id":"97206","city":"PORTLAND","loc":[-122.59727,45.483995],"pop":43134,"state":"OR"})
 ````
+
+#### Equality Match on Fields within an Embedded Document
+
+Use the dot notation to match by specific fields in an embedded document. Equality matches for specific fields in an embedded document will select documents in the collection where the embedded document contains the specified fields with the specified values.
 
 ````javascript
+db.users.find( { "favorites.sports": "Football" } )
 ````
 
-````javascript
-````
+### Query on Arrays
 
+#### Exact Match on an Array
 
+#### Match an Array Element
 
+#### Match a Specific Element of an Array
 
+#### Specify Multiple Criteria for Array Elements
+
+#### Array of Embedded Documents
+
+#### Specify Multiple Criteria for Array of Documents
 
 ## Update documents
 
