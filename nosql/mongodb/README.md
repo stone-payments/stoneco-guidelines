@@ -21,6 +21,7 @@
   * [WiredTiger Storage Engine](#wiredtiger-storage-engine)
   * [MMAPv1 Storage Engine](#mmapv1-storage-engine)
   * [In-Memory Storage Engine](#in-memory-storage-engine)
+* [CRUD] (#crud)
 * [References](#references)
 
 ---
@@ -369,6 +370,288 @@ As such, the concept of journal or waiting for data to become durable does not a
 
 Write operations that specify a write concern journaled are acknowledged immediately. When a mongod instance shuts down, either as result of the shutdown command or due to a system error, recovery of in-memory data is impossible.
 
+
+## CRUD
+
+We are going to take a look at the CRUD operations in MongoDB. Through these operations we can see and manipulate the content of our collections. A collection stores a series of documents that should be linked between if (although MongoDB is without a schema, the collections should store documents with a same functional sense).
+
+Here we have some records of the __zips__ collection as an example:
+
+````json
+[
+	{"_id":"07017","city":"EAST ORANGE","loc":[-74.207723,40.769614],"pop":41737,"state":"NJ"},
+	{"_id":"06040","city":"MANCHESTER","loc":[-72.52444,41.777732],"pop":51618,"state":"CT"},
+	{"_id":"10011","city":"NEW YORK","loc":[-73.99963,40.740225],"pop":46560,"state":"NY"},
+	{"_id":"10468","city":"BRONX","loc":[-73.900259,40.866231],"pop":65854,"state":"NY"},
+	{"_id":"11225","city":"BROOKLYN","loc":[-73.954588,40.662776],"pop":66752,"state":"NY"},
+	{"_id":"22110","city":"MANASSAS","loc":[-77.489474,38.768922],"pop":50680,"state":"VA"},
+	{"_id":"37311","city":"CLEVELAND","loc":[-84.875006,35.131257],"pop":40633,"state":"TN"},
+						.
+						.
+						.
+	{"_id":"99205","city":"SPOKANE","loc":[-117.439912,47.69641],"pop":42032,"state":"WA"}						
+]
+````
+
+MongoDB provides a series of commands to perform operations of create, delete, query and update documents. Please bear in mind that these operations are based on the version 3.2 of MongoDB. These operations are summarized below:
+
+### Create documents
+
+This operation creates a document into a collection given. If the collection does not currently exist, insert operations will create the collection. When a document is created, each document stored in a collection requires a unique _id field that acts as a primary key. If an inserted document omits the _id field, the MongoDB driver automatically generates an ObjectId for the _id field. All write operations in MongoDB are atomic on the level of a single document.
+
+MongoDB provides the following methods for inserting documents into a collection:
+
+### db.collection.insertOne()
+
+This operation inserts a single document into a collection.
+
+````javascript
+db.getCollection('zips').insertOne({_id:"28015", city:"Madrid", loc:[40.418889,-3.691944], pop:6543031})
+````
+
+### db.collection.insertMany()
+
+It inserts a set of documents into a collection. These documents are informed within an array:
+
+````javascript
+	db.getCollection('zips').insertMany([{"_id":"27001","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  	{"_id":"27002","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  	{"_id":"27003","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  	{"_id":"27004","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134}])
+````
+
+### db.collection.insert() 
+
+This operation inserts a single document or multiple documents into a collection. To insert a single document, pass a document to the method; to insert multiple documents, pass an array of documents to the method.
+
+````javascript
+db.getCollection('zips').insert({_id:"28015", city:"Madrid", loc:[ 40.418889,-3.691944], pop: 6543031})
+````
+
+````javascript
+db.getCollection('zips').insert([{"_id":"27001","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+ 	{"_id":"27002","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  {"_id":"27003","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134},
+  {"_id":"27004","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134}])
+````
+
+First of all, don’t worry about the data modeling of the examples. No matter if the collection zips is modeled appropriately.
+
+On the other hand, you should bear in mind that there are other forms of creation of documents in a collection. The updates operations with the option upsert with a true value persists the documents if they don’t exist. 
+
+
+## Read documents
+
+MongoDB provides the db.collection.find() method to read documents from a collection. The db.collection.find() method returns a cursor to the matching documents.
+
+
+````javascript
+db.collection.find( <query filter>, <projection> )
+
+````
+
+To use the db.collection.find() method, you can specify the following optional fields:
+
+* a query filter to specify which documents to return.
+
+* a query projection to specifies which fields from the matching documents to return. The projection limits the amount of data that MongoDB returns to the client over the network.
+
+You can optionally add a cursor modifier to impose limits, skips, and sort orders:
+
+* __sort__
+
+This operation specifies the order in which the query returns matching documents. You can specify in the sort parameter the field or fields to sort by and a value of 1 or -1 to specify an ascending or descending sort respectively.
+
+````javascript
+db.orders.find().sort( { amount: -1 } )
+````
+The following sample document specifies a descending sort by the age field and then an ascending sort by the posts field:
+
+````javascript
+db.user.find().sort( { age : -1, posts: 1 }} )
+````
+
+* __limit__
+
+This operation specifies the maximum number of documents the cursor will return.
+
+````javascript
+db.collection.find(<query>).limit(<number>)
+````
+
+* __skip__
+
+This operation controls where MongoDB begins returning results. This approach may be useful in implementing “paged” results. For use it, you must specify a numeric value.
+
+Consider the following JavaScript function as an example of the skip function:
+
+````javascript
+function printStudents(pageNumber, nPerPage) {
+   print("Page: " + pageNumber);
+   db.students.find().skip(pageNumber > 0 ? ((pageNumber-1)*nPerPage) : 0).limit(nPerPage).forEach( function(student) { print(student.name + "<p>"); } );
+}
+````
+
+Now lets see a few uses of this find operation.
+
+### Select All Documents in a Collection
+
+An empty query filter document ({}) selects all documents in the collection:
+
+````javascript
+db.users.find( {} )
+````
+### Specify Query Filter Conditions
+
+We can use a query filter to specify condition for the query:
+
+#### Specify Equality Condition
+````javascript
+db.cities.find( { name: "Roma" } )
+````
+#### Specify Conditions Using Query Operators
+A query filter document can use the query operators to specify conditions. Although you can express this query using the $or operator, use the $in operator rather than the $or operator when performing equality checks on the same field.
+
+````
+db.users.find( { status: { $in: [ "P", "D" ] } } )
+````
+
+#### Specify OR Conditions
+Using the $or operator, you can specify a compound query that joins each clause with a logical OR conjunction so that the query selects the documents in the collection that match at least one condition.
+
+````javascript
+db.zips.find({$or:[{pop: {$lt:2000}}, {state: "MA"}]})
+````
+
+#### Specify AND as well as OR Conditions
+
+With additional clauses, you can specify precise conditions for matching documents.
+
+````javascript
+db.getCollection('zips').find({ city:"BELCHERTOWN", $or: [ { pop: { $lt: 30000 } }, { state: "MA" } ]  })
+````
+
+### Query on Embedded Documents
+
+When the field holds an embedded document, a query can either specify an exact match on the embedded document or specify a match by individual fields in the embedded document using the dot notation.
+
+#### Exact Match on the Embedded Document
+
+To specify an exact equality match on the whole embedded document, use the query document { <field>: <value> } where <value> is the document to match. Equality matches on an embedded document require an exact match of the specified <value>, __including the field order__.
+
+````javascript
+db.getCollection('zips').find({"_id":"97206","city":"PORTLAND","loc":[-122.59727,45.483995],"pop":43134,"state":"OR"})
+````
+
+#### Equality Match on Fields within an Embedded Document
+
+Use the dot notation to match by specific fields in an embedded document. Equality matches for specific fields in an embedded document will select documents in the collection where the embedded document contains the specified fields with the specified values.
+
+````javascript
+db.users.find( { "favorites.sports": "Football" } )
+````
+
+### Query on Arrays
+
+#### Exact Match on an Array
+
+#### Match an Array Element
+
+#### Match a Specific Element of an Array
+
+#### Specify Multiple Criteria for Array Elements
+
+#### Array of Embedded Documents
+
+#### Specify Multiple Criteria for Array of Documents
+
+## Update documents
+
+**_Building..._**
+
+
+
+
+
+
+## Delete documents
+
+Delete operations do not drop indexes, even if deleting all documents from a collection. All write operations in MongoDB are atomic on the level of a single document. MongoDB provides the following methods for document elimination:
+
+### db.collection.remove()
+
+The db.collection.remove() method can have one of two syntaxes. The remove() method can take a query document and an optional justOne boolean.
+
+````javascript
+  db.collection.remove(
+      <query>,
+      <justOne>
+  )
+````
+
+Or the method can take a query document and an optional remove options document:
+
+````javascript
+  db.collection.remove(
+    <query>,
+	   {
+	     justOne: <boolean>,
+	     writeConcern: <document>
+	   }
+	 )
+````
+
+And here we have an example:
+
+````javascript
+	db.products.remove(
+	   { qty: { $gt: 20 } },
+	   {justOne:true, writeConcern: {w:"majority", wtimeout:5000 } }
+  )
+````
+
+### db.collection.deleteOne()
+
+This operation removes a single document from a collection. deleteOne deletes the first document that matches the filter, so you must use a field that is part of a unique index such as _id for precise deletions.
+
+````javascript
+  db.collection.deleteOne(
+	   <filter>,
+	   {
+	      writeConcern: <document>
+	   }
+ 	)
+````
+
+And here we have examples:
+
+````javascript
+db.orders.deleteOne( { "productCode" : "78452dfa25564l") } );
+````
+
+````javascript
+ 	db.orders.deleteOne(
+    { "_id" : ObjectId("563237a41a4d68582c2509da") },
+       { w : "majority", wtimeout : 100 }
+  );
+````
+
+### db.collection.deleteMany()
+
+This method removes all documents that match the filter from a collection.
+
+````javascript
+	db.collection.deleteMany(
+	   <filter>,
+	   {
+	      writeConcern: <document>
+	   }
+	)
+````
+
+````javascript
+db.orders.deleteMany( { "stock" : "Brent Crude Futures", "limit" : { $gt : 48.88 } } );
+````
 
 ## References
 
