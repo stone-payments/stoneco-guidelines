@@ -17,7 +17,8 @@
   * [`$watch` expressions](#dont-overuse-watch-expressions)
   * [`$templateCache`](#use-templatecache-to-compile-your-views)
   * [JSON resources for pro](#inject-your-jsons-in-production-via-constants)
-  * [Start using Angular with ES6 & WebPack](#start-using-angular-with-es6-&-webpack)
+  * [Start using Angular with ES6](#start-using-angular-with-es6)
+  * [ES6 with WebPack](#es6-with-webpack)
 * [Testing](#testing)
 * [Miscellaneous](#miscellaneous)
 
@@ -774,7 +775,7 @@ options: {
 
 **WARNING:** When injecting your i18n resources this way, you might find your texts messed-up. To overcome this, be sure the `config.js` file generated with such resources is loaded into the app with its proper encoding and mime-type.
 
-## Start using angular with ES6 & WebPack
+## Start using Angular with ES6
 
 ES6 allows our codebase to be cleaner, modular, and more concise, eliminating the need to define 'angular modules' and start using real modules through one of main ES6 features: named & default exports.
 
@@ -1018,6 +1019,10 @@ export function loadNg1Module(ngModule, appModule) {
   return ngModule;
 }
 ```
+
+## ES6 with WebPack
+
+WIP.
 
 # Testing
 
