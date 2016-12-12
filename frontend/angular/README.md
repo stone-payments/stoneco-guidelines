@@ -555,8 +555,8 @@ ui-router also allows to pass resolved properties to component input bindings, g
 
 Let's suppose that we have a route called 'courses' that needs to fetch some remote data and pass it down to the component.
 
-````javascript
-//courses.state.js
+**courses.state.js**
+```javascript
 (function() {
   'use strict';
 
@@ -595,8 +595,10 @@ Let's suppose that we have a route called 'courses' that needs to fetch some rem
       ];
     }
 })();
+```
 
-//courses.component.js
+**courses.component.js**
+```javascript
 (function() {
   'use strict';
 
@@ -636,7 +638,7 @@ Let's suppose that we have a route called 'courses' that needs to fetch some rem
       }
     }
 })();
-````
+```
 
 # Filters
 
@@ -778,8 +780,8 @@ ES6 allows our codebase to be cleaner, modular, and more concise, eliminating th
 
 ES6 provides several useful features that allows to write a clear, cleaner, and DRY code, through the use of class, arrow functions, string templates, default params values on functions, variable destructuring, constants, etc...
 
-**BEFORE ES6**
-````javascript
+### BEFORE ES6
+```javascript
 src/
 └── app/
     └──components/
@@ -787,9 +789,10 @@ src/
         │   ├── search-box.component.js
         │   └── search-box.html
         └── components.module.js
+```
 
-// search-box.component.js
-
+**search-box.component.js**
+```javascript
 (function() {
   'use strict';
 
@@ -811,9 +814,6 @@ src/
     var $ctrl = this;
 
     $ctrl.onSearch = function(value) {
-      console.log('$SearchBoxController::onSearch()');
-      console.log(value);
-
       $ctrl.onChange({
         $event: {
           text: value
@@ -822,9 +822,10 @@ src/
     }
   }
 })();
+```
 
-// search-box.html
-
+**search-box.html**
+```javascript
 <div layout="row" layout-margin>
   <md-input-container flex>
     <label ng-if="$ctrl.title">{{$ctrl.title}}</label>
@@ -833,28 +834,30 @@ src/
         ng-model-options="{ debounce: 500 }" />
   </md-input-container>
 </div>
+```
 
-// components.module.js
-
+**components.module.js**
+```javascript
 (function() {
     'use strict';
 
     angular
         .module('app.components', []);
 })();
-````
+```
 
-**ES6**
-````javascript
+### ES6
+```javascript
 src/
 └── app/
     └── components/
         ├── search-box
         │   └── search-box.component.js
         └── components.module.js
+```
 
-// search-box.component.js
-
+**search-box.component.js**
+```javascript
 const template = `
   <div layout="row" layout-margin>
     <md-input-container flex>
@@ -872,9 +875,6 @@ export class SearchBoxController {
   }
 
   onSearch(value) {
-    console.log('SearchBoxController::onSearch()');
-    console.log(value);
-
     this.onChange({ $event: { text: value } });
   }
 }
@@ -890,9 +890,10 @@ export default {
   },
   controller: SearchBoxController
 }
+```
 
-// components.module.js
-
+**components.module.js**
+```javascript
 import { loadNg1Module, ngmodule } from '../bootstrap/ngmodule'; // custom boilerplate to easily load all modules & dependencies from WebPack.
 
 import appSideNav from './app-side-nav/app-side-nav.component'; // not used in example
@@ -911,7 +912,112 @@ const componentsModule = {
 };
 
 loadNg1Module(ngmodule, componentsModule);
-````
+```
+
+### ES6 bootstrap & loadNg1Module
+
+ui-router sample offers a simple & modular way to load & combine all our ES6 modules on a single angular module (app) through the use of import & exports, reducing all the boilerplate needed to craft a big and robust scalable angularjs app with ES6.
+
+[You can check it here](https://github.com/ui-router/sample-app-ng1).
+
+```javascript
+src/
+└── app/
+    └── bootstrap/
+        ├── bootstrap.js
+        └── ngmodule.js
+```
+
+**bootstrap.js**
+```javascript
+/**
+ * This file is the main entry point for the entire app.
+ *
+ * If the application is being bundled, this is where the bundling process
+ * starts.  If the application is being loaded by an es6 module loader, this
+ * is the entry point.
+ *
+ * Point Webpack or SystemJS to this file.
+ *
+ * This module imports all the different parts of the application which registers them with angular.
+ * - Submodules
+ *   - States
+ *   - Components
+ *   - Directives
+ *   - Services
+ *   - Filters
+ *   - Run and Config blocks
+ *     - Transition Hooks
+ * - 3rd party Libraries and angular1 module
+ */
+
+ // import all the app sub modules
+ // Each module registers it states/services/components, with the `ngmodule`
+import '../app.module';
+import '../components/components.module';
+import '../courses/courses.module';
+
+ // Import CSS (WebPack will inject it into the document)
+ import 'angular-material/angular-material.css';
+```
+
+ **ngmodule.js**
+ ```javascript
+ /**
+ * This file imports the third party library dependencies, then creates the angular module "demo"
+ * and exports it.
+ */
+
+// External dependencies
+import * as angular from 'angular';
+
+import uiRouter from 'angular-ui-router';
+import stateEvents from 'angular-ui-router/release/stateEvents';
+import angularMaterial from 'angular-material';
+
+// Create the angular module "app".
+//
+// Since it is exported, other parts of the application (in other files) can then import it and register things.
+// In bootstrap.js, the module is imported, and the components, services, and states are registered.
+export const ngmodule = angular.module('app', [uiRouter, 'ui.router.state.events',  angularMaterial]);
+
+const BLANK_MODULE = {
+  states: [],
+  components: {},
+  directives: {},
+  services: {},
+  filters: {},
+  configBlocks: [],
+  runBlocks: []
+};
+
+/**
+ * Register each app module's states, directives, components, filters, services,
+ * and config/run blocks with the `ngmodule`
+ *
+ * @param ngModule the `angular.module()` object
+ * @param appModule the feature module consisting of components, states, services, etc
+ */
+export function loadNg1Module(ngModule, appModule) {
+  let module = Object.assign({}, BLANK_MODULE, appModule);
+
+  ngModule.config(['$stateProvider', $stateProvider => module.states.forEach(state => $stateProvider.state(state))]);
+
+  Object.keys(module.components).forEach(name => ngModule.component(name, module.components[name]));
+
+  Object.keys(module.directives).forEach(name => ngModule.directive(name, module.directives[name]));
+
+  Object.keys(module.services).forEach(name => ngModule.service(name, module.services[name]));
+
+  Object.keys(module.filters).forEach(name => ngModule.filter(name, module.filters[name]));
+
+  module.configBlocks.forEach(configBlock => ngModule.config(configBlock));
+
+  module.runBlocks.forEach(runBlock => ngModule.run(runBlock));
+
+  return ngModule;
+}
+```
 
 # Testing
 
