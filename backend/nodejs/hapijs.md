@@ -1,6 +1,6 @@
 ![alt text](static/nodejs.png "Node.js") ![alt text](static/hapi.png "Hapi")
 
-# Hapi
+# Node.js Style Guide & Best Pratices: Hapi
 
 Hapi is a rich framework for building applications and services that allows developers to focus on writing reusable application logic instead of spending time building infrastructure.
 
