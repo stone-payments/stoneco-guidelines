@@ -18,6 +18,7 @@
 	* [IAM](#iam)
 	* [Lambda](#lambda)
 	* [SQS](#sqs)
+	* [RDS](#rds)
 
 ---
 ## Introduction
@@ -51,6 +52,7 @@ Please also note that Information in the part of **Services** it is also split o
 - Lambda
 - SQS
 - DynamoDB
+- RDS
 
 ---
 ## Cloud Best Practices 
@@ -737,6 +739,12 @@ Amazon SQS queues can deliver very high throughput (many thousands of messages p
 #### Define Retention Period
 
 SQS automatically deletes messages that have been in a queue for more than maximum message retention period. In some use cases, messages are no longer useful few minutes after they are send to queue. Set a short retention period ( like 5 minutes ) is a good practice to reduce polling of not useful messages.
+
+---
+### RDS
+
+Amazon Relational Database Service (Amazon RDS) offers a distributed relational database running in the cloud that you can easily set up , operate and scale also provides cost-efficient , resizable capacity and manage common database administration tasks.
+
 
 ---
 
