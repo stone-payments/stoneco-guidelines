@@ -1,6 +1,6 @@
 ![alt text](static/nodejs.png "Node.js") ![alt text](static/restify.png "Restify")
 
-# Restify
+# Node.js Style Guide & Best Pratices: Restify
 
 Restify is a light framework similar to Express and very easy for building REST APIs. This is the easy way to create a REST API application:
 
