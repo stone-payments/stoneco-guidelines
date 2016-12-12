@@ -479,7 +479,7 @@ With a component based architecture, it's easier to predict when data changes an
 
 * Start designing your application as a `tree of components`. Ideally, the whole application should be a tree of components that implement clearly defined inputs and outputs, and minimize two-way data binding. That way, it's easier to predict when data changes and what the state of a component is.
 
-* Try to not nest more than 2 levels deep of components inside a component, or you are going to get messy with components events callbacks.
+* Try to not nest more than `2 levels deep of components inside a component`, or you are going to get messy with components events callbacks.
 
 ## When `not to use components`.
 
@@ -493,9 +493,9 @@ With a component based architecture, it's easier to predict when data changes an
 
 * It's recommended to define an initial/starter component called 'app'. If you need to retrieve some initial data for your application, use $onInit() component hook. `(You should NOT retrieve remote data on $onInit() hook if you are using a routing solution that provides resolve capacity directly to component - see routable components for this)`
 
-* Store all your common application components inside a folder called components (with their respective module definition inside of it).
+* Store all your `common application components` inside a folder called `components` (with their respective module definition inside of it).
 
-* Store all your specific route/feature components inside a folder with their name (that will match route/feature url), and with their respective module definition inside of it.
+* Store all your `specific route/feature components` inside a folder with their name (that will match route/feature url), and with their respective `module definition inside of it`.
 
 * Store all your specific component-components inside a folder called `components` on their respective `component` folder.
 
@@ -552,9 +552,9 @@ src/
 
 ## Routable components
 
-ui-router provides a mechanism to directly fill in a route view with a component, eliminating the need to define a template and a controller, allowing our routes/features to be directly provided by a component, giving us the chance to have a clean state definition, a true modular approach, and a separation of concerns.
+`ui-router` provides a mechanism to directly `fill in a route view with a component`, eliminating the need to define a template and a controller, allowing our `routes/features to be directly provided by a component`, giving us the chance to have a clean state definition, a true modular approach, and a separation of concerns.
 
-ui-router also allows to pass resolved properties to component input bindings, giving us the chance to define a clean architecture where the data flow is clearly defined on state resolve process.
+`ui-router` also allows to pass `resolved properties to component input bindings`, giving us the chance to define a `clean architecture where the data flow is clearly defined on state resolve process`.
 
 Let's suppose that we have a route called 'courses' that needs to fetch some remote data and pass it down to the component.
 
