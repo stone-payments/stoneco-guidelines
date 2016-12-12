@@ -461,6 +461,8 @@ angular.module('myFancyApp')
 
 A component is a special kind of directive that uses a simpler configuration which is suitable for a component-based application structure.
 
+It has been supported in Angular since 1.5 version, but [Todd Motto has back-ported it to 1.3+](https://toddmotto.com/angular-component-method-back-ported-to-1.3/). You can get the [polyfill here](https://github.com/toddmotto/angular-component).
+
 Writing components directives will make it easier to upgrade to Angular 2 (and other frameworks like React or EmberJS), and it sticks with the actual web development standards.
 
 With a component based architecture, it's easier to predict when data changes and what the state of a component is, due to the fact that components implements a clearly defined API based on inputs and outputs, and minimize two-way data binding.
