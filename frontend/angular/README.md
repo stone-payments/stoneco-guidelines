@@ -772,9 +772,146 @@ options: {
 
 **WARNING:** When injecting your i18n resources this way, you might find your texts messed-up. To overcome this, be sure the `config.js` file generated with such resources is loaded into the app with its proper encoding and mime-type.
 
-# Start using angular with es6 & webpack
+## Start using angular with ES6 & WebPack
 
-xxxx
+ES6 allows our codebase to be cleaner, modular, and more concise, eliminating the need to define 'angular modules' and start using real modules through one of main ES6 features: named & default exports.
+
+ES6 provides several useful features that allows to write a clear, cleaner, and DRY code, through the use of class, arrow functions, string templates, default params values on functions, variable destructuring, constants, etc...
+
+**BEFORE ES6**
+````javascript
+src/
+└── app/
+    └──components/
+        ├── search-box
+        │   ├── search-box.component.js
+        │   └── search-box.html
+        └── components.module.js
+
+// search-box.component.js
+
+(function() {
+  'use strict';
+
+  angular
+    .module('app.components')
+    .component('searchBox', {
+      templateUrl: 'app/components/search-box/search-box.html',
+      controller: SearchBoxController,
+      bindings: {
+        //inputs
+        title: '<',
+
+        //outputs
+        onChange: '&'
+      }
+    });
+
+  function SearchBoxController() {
+    var $ctrl = this;
+
+    $ctrl.onSearch = function(value) {
+      console.log('$SearchBoxController::onSearch()');
+      console.log(value);
+
+      $ctrl.onChange({
+        $event: {
+          text: value
+        }
+      });
+    }
+  }
+})();
+
+// search-box.html
+
+<div layout="row" layout-margin>
+  <md-input-container flex>
+    <label ng-if="$ctrl.title">{{$ctrl.title}}</label>
+    <input ng-change="$ctrl.onSearch($ctrl.searchValue);"
+        ng-model="$ctrl.searchValue"
+        ng-model-options="{ debounce: 500 }" />
+  </md-input-container>
+</div>
+
+// components.module.js
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.components', []);
+})();
+````
+
+**ES6**
+````javascript
+src/
+└── app/
+    └── components/
+        ├── search-box
+        │   └── search-box.component.js
+        └── components.module.js
+
+// search-box.component.js
+
+const template = `
+  <div layout="row" layout-margin>
+    <md-input-container flex>
+      <label ng-if="$ctrl.title">{{$ctrl.title}}</label>
+      <input ng-change="$ctrl.onSearch($ctrl.searchValue);"
+          ng-model="$ctrl.searchValue"
+          ng-model-options="{ debounce: 500 }" />
+    </md-input-container>
+  </div>
+`;
+
+export class SearchBoxController {
+  constructor() {
+
+  }
+
+  onSearch(value) {
+    console.log('SearchBoxController::onSearch()');
+    console.log(value);
+
+    this.onChange({ $event: { text: value } });
+  }
+}
+
+export default {
+  template,
+  bindings: {
+    //inputs
+    title: '@',
+
+    //outputs
+    onChange: '&'
+  },
+  controller: SearchBoxController
+}
+
+// components.module.js
+
+import { loadNg1Module, ngmodule } from '../bootstrap/ngmodule'; // custom boilerplate to easily load all modules & dependencies from WebPack.
+
+import appSideNav from './app-side-nav/app-side-nav.component'; // not used in example
+import appToolbar from './app-toolbar/app-toolbar.component'; // not used in example
+
+import buttonEnrollCounter from './button-enroll-counter/button-enroll-counter.component'; // not used in example
+import buttonLikeCounter from './button-like-counter/button-like-counter.component'; // not used in example
+
+import searchBox from './search-box/search-box.component';
+import totalEnrollCounter from './total-enroll-counter/total-enroll-counter.component'; // not used in example
+import totalLikeCounter from './total-like-counter/total-like-counter.component'; // not used in example
+
+const componentsModule = {
+  components: { appSideNav, appToolbar, buttonEnrollCounter, buttonLikeCounter, searchBox,
+    totalEnrollCounter, totalLikeCounter }
+};
+
+loadNg1Module(ngmodule, componentsModule);
+````
 
 # Testing
 
