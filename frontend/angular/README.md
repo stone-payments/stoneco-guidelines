@@ -491,9 +491,9 @@ With a component based architecture, it's easier to predict when data changes an
 
 ## Suggested approach to structure your component-based application.
 
-* It's recommended to define an initial/starter component called 'app'. If you need to retrieve some initial data for your application, use $onInit() component hook.
+* It's recommended to define an initial/starter component called 'app'. If you need to retrieve some initial data for your application, use $onInit() component hook. `(You should NOT retrieve remote data on $onInit() hook if you are using a routing solution that provides resolve capacity directly to component - see routable components for this)`
 
-* Store all your general application components inside a common folder called components (with their respective module definition inside of it).
+* Store all your common application components inside a folder called components (with their respective module definition inside of it).
 
 * Store all your specific route/feature components inside a folder with their name (that will match route/feature url), and with their respective module definition inside of it.
 
