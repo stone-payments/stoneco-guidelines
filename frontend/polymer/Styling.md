@@ -225,6 +225,12 @@ For example:
     /* Custom properties that inherit down the document tree may be defined */
     :root {
       --my-header-title-color: green;
+      
+      --my-header-title-theme: {
+          color: --my-header-title-color;
+          font-weight: bold;
+        };
+      
     }
   </style>
 </head>
