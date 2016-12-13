@@ -745,6 +745,23 @@ SQS automatically deletes messages that have been in a queue for more than maxim
 
 Amazon Relational Database Service (Amazon RDS) offers a distributed relational database running in the cloud that you can easily set up , operate and scale also provides cost-efficient , resizable capacity and manage common database administration tasks.
 
+These are the best practices you should follow when using this service.
+
+* ** Monitor : ** It is very important to be aware of the use that your database receives to maintain system performance and availability . 
+You can use the console to view metrics in real time for your DB instance or consume Enhanced Monitoring JSON output from CloudWatch Logs , this will help you to be notified when usage patterns change or when you approach the capacity of your deployment . More about [Enhanced Monitoring](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html) .
+
+* ** Scale up : ** You must be prepared to scale up your DB instance when you receive unexpected increases from your applications.
+
+* ** Better safe than sorry : ** 
+ * ** Automatic backups : ** Having backups is a must, enable and select the appropriate time of day to occur.
+ * ** Test failover **  for your database instance to understand how long the process takes for your use case and to make sure that the application that accesses your database instance can automatically connect to the new DB instance later Of the failover.
+ * ** Recovery after failover ** or database failure is very costly and slow , maintain control over the workload your database requires and if you need to increase it do any or all of the following:
+	* Migrate to a DB instance class with High I/O capacity.
+	* Changing standard storage (magnetic)  by another may be a good choice depending on your upgrade needs, there are more options like General Purpose (SSD) and IOPS Provided (input / output operations per second). Each one is different in Its performance characteristics and price, you will also have to take into account if your DB instance is optimized for them. More about [Storage Types](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html) .
+	* If you are already using Provisioned IOPS storage, provision additional throughput capacity.
+
+* ** Set a time-to-live (TTL) : ** When your application caches the DNS data of your database instances. This will prevent your application from attempting to connect to an IP address that is no longer in service after an error.
+
 
 ---
 
