@@ -621,6 +621,40 @@ Instead, import exactly the modules you really need.
 from datetime import date
 ```
 
+#### 6.1 Libraries path
+
+Every time an import is done python look for the libraries at some predefined paths. The paths are checked one by one until the library is found. So if a library is repeated or there are two libraries with the same name it will import the first found. This paths can be shown using this command:
+```shell
+python -c "import sys; print sys.path"
+```
+This paths could be changes inside python script during runtime or before executing it using environment variable PYTHONPATH
+
+#### 6.2 Creating a library
+Create a library is as simple al leaving the library file on a python path directory or in the path where the binary is being executed. For example
+```
+|- my_program.py
+|- module1.py
+```
+
+Being my_program.py:
+```python
+import module1
+```
+This case was very simple but usually we want to include at a library more than one module or class. In this case we need to create an empty file named __init__.py at the directory:
+
+```
+|- my_program.py
+|- lib
+   |- __init__.py
+   |- module1.py
+```
+
+In this case, the content of my_program.py wil be this:
+
+```python
+import lib.module1
+```
+
 ### 7. Logging
 
 Use logging config files instead of code-logging to avoid make changes into your code every time you want to change some aspect of your logging, whenever your project allows it.
@@ -1112,13 +1146,36 @@ In general, the use of decorators is recommended in order to improve code readab
 
 ### 12. Programming paradigms
 
-#### 12.1 Functional
+
+#### 12.1 Structured
+
+Python allow structured programming, in fact it is the most commonly paradigm used in python. Python allows to start coding without declaring any function but it is highly discouraged. Small scritps use to grow without any control or design, so it worth starting with functions. The most commonly starting sentences are this:
+```python
+if __name__ == '__main__':
+    exit(main())
+```
+
+Also it recomended to use as much methods as posible, avoiding "allinone" programas, ans as the program grous create diferente modules to maintain independence between functionalities. This helps to reuse code
+
+### 12.2 Object Oriented
+
+Python support object oriented programming. It worth the effort to design a solution with this paradigm. This paradigm force programmers to maintain modularity with a minimun level of cohesion and coupling.
+
+```python
+class MyClass(object):
+    """My Class do this and this"""
+    def __init__(self):
+        """This is the contructor"""
+        pass
+```
+
+#### 12.3 Functional
 
 For functional programming Python provides lambda expressions, which allow to define functions in the same line we use them, and, to iterate over sequences, it provides list comprehensions and generators, both used over iterators.
 Use them to apply functional coding style to your project.
 
 
-##### 12.1.1 List comprehensions and generators
+##### 12.3.1 List comprehensions and generators
 
 The main difference between both is that list comprehensions returns a list while generators returns an iterator whose
 items are calculated when needed, so they are not in memory.
@@ -1150,7 +1207,7 @@ Make sure you use the functional way:
 ((expr1,expr2) for expr1 in sequence1 for expr2 in sequence2) # Generator
 ```
 
-###### 12.1.1.1 Yield
+###### 12.3.1.1 Yield
 
 Any function containing a yield keyword is a generator function; this is detected by Python’s bytecode compiler which compiles the function specially as a result.
 
@@ -1180,7 +1237,7 @@ StopIteration
 ```
 
 
-##### 12.1.2 Built-in functions
+##### 12.3.2 Built-in functions
 
 You can use map and filter (which duplicate list comprehensions features).
 
