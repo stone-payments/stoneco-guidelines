@@ -44,6 +44,10 @@ model.set('foo3', 'bar3');
 
 ---
 
+Always use `Ember.computed.readOnly` when you don't need to set the property.
+
+---
+
 Use ES6 object destructuring for commonly used helpers, i.e.
 
 ```javascript
