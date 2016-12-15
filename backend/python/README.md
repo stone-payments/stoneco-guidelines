@@ -10,25 +10,26 @@ The following contents table provides an index of the contents covered in this g
 
 * [1. Introduction](#1-introduction)
 * [2. The Zen of Python (Pep 20)](#2-the-zen-of-python-pep-20)
-* [3. Style guide (Pep 8)](#3-style-guide-pep-8)
-* [4. Python 2 vs Python 3](#4-python-2-vs-python-3)
-* [5. Standard library](#5-standard-library)
-* [6. Importing libraries](#6-importing-libraries)
-* [7. Logging](#7-logging)
-* [8. Comments and documentation](#8-comments-and-documentation)
-* [9. String treatment](#9-string-treatment)
-* [10. Operators](#10-operators)
-* [11. Functions](#11-functions)
-* [12. Programming paradigms](#12-programming-paradigms)
-* [13. Exceptions](#13-exceptions)
-* [14. Input Output](#14-input-output)
-* [15. Configuration files](#15-configuration-files)
-* [16. Testing](#16-testing)
-* [17. Project structure](#17-project-structure)
-* [18. Application packaging and distribution](#18-application-packaging-and-distribution)
-* [19. Development Environments (IDEs)](#19-development-environments-ides)
-* [20. Library and virtual environment management](#20-library-and-virtual-environment-management)
-* [21. References](#21-references)
+* [3. Python 2 vs Python 3](#3-python-2-vs-python-3)
+* [4. Programming paradigms](#4-programming-paradigms)
+* [5. Style guide (Pep 8)](#5-style-guide-pep-8)
+* [6. Comments](#6-Comments)
+* [7. Documentation](#7-Documentation)
+* [8. Importing libraries](#8-importing-libraries)
+* [9. Functions](#9-functions)
+* [10. Standard library](#10-standard-library)
+* [11. Logging](#11-logging)
+* [12. String treatment](#12-string-treatment)
+* [13. Operators](#13-operators)
+* [14. Exceptions](#14-exceptions)
+* [15. Input Output](#15-input-output)
+* [16. Configuration files](#16-configuration-files)
+* [17. Testing](#17-testing)
+* [18. Project structure](#18-project-structure)
+* [19. Application packaging and distribution](#19-application-packaging-and-distribution)
+* [20. Development Environments (IDEs)](#10-development-environments-ides)
+* [21. Library and virtual environment management](#21-library-and-virtual-environment-management)
+* [22. References](#22-references)
 
 
 ### 1. Introduction
@@ -132,22 +133,164 @@ Main changes in Python 3.x respect to Python 2.x [1]:
 * Change List Comprehension.
 * And other changes, for example in improve readability.
 
-### 4. Style guide (Pep 8)
+### 4. Programming paradigms
+
+
+#### 4.1 Structured
+
+Python allow structured programming, in fact it is the most commonly paradigm used in python. Python allows to start coding without declaring any function but it is highly discouraged. Small scritps use to grow without any control or design, so it worth starting with functions. The most commonly starting sentences are this:
+```python
+if __name__ == '__main__':
+    exit(main())
+```
+
+Also it recomended to use as much methods as posible, avoiding "allinone" programas, ans as the program grous create diferente modules to maintain independence between functionalities. This helps to reuse code
+
+### 4.2 Object Oriented
+
+Python support object oriented programming. It worth the effort to design a solution with this paradigm. This paradigm force programmers to maintain modularity with a minimun level of cohesion and coupling.
+
+```python
+class MyClass(object):
+    """My Class do this and this"""
+    def __init__(self):
+        """This is the contructor"""
+        pass
+```
+
+#### 4.3 Functional
+
+For functional programming Python provides lambda expressions, which allow to define functions in the same line we use them, and, to iterate over sequences, it provides list comprehensions and generators, both used over iterators.
+Use them to apply functional coding style to your project.
+
+
+##### 4.3.1 List comprehensions and generators
+
+The main difference between both is that list comprehensions returns a list while generators returns an iterator whose
+items are calculated when needed, so they are not in memory.
+
+A list comprehension or generator expression is equivalent to the following Python code:
+
+```python
+for expr1 in sequence1:
+    if not (condition1):
+        continue   # Skip this element
+    for expr2 in sequence2:
+        if not (condition2):
+            continue    # Skip this element
+        ...
+        for exprN in sequenceN:
+             if not (conditionN):
+                 continue   # Skip this element
+
+             # Output the value of
+             # the expression.
+```
+
+Make sure you use the functional way:
+```python
+[(expr1,expr2) for expr1 in sequence1 for expr2 in sequence2] # List comprehension
+
+#or
+
+((expr1,expr2) for expr1 in sequence1 for expr2 in sequence2) # Generator
+```
+
+###### 4.3.1.1 Yield
+
+Any function containing a yield keyword is a generator function; this is detected by Python’s bytecode compiler which compiles the function specially as a result.
+
+```python
+def generate_ints(N):
+    for i in range(N):
+        yield i
+```
+
+So if we test it
+
+```python
+>>> gen = generate_ints(3)
+>>> gen
+<generator object generate_ints at ...>
+>>> gen.next()
+0
+>>> gen.next()
+1
+>>> gen.next()
+2
+>>> gen.next()
+Traceback (most recent call last):
+  File "stdin", line 1, in ?
+  File "stdin", line 2, in generate_ints
+StopIteration
+```
+
+
+##### 4.3.2 Built-in functions
+
+You can use map and filter (which duplicate list comprehensions features).
+
+So having the upper function:
+```python
+def my_upper(s):
+  return s.upper()
+```
+To apply that function to every item on a sequence,
+
+instead of using the traditional for sentence:
+```python
+result_list = []
+for elem in some_list:
+  result_list.append(s.upper())
+return result_list
+```
+
+You can simplify it with map:
+
+```python
+map(my_upper, ['bee', 'pythonist'])
+> ['BEE', 'PYTHONIST']
+```
+
+Or even more with lambda expression, avoiding my_upper function declaration:
+
+```python
+map(lambda x: x.upper(), ['bee', 'pythonist'])
+> ['BEE', 'PYTHONIST']
+```
+
+In the same way you can use filter to get only the items that fulfill some function logic.
+
+```python
+filter(lambda x: x>3 and x<6, [0,1,2,3,4,5,6])
+> [4,5]
+```
+
+Furthermore the reduce built-in function performs the operation of applying some reducing logic by pairs.
+
+```python
+import operator
+
+reduce(lambda x,y: ''.join([x,y]), ['B','EE','VA'])
+> 'BEEVA'
+```
+
+### 5. Style guide (Pep 8)
 
 This section is a summary of offical PEP8 documentation, the examples are from this PEP8. Please for more information visit to official PEP8 web site:
 
 https://www.python.org/dev/peps/pep-0008/#maximum-line-length
 
-#### 4.1. Indentation
+#### 5.1. Indentation
 Use 4 spaces per indentation level.
 
-#### 4.2. Tabs or Spaces?
+#### 5.2. Tabs or Spaces?
 
 Spaces are the preferred indentation method.
 Tabs should be used solely to remain consistent with code that is already indented with tabs.
 As spaces and tabs are allowed python will fail if tabs and spaces are mixed at the same file.
 
-#### 4.3. Maximum Line Length
+#### 5.3. Maximum Line Length
 Limit all lines to a maximum of 79 characters.
 
 ```python
@@ -177,16 +320,16 @@ class Rectangle(Blob):
 
 The maximum of 79 characters was decided when screens where shorters than current ones. Actually some projects decide to increase the num of characters to 99.
 
-#### 4.4. Blank Lines
+#### 5.4. Blank Lines
 Surround top-level function and class definitions with two blank lines.
 Method definitions inside a class are surrounded by a single blank line.
 Extra blank lines may be used (sparingly) to separate groups of related functions. Blank lines may be omitted between a bunch of related one-liners (e.g. a set of dummy implementations).
 Use blank lines in functions, sparingly, to indicate logical sections.
-#### 4.5. Source File Encoding
+#### 5.5. Source File Encoding
 Code in the core Python distribution should always use UTF-8 (or ASCII in Python 2).
 Files using ASCII (in Python 2) or UTF-8 (in Python 3) should not have an encoding declaration.
 
-#### 4.6. Imports
+#### 5.6. Imports
 Imports should usually be on separate lines, e.g.:
 
 Yes:
@@ -212,12 +355,12 @@ related third party imports
 local application/library specific imports
 You should put a blank line between each group of imports.
 
-#### 4.7. String Quotes
+#### 5.7. String Quotes
 In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it. When a string contains single or double quote characters, however, use the other one to avoid backslashes in the string. It improves readability.
 
 For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in PEP 257 .
 
-#### 4.8. Whitespace in Expressions and Statements
+#### 5.8. Whitespace in Expressions and Statements
 Pet Peeves
 Avoid extraneous whitespace in the following situations:
 
@@ -293,7 +436,7 @@ y             = 2
 long_variable = 3
 ```
 
-#### 4.9. Other Recommendations
+#### 5.9. Other Recommendations
 Always surround these binary operators with a single space on either side: assignment ( = ), augmented assignment ( += , -= etc.), comparisons ( == , < , > , != , <> , <= , >= , in , not in , is , is not ), Booleans ( and , or , not ).
 
 If operators with different priorities are used, consider adding whitespace around the operators with the lowest priority(ies). Use your own judgment; however, never use more than one space, and always have the same amount of whitespace on both sides of a binary operator.
@@ -377,16 +520,16 @@ do_one(); do_two(); do_three(long, argument,
 if foo == 'blah': one(); two(); three()
 ```
 
-#### 4.10 Comments
+#### 5.10 Comments
 
 Write your comments in English.
 
-#### 4.10.1 Block Comments
+#### 5.10.1 Block Comments
 Block comments generally apply to some (or all) code that follows them, and are indented to the same level as that code. Each line of a block comment starts with a # and a single space (unless it is indented text inside the comment).
 
 Paragraphs inside a block comment are separated by a line containing a single # .
 
-#### 4.10.2 Inline Comments
+#### 5.10.2 Inline Comments
 Use inline comments sparingly.
 
 An inline comment is a comment on the same line as a statement. Inline comments should be separated by at least two spaces from the statement. They should start with a # and a single space.
@@ -400,7 +543,7 @@ But sometimes, this is useful:
 x = x + 1                 # Compensate for border
 ```
 
-#### 4.10.3 Documentation Strings
+#### 5.10.3 Documentation Strings
 
 Conventions for writing good documentation strings (a.k.a. "docstrings") are immortalized in PEP 257 .
 
@@ -414,22 +557,22 @@ Optional plotz says to frobnicate the bizbaz first.
 """
 For one liner docstrings, please keep the closing """ on the same line.
 
-### 4.11 Version Bookkeeping
+### 5.11 Version Bookkeeping
 
 If you have to have Subversion, CVS, or RCS crud in your source file, do it as follows.
 
 __version__ = "$Revision$"
 These lines should be included after the module's docstring, before any other code, separated by a blank line above and below.
 
-### 4.12 Naming Conventions
+### 5.12 Naming Conventions
 
 The currently recommended naming standards
 
-#### 4.12.1 Overriding Principle
+#### 5.12.1 Overriding Principle
 
 Names that are visible to the user as public parts of the API should follow conventions that reflect usage rather than implementation.
 
-#### 4.12.2 Descriptive: Naming Styles
+#### 5.12.2 Descriptive: Naming Styles
 
 There are a lot of different naming styles. It helps to be able to recognize what naming style is being used, independently from what they are used for.
 
@@ -467,48 +610,48 @@ __double_leading_underscore : when naming a class attribute, invokes name mangli
 
 __double_leading_and_trailing_underscore__ : "magic" objects or attributes that live in user-controlled namespaces. E.g. __init__ , __import__ or __file__ . Never invent such names; only use them as documented.
 
-#### 4.12.3 Prescriptive: Naming Conventions
+#### 5.12.3 Prescriptive: Naming Conventions
 
-##### 4.12.3.1 Names to Avoid
+##### 5.12.3.1 Names to Avoid
 
 Never use the characters 'l' (lowercase letter el), 'O' (uppercase letter oh), or 'I' (uppercase letter eye) as single character variable names.
 
 In some fonts, these characters are indistinguishable from the numerals one and zero. When tempted to use 'l', use 'L' instead.
 
-##### 4.12.3.2 Package and Module Names
+##### 5.12.3.2 Package and Module Names
 
 Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability. Python packages should also have short, all-lowercase names, although the use of underscores is discouraged.
 
 When an extension module written in C or C++ has an accompanying Python module that provides a higher level (e.g. more object oriented) interface, the C/C++ module has a leading underscore (e.g. _socket ).
 
-##### 4.12.3.3 Class Names
+##### 5.12.3.3 Class Names
 Class names should normally use the CapWords convention.
 
 The naming convention for functions may be used instead in cases where the interface is documented and used primarily as a callable.
 
 Note that there is a separate convention for builtin names: most builtin names are single words (or two words run together), with the CapWords convention used only for exception names and builtin constants.
 
-##### 4.12.3.4 Exception Names
+##### 5.12.3.4 Exception Names
 Because exceptions should be classes, the class naming convention applies here. However, you should use the suffix "Error" on your exception names (if the exception actually is an error).
 
-##### 4.12.3.5 Global Variable Names
+##### 5.12.3.5 Global Variable Names
 (Let's hope that these variables are meant for use inside one module only.) The conventions are about the same as those for functions.
 
 Modules that are designed for use via from M import * should use the __all__ mechanism to prevent exporting globals, or use the older convention of prefixing such globals with an underscore (which you might want to do to indicate these globals are "module non-public").
 
-##### 4.12.3.6 Function Names
+##### 5.12.3.6 Function Names
 Function names should be lowercase, with words separated by underscores as necessary to improve readability.
 
 mixedCase is allowed only in contexts where that's already the prevailing style (e.g. threading.py), to retain backwards compatibility.
 
-##### 4.12.3.7 Function and method arguments
+##### 5.12.3.7 Function and method arguments
 Always use self for the first argument to instance methods.
 
 Always use cls for the first argument to class methods.
 
 If a function argument's name clashes with a reserved keyword, it is generally better to append a single trailing underscore rather than use an abbreviation or spelling corruption. Thus class_ is better than clss . (Perhaps better is to avoid such clashes by using a synonym.)
 
-##### 4.12.3.8 Method Names and Instance Variables
+##### 5.12.3.8 Method Names and Instance Variables
 Use the function naming rules: lowercase with words separated by underscores as necessary to improve readability.
 
 Use one leading underscore only for non-public methods and instance variables.
@@ -519,100 +662,74 @@ Python mangles these names with the class name: if class Foo has an attribute na
 
 Note: there is some controversy about the use of __names (see below).
 
-##### 4.12.3.9 Constants
+##### 5.12.3.9 Constants
 Constants are usually defined on a module level and written in all capital letters with underscores separating words. Examples include MAX_OVERFLOW and TOTAL .
 
-### 5. Standard library
 
-The Python Standard Library contains a huge number of very useful modules. It is important that you become familiar with the Python Standard Library since most of your problems can be solved more easily and quickly if you are familiar with this library of modules.
 
-[Documentation for the standard library](//docs.python.org/library/)
+### 6. Comments
 
-[Referencia de la Biblioteca de Python](http://pyspanishdoc.sourceforge.net/lib/lib.html)
+#### 6.1 Code Documentation
 
-Some examples of modules:
+Comments clarify the code and they are added with purpose of making the code easier to understand. In Python, comments begin with a hash (number sign) (#).
 
-Sys module, os module, time module, math module and  string module.
+#### 6.2 Block comments
 
-#### 5.1 The sys module
+Each line of a block comment starts with a # and a single space.
+Paragraphs inside a block comment are separated by a line containing a single #.
 
-The sys module contains system-specific functionality.
+#### 6.3 Avoid comments
 
-Example:
+The main reason to avoid comments is because code use to be updated frecuently but not the comments, so the comments become deprecated and not commented is worse than wronge comments. To compensate the absence of comments programmers must create understandable code using descriptive variables, functions and classes names and simple methods. With that and the docstring must be enough in most of cases.
 
-```python
-...
-if len(sys.argv) < 2:
-    print 'No action specified.'
-    sys.exit()
+[PEP8-comments](https://www.python.org/dev/peps/pep-0008/#comments)
 
-if sys.argv[1].startswith('--'):
-    option = sys.argv[1][2:]
+### 7. Documentation
 
-    if option == 'version':
-        print 'Version 1.00'
-    elif option == 'help':
-        print '''\
-...
-```
-#### 5.2 Os module
+#### 7.1 Docstrings
 
-This module represents operating system specific functionality. This module is especially important if you want to make your programs platform-independent i.e. it should run on Linux as well as Windows without any problems and without requiring changes.
+A docstring is a string literal that occurs as the first statement in a module, function, class, or method definition.
 
-Example: To get the complete path of the current working directory enter.
+[PEP257-docstring Conventions](https://www.python.org/dev/peps/pep-0008/#comments)
+
+Write docstrings for all public modules, functions, classes, and methods. Docstrings are not necessary for non-public methods, but you should have a comment that describes what the method does.
+
+In Python, docstrings describe modules, classes, and functions, this comment should appear after the def line.
 
 ```python
-import os
-os.getcwd()
+def my_function(x):
+    """My documentation string."""
+    ...
 ```
+#### 7.2 Docstring for public APIs
 
-#### 5.3 Time module
-
-The time module exposes C library functions for manipulating dates and times.
-
-Example:
+When we are working on public APIs we must be more accurete with our methods documentation, specilly in python because we don't define types the methods definition. With this idea in mind we must describe not only the funcion but also the input parameters and the output:
 
 ```python
-import time
-
-print 'gmtime   :', time.gmtime()
-print 'localtime:', time.localtime()
-print 'mktime   :', time.mktime(time.localtime())
-
-t = time.localtime()
-print 'Day of month:', t.tm_mday
-print ' Day of week:', t.tm_wday
-print ' Day of year:', t.tm_yday
+def complex(real=0.0, imag=0.0):
+    """Form a complex number.
+    Keyword arguments:
+    real -- the real part (default 0.0)
+    imag -- the imaginary part (default 0.0)
+    """
 ```
 
-#### 5.4 Math module
+#### 7.3 Generate documentation
 
-The math module implements many of the IEEE functions that would normally be found in the native platform C libraries for complex mathematical operations using floating point values, including logarithms and trigonometric operations.
+If we have added docstrings to our python code we are able to generate automatically the documentation for the code. To do that we have some different programs. One of the is the pydoc. This is an example of how to use it generating html files with the documentation:
 
-```python
-import math
-
-print 'π: %.30f' % math.pi
-print 'e: %.30f' % math.e
+```shell
+pydoc -w my_program.py
 ```
 
-#### 5.5 String module
+Also pydoc allow us to create a webserver in which we could browse and the documentation is generated dinamically as we browse:
 
-The string module contains a number of useful constants and classes.
-
-Example:
-
-```python
-import string
-
-s = 'The quick brown fox jumped over the lazy dog.'
-
-print s
-print string.capwords(s)
+```shell
+pydoc -p 9999
 ```
+Then we access to http://localhost:9999 from any browse and we have a site like this:
 
-
-### 6. Importing libraries
+### 8. Importing libraries
 
 The best practice is to just import what you need. 
 So, you do not use ___import *___ if you do not want to hear about the lint.
@@ -623,7 +740,7 @@ Instead, import exactly the modules you really need.
 from datetime import date
 ```
 
-#### 6.1 Libraries path
+#### 8.1 Libraries path
 
 Every time an import is done python look for the libraries at some predefined paths. The paths are checked one by one until the library is found. So if a library is repeated or there are two libraries with the same name it will import the first found. This paths can be shown using this command:
 ```shell
@@ -631,7 +748,7 @@ python -c "import sys; print sys.path"
 ```
 This paths could be changes inside python script during runtime or before executing it using environment variable PYTHONPATH
 
-#### 6.2 Creating a library
+#### 8.2 Creating a library
 Create a library is as simple al leaving the library file on a python path directory or in the path where the binary is being executed. For example
 ```
 |- my_program.py
@@ -657,7 +774,260 @@ In this case, the content of my_program.py wil be this:
 import lib.module1
 ```
 
-### 7. Logging
+### 9. Functions
+
+Functions in Python can be used as part of a script and as part of modules, in a similar fashion as methods of a class as well. In this section their use and possibilities are covered as well as the recommended practices with functions.
+
+#### 9.1. General use of functions
+
+In this section the general properties of functions are covered.
+
+As a quick introduction, the syntax for defining a function in Python is the following one:
+
+```python
+def <functionname>(arg1, arg2,... argN):
+    <statements>
+    <statements>
+```
+
+An example of a simple function would be:
+
+```python
+def hello():
+    print 'hi there!'
+```
+
+While the call to that very same function it is performed as:
+
+```python
+hello()
+hi there!
+```
+
+Functions may or may not have a return statement. Please take into account that when no return statement is defined a None object is returned underneath in order to avoid errors.
+
+##### 9.1.1. Functions as objects
+
+The first thing to take into account in Python in relation to functions is that they are just another type of object. Hence, it is possible to pass a function's object reference to another function in order to perform operations with it.
+
+The following code shows how to obtain the hello function's object reference:
+
+```python
+>>> hello
+<function hello at 0x7f2cd3a25668>
+>>> myref = hello
+>>> myref
+<function hello at 0x7f2cd3a25668>
+```
+
+For example it is possible to define the following function, which computes an operation on a list based on a function passed to it:
+
+```python
+>>> list = [1,2,4,5,7,8]
+>>> list
+[1, 2, 4, 5, 7, 8]
+>>> def plusone(myelem):
+...     return myelem + 1
+...
+>>> def bytwo(myelem):
+...     return myelem * 2
+
+>>> def complexfunc(list, func):
+...     newlist = []
+...     for x in list:
+...         newlist.append(func(x))
+...     return newlist
+...
+>>> complexfunc(list, plusone)
+[2, 3, 5, 6, 8, 9]
+>>> complexfunc(list, bytwo)
+[2, 4, 8, 10, 14, 16]
+```
+
+This approach allows developing functions or frameworks that provide a greater level of abstraction and power. However, the added complexity should be backed up by a relevant need.
+
+
+##### 9.1.2. Function polymorfism
+
+In Python, objects of different types can have the same type of interfaces or protocols implemented, while the operation performed is understood in a different way. For example, the + operation can be applied both to strings and to numbers with a different interpretation, concatenation in the first case and addition in the second:
+
+```python
+>>> 'spam' + 'eggs'
+'spameggs'
+
+>>> 5 + 4
+9
+```
+
+And therefore, a function that does not force its parameters to be of a fixed type, it is a polymorfic function. As it can be seen in the following example, the plus function can operate on different object types:
+
+```python
+>>> def plus(one, two):
+...     return one + two
+...
+>>> plus('spam', 'eggs')
+'spameggs'
+>>> plus(5, 4)
+9
+```
+
+In general, functions developed in Python should take advantage of this property since they become more generic and can be reused in the future without having to worry about the type of objects they receive as parameters. In this way, a function will be able to operate on object types that do not even exist yet. In case one of the objects processed by the function does not support the interfaces or protocols that are required by the function, the function will raise an error to indicate the case.
+
+##### 9.1.3. Scopes
+
+In Python, there are different scopes that a variable name can be under. These are the four possible scopes:
+
+* Python built-in scope.
+* Global scope: File scope or module namespace.
+* Enclosing function scope: Superior functions to the current one, when function nesting is used.
+* Local function scope: The scope of the current function.
+
+Python starts the search from the local scope until the built-in one. This is why some errors do not appear until certain executions of the file, when the function with the error is executed.
+
+As a general rule, it is recommended to minimise global variables in modules, since that makes code difficult to understand and error prone. This is because multiple functions may interact with the same object or variable and it is difficult to follow the evolution of the state of such object.
+
+More importantly, cross file variable modifications should be avoided as well. This is the case when an object within a file is modified by a function within another module or file. Hence, beyond the previous drawback a dependency between files is introduced.
+
+#### 9.2. Lambda functions
+
+The Lambda expression, allows defining and applying an inline function (functions contained in a single line), and they are usually used within another function call. The same line therefore is a function definition and function call.
+
+For example, in the case of the previous complexfunc, instead of passing an existing function, lambda can be used to define one for it:
+
+```python
+# Multiply by 2 instead of passing the by two function reference:
+>>> complexfunc(list, (lambda x: x * 2))
+[2, 4, 8, 10, 14, 16]
+# Identify odd and even numbers:
+>>> complexfunc(list, (lambda x: x % 2 == 0))
+[False, True, True, False, False, True]
+```
+
+As it can be noticed, the function passed to complexfunc is no longer defined one or several lines separated from the call. This allows understanding the call to complexfunc just when read, because no other function's definition needs to be looked for.
+
+As another example, the Spark data processing engine allows developing against its API through Python with pyspark. Spark creates datasets (RDDs) by transforming and or combining other datasets, and requires the developer to pass a function to perform the conversion. Within the same code line it is possible to define the function and to call it as it can bee seen below:
+
+```python
+newrdd = inputrdd.filter(lambda x: x if (x.get('postalcode') != 'SW1A0AA') else None)
+```
+
+The use of lambda functions is recommended since it allows reducing the amount of functions that is used in the code and it improves code readability. However, the use should be done in cases where such function is simple and it is seldomly used for the same operation. In case the previous requirements are not met, a regular function should be created.
+
+
+#### 9.3. Decorators
+
+In Python, decorators are a way of transforming functions or methods. Before their introduction, these operations where performed after the definition itself, which separated these two parts of the functions characteristics, being the effect more notable in the case of large functions or methods:
+
+```python
+def foo(cls):
+    pass
+foo = synchronized(lock)(foo)
+foo = classmethod(foo)
+```
+
+In order to keep all the declaration related parts together, the @ symbol is used prior to the function declaration in order to perform these same operations:
+
+```python
+@classmethod
+@synchronized(lock)
+def foo(cls):
+    pass
+```
+
+Decorators and their motivations are described in [PEP 318](https://www.python.org/dev/peps/pep-0318/), where all the related information can be found. For Python 3, class decorators are also available as described in [PEP 3129](https://www.python.org/dev/peps/pep-3129/).
+
+In general, the use of decorators is recommended in order to improve code readability.
+
+
+### 10. Standard library
+
+The Python Standard Library contains a huge number of very useful modules. It is important that you become familiar with the Python Standard Library since most of your problems can be solved more easily and quickly if you are familiar with this library of modules.
+
+[Documentation for the standard library](//docs.python.org/library/)
+
+[Referencia de la Biblioteca de Python](http://pyspanishdoc.sourceforge.net/lib/lib.html)
+
+Some examples of modules:
+
+Sys module, os module, time module, math module and  string module.
+
+#### 10.1 The sys module
+
+The sys module contains system-specific functionality.
+
+Example:
+
+```python
+...
+if len(sys.argv) < 2:
+    print 'No action specified.'
+    sys.exit()
+
+if sys.argv[1].startswith('--'):
+    option = sys.argv[1][2:]
+
+    if option == 'version':
+        print 'Version 1.00'
+    elif option == 'help':
+        print '''\
+...
+```
+#### 10.2 Os module
+
+This module represents operating system specific functionality. This module is especially important if you want to make your programs platform-independent i.e. it should run on Linux as well as Windows without any problems and without requiring changes.
+
+Example: To get the complete path of the current working directory enter.
+
+```python
+import os
+os.getcwd()
+```
+
+#### 10.3 Time module
+
+The time module exposes C library functions for manipulating dates and times.
+
+Example:
+
+```python
+import time
+
+print 'gmtime   :', time.gmtime()
+print 'localtime:', time.localtime()
+print 'mktime   :', time.mktime(time.localtime())
+
+t = time.localtime()
+print 'Day of month:', t.tm_mday
+print ' Day of week:', t.tm_wday
+print ' Day of year:', t.tm_yday
+```
+
+#### 10.4 Math module
+
+The math module implements many of the IEEE functions that would normally be found in the native platform C libraries for complex mathematical operations using floating point values, including logarithms and trigonometric operations.
+
+```python
+import math
+
+print 'π: %.30f' % math.pi
+print 'e: %.30f' % math.e
+```
+
+#### 10.5 String module
+
+The string module contains a number of useful constants and classes.
+
+Example:
+
+```python
+import string
+
+s = 'The quick brown fox jumped over the lazy dog.'
+
+print s
+print string.capwords(s)
+```
+### 11. Logging
 
 Use logging config files instead of code-logging to avoid make changes into your code every time you want to change some aspect of your logging, whenever your project allows it.
 In addition, config files allow to change in runtime your logging configuration whether you use:
@@ -668,69 +1038,8 @@ logging.config.listen()
 
 
 
-### 8. Comments
 
-#### 8.1 Code Documentation
-
-Comments clarify the code and they are added with purpose of making the code easier to understand. In Python, comments begin with a hash (number sign) (#).
-
-#### 8.2 Block comments
-
-Each line of a block comment starts with a # and a single space.
-Paragraphs inside a block comment are separated by a line containing a single #.
-
-#### 8.3 Avoid comments
-
-The main reason to avoid comments is because code use to be updated frecuently but not the comments, so the comments become deprecated and not commented is worse than wronge comments. To compensate the absence of comments programmers must create understandable code using descriptive variables, functions and classes names and simple methods. With that and the docstring must be enough in most of cases.
-
-[PEP8-comments](https://www.python.org/dev/peps/pep-0008/#comments)
-
-### 9. Documentation
-
-#### 9.1 Docstrings
-
-A docstring is a string literal that occurs as the first statement in a module, function, class, or method definition.
-
-[PEP257-docstring Conventions](https://www.python.org/dev/peps/pep-0008/#comments)
-
-Write docstrings for all public modules, functions, classes, and methods. Docstrings are not necessary for non-public methods, but you should have a comment that describes what the method does.
-
-In Python, docstrings describe modules, classes, and functions, this comment should appear after the def line.
-
-```python
-def my_function(x):
-    """My documentation string."""
-    ...
-```
-#### 9.2 Docstring for public APIs
-
-When we are working on public APIs we must be more accurete with our methods documentation, specilly in python because we don't define types the methods definition. With this idea in mind we must describe not only the funcion but also the input parameters and the output:
-
-```python
-def complex(real=0.0, imag=0.0):
-    """Form a complex number.
-    Keyword arguments:
-    real -- the real part (default 0.0)
-    imag -- the imaginary part (default 0.0)
-    """
-```
-
-#### 9.3 Generate documentation
-
-If we have added docstrings to our python code we are able to generate automatically the documentation for the code. To do that we have some different programs. One of the is the pydoc. This is an example of how to use it generating html files with the documentation:
-
-```shell
-pydoc -w my_program.py
-```
-
-Also pydoc allow us to create a webserver in which we could browse and the documentation is generated dinamically as we browse:
-
-```shell
-pydoc -p 9999
-```
-Then we access to http://localhost:9999 from any browse and we have a site like this:
-
-### 10. String treatment
+### 12. String treatment
 
 Python has a built-in class named ***str*** which substitutes older ***string*** module.
 This class allows us to perform many operations on the right way.
@@ -747,7 +1056,7 @@ with printf C function.
 
 Although regular Python strings are just plain bytes, it manages i18n within its strings by using ***unicode***.
 
-#### 10.1 str methods
+#### 12.1 str methods
 
 Here are some of the most common string methods.
 It is recommended to use them because of performance reasons:
@@ -771,7 +1080,7 @@ It is recommended to use them because of performance reasons:
 
 Python does not have a separate character type. Instead an expression like s[8] returns a string-length-1 containing the character. With that string-length-1, the operators ==, <=, ... all work as you would expect, so mostly you don't need to know that Python does not have a separate scalar "char" type.
 
-#### 10.2 Single, double and triple quoted strings
+#### 12.2 Single, double and triple quoted strings
 
 Use single quoted literals for strings that relate to the functionality of the code itself (eg. dict keys, regular expressions, SQL).
 
@@ -804,7 +1113,7 @@ def cool_method(arg):
 ```
 
 
-#### 10.3 Slice syntax
+#### 12.3 Slice syntax
 
 Python has a printf()-like facility to put together a string. The % operator takes a printf-type format string on the left (%d int, %s string, %f/%g floating point), and the matching values in a tuple on the right (a tuple is made of values separated by commas, typically grouped inside parenthesis):
 
@@ -822,7 +1131,7 @@ The above line is kind of long -- suppose you want to break it into separate lin
       (3, 'huff', 'puff', 'blow down'))
 ```
 
-#### 10.4 Unicode
+#### 12.4 Unicode
 
 Regular Python strings are *not* unicode, they are just plain bytes. To create an unicode string, use the 'u' prefix on the string literal:
 
@@ -847,10 +1156,10 @@ True
 ```
 The built-in print does not work fully with unicode strings. You can encode() first to print in utf-8 or whatever.
 
-### 11. Operators
+### 13. Operators
 This section explains the basics of operators in Python.
 
-#### 11.1. Assignment
+#### 13.1. Assignment
 The assignment in python is made with **=**. It is important to know that the assignment for basic types in python is made by value, but for complex types is made by reference. For example:
 
 Basic type:
@@ -879,11 +1188,11 @@ Complex type:
 [1, 2]
 ```
 
-#### 11.2. Arithmetic operators
+#### 13.2. Arithmetic operators
 
 Python have the basic arithmetic operators like other languages: **+**, **-**, **/**, __*__, **+=**, **-=** ...
 
-#### 11.3.Logic operators
+#### 13.3.Logic operators
 
 Python have the basic logic operators like other languages: **==**, **not**, **is**, **in**, **and**, **or** ...
 
@@ -895,7 +1204,7 @@ Other advise: when comparing an object with **True**, **False** or **None**, the
 
 The operators **and**, **or** are short-circuiting.
 
-#### 11.4. Conditions
+#### 13.4. Conditions
 
 The statement for conditions in python is the following:
 
@@ -973,7 +1282,7 @@ def _function_three():
   # things  
 ```
 
-#### 11.5. Loops
+#### 13.5. Loops
 Python has the **for** and **while** loops like other languages. If you want to iterate a dictionary or a list use the statement **for**, it has a implicit iterator. Example:
 
 ```python
@@ -996,313 +1305,6 @@ To do a loops for x length use statement **for** with function **range** in Pyth
 2
 3
 4
-```
-
-### 12. Functions
-
-Functions in Python can be used as part of a script and as part of modules, in a similar fashion as methods of a class as well. In this section their use and possibilities are covered as well as the recommended practices with functions.
-
-#### 12.1. General use of functions
-
-In this section the general properties of functions are covered.
-
-As a quick introduction, the syntax for defining a function in Python is the following one:
-
-```python
-def <functionname>(arg1, arg2,... argN):
-    <statements>
-    <statements>
-```
-
-An example of a simple function would be:
-
-```python
-def hello():
-    print 'hi there!'
-```
-
-While the call to that very same function it is performed as:
-
-```python
-hello()
-hi there!
-```
-
-Functions may or may not have a return statement. Please take into account that when no return statement is defined a None object is returned underneath in order to avoid errors.
-
-##### 12.1.1. Functions as objects
-
-The first thing to take into account in Python in relation to functions is that they are just another type of object. Hence, it is possible to pass a function's object reference to another function in order to perform operations with it.
-
-The following code shows how to obtain the hello function's object reference:
-
-```python
->>> hello
-<function hello at 0x7f2cd3a25668>
->>> myref = hello
->>> myref
-<function hello at 0x7f2cd3a25668>
-```
-
-For example it is possible to define the following function, which computes an operation on a list based on a function passed to it:
-
-```python
->>> list = [1,2,4,5,7,8]
->>> list
-[1, 2, 4, 5, 7, 8]
->>> def plusone(myelem):
-...     return myelem + 1
-...
->>> def bytwo(myelem):
-...     return myelem * 2
-
->>> def complexfunc(list, func):
-...     newlist = []
-...     for x in list:
-...         newlist.append(func(x))
-...     return newlist
-...
->>> complexfunc(list, plusone)
-[2, 3, 5, 6, 8, 9]
->>> complexfunc(list, bytwo)
-[2, 4, 8, 10, 14, 16]
-```
-
-This approach allows developing functions or frameworks that provide a greater level of abstraction and power. However, the added complexity should be backed up by a relevant need.
-
-
-##### 12.1.2. Function polymorfism
-
-In Python, objects of different types can have the same type of interfaces or protocols implemented, while the operation performed is understood in a different way. For example, the + operation can be applied both to strings and to numbers with a different interpretation, concatenation in the first case and addition in the second:
-
-```python
->>> 'spam' + 'eggs'
-'spameggs'
-
->>> 5 + 4
-9
-```
-
-And therefore, a function that does not force its parameters to be of a fixed type, it is a polymorfic function. As it can be seen in the following example, the plus function can operate on different object types:
-
-```python
->>> def plus(one, two):
-...     return one + two
-...
->>> plus('spam', 'eggs')
-'spameggs'
->>> plus(5, 4)
-9
-```
-
-In general, functions developed in Python should take advantage of this property since they become more generic and can be reused in the future without having to worry about the type of objects they receive as parameters. In this way, a function will be able to operate on object types that do not even exist yet. In case one of the objects processed by the function does not support the interfaces or protocols that are required by the function, the function will raise an error to indicate the case.
-
-##### 12.1.3. Scopes
-
-In Python, there are different scopes that a variable name can be under. These are the four possible scopes:
-
-* Python built-in scope.
-* Global scope: File scope or module namespace.
-* Enclosing function scope: Superior functions to the current one, when function nesting is used.
-* Local function scope: The scope of the current function.
-
-Python starts the search from the local scope until the built-in one. This is why some errors do not appear until certain executions of the file, when the function with the error is executed.
-
-As a general rule, it is recommended to minimise global variables in modules, since that makes code difficult to understand and error prone. This is because multiple functions may interact with the same object or variable and it is difficult to follow the evolution of the state of such object.
-
-More importantly, cross file variable modifications should be avoided as well. This is the case when an object within a file is modified by a function within another module or file. Hence, beyond the previous drawback a dependency between files is introduced.
-
-#### 12.2. Lambda functions
-
-The Lambda expression, allows defining and applying an inline function (functions contained in a single line), and they are usually used within another function call. The same line therefore is a function definition and function call.
-
-For example, in the case of the previous complexfunc, instead of passing an existing function, lambda can be used to define one for it:
-
-```python
-# Multiply by 2 instead of passing the by two function reference:
->>> complexfunc(list, (lambda x: x * 2))
-[2, 4, 8, 10, 14, 16]
-# Identify odd and even numbers:
->>> complexfunc(list, (lambda x: x % 2 == 0))
-[False, True, True, False, False, True]
-```
-
-As it can be noticed, the function passed to complexfunc is no longer defined one or several lines separated from the call. This allows understanding the call to complexfunc just when read, because no other function's definition needs to be looked for.
-
-As another example, the Spark data processing engine allows developing against its API through Python with pyspark. Spark creates datasets (RDDs) by transforming and or combining other datasets, and requires the developer to pass a function to perform the conversion. Within the same code line it is possible to define the function and to call it as it can bee seen below:
-
-```python
-newrdd = inputrdd.filter(lambda x: x if (x.get('postalcode') != 'SW1A0AA') else None)
-```
-
-The use of lambda functions is recommended since it allows reducing the amount of functions that is used in the code and it improves code readability. However, the use should be done in cases where such function is simple and it is seldomly used for the same operation. In case the previous requirements are not met, a regular function should be created.
-
-
-#### 12.3. Decorators
-
-In Python, decorators are a way of transforming functions or methods. Before their introduction, these operations where performed after the definition itself, which separated these two parts of the functions characteristics, being the effect more notable in the case of large functions or methods:
-
-```python
-def foo(cls):
-    pass
-foo = synchronized(lock)(foo)
-foo = classmethod(foo)
-```
-
-In order to keep all the declaration related parts together, the @ symbol is used prior to the function declaration in order to perform these same operations:
-
-```python
-@classmethod
-@synchronized(lock)
-def foo(cls):
-    pass
-```
-
-Decorators and their motivations are described in [PEP 318](https://www.python.org/dev/peps/pep-0318/), where all the related information can be found. For Python 3, class decorators are also available as described in [PEP 3129](https://www.python.org/dev/peps/pep-3129/).
-
-In general, the use of decorators is recommended in order to improve code readability.
-
-
-### 13. Programming paradigms
-
-
-#### 13.1 Structured
-
-Python allow structured programming, in fact it is the most commonly paradigm used in python. Python allows to start coding without declaring any function but it is highly discouraged. Small scritps use to grow without any control or design, so it worth starting with functions. The most commonly starting sentences are this:
-```python
-if __name__ == '__main__':
-    exit(main())
-```
-
-Also it recomended to use as much methods as posible, avoiding "allinone" programas, ans as the program grous create diferente modules to maintain independence between functionalities. This helps to reuse code
-
-### 13.2 Object Oriented
-
-Python support object oriented programming. It worth the effort to design a solution with this paradigm. This paradigm force programmers to maintain modularity with a minimun level of cohesion and coupling.
-
-```python
-class MyClass(object):
-    """My Class do this and this"""
-    def __init__(self):
-        """This is the contructor"""
-        pass
-```
-
-#### 13.3 Functional
-
-For functional programming Python provides lambda expressions, which allow to define functions in the same line we use them, and, to iterate over sequences, it provides list comprehensions and generators, both used over iterators.
-Use them to apply functional coding style to your project.
-
-
-##### 13.3.1 List comprehensions and generators
-
-The main difference between both is that list comprehensions returns a list while generators returns an iterator whose
-items are calculated when needed, so they are not in memory.
-
-A list comprehension or generator expression is equivalent to the following Python code:
-
-```python
-for expr1 in sequence1:
-    if not (condition1):
-        continue   # Skip this element
-    for expr2 in sequence2:
-        if not (condition2):
-            continue    # Skip this element
-        ...
-        for exprN in sequenceN:
-             if not (conditionN):
-                 continue   # Skip this element
-
-             # Output the value of
-             # the expression.
-```
-
-Make sure you use the functional way:
-```python
-[(expr1,expr2) for expr1 in sequence1 for expr2 in sequence2] # List comprehension
-
-#or
-
-((expr1,expr2) for expr1 in sequence1 for expr2 in sequence2) # Generator
-```
-
-###### 13.3.1.1 Yield
-
-Any function containing a yield keyword is a generator function; this is detected by Python’s bytecode compiler which compiles the function specially as a result.
-
-```python
-def generate_ints(N):
-    for i in range(N):
-        yield i
-```
-
-So if we test it
-
-```python
->>> gen = generate_ints(3)
->>> gen
-<generator object generate_ints at ...>
->>> gen.next()
-0
->>> gen.next()
-1
->>> gen.next()
-2
->>> gen.next()
-Traceback (most recent call last):
-  File "stdin", line 1, in ?
-  File "stdin", line 2, in generate_ints
-StopIteration
-```
-
-
-##### 13.3.2 Built-in functions
-
-You can use map and filter (which duplicate list comprehensions features).
-
-So having the upper function:
-```python
-def my_upper(s):
-  return s.upper()
-```
-To apply that function to every item on a sequence,
-
-instead of using the traditional for sentence:
-```python
-result_list = []
-for elem in some_list:
-  result_list.append(s.upper())
-return result_list
-```
-
-You can simplify it with map:
-
-```python
-map(my_upper, ['bee', 'pythonist'])
-> ['BEE', 'PYTHONIST']
-```
-
-Or even more with lambda expression, avoiding my_upper function declaration:
-
-```python
-map(lambda x: x.upper(), ['bee', 'pythonist'])
-> ['BEE', 'PYTHONIST']
-```
-
-In the same way you can use filter to get only the items that fulfill some function logic.
-
-```python
-filter(lambda x: x>3 and x<6, [0,1,2,3,4,5,6])
-> [4,5]
-```
-
-Furthermore the reduce built-in function performs the operation of applying some reducing logic by pairs.
-
-```python
-import operator
-
-reduce(lambda x,y: ''.join([x,y]), ['B','EE','VA'])
-> 'BEEVA'
 ```
 
 
