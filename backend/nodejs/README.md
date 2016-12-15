@@ -6,15 +6,10 @@ At this point we're going to talk about Node.js, we're useing Node.js to develop
 ## Index
 
 * [Introduction](#introduction)
-  * [Challenges](#challenges)
   * [Purpose](#purpose)
-
-* [Best Practices](#best-practices)
+  * [Challenges](#challenges)
 
 * [Frameworks](#frameworks)
-  * [Express](#express)
-  * [Hapi](#hapi)
-  * [Restify](#restify)
   * [Comparative](#comparative)
 
 * [DevOps](#devOps)
@@ -27,20 +22,16 @@ At this point we're going to talk about Node.js, we're useing Node.js to develop
   * [TDD with Sinon and Proxyquire](#tdd-with-sinon-and-proxyquire)
   * [BDD with Cucumber](#bdd-with-cucumber)
   * [Integration Testing with Mocha](#integration-testing-with-mocha)
+  
+* [Best Practices](#best-practices)
+
+* [References](#references)
 
 ## Introduction
 
 Node.js like Python and other languages can be used to develop desktop/console tools or to develop highly scalable network applications.
 **This guide will focus on using Node.js to develop network applications**.
 Since developments are made in Javacript Node.js, we recommend reading the language specific section in this [guide](../../frontend/javascript/README.md).
-
-### Challenges
-
-The two main challenges to be resolved by a developer to program begins with Node.js are:
-
-* Asynchrony: Although there are several ways to manage the async flow as libraries (i.e. [async](https://www.npmjs.com/package/async), [co](https://www.npmjs.com/package/co)), promises ([q](https://www.npmjs.com/package/q), [mpromise](https://www.npmjs.com/package/mpromise), ...) or conventions ([CPS](https://en.wikipedia.org/wiki/Continuation-passing_style)), it should handle them properly and avoid excessive nesting callbacks ([Pyramid of Doom](http://tritarget.org/blog/2012/11/28/the-pyramid-of-doom-a-javascript-style-trap/)) and the excessive reliance on a particular library. A major problem arises when we are trying to follow the execution flow of our code and the error handling. Initially it's difficult to adopt this way of work and can be perceived as a loss of control over it. However, it is a powerful tool that allows us to make better use of resources.
-
-* Duality between Application and Server: When we are working with Node.js, we must understand that it's slightly different from those other familiar languages ​​like Java and PHP,  which for develop web applications usually have the support of Apache or Tomcat or other application servers. Although this is usually shielded by frameworks, we should not forget this part of work, which requires us to delve deeper into DevOps issues as the application log, error handling or profiling application issues ports and performance parameters.
 
 ### Purpose
 
@@ -53,718 +44,24 @@ These areas are:
 
 * Automated Testing with TDD & BDD: We offer a serie of advices in order to implement this testing philosophy in our developments.
 
-## Best Practices
+### Challenges
 
-This brief section it's intended to give some easy and quick tips to rememeber during any Node.js development.
+The two main challenges to be resolved by a developer to program begins with Node.js are:
 
-* Modularize developments as far as possible.
-* Use [Javascript patterns](../../frontend/general/javascript/patterns) as possible.
-* Strict mode, please. With this flag you can opt in to use a restricted variant of JavaScript. It eliminates some silent errors and will throw them all the time.
-* Use tools for Static code analysis. Use either JSLint, JSHint or ESLint. Static code analysis can catch a lot of potential problems with your code early on.
-* No eval, or friends. Eval is not the only one you should avoid, in the background each one of the following expressions use eval: setInterval(String, 2), setTimeout(String, 2) and new Function(String). But why should you avoid eval? It can open up your code for injections attacks and is slow (as it will run the interpreter/compiler).
-* Use a framework that helps us to structure the project.
-* Don't use deprecated versions of Express (for example 2.x and 3.x are no longer maintained). Security and performance issues in these versions won’t be fixed.
-* Complete your developments with automated testing.
-* Always use a CVS like GIT, SVN, and follow its best practices like GitFlow, Trunk, Branching,...
+* Asynchrony: Although there are several ways to manage the async flow as libraries (i.e. [async](https://www.npmjs.com/package/async), [co](https://www.npmjs.com/package/co)), promises ([q](https://www.npmjs.com/package/q), [mpromise](https://www.npmjs.com/package/mpromise), ...) or conventions ([CPS](https://en.wikipedia.org/wiki/Continuation-passing_style)), it should handle them properly and avoid excessive nesting callbacks ([Pyramid of Doom](http://tritarget.org/blog/2012/11/28/the-pyramid-of-doom-a-javascript-style-trap/)) and the excessive reliance on a particular library. A major problem arises when we are trying to follow the execution flow of our code and the error handling. Initially it's difficult to adopt this way of work and can be perceived as a loss of control over it. However, it is a powerful tool that allows us to make better use of resources.
 
-* Avoid using console.log() in your code.
-* Using configuration files against variables for ports, ips of other machines, ...
-* Implement differente logs for application and for Node.js.
-* Use ES6 new features i.e. arrow function, to make the Scope safety and your code more concise and clarity. Check the examples in the Javascript section of this guide: [Arrow Functions](https://github.com/beeva/beeva-best-practices/tree/master/frontend/general/javascript/es6#arrow_functions).
-* Use domains facing try-catch blocks for error handling.
-* In public servers add a safety middleware as [helmet](https://www.npmjs.com/package/helmet) or [lusca](https://www.npmjs.com/package/lusca).
-
-* Include and maintain [package.json](https://docs.npmjs.com/files/package.json) file with the version number (using *$npm init*).
-* Mark the package as private: true to its release.
-* For production applications control the version number of our units (according to criticity of the project set to minor or patch).
-* Define and test entry points in the distribution file [package.json](https://docs.npmjs.com/files/package.json#scripts).
-* Use *DevDependencies* and *Dependencies* sections of [package.json](https://docs.npmjs.com/files/package.json#dependencies).
-* Use [retire](https://www.npmjs.com/package/retire) to verify outdated or unsafe dependencies.
-* Do not install units in our global development environment.
-* Before deployments delete the *node_modules* folder and check file dependencies [package.json](https://docs.npmjs.com/files/package.json).
-
-* Use tools like [PM2](https://www.npmjs.com/package/pm2) or [forever](https://www.npmjs.com/package/forever) as a tool for application restart.
-
-* [Use LTS versions of Node.js for Production](https://nodejs.org/en/blog/community/node-v5/), since 4.2.* all even versions are *LTS* and odd like 5.3.* are *Stable with latest features*.
-* Install node and npm interperters localy through [NVN](https://github.com/creationix/nvm) without using sudo.
-* Clear the local cache after each update NPM version: *$npm cache clean*
-
-Another interesting point thinking on how web applications should be written it's follow [The Twelve-Factor application manifesto](http://12factor.net/).
-
-* One codebase tracked in revision control, many deploys.
-* Explicitly declare and isolate dependencies.
-* Store config in the environment.
-* Treat backing services as attached resources.
-* Strictly separate build and run stages.
-* Execute the app as one or more stateless processes.
-* Export services via port binding.
-* Scale out via the process model.
-* Maximize robustness with fast startup and graceful shutdown.
-* Keep development, staging, and production as similar as possible.
-* Treat logs as event streams.
-* Run admin/management tasks as one-off processes.
+* Duality between Application and Server: When we are working with Node.js, we must understand that it's slightly different from those other familiar languages ​​like Java and PHP,  which for develop web applications usually have the support of Apache or Tomcat or other application servers. Although this is usually shielded by frameworks, we should not forget this part of work, which requires us to delve deeper into DevOps issues as the application log, error handling or profiling application issues ports and performance parameters.
 
 ## Frameworks
 
-In this section we're going to talk about three main frameworks that we are using on productive projects. Some of them are in microservices environments, RESTful APIs and web servers.
-Finally we offer a comparative in order to help to choose a tool for future projects with Node.js.
-
 The node frameworks are layers on the top of http and use Middleware plugins to interact with the requests and responses.
-Middlewares are a powerful yet simple concept: the output of one unit/function is the input for the next.
+Middlewares are a powerful yet simple concept: the output of one unit/function is the input for the next. In this section we're going to talk about three main frameworks that we are using on productive projects. Some of them are in microservices environments, RESTful APIs and web servers. Finally we offer a comparative in order to help to choose a tool for future projects with Node.js.
 
-At this point we're going to describe three popular node frameworks but there [are many others out there](https://www.devsaran.com/blog/10-best-nodejs-frameworks-developers).
+The frameworks described at this guide are hosted in separated files:
 
-### Express
-
-![alt text](static/express.png "Express")
-
-Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. With a myriad of HTTP utility methods and middleware at your disposal, creating a robust API is quick and easy.
-
-Express provides a thin layer of fundamental web application features.
-
-#### Application structure
-
-One of the strengths of Express is the community and large number of application examples and proposals it has published on its [repository](https://github.com/strongloop/express/tree/master/examples).
-
-Anyway one of the profits its the flexibility to divide the logic of our app.
-
-##### Main file: src/index.js
-
-```javascript
-import express  from 'express'
-import api_v1 from './controllers/api_v1'
-import api_v2 from './controllers/api_v2'
-
-export const app = express();
-
-app.use('/api/v1', api_v1);
-app.use('/api/v2', api_v2);
-
-app.get('/', (req, res) => {
-  res.send('Hello form root route.');
-});
-
-/* istanbul ignore next */
-if (!module.parent) {
-  app.listen(3000);
-  console.log('Express started on port 3000');
-
-```
-
-##### A controller foreach version related with the endpoint i.e. src/controller/api_v1.js & src/controller/api_v2.js  
-
-```javascript
-import express from '../../..'
-
-const apiv1 = express.Router();
-
-apiv1.get('/', (req, res) => {
-  res.send('Hello from APIv1 root route.');
-});
-
-apiv1.get('/users', (req, res) => {
-  res.send('List of APIv1 users.');
-});
-
-export = apiv1;
-```
-
-```javascript
-...
-// Another different implementation
-apiv2.get('/', (req, res) => {
-  res.send('Hello from APIv2 root route.');
-});
-...
-
-```
-
-#### Security Best Practices
-
-All these techniques are summarized and extracted from the creators of Express, check references for more detail.
-
-* Don’t use deprecated or vulnerable versions of Express.
-* Use TLS. If your app deals with or transmits sensitive data, use Transport Layer Security (TLS) to secure the connection and the data.
-* Use security middleware as [helmet](#helmet) or [lusca](#lusca) and at a minimum, disable X-Powered-By header.
-* Use cookies securely. To ensure cookies don’t open your app to exploits, don’t use the default session cookie name and set cookie security options appropriately.
-* Ensure your dependencies are secure with [nsp](https://www.npmjs.com/package/nsp) or [requireSafe](https://www.npmjs.com/package/requiresafe).
-* Implement rate-limiting to prevent brute-force attacks against authentication. You can use middleware such as express-limiter, but doing so will require you to modify your code somewhat.
-* Use csurf middleware to protect against cross-site request forgery (CSRF).
-* Always filter and sanitize user input to protect against cross-site scripting (XSS) and command injection attacks.
-* Defend against SQL injection attacks by using parameterized queries or prepared statements.
-* Use the open-source sqlmap tool to detect SQL injection vulnerabilities in your app.
-* Use the nmap and sslyze tools to test the configuration of your SSL ciphers, keys, and renegotiation as well as the validity of your certificate.
-* Use safe-regex to ensure your regular expressions are not susceptible to regular expression denial of service attacks.
-* Revise the Node.js security [checklist](https://blog.risingstack.com/node-js-security-checklist).
-
-#### Performance Best Practices
-
-* Use gzip compression
-* Don’t use synchronous functions
-* Use middleware to serve static files
-* Do logging correctly
-* Handle exceptions properly:
-
-Try-catch is a JavaScript language construct that you can use to catch exceptions in synchronous code. Use try-catch, for example, to handle JSON parsing errors as shown below.
-
-```javascript
-app.get('/search', (req, res) => {
-  // Simulating async operation
-  setImmediate(() => {
-    const jsonStr = req.query.params;
-    try {
-      res.send(JSON.parse(jsonStr););
-    } catch (e) {
-      res.status(400).send('Invalid JSON string');
-    }
-  })
-});
-```
-
-* Use promises
-
-Promises will handle any exceptions (both explicit and implicit) in asynchronous code blocks that use then(). Just add .catch(next) to the end of promise chains. For example:
-
-```javascript
- // Now all errors asynchronous and synchronous get propagated to the error middleware.
-app.get('/', (req, res, next) => {
-  // do some sync stuff
-  queryDb()
-    .then((data) => {
-      // handle data
-      return makeCsv(data)
-    })
-    .then((csv) => {
-      // handle csv
-    })
-    .catch(next)
-})
-
-app.use((err, req, res, next) => {
-  // handle error
-})
-```
-
-### Hapi
-
-![alt text](static/hapi.png "Hapi")
-
-Hapi is a rich framework for building applications and services that allows developers to focus on writing reusable application logic instead of spending time building infrastructure.
-
-Hapi's extensive plugin system allows us to quickly build, extend, and compose brand-specific features on top of its rock-solid architecture.
-
-Here is a basic example in **Hapi** to launch an application and to open *http://localhost:8000/hello* in your browser:
-
-```javascript
-'use strict';
-
-import Hapi from 'hapi ';
-
-// Create a server with a host and port
-const server = new Hapi.Server();
-server.connection({
-  host: 'localhost',
-  port: 8000
-});
-
-// Add the route
-server.route({
-  method: 'GET',
-  path:'/hello',
-  handler: (request, reply) => reply('hello world');
-});
-
-// Start the server
-server.start(() => {
-  console.log('Server running at:', server.info.uri);
-});
-```
-
-As we mentioned sooner, the Hapi's great power are the plugins. Hapi has an extensive and powerful plugin system that allows you to very easily break your application up into isolated pieces of business logic, and reusable utilities.'use strict';
-
-There are a lot of plugins in the community but we can write our own plugin so easy. A very simple plugin looks like:
-
-```javascript
-exports.register = (server, options, next) => {
-  // Code
-  // ...
-
-  next();
-};
-
-exports.register.attributes = {
-  name: 'my-plugin',
-  version: '1.0.0'
-};
-```
-
-The **options** parameter is the custom configuration when you use the plugin. The **next** is a method to be called when the plugin has completed the steps to be registred. And the **server** object is a reference to the *server* your plugin is being loaded in.
-
-Additionally, the **attributes** is an object to provide some additional information about the plugin, as name or version.
-
-If we want to use a plugin, first at all we need register it in the server. For example:
-
-```javascript
-// load one plugin
-server.register(
-  {
-    register: require('myplugin'),
-    options: {
-      key: 'value'
-    },
-  },
-  (err) => {
-    if (err) {
-    console.error('Failed to load plugin:', err);
-    }
-  }
-);
-
-// load multiple plugins
-server.register(
-  [
-    {
-      register: require('myplugin'),
-      options: {}
-    },
-    {
-      register: require('yourplugin')
-    }
-  ],
-  (err) => {
-    if (err) {
-      console.error('Failed to load a plugin:', err);
-    }
-  }
-);
-```
-
-#### Application structure
-
-To create a new API server with **Hapi** we can use the following structure:
-
-```
-+ server
-| |
-| + api
-| | |
-| | + my-endpoints
-| |   |- my-endpoints.contoller.js
-| |   |- index.js
-| |
-| + plugins
-| | |- my-plugin.js
-| |
-| + config
-| | |
-| | + environment
-| |   |- index.js
-| |   |- development.js
-| |   |- production.js
-| |   |- other-environment.js
-| |
-| |- app.js
-| |- routes.js
-|
-|- package.json
-```
-
-The **app.js** file is the main file of the application. We start the server here and configure all the plugins.
-
-```javascript
-import Hapi from 'hapi';
-import config from './config/environment';
-
-// Create a server with a host and port
-const server = new Hapi.Server();
-server.connection({ host: config.ip,  port: config.port , routes: { cors: true }});
-
-// Register the server and start the application
-server.register([
-    {
-      register: require('./routes') // config routes in external file
-    },
-    {
-      register: require('hapi-mongodb'),
-      options: {url: config.mongo.url}
-    }
-  ],
-  {
-    routes: {
-      prefix: config.routes.prefix // prefix for all the api routes
-    }
-  },
-  (err) => {
-    if (err) throw err;
-
-    server.start(() => {
-      console.log('Server running at', server.info.uri);
-    })
-  }
-);
-```
-
-In the **routes.js** file is configured all routes of the services. We define the routes as a plugin:
-
-```javascript
-/**
- * Main application routes
- */
-
-'use strict';
-
-exports.register = (server, options, next) => {
-  import myEndPoints from './api/my-endpoints';
-  myEndPoints(server);
-
-  next();
-};
-exports.register.attributes = {
-  name: 'my-routes',
-  version: '0.1.0'
-};
-```
-
-In **config/environment** we put the external configuration of the application by enviroments. The **plugins** folder contains all the custom plugins that we need: routes, scheduler, utils... And finally, in **api** folder there is all the endpoints/services of the application. Each set of endpoints is a individual folder with the *index.js* and the *controller.js*.
-
-**index.js**
-```javascript
-'use strict';
-
-import Assets from './assets.controller';
-
-module.exports = (server) => {
-  server.route({
-    method: 'GET',
-    path: '/assets',
-    handler: (request, reply, next) => {
-      Assets.getAssetsByAttributes(request, reply, next);
-    }
-  });
-
-  server.route({
-    method: 'POST',
-    path: '/assets',
-    handler: (request, reply, next) => {
-      Assets.create(request, reply, next);
-    }
-  });
-
-  server.route({
-    method: 'PUT',
-    path: '/assets/{key}',
-    handler: (request, reply, next) => {
-      Assets.modify(request, reply, next);
-    }
-  });
-
-  server.route({
-    method: 'DELETE',
-    path: '/assets/{key}',
-    handler: (request, reply, next) => {
-      Assets.remove(request, reply, next);
-    }
-  });
-}
-```
-
-**controller.js**
-```javascript
-'use strict';
-
-export const getAssetsByAttributes = (req, res, next) => res([]).code(200);
-
-export const create = (req, res, next) => res({}).code(201);
-
-export const modify = (req, res, next) => res({}).code(200);
-
-export const remove = (req, res, next) => res({}).code(200);
-```
-
-#### Plugins
-
-There is a large set of plugins for Hapi, with which we can perform simple and configurable way a number of standard tasks. We will list the best known and used by the community and its primary mission:
-
-**Authentication**
-
-- Third-party login: [bell](https://github.com/hapijs/bell)
-- JSON Web Token (JWT): [hapi-auth-jwt](https://github.com/ryanfitz/hapi-auth-jwt)
-- Custom authentication: [hapi-auth-hawk](https://github.com/hapijs/hapi-auth-hawk)
-
-**API documentation**
-
-- Swagger: [hapi-swagger](https://github.com/glennjones/hapi-swagger)
-
-**Logging**
-
-- Multiple outputs: [good](https://github.com/hapijs/good)
-- Health server: [hapi-alive](https://github.com/idosh/hapi-alive)
-- Process dump and cleaning up: [poop](https://github.com/hapijs/poop)
-
-**Templating**
-
-- JSON view engine: [hapi-json-view](https://github.com/gergoerdosi/nesive-hapi-json-view)
-
-**Utilities**
-
-- Socket: [hapi-io](https://github.com/sibartlett/hapi-io)
-- Routes loader: [hapi-router](https://github.com/bsiddiqui/hapi-router)
-
-**Validation**
-
-- Request parameters validation: [ratify](https://github.com/mac-/ratify)
-
-**Other modules (no plugins)**
-
-- HTTP-friendly errors: [boom](https://github.com/hapijs/boom)
-- General purpose utilities: [hoek](https://github.com/hapijs/hoek)
-- Schema description and validator: [joi](https://github.com/hapijs/joi)
-- Testing utility with code coverage: [lab](https://github.com/hapijs/lab)
-- Multi-strategy object caching: [catbox](https://github.com/hapijs/catbox)
-
-#### API
-
-Hapi has a fairly extensive [API](http://hapijs.com/api), that we can refer to develop new functionality on the applications.
-
-The API is divided in four blocks:
-
-* Server
-* Request
-* Response
-* Plugins
-
-### Restify
-
-![alt text](static/restify.png "Restify")
-
-Restify is a light framework similar to Express and very easy for building REST APIs. This is the easy way to create a REST API application:
-
-``` javascript
-import restify from 'restify';
-const server = restify.createServer();
-
-server.get('/hello/:name', (req, res, next) => {
-	res.send('hello ' + req.params.name);
-});
-
-server.listen(3000, () => {
-	console.log('Listening on port 3000');
-});
-```
-
-#### Application Structure
-
-This is one of desired structure for restify server application:
-
-```
-my-application/
-	config.json # logging, repository and server properties file
-	package.json # npm metadata and dependency info for application
-	server.js # starting and stopping server functions file
-	static-server.js # functions for listen connections to server
-	bin/
-		www # server starting function called from npm start
-	node_modules/ # my-application dependencies
-		restify/ # npm imported dependency for restify server
-```
-##### config.json
-
-```javascript
-{
-	"name": "my-application", //server application context
-	"urlResponse": "http://localhost", //server hostname
-	"port": 3000, //server port
-	"version": "0.0.1", //application module version
-	"apiversion": "v1", //current api version
-	"store": {
-		//respository properties
-	},
-	"log": {
-		//logging properties
-	}
-}
-```
-
-##### package.json
-
-```javascript
-{
-  "name": "my-application", //application name
-  "version": "0.0.1", //application module version
-  "description": "my-application description.",
-  "authors": [
-	//application development team
-  ],
-  "keywords": [
-	"npm"
-  ],
-  "license": "ISC",
-  "dependencies": {
-	"restify": "latest"
-	//other application dependencies
-  },
-  "devDependencies": {
- 	//development addtional dependencies
-  },
-  "engines": {
-	"node": ">= latest" //node version
-  },
-  "scripts": {
-	"test": "./node_modules/.bin/mocha --reporter spec --ui tdd ", //
-	"start": "node bin/www" //
-  },
-  "repository": {
-    //git repository connection properties
-  }
-}
-```
-
-##### server.js
-
-1. Import 'restify', 'q' dependencies and 'static-server.js', '/lib/log/logger.js' user files.
-2. Start function.
-3. Restify's createServer function invocation.
-4. Launch server database repository.
-5. Set restify server functions like CORS filters, Oauth settings, parsers, etc...
-6. Launch server listener for catching requests.
-7. Stop function.
-
-```javascript
-import restify from 'restify'; //1
-import Q from 'q';
-import static_server from './static-server';
-import extend from 'extend';
-import logger from './lib/log/logger';
-
-module.exports = (() => {
-	let listener = null, store = null;
-
-	process.on("error", () => {
-		logger.error(arguments);
-	});
-
-	return {
-		start: (config) => {//2
-			const deferred = Q.defer();
-			logger.init(config.log);
-			const server = restify.createServer({//3
-				name: config.name,
-				version: require('./package.json').version
-			});
-			server.on('uncaughtException', (req, res, route, err) => {
-				logger.error(err.message, {
-					event: 'uncaughtException'
-				});
-				res.send(500, {
-					handler: err
-				});
-			});
-			store = require('./lib/store')(config);
-			store.init().then((storage) => {//4
-				config.storage = storage;
-				logger.info("Storage initialized");
-				server.use(restify.CORS());//5
-				server.use(restify.acceptParser(server.acceptable));
-				server.use(restify.queryParser());
-				server.use(restify.fullResponse());
-				server.use(restify.authorizationParser());
-				server.use((req, res, next) => {
-					req.rawBody = '';
-					req.setEncoding('utf8');
-					req.on('data', (chunk) => {
-						req.rawBody += chunk;
-						req.body = JSON.parse(req.rawBody);
-					});
-					req.on('end', () => {
-						next();
-					});
-				});
-				server.use((req, res, next) => {
-					logger.info(req.method + ' - ' + req.url, req);
-					next();
-				});
-				require('./lib/api')(server, config);
-				listener = server.listen(config.port || 3000, () => {//6
-					let static_config = extend(true, {}, config);
-					static_config.port = (static_config.port + 5) || 3005;
-					static_server.start(static_config).then((data) => {
-						logger.info("Server " + server.name + " started, listening on " + config.port);
-						deferred.resolve({
-							name: server.name,
-							url: server.url
-						});
-					});
-				});
-			}).fail((error) => {
-				logger.error('Failure to start storage');
-				deferred.reject(error);
-			});
-			return deferred.promise;
-		},
-		stop: () => {//7
-			if (listener) {
-				logger.info("Stopping service", {
-					file: __filename
-				});
-				listener.close();
-				static_server.stop();
-				store.close();
-				listener = null;
-				store = null;
-			}
-		}
-	};
-})();
-```
-
-##### static-server.js
-
-This file it's recommended for creating listener to server.
-
-```javascript
-import restify from 'restify';
-import Q from 'q';
-
-module.exports = (() => {
-	var listener = null;
-
-	return {
-		start: (config) => {
-			const deferred = Q.defer();
-			config = config || {};
-			config.port = config.port || 3005;
-			const server = restify.createServer();
-			listener = server.listen(config.port, () => {
-				deferred.resolve(config);
-			});
-			return deferred.promise;
-		},
-		stop: () => {
-			if (listener) {
-				listener.close();
-			}
-		}
-	};
-})();
-```
-
-##### bin/www
-
-This file it's recommended for starting application server.
-
-```javascript
-  import server from '../server');
-	import config from '../config.json');
-	import logger from '../lib/log/logger');
-
-server.start(config).then((server) => {
-		logger.info('%s listening at %s', server.name, server.url);
-	}).fail((err) => {
-		console.error(err);
-		process.exit(1);
-	}
-);
-```
+  * [Express](./expressjs.md)
+  * [Hapi](./hapijs.md)
+  * [Restify](./restify.md)
 
 ### Comparative
 
@@ -1910,7 +1207,58 @@ it('Should fail validate', function (done) {
 
 You can get more information about Mocha and Chai in detail from both [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com/)
 
-### References
+## Best Practices
+
+This brief section it's intended to give some easy and quick tips to rememeber during any Node.js development.
+
+* Modularize developments as far as possible.
+* Use [Javascript patterns](../../frontend/general/javascript/patterns) as possible.
+* Strict mode, please. With this flag you can opt in to use a restricted variant of JavaScript. It eliminates some silent errors and will throw them all the time.
+* Use tools for Static code analysis. Use either JSLint, JSHint or ESLint. Static code analysis can catch a lot of potential problems with your code early on.
+* No eval, or friends. Eval is not the only one you should avoid, in the background each one of the following expressions use eval: setInterval(String, 2), setTimeout(String, 2) and new Function(String). But why should you avoid eval? It can open up your code for injections attacks and is slow (as it will run the interpreter/compiler).
+* Use a framework that helps us to structure the project.
+* Don't use deprecated versions of Express (for example 2.x and 3.x are no longer maintained). Security and performance issues in these versions won’t be fixed.
+* Complete your developments with automated testing.
+* Always use a CVS like GIT, SVN, and follow its best practices like GitFlow, Trunk, Branching,...
+
+* Avoid using console.log() in your code.
+* Using configuration files against variables for ports, ips of other machines, ...
+* Implement differente logs for application and for Node.js.
+* Use ES6 new features i.e. arrow function, to make the Scope safety and your code more concise and clarity. Check the examples in the Javascript section of this guide: [Arrow Functions](https://github.com/beeva/beeva-best-practices/tree/master/frontend/general/javascript/es6#arrow_functions).
+* Use domains facing try-catch blocks for error handling.
+* In public servers add a safety middleware as [helmet](https://www.npmjs.com/package/helmet) or [lusca](https://www.npmjs.com/package/lusca).
+
+* Include and maintain [package.json](https://docs.npmjs.com/files/package.json) file with the version number (using *$npm init*).
+* Mark the package as private: true to its release.
+* For production applications control the version number of our units (according to criticity of the project set to minor or patch).
+* Define and test entry points in the distribution file [package.json](https://docs.npmjs.com/files/package.json#scripts).
+* Use *DevDependencies* and *Dependencies* sections of [package.json](https://docs.npmjs.com/files/package.json#dependencies).
+* Use [retire](https://www.npmjs.com/package/retire) to verify outdated or unsafe dependencies.
+* Do not install units in our global development environment.
+* Before deployments delete the *node_modules* folder and check file dependencies [package.json](https://docs.npmjs.com/files/package.json).
+
+* Use tools like [PM2](https://www.npmjs.com/package/pm2) or [forever](https://www.npmjs.com/package/forever) as a tool for application restart.
+
+* [Use LTS versions of Node.js for Production](https://nodejs.org/en/blog/community/node-v5/), since 4.2.* all even versions are *LTS* and odd like 5.3.* are *Stable with latest features*.
+* Install node and npm interperters localy through [NVN](https://github.com/creationix/nvm) without using sudo.
+* Clear the local cache after each update NPM version: *$npm cache clean*
+
+Another interesting point thinking on how web applications should be written it's follow [The Twelve-Factor application manifesto](http://12factor.net/).
+
+* One codebase tracked in revision control, many deploys.
+* Explicitly declare and isolate dependencies.
+* Store config in the environment.
+* Treat backing services as attached resources.
+* Strictly separate build and run stages.
+* Execute the app as one or more stateless processes.
+* Export services via port binding.
+* Scale out via the process model.
+* Maximize robustness with fast startup and graceful shutdown.
+* Keep development, staging, and production as similar as possible.
+* Treat logs as event streams.
+* Run admin/management tasks as one-off processes.
+
+## References
 
 Node.js and Best Practices
 * [Node.js Oficial WebSite](http://www.nodejs.org)
