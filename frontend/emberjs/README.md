@@ -48,6 +48,12 @@ Always use `Ember.computed.readOnly` when you don't need to set the property.
 
 ---
 
+Use `Ember.computed.oneWay` instead of `Ember.computed.alias` unless there is a
+specific reason for propagating changes back to the source. If you change this
+property, it will diverge from the original one.
+
+---
+
 Use ES6 object destructuring for commonly used helpers, i.e.
 
 ```javascript
