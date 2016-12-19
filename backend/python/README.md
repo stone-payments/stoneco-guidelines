@@ -31,7 +31,8 @@ The following contents table provides an index of the contents covered in this g
 * [21. Application packaging and distribution](#21-application-packaging-and-distribution)
 * [22. Development Environments (IDEs)](#22-development-environments-ides)
 * [23. Library and virtual environment management](#23-library-and-virtual-environment-management)
-* [24. References](#24-references)
+* [24. Future Improvments](#24-future-improvements)
+* [25. References](#24-references)
 
 
 ### 1. Introduction
@@ -2124,7 +2125,23 @@ Of course virtualenv has several options, as you can see in the documentation:
 
 <http://virtualenv.readthedocs.org/en/latest/index.html>
 
-### 24. References
+### 24. Future Improvements
+
+* Python installation
+* More logging library information
+* Classes usage
+** Class variables
+** Public methods
+** Private methods
+** Descriptors usage( https://docs.python.org/2/howto/descriptor.html )
+** Heritance
+* More aboute argparse
+* Search duplicated code
+* Black box tests
+* Find dead code
+
+
+### 25. References
 
 The following is the reference list used during the development of this best practices guide. Please follow the links in order to obtain further information regarding Python programming and best practices:
 
