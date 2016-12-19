@@ -7,7 +7,7 @@
 * [The Ember Way](#the-ember-way)
 * [Templates](#templates)
 * [Order of Declaration](#order-of-declaration)
-
+* [Resources](#resources)
 
 ## The Ember Way
 
