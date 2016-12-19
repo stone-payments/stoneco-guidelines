@@ -23,13 +23,14 @@ The following contents table provides an index of the contents covered in this g
 * [13. Operators](#13-operators)
 * [14. Exceptions](#14-exceptions)
 * [15. Input Output](#15-input-output)
-* [16. Configuration files](#16-configuration-files)
-* [17. Testing](#17-testing)
-* [18. Project structure](#18-project-structure)
-* [19. Application packaging and distribution](#19-application-packaging-and-distribution)
-* [20. Development Environments (IDEs)](#10-development-environments-ides)
-* [21. Library and virtual environment management](#21-library-and-virtual-environment-management)
-* [22. References](#22-references)
+* [16. Command line interface parameters](#16-command-line-interface-parameters)
+* [17. Configuration files](#17-configuration-files)
+* [18. Testing](#18-testing)
+* [19. Project structure](#19-project-structure)
+* [20. Application packaging and distribution](#20-application-packaging-and-distribution)
+* [21. Development Environments (IDEs)](#21-development-environments-ides)
+* [22. Library and virtual environment management](#22-library-and-virtual-environment-management)
+* [23. References](#23-references)
 
 
 ### 1. Introduction
@@ -846,7 +847,6 @@ For example it is possible to define the following function, which computes an o
 
 This approach allows developing functions or frameworks that provide a greater level of abstraction and power. However, the added complexity should be backed up by a relevant need.
 
-
 ##### 9.1.2. Function polymorfism
 
 In Python, objects of different types can have the same type of interfaces or protocols implemented, while the operation performed is understood in a different way. For example, the + operation can be applied both to strings and to numbers with a different interpretation, concatenation in the first case and addition in the second:
@@ -1484,7 +1484,38 @@ When finished the use of the file, the programmer must close it to unlock the re
 file.close()
 ```
 
-### 16. Configuration files
+### 16. Command line interface parameters
+For input parameters parse it is recommended to user a library that allows as an easy parsing with minimun effort. There are some libraries to do this but argparse is recomended.
+#### 16.1 argparse
+Argparse is recommended because it provides us diferente number of tools and parsing options:
+* Include help for each parameter
+* Define parameters type
+* Define default parameters
+* Define if a parameter is or not required
+* Define posible values of a parameter
+* Add more than one value to a parameter
+* Add automatic actions to the parameters
+
+#### 16.2 Examples
+
+```python
+parser = argparse.ArgumentParser(description='Program description')
+parser.add_argument('-f','--foo', help='Argument description', required=True)
+parser.add_argument("-o", "--outputdir", type=str,
+                    help="Workspace to download the repositories",
+                    default=os.path.join(os.getcwd(), "download_dir"), required=False)
+parser.add_argument("-e", "--environment", required=True, type=str,
+                    choices=["pro", "pre", "lab", "tec"], help="Environment")
+parser.add_argument("-a", "--execution-list", type=str, required=False, nargs="+",
+                    help="Overwrite the execution list from release file")
+                    args = vars(parser.parse_args())
+parser.add_argument("-v", "--verbose", action="store_true", default=False,
+                        help="Ansible verbose"
+```
+[Argparse](https://docs.python.org/2/howto/argparse.html)
+
+
+### 17. Configuration files
 
 Use the ConfigParser module to manage user-editable configuration files for an application. The configuration files are organized into sections, and each section can contain name-value pairs for configuration data.
 
@@ -1564,7 +1595,7 @@ parser.set('section_A', 'name', 'Miguel')
 parser.write(sys.stdout)
 ```
 
-#### 16.2 YAML
+#### 17.2 YAML
 
 YAML is a configuration file format
 
@@ -1611,12 +1642,12 @@ mysql
  'use_anonymous': True}
 ```
 
-### 17. Testing
-#### 17.1. Tests
+### 18. Testing
+#### 18.1. Tests
 
 Python has in their core the package **unittest**, this package has the basic class **TestCase** to create your test with their function to initted the test and finished. This class have a lot of different assert to do your test, use theirs.
 
-#### 17.2. Utils
+#### 18.2. Utils
 
 Coverage is a external package that is recommended to verify the coverage of your code. It is easy to use:
 
@@ -1628,7 +1659,7 @@ Coverage is a external package that is recommended to verify the coverage of you
 
 ```coverage html```  
 
-#### 17.3. Mocks
+#### 18.3. Mocks
 
 Tests should be isolated. Don't interact with a real database or network. Use a separate test database that gets torn down or use mock objects.
 
@@ -1640,7 +1671,7 @@ Because too many mocks can complicate a test, making it harder for you to track 
 
 The following sections introduce some testing examples using Mock.
 
-##### 17.3.1. Mocking functions
+##### 18.3.1. Mocking functions
 
 Let's assume we are testing the following module:
 
@@ -1690,7 +1721,7 @@ Mock allows us to control the result the mocked function generates using *return
 
 In addition, Mock provides different assertions that we can use to ensure that the mocked function has been called correctly. In our example we are using the *assert_called_once_with* method, which allows us to check that the function has been called only once, and that the arguments passed to it are correct.
 
-##### 17.3.2. Mocking classes
+##### 18.3.2. Mocking classes
 
 We can also use Mock to mock classes. Consider the following code:
 
@@ -1746,31 +1777,31 @@ In this case we are mocking the *WeatherAPIService* class in the place where it 
 
 The Mock library is very powerful and you should use it in your Python unit tests to avoid interacting with real databases or networks. You can find more information about Mock in the following link: https://docs.python.org/3/library/unittest.mock.html
 
-### 18. Project structure
+### 19. Project structure
 
 Projects in Python can have different structures depending on the target that they have, or depending on the needs and policies of development teams. In general, Python does not introduce hard requirements in this aspect and the development team has flexibility to decide on the best approach.
 
-#### 18.1. Top level folders
+#### 19.1. Top level folders
 
 In relation to project folders, the following ones are to be considered into account:
 
 * doc: To keep project documentation, which can be in any type of format.
 * projectname: This one would be the one to keep the project's code. The chosen name is usually the name of the project as opposed to src in other langauges. One thing worth noting is that the subfolders of this project should have the __init__.py file so that Python understands that they contain code.
 
-#### 18.2. Top level files
+#### 19.2. Top level files
 
 * README: The readme file that contains the introduction and main description of the project. Usually in markdown format in order to work with github or simiral solutions.
 * LICENSE: It describes the licensing scheme of the project.
 * requirements.txt: It contains the dependencies of the Python application. It is generally used to ensure that the required dependencies are installed before the application's installation. Both manual or automatic installations of the application make use of it.
 * setup.py: Describes the way to install the project. It is used both in manual and automatic installations.
 
-#### 18.3 Example
+#### 19.3 Example
 
 As a reference example, the following link shows the structure of a Python project for distributing it in PyPI (please see section 18):
 
 https://pypi.python.org/pypi/an_example_pypi_project
 
-### 19. Application packaging and distribution
+### 20. Application packaging and distribution
 
 In Python, there are several ways for packaging and distributing applications, libraries or frameworks. Depending on the case, one might be more suitable than others. As an overview, the following is a list of the available alternatives:
 
@@ -1778,7 +1809,7 @@ In Python, there are several ways for packaging and distributing applications, l
 * Package for Linux distributions
 * Application freezing
 
-#### 19.1 PyPI
+#### 20.1 PyPI
 
 The most well known distribution scheme is PyPI (Python Package Index). This makes the application freely available to anyone that uses Python to download it through pip. It is the recommended solution for open source projects since other developers will expect an active and well maintained project to be available in this form.
 
@@ -1790,7 +1821,7 @@ Additionally, the following tutorial indicates how to work with PyPI in order to
 
 https://wiki.python.org/moin/CheeseShopTutorial
 
-#### 19.2 Package for Linux distributions
+#### 20.2 Package for Linux distributions
 
 It is possible to package Python code in a native package of a Linux distribution. This would be a .deb package in Debian and derivative distros and .rpm packages in RHEL and derivatives. The package would be then available for installation through the distribution repositories or personal repositories would need to be created in the case of proprietary software.
 
@@ -1798,7 +1829,7 @@ If the company already has a policy for software packaging and other software it
 
 For more information on packaging an application for a Linux distribution, please refer to the documentation of each distribution or packaging system.
 
-#### 19.3 Application freezing
+#### 20.3 Application freezing
 
 For the cases when Python might not be installed in the systems where the application is going to be deployed, it is possible to employ the application freezing procedure. With this approach, the package provided also contains the Python interpreter so that the package alone is sufficient to execute the application. When the distribution targets environments such as Windows, this could be a eligible approach.
 
@@ -1806,7 +1837,7 @@ For more information on application freezing, please see:
 
 http://docs.python-guide.org/en/latest/shipping/freezing/#freezing-your-code-ref
 
-### 20. Development Environments (IDEs)
+### 21. Development Environments (IDEs)
 
 To develop a Python program, it isn’t necessary to have a IDE. You can develop it in a text editor, for example gedit, Sublime Text, Atom… and run it in the Python console. But if you want an IDE to develop, because you want features such as debugger, autocomplete… Nowadays exist a lot of them for Python, both commercial and noncommercial and they have different features. This document will list only the most popular at this moment (you should know there exist other options) and it won’t compare which is the best IDE. You are free to decide which one to use.
 
@@ -1832,11 +1863,11 @@ List of IDEs:
 
 You can discovered other IDEs for Python and their description in the following link:
 
-### 21. Library and virtual environment management
+### 22. Library and virtual environment management
 
 This chapter explains how to add new libraries or packages to the project. This is possible thanks to pip and when you use PIP, it is necessary to explain virtual environments.
 
-#### 21.1. pip
+#### 22.1. pip
 
 PIP is the package manager for Python. When the project needs an extra library, it’s really easy to add it. If the package exists in PIP, just execute the following command to install it:
 
@@ -1868,7 +1899,7 @@ The documentation can be read in the next link:
 
 <https://pip.readthedocs.org/en/stable/>
 
-#### 21.2. virtualenv
+#### 22.2. virtualenv
 
 Virtualenv is a tool to generate a virtual environments for Python. It is really useful, because when in the same machine you have several projects that use different Python version and different packages, you can have conflicts among themselves or need to use the same package with different versions. This is difficult to handle without a tool like virtualenv. With virtualenv you don't install packages globally on your system, you install packages in an isolated way in your virtualenv. For this reasons and because it is a bad practice, you should never install packages globally in python without create a virtualenv and use pip with sudo.
 
@@ -1890,7 +1921,7 @@ Of course virtualenv has several options, as you can see in the documentation:
 
 <http://virtualenv.readthedocs.org/en/latest/index.html>
 
-### 22. References
+### 23. References
 
 The following is the reference list used during the development of this best practices guide. Please follow the links in order to obtain further information regarding Python programming and best practices:
 
