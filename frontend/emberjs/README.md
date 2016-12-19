@@ -7,6 +7,7 @@
 * [The Ember Way](#the-ember-way)
 * [Templates](#templates)
 * [Order of Declaration](#order-of-declaration)
+* [Testing](#testing)
 * [Resources](#resources)
 
 ## The Ember Way
@@ -233,7 +234,11 @@ export default Model.extend({
 });
 ```
 
-### Resources
+## Testing
+
+[TBW]
+
+## Resources
 
 **Learning Ember.js**
 
