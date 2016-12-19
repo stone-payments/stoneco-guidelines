@@ -1918,6 +1918,66 @@ In this case we are mocking the *WeatherAPIService* class in the place where it 
 
 The Mock library is very powerful and you should use it in your Python unit tests to avoid interacting with real databases or networks. You can find more information about Mock in the following link: https://docs.python.org/3/library/unittest.mock.html
 
+#### 19.4 Coverage
+The coverage is the code mesure for the tests that allows as to know how much of the code is being tested. With this we can have an idea of the quality of the tests.
+
+##### 19.4.1 Tools
+###### 19.4.1.1 Coverage
+overage is a external package that is recommended to verify the coverage of your code. It is easy to use:
+
+* Discover and execute the test with this code:
+
+``` coverage run -m  unittest discover tests```
+
+* Get the result in HTML:
+
+```coverage html```
+
+###### 19.4.1.2 Nosetest
+Nosetest is a tool that allow as to launch multiple UT files at the same time, like launching a complete directory tests. Also it allows us pralellization, that became important as the program and tests grow. To launche a test file we can simply do this:
+```shell
+nosetests action.py gitrepo.py
+```
+Also a regular expression is allowed:
+```shell
+nosetests *
+```
+
+But one of the more important features of this tool are the coverage reports. Let see an example of how to do it:
+```shell
+nosetests --with-coverage --cover-html --cover-package=lib --cover-html-dir=../coverage_report/ test/*
+```
+The parameters meanings are the next:
+* "--with-coverage" Generate coverage report
+* "--cover-html" Generate report on html format
+* “--cover-html-dir=../coverage_report/” is the output report directory
+* “--cover-package=lib” is the name of the library/files of which we want to know de coverage. If we don't use this parameter the tools will generate coverage for all libraries imported, including system ones.
+* “test/*” Directory where the tests are located
+
+This is an example of the console output after launching this command:
+```shell
+.
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+lib                                0      0   100%   
+lib.action                       181      0   100%   
+lib.ansibleinterface              89      1    99%   83
+lib.ansibleparams                 79      0   100%   
+lib.environmentdatamanager        75      0   100%   
+lib.gitrepo                       94      0   100%   
+lib.releasedatamanager           102      0   100%   
+lib.releasemanager               173      0   100%   
+lib.releasemanagerexceptions      14      0   100%   
+------------------------------------------------------------
+TOTAL                            807      1    99%   
+----------------------------------------------------------------------
+Ran 350 tests in 277.488s
+
+OK
+```
+Also the html report is generated showing this:
+
+
 ### 20. Project structure
 
 Projects in Python can have different structures depending on the target that they have, or depending on the needs and policies of development teams. In general, Python does not introduce hard requirements in this aspect and the development team has flexibility to decide on the best approach.
