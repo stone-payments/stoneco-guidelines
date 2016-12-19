@@ -106,11 +106,11 @@ http://artifex.org/~hblanks/talks/2011/pep20_by_example.html
 
 #### 2.2.2. Other philosophical implications
 
-There are other areas where Python's phylosophy affects development:
+There are other areas where Python's philosophy affects development:
 
-* Access to code: Since code is not compiled, and because of the way it is usually distributed (please see [18. Application packaging and distribution](#18-application-packaging-and-distribution)), code from libraries and frameworks is accesible to devepers in general. However, it is possible to provide bytecode only packages that do not disclose the code. 
+* Access to code: Since code is not compiled, and because of the way it is usually distributed (please see [18. Application packaging and distribution](#18-application-packaging-and-distribution)), code from libraries and frameworks is accessible to developers in general. However, it is possible to provide bytecode only packages that do not disclose the code. 
 * Documentation: The information of modules, classes and methods is available for developers to request while developing if it has been included in the code. This allows interactively requesting information on the method to be used while developing.
-* Performance optimisations: In general, Python developments seek avoiding optimisation of the code during the first development. This is due to the fact that optimisations might affect code readability or complexity. It is only if performance shows to be a crucial point for operation, when optimisations are recommended.
+* Performance optimizations: In general, Python developments seek avoiding optimisation of the code during the first development. This is due to the fact that optimizations might affect code readability or complexity. It is only if performance shows to be a crucial point for operation, when optimizations are recommended.
 
 ### 3. Python 2 vs Python 3
 
@@ -140,17 +140,17 @@ Main changes in Python 3.x respect to Python 2.x [1]:
 
 #### 4.1 Structured
 
-Python allow structured programming, in fact it is the most commonly paradigm used in python. Python allows to start coding without declaring any function but it is highly discouraged. Small scritps use to grow without any control or design, so it worth starting with functions. The most commonly starting sentences are this:
+Python allow structured programming, in fact it is the most commonly paradigm used in python. Python allows to start coding without declaring any function but it is highly discouraged. Small scripts use to grow without any control or design, so it worth starting with functions. The most commonly starting sentences are this:
 ```python
 if __name__ == '__main__':
     exit(main())
 ```
 
-Also it recomended to use as much methods as posible, avoiding "allinone" programas, ans as the program grous create diferente modules to maintain independence between functionalities. This helps to reuse code
+Also it recommended to use as much methods as possible, avoiding "allinone" programs, and as the program grows create different modules to maintain independence between functionalities. This helps to reuse code
 
 ### 4.2 Object Oriented
 
-Python support object oriented programming. It worth the effort to design a solution with this paradigm. This paradigm force programmers to maintain modularity with a minimun level of cohesion and coupling.
+Python support object oriented programming. It worth the effort to design a solution with this paradigm. This paradigm force programmers to maintain modularity with a minimum level of cohesion and coupling.
 
 ```python
 class MyClass(object):
@@ -279,7 +279,7 @@ reduce(lambda x,y: ''.join([x,y]), ['B','EE','VA'])
 
 ### 5. Style guide (Pep 8)
 
-This section is a summary of offical PEP8 documentation, the examples are from this PEP8. Please for more information visit to official PEP8 web site:
+This section is a summary of official PEP8 documentation, the examples are from this PEP8. Please for more information visit to official PEP8 web site:
 
 https://www.python.org/dev/peps/pep-0008/#maximum-line-length
 
@@ -320,7 +320,7 @@ class Rectangle(Blob):
                       color, emphasis, highlight)
 ```
 
-The maximum of 79 characters was decided when screens where shorters than current ones. Actually some projects decide to increase the num of characters to 99.
+The maximum of 79 characters was decided when screens where shorter than current ones. Actually some projects decide to increase the number of characters to 99.
 
 #### 5.4. Blank Lines
 Surround top-level function and class definitions with two blank lines.
@@ -651,7 +651,7 @@ Always use self for the first argument to instance methods.
 
 Always use cls for the first argument to class methods.
 
-If a function argument's name clashes with a reserved keyword, it is generally better to append a single trailing underscore rather than use an abbreviation or spelling corruption. Thus class_ is better than clss . (Perhaps better is to avoid such clashes by using a synonym.)
+If a function argument's name clashes with a reserved keyword, it is generally better to append a single trailing underscore rather than use an abbreviation or spelling corruption. Thus class_ is better than cls . (Perhaps better is to avoid such clashes by using a synonym.)
 
 ##### 5.12.3.8 Method Names and Instance Variables
 Use the function naming rules: lowercase with words separated by underscores as necessary to improve readability.
@@ -682,7 +682,7 @@ Paragraphs inside a block comment are separated by a line containing a single #.
 
 #### 6.3 Avoid comments
 
-The main reason to avoid comments is because code use to be updated frecuently but not the comments, so the comments become deprecated and not commented is worse than wronge comments. To compensate the absence of comments programmers must create understandable code using descriptive variables, functions and classes names and simple methods. With that and the docstring must be enough in most of cases.
+The main reason to avoid comments is because code use to be updated frequently but not the comments, so the comments become deprecated and not commented is worse than wrong comments. To compensate the absence of comments programmers must create understandable code using descriptive variables, functions and classes names and simple methods. With that and the docstring must be enough in most of cases.
 
 [PEP8-comments](https://www.python.org/dev/peps/pep-0008/#comments)
 
@@ -705,7 +705,7 @@ def my_function(x):
 ```
 #### 7.2 Docstring for public APIs
 
-When we are working on public APIs we must be more accurete with our methods documentation, specilly in python because we don't define types the methods definition. With this idea in mind we must describe not only the funcion but also the input parameters and the output:
+When we are working on public APIs we must be more accurate with our methods documentation, specially in python because we don't define types the methods definition. With this idea in mind we must describe not only the function but also the input parameters and the output:
 
 ```python
 def complex(real=0.0, imag=0.0):
@@ -724,7 +724,7 @@ If we have added docstrings to our python code we are able to generate automatic
 pydoc -w my_program.py
 ```
 
-Also pydoc allow us to create a webserver in which we could browse and the documentation is generated dinamically as we browse:
+Also pydoc allow us to create a webserver in which we could browse and the documentation is generated dynamically as we browse:
 
 ```shell
 pydoc -p 9999
@@ -770,7 +770,7 @@ This case was very simple but usually we want to include at a library more than 
    |- module1.py
 ```
 
-In this case, the content of my_program.py wil be this:
+In this case, the content of my_program.py will be this:
 
 ```python
 import lib.module1
@@ -885,7 +885,7 @@ In Python, there are different scopes that a variable name can be under. These a
 
 Python starts the search from the local scope until the built-in one. This is why some errors do not appear until certain executions of the file, when the function with the error is executed.
 
-As a general rule, it is recommended to minimise global variables in modules, since that makes code difficult to understand and error prone. This is because multiple functions may interact with the same object or variable and it is difficult to follow the evolution of the state of such object.
+As a general rule, it is recommended to minimize global variables in modules, since that makes code difficult to understand and error prone. This is because multiple functions may interact with the same object or variable and it is difficult to follow the evolution of the state of such object.
 
 More importantly, cross file variable modifications should be avoided as well. This is the case when an object within a file is modified by a function within another module or file. Hence, beyond the previous drawback a dependency between files is introduced.
 
@@ -1486,14 +1486,14 @@ file.close()
 ```
 
 ### 16. Command line interface parameters
-For input parameters parse it is recommended to user a library that allows as an easy parsing with minimun effort. There are some libraries to do this but argparse is recomended.
+For input parameters parse it is recommended to user a library that allows as an easy parsing with minimum effort. There are some libraries to do this but argparse is recommended.
 #### 16.1 argparse
 Argparse is recommended because it provides us diferente number of tools and parsing options:
 * Include help for each parameter
 * Define parameters type
 * Define default parameters
 * Define if a parameter is or not required
-* Define posible values of a parameter
+* Define possible values of a parameter
 * Add more than one value to a parameter
 * Add automatic actions to the parameters
 
@@ -1644,7 +1644,7 @@ mysql
 ```
 
 ### 18. Static code analysis
-The static analysis helps us to analice some errors without needing to run the program. With this type of tools we can detect some coding errors like syle guide rules, good practices, unused variables, sintax errors... What this tools will never detect are run time errors because the code is not executed during the analysis. With this tool we can detect problems on our code at very early phases, so it is recommnded to run it frecuenly.
+The static analysis helps us to analyse some errors without needing to run the program. With this type of tools we can detect some coding errors like style guide rules, good practices, unused variables, syntax errors... What this tools will never detect are run time errors because the code is not executed during the analysis. With this tool we can detect problems on our code at very early phases, so it is recommended to run it frequenly.
 
 ### 18.1 Pylint
 Pylint is a tool to do static analysis of the code. The tools is preconfigured to use the most common rules including the style guide rules, but this rules can be updated if it is needed.
@@ -1684,7 +1684,7 @@ Global evaluation
 -----------------
 Your code has been rated at 9.68/10 (previous run: 9.79/10, -0.11)
 ```
-It is usually easy to achive a 9 or better. Sometimes beacuse code logic is imposible to achive a 10, but we must try.
+It is usually easy to achieve a 9 or better. Sometimes because code logic is impossible to achieve a 10, but we must try.
 
 #### 18.1.3 Configuration
 It is posible to change or avoid some rules which are different for our project. For example you can decide to use a different style guide than the original. The first step to change configuration is to show which configuration we are using, to do this we can launch pylint with “--generate-rcfile” option. The output of the call will be all the rules:
@@ -1727,7 +1727,7 @@ function-rgx=[a-z_][a-z0-9_]{2,30}$
 .
 ```
 
-As we can see the file is a series of rules order by category. We can create a file with the same format with diferent rules, but we don't need to have the complete file, only those ones that we want to modify. Tu use this user created file we can do it using 2 methods. First one is sending it to pylint as a parameter using this format: "--rcfile=<file>”. The second way is to leave this file at the user home directory: “~/.pylintrc". Let see an example.
+As we can see the file is a series of rules order by category. We can create a file with the same format with diferent rules, but we don't need to have the complete file, only those ones that we want to modify. To use this user created file we can do it using 2 methods. First one is sending it to pylint as a parameter using this format: "--rcfile=<file>”. The second way is to leave this file at the user home directory: “~/.pylintrc". Let see an example.
 It is very common to change the max characters per line from 80 to 100. So the content of the file will be this:
 ```
 [FORMAT]
@@ -1737,7 +1737,7 @@ max-line-length=120
 ### 19. Testing
 #### 19.1. Tests
 
-Python has in their core the package **unittest**, this package has the basic class **TestCase** to create your test with their function to initted the test and finished. This class have a lot of different assert to do your test, use theirs.
+Python has in their core the package **unittest**, this package has the basic class **TestCase** to create your test with their function to initialized the test and finished. This class have a lot of different assert to do your test, use theirs.
 
 #### 19.2. Example
 
@@ -1764,7 +1764,7 @@ class TestStringMethods(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 ```
-With the unit test we not only have to check that the program not fail, but also check that the returned values are correct. For that porpose we use the asserts. At the previous example we can see how to user assertTrue and assertFalse. Executing this file will show us this output:
+With the unit test we not only have to check that the program not fail, but also check that the returned values are correct. For that propose we use the asserts. At the previous example we can see how to user assertTrue and assertFalse. Executing this file will show us this output:
 ```shell
 ...
 ----------------------------------------------------------------------
@@ -1797,7 +1797,7 @@ In case of testing our code we must import it and call each method. The good pra
 * Check all loops
 * Check all loops break conditions
 
-Follow all this test practices is easy if we respect others good practices kepping methods simple and complexity low.
+Follow all this test practices is easy if we respect others good practices keeping methods simple and complexity low.
 
 
 #### 19.3. Mocks
@@ -1914,7 +1914,7 @@ if __name__ == '__main__':
     unittest.main()
 ```
 
-In this case we are mocking the *WeatherAPIService* class in the place where it is used (the *weather* module). With the reference to the mock (*mocked_api_service*), we can control the result of get_weather method. More concretelly, we first obtain a reference to the mocked_api_service return_value. Thus, mocked_api is a reference to a mocked WeatherAPIService instance. With mocked_api, we can define the result of get_weather, using mocked_api.get_weather.return_value = {'temp': 40}
+In this case we are mocking the *WeatherAPIService* class in the place where it is used (the *weather* module). With the reference to the mock (*mocked_api_service*), we can control the result of get_weather method. More concretely, we first obtain a reference to the mocked_api_service return_value. Thus, mocked_api is a reference to a mocked WeatherAPIService instance. With mocked_api, we can define the result of get_weather, using mocked_api.get_weather.return_value = {'temp': 40}
 
 The Mock library is very powerful and you should use it in your Python unit tests to avoid interacting with real databases or networks. You can find more information about Mock in the following link: https://docs.python.org/3/library/unittest.mock.html
 
@@ -1934,7 +1934,7 @@ overage is a external package that is recommended to verify the coverage of your
 ```coverage html```
 
 ###### 19.4.1.2 Nosetest
-Nosetest is a tool that allow as to launch multiple UT files at the same time, like launching a complete directory tests. Also it allows us pralellization, that became important as the program and tests grow. To launche a test file we can simply do this:
+Nosetest is a tool that allow as to launch multiple UT files at the same time, like launching a complete directory tests. Also it allows us parallelization, that became important as the program and tests grow. To launch a test file we can simply do this:
 ```shell
 nosetests action.py gitrepo.py
 ```
@@ -1987,7 +1987,7 @@ Projects in Python can have different structures depending on the target that th
 In relation to project folders, the following ones are to be considered into account:
 
 * doc: To keep project documentation, which can be in any type of format.
-* projectname: This one would be the one to keep the project's code. The chosen name is usually the name of the project as opposed to src in other langauges. One thing worth noting is that the subfolders of this project should have the __init__.py file so that Python understands that they contain code.
+* projectname: This one would be the one to keep the project's code. The chosen name is usually the name of the project as opposed to src in other languages. One thing worth noting is that the subfolders of this project should have the __init__.py file so that Python understands that they contain code.
 
 #### 20.2. Top level files
 
@@ -2045,21 +2045,21 @@ To develop a Python program, it isn’t necessary to have a IDE. You can develop
 List of IDEs:
 * Pycharm [1] is nowadays one of the most used for python developers. It has a free licence, named free community and other commercial named professional. The free licence is very nice and includes a lot of features, for example:
   * Debugger
-  * Intelligent Code Editor, autocomplete, code analice...
+  * Intelligent Code Editor, autocomplete, code analyze...
   * Refactor code to PEP 8
   * And other features.
 * Eric [2], it is other IDE for python, it is really nice, because it is open source and you can use it for free. A few features for this IDE are the following:
   * Debugger
-  * Intelligent Code Editor, autocomplete, code analice...
+  * Intelligent Code Editor, autocomplete, code analyze...
   * Integrated version control interface
   * And other features.
 * WingWare [3], this is another nice IDE for develop with Python, It is a commercial IDE and you will need to pay to use it. A few features for this IDE are the following (similar to before IDEs):
   * Debugger
-  * Intelligent Code Editor, autocomplete, code analice...
+  * Intelligent Code Editor, autocomplete, code analyze...
   * And other features.
 * Eclipse with Pydev [4], other nice IDE to develop with Python is Eclipse. This IDE is famed in JAVA, but you can use with Python adding the plugin Pydev. It is free and you don’t need to pay for use it. A few features for this IDE are the following (similar to before IDEs):
   * Debugger
-  * Intelligent Code Editor, autocomplete, code analice...
+  * Intelligent Code Editor, autocomplete, code analyze...
   * And other features.
 
 You can discovered other IDEs for Python and their description in the following link:
