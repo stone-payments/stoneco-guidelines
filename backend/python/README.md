@@ -25,12 +25,13 @@ The following contents table provides an index of the contents covered in this g
 * [15. Input Output](#15-input-output)
 * [16. Command line interface parameters](#16-command-line-interface-parameters)
 * [17. Configuration files](#17-configuration-files)
-* [18. Testing](#18-testing)
-* [19. Project structure](#19-project-structure)
-* [20. Application packaging and distribution](#20-application-packaging-and-distribution)
-* [21. Development Environments (IDEs)](#21-development-environments-ides)
-* [22. Library and virtual environment management](#22-library-and-virtual-environment-management)
-* [23. References](#23-references)
+* [18. Static code analysis](#18-static-code-analysis)
+* [19. Testing](#19-testing)
+* [20. Project structure](#20-project-structure)
+* [21. Application packaging and distribution](#21-application-packaging-and-distribution)
+* [22. Development Environments (IDEs)](#22-development-environments-ides)
+* [23. Library and virtual environment management](#23-library-and-virtual-environment-management)
+* [24. References](#24-references)
 
 
 ### 1. Introduction
@@ -1642,12 +1643,103 @@ mysql
  'use_anonymous': True}
 ```
 
-### 18. Testing
-#### 18.1. Tests
+### 18. Static code analysis
+The static analysis helps us to analice some errors without needing to run the program. With this type of tools we can detect some coding errors like syle guide rules, good practices, unused variables, sintax errors... What this tools will never detect are run time errors because the code is not executed during the analysis. With this tool we can detect problems on our code at very early phases, so it is recommnded to run it frecuenly.
+
+### 18.1 Pylint
+Pylint is a tool to do static analysis of the code. The tools is preconfigured to use the most common rules including the style guide rules, but this rules can be updated if it is needed.
+
+#### 18.1.1 Execution
+Running pylint is as simple as this:
+```shell
+pylint my_programa.py
+```
+More than one file is supported at eh same file
+
+#### 18.1.2 Output
+The pylint output is large, and but we can center our effort on the error messages. These are the different type of errors:
+* [R]efactor for a “good practice” metric violation
+* [C]onvention for coding standard violation
+* [W]arning for stylistic problems, or minor programming issues
+* [E]rror for important programming issues (i.e. most probably bug)
+* [F]atal for errors which prevented further processing
+
+Example:
+```shell
+************* Module pylint.checkers.format
+W: 50: Too long line (86/80)
+W:108: Operator not followed by a space
+     print >>sys.stderr, 'Unable to match %r', line
+            ^
+W:141: Too long line (81/80)
+W: 74:searchall: Unreachable code
+W:171:FormatChecker.process_tokens: Redefining built-in (type)
+W:150:FormatChecker.process_tokens: Too many local variables (20/15)
+W:150:FormatChecker.process_tokens: Too many branches (13/12)
+```
+
+Also at the end of the output we can see an evaluation of out code and how much it have improved science las call. This is an example:
+```shell
+Global evaluation
+-----------------
+Your code has been rated at 9.68/10 (previous run: 9.79/10, -0.11)
+```
+It is usually easy to achive a 9 or better. Sometimes beacuse code logic is imposible to achive a 10, but we must try.
+
+#### 18.1.3 Configuration
+It is posible to change or avoid some rules which are different for our project. For example you can decide to use a different style guide than the original. The first step to change configuration is to show which configuration we are using, to do this we can launch pylint with “--generate-rcfile” option. The output of the call will be all the rules:
+
+```shell
+# pylint --generate-rcfile
+[MASTER]
+
+# Specify a configuration file.
+#rcfile=
+
+# Python code to execute, usually for sys.path manipulation such as
+# pygtk.require().
+#init-hook=
+.
+.
+.
+[BASIC]
+
+# List of builtins function names that should not be used, separated by a comma
+bad-functions=map,filter,input
+
+# Good variable names which should always be accepted, separated by a comma
+good-names=i,j,k,ex,Run,_
+
+# Bad variable names which should always be refused, separated by a comma
+bad-names=foo,bar,baz,toto,tutu,tata
+
+# Colon-delimited sets of names that determine each other's naming style when
+# the name regexes allow several styles.
+name-group=
+
+# Include a hint for the correct naming format with invalid-name
+include-naming-hint=no
+
+# Regular expression matching correct function names
+function-rgx=[a-z_][a-z0-9_]{2,30}$
+.
+.
+.
+```
+
+As we can see the file is a series of rules order by category. We can create a file with the same format with diferent rules, but we don't need to have the complete file, only those ones that we want to modify. Tu use this user created file we can do it using 2 methods. First one is sending it to pylint as a parameter using this format: "--rcfile=<file>”. The second way is to leave this file at the user home directory: “~/.pylintrc". Let see an example.
+It is very common to change the max characters per line from 80 to 100. So the content of the file will be this:
+```
+[FORMAT]
+max-line-length=120
+```
+
+### 19. Testing
+#### 19.1. Tests
 
 Python has in their core the package **unittest**, this package has the basic class **TestCase** to create your test with their function to initted the test and finished. This class have a lot of different assert to do your test, use theirs.
 
-#### 18.2. Utils
+#### 19.2. Utils
 
 Coverage is a external package that is recommended to verify the coverage of your code. It is easy to use:
 
@@ -1659,7 +1751,7 @@ Coverage is a external package that is recommended to verify the coverage of you
 
 ```coverage html```  
 
-#### 18.3. Mocks
+#### 19.3. Mocks
 
 Tests should be isolated. Don't interact with a real database or network. Use a separate test database that gets torn down or use mock objects.
 
@@ -1671,7 +1763,7 @@ Because too many mocks can complicate a test, making it harder for you to track 
 
 The following sections introduce some testing examples using Mock.
 
-##### 18.3.1. Mocking functions
+##### 19.3.1. Mocking functions
 
 Let's assume we are testing the following module:
 
@@ -1721,7 +1813,7 @@ Mock allows us to control the result the mocked function generates using *return
 
 In addition, Mock provides different assertions that we can use to ensure that the mocked function has been called correctly. In our example we are using the *assert_called_once_with* method, which allows us to check that the function has been called only once, and that the arguments passed to it are correct.
 
-##### 18.3.2. Mocking classes
+##### 19.3.2. Mocking classes
 
 We can also use Mock to mock classes. Consider the following code:
 
@@ -1777,31 +1869,31 @@ In this case we are mocking the *WeatherAPIService* class in the place where it 
 
 The Mock library is very powerful and you should use it in your Python unit tests to avoid interacting with real databases or networks. You can find more information about Mock in the following link: https://docs.python.org/3/library/unittest.mock.html
 
-### 19. Project structure
+### 20. Project structure
 
 Projects in Python can have different structures depending on the target that they have, or depending on the needs and policies of development teams. In general, Python does not introduce hard requirements in this aspect and the development team has flexibility to decide on the best approach.
 
-#### 19.1. Top level folders
+#### 20.1. Top level folders
 
 In relation to project folders, the following ones are to be considered into account:
 
 * doc: To keep project documentation, which can be in any type of format.
 * projectname: This one would be the one to keep the project's code. The chosen name is usually the name of the project as opposed to src in other langauges. One thing worth noting is that the subfolders of this project should have the __init__.py file so that Python understands that they contain code.
 
-#### 19.2. Top level files
+#### 20.2. Top level files
 
 * README: The readme file that contains the introduction and main description of the project. Usually in markdown format in order to work with github or simiral solutions.
 * LICENSE: It describes the licensing scheme of the project.
 * requirements.txt: It contains the dependencies of the Python application. It is generally used to ensure that the required dependencies are installed before the application's installation. Both manual or automatic installations of the application make use of it.
 * setup.py: Describes the way to install the project. It is used both in manual and automatic installations.
 
-#### 19.3 Example
+#### 20.3 Example
 
 As a reference example, the following link shows the structure of a Python project for distributing it in PyPI (please see section 18):
 
 https://pypi.python.org/pypi/an_example_pypi_project
 
-### 20. Application packaging and distribution
+### 21. Application packaging and distribution
 
 In Python, there are several ways for packaging and distributing applications, libraries or frameworks. Depending on the case, one might be more suitable than others. As an overview, the following is a list of the available alternatives:
 
@@ -1809,7 +1901,7 @@ In Python, there are several ways for packaging and distributing applications, l
 * Package for Linux distributions
 * Application freezing
 
-#### 20.1 PyPI
+#### 21.1 PyPI
 
 The most well known distribution scheme is PyPI (Python Package Index). This makes the application freely available to anyone that uses Python to download it through pip. It is the recommended solution for open source projects since other developers will expect an active and well maintained project to be available in this form.
 
@@ -1821,7 +1913,7 @@ Additionally, the following tutorial indicates how to work with PyPI in order to
 
 https://wiki.python.org/moin/CheeseShopTutorial
 
-#### 20.2 Package for Linux distributions
+#### 21.2 Package for Linux distributions
 
 It is possible to package Python code in a native package of a Linux distribution. This would be a .deb package in Debian and derivative distros and .rpm packages in RHEL and derivatives. The package would be then available for installation through the distribution repositories or personal repositories would need to be created in the case of proprietary software.
 
@@ -1829,7 +1921,7 @@ If the company already has a policy for software packaging and other software it
 
 For more information on packaging an application for a Linux distribution, please refer to the documentation of each distribution or packaging system.
 
-#### 20.3 Application freezing
+#### 21.3 Application freezing
 
 For the cases when Python might not be installed in the systems where the application is going to be deployed, it is possible to employ the application freezing procedure. With this approach, the package provided also contains the Python interpreter so that the package alone is sufficient to execute the application. When the distribution targets environments such as Windows, this could be a eligible approach.
 
@@ -1837,7 +1929,7 @@ For more information on application freezing, please see:
 
 http://docs.python-guide.org/en/latest/shipping/freezing/#freezing-your-code-ref
 
-### 21. Development Environments (IDEs)
+### 22. Development Environments (IDEs)
 
 To develop a Python program, it isn’t necessary to have a IDE. You can develop it in a text editor, for example gedit, Sublime Text, Atom… and run it in the Python console. But if you want an IDE to develop, because you want features such as debugger, autocomplete… Nowadays exist a lot of them for Python, both commercial and noncommercial and they have different features. This document will list only the most popular at this moment (you should know there exist other options) and it won’t compare which is the best IDE. You are free to decide which one to use.
 
@@ -1863,11 +1955,11 @@ List of IDEs:
 
 You can discovered other IDEs for Python and their description in the following link:
 
-### 22. Library and virtual environment management
+### 23. Library and virtual environment management
 
 This chapter explains how to add new libraries or packages to the project. This is possible thanks to pip and when you use PIP, it is necessary to explain virtual environments.
 
-#### 22.1. pip
+#### 23.1. pip
 
 PIP is the package manager for Python. When the project needs an extra library, it’s really easy to add it. If the package exists in PIP, just execute the following command to install it:
 
@@ -1899,7 +1991,7 @@ The documentation can be read in the next link:
 
 <https://pip.readthedocs.org/en/stable/>
 
-#### 22.2. virtualenv
+#### 23.2. virtualenv
 
 Virtualenv is a tool to generate a virtual environments for Python. It is really useful, because when in the same machine you have several projects that use different Python version and different packages, you can have conflicts among themselves or need to use the same package with different versions. This is difficult to handle without a tool like virtualenv. With virtualenv you don't install packages globally on your system, you install packages in an isolated way in your virtualenv. For this reasons and because it is a bad practice, you should never install packages globally in python without create a virtualenv and use pip with sudo.
 
@@ -1921,7 +2013,7 @@ Of course virtualenv has several options, as you can see in the documentation:
 
 <http://virtualenv.readthedocs.org/en/latest/index.html>
 
-### 23. References
+### 24. References
 
 The following is the reference list used during the development of this best practices guide. Please follow the links in order to obtain further information regarding Python programming and best practices:
 
