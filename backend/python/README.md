@@ -1739,17 +1739,66 @@ max-line-length=120
 
 Python has in their core the package **unittest**, this package has the basic class **TestCase** to create your test with their function to initted the test and finished. This class have a lot of different assert to do your test, use theirs.
 
-#### 19.2. Utils
+#### 19.2. Example
 
-Coverage is a external package that is recommended to verify the coverage of your code. It is easy to use:
+Example:
+```python
+import unittest
 
-* Discover and execute the test with this code:
+class TestStringMethods(unittest.TestCase):
 
-``` coverage run -m  unittest discover tests```
+    def test_upper(self):
+        self.assertEqual('foo'.upper(), 'FOO')
 
-* Get the result in HTML:
+    def test_isupper(self):
+        self.assertTrue('FOO'.isupper())
+        self.assertFalse('Foo'.isupper())
 
-```coverage html```  
+    def test_split(self):
+        s = 'hello world'
+        self.assertEqual(s.split(), ['hello', 'world'])
+        # check that s.split fails when the separator is not a string
+        with self.assertRaises(TypeError):
+            s.split(2)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+With the unit test we not only have to check that the program not fail, but also check that the returned values are correct. For that porpose we use the asserts. At the previous example we can see how to user assertTrue and assertFalse. Executing this file will show us this output:
+```shell
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
+```
+In case we modigy it to force an error this could be an output example:
+```shell
+F..
+======================================================================
+FAIL: test_isupper (__main__.TestStringMethods)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test.py", line 9, in test_isupper
+    self.assertTrue('FOOi'.isupper())
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=1)
+```
+
+In case of testing our code we must import it and call each method. The good practices tell as to make tests to check all this things:
+* Check expected behavior
+* Check unexpected behavior
+* Check both positive and negative(failing) behaviors
+* Check all the conditional statements(If and else)
+* Check all loops
+* Check all loops break conditions
+
+Follow all this test practices is easy if we respect others good practices kepping methods simple and complexity low.
+
 
 #### 19.3. Mocks
 
