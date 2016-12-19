@@ -5,6 +5,9 @@
 ## Index
 
 * [The Ember Way](#the-ember-way)
+* [Templates](#templates)
+* [Order of Declaration](#order-of-declaration)
+
 
 ## The Ember Way
 
@@ -62,3 +65,150 @@ const { computed, get, set, inject } = Ember;
 
 ---
 
+## Templates
+
+Use double quotes for HTML content, for Handlebars/HTMLBars syntax use simple quotes.
+
+**Do this:**
+
+```html
+<div class="foo">
+  {{my-component data-id='foo' (action 'saveFoo')}}
+</div>
+```
+
+**Don't do this:**
+
+```html
+<div class='foo'>
+  {{my-component data-id="foo" (action "saveFoo")}}
+</div>
+```
+
+---
+
+The order of declaration for a component is always properties, and then actions.
+
+---
+
+Use a single line when the parameter list is short.
+
+**Do this:**
+
+```html
+{{my-component foo=bar onSave=(action "saveFoo")}}
+```
+
+**Don't do this:**
+
+```html
+{{my-component
+  foo=bar
+  onSave=(action "saveFoo")}}
+```
+
+---
+
+Use "Clojure" style formatting when the parameter list is very long (>120 characters).
+
+**Do this:**
+
+```html
+{{my-component
+  title=name
+  details=accountName
+  resourceId=id
+  resourcePath="client/contacts"}}
+```
+
+**Don't do this:**
+
+```html
+{{
+  my-component
+  title=name
+  details=accountName
+  resourceId=id
+  resourcePath="client/contacts"
+}}
+```
+
+## Order of Declaration
+
+The highest level order is:
+
+* 1) Services;
+* 2) Native Properties; and
+* 3) Custom Properties.
+
+Lifecycle hooks (e.g. model, setupController) should be in order of execution.
+
+### Components:
+* 1) Services;
+* 2) Native component properties;
+* 3) Passed / custom properties;
+* 4) Lifecycle hooks;
+* 5) Computed properties;
+* 6) Any native functions; and
+* 7) Actions.
+
+Create a newline after each, and always line separate actions. So for example:
+
+```javascript
+export default Ember.Component.extend({
+  tagName: 'li', // Native property
+
+  classNames: 'list-items', // Native property
+
+  title: 'Passed title', // Passed property
+
+  didInsertElement() { // Lifecycle hook
+    // code...
+  },
+
+  funnyTitle: computed('title', function() { // Computed property
+    const title = this.get('title');
+
+    return `FUNNY ${title}!`;
+  },
+
+  actions: {
+    actionOne() {
+      // code...
+    },
+
+    actionTwo() {
+      // code...
+    }
+});
+```
+
+### Routes:
+* 1) Service declarations;
+* 2) Lifecycle hooks;
+* 3) Any custom functions; and
+* 4) Actions
+
+
+### Models:
+* 1) Service declarations
+* 2) attrs;
+* 3) Relationships;
+* 4) Computed Properties; and
+* 5) Custom functions.
+
+```javascript
+export default Model.extend({
+  title: attr('string'),
+
+  subTitle: attr('string'),
+
+  comments: hasMany('comment'),
+
+  author: belongsTo('user'),
+
+  someProperty: computed('title', function() {
+    // do something
+  });
+});
+```
