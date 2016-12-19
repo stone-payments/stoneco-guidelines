@@ -731,6 +731,8 @@ pydoc -p 9999
 ```
 Then we access to http://localhost:9999 from any browse and we have a site like this:
 
+![Documentation example](./static/documentation.png "Documentation example")
+
 ### 8. Importing libraries
 
 The best practice is to just import what you need. 
@@ -1976,7 +1978,7 @@ Ran 350 tests in 277.488s
 OK
 ```
 Also the html report is generated showing this:
-
+![Coverage example](./static/coverage.png "Coverage example")
 
 ### 20. Project structure
 
