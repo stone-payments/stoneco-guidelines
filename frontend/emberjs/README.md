@@ -232,3 +232,21 @@ export default Model.extend({
   });
 });
 ```
+
+### Resources
+
+**Learning Ember.js**
+
+  - [Ember Guides and Tutorials](https://guides.emberjs.com/v2.10.0/)
+  - [EmberCLI](https://ember-cli.com/)
+  - [The Ember Way](https://emberway.io/)
+  - [Yoember](http://yoember.com/)
+
+**Ember Addons**
+
+  - [Ember Observer](https://emberobserver.com/)
+
+**Testing Ember**
+
+  - [Ember QUnit](https://github.com/emberjs/ember-qunit)
+
