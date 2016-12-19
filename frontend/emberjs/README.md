@@ -65,6 +65,26 @@ const { computed, get, set, inject } = Ember;
 
 ---
 
+Use `.` as a separator for the Ember resolver. Use `/` only for templates.
+
+**Do this for templates:**
+
+```javascript
+export default Ember.Component.extend({
+  layoutName: 'components/my-widget/widget',
+});
+```
+
+**Do this for the Ember resolver:**
+
+```javascript
+export default Ember.Controller.extend({
+  indexCtrl: Ember.inject.controller('main-widgets.index'),
+});
+```
+
+---
+
 ## Templates
 
 Use double quotes for HTML content, for Handlebars/HTMLBars syntax use simple quotes.
