@@ -246,6 +246,7 @@ export default Model.extend({
   - [EmberCLI](https://ember-cli.com/)
   - [The Ember Way](https://emberway.io/)
   - [Yoember](http://yoember.com/)
+  - [Global Ember Meetup](https://vimeo.com/globalembermeetup)
 
 **Ember Addons**
 
