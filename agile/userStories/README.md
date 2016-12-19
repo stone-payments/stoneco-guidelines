@@ -2,48 +2,48 @@
 
 ## Index
 * [User Stories](#user-stories)
-* [User Story-Writing Process](#user-story-writing-process)
+* [User Story writing process](#user-story-writing-process)
 * [Frequent Mistakes in User Stories](#frequent-mistakes-in-user-stories)
 * [References](#references)
 
 ### User Stories
 
-User stories are narrative texts that describe an interaction of the user and the system, focusing on the value a user gains from the system. A true user story is a metaphor for the work being done. It is not a highly documented requirement but rather a reminder to collaborate about the topic of the user story, in other words in agile development (good agile at least), the documentation is secondary to the collaboration. User stories aren’t agile in and of themselves. Instead, their underlying agile values, collaboration and just-in-time definition, make user stories a good agile tool. Formality is specifically removed from the mix and specification of the user story is pushed as late as possible.
+User Stories are narrative texts that describe an interaction between an user and a system, focusing on the value that the user gains from the system. Rather than a full requirement document, an User Story is a summary of collaborative work and agreements about the User Story itself (human collaboration over documentation)
 
 A good user story uses the “INVEST” model:
 
-* Independent. Reduced dependencies  = easier to plan
-* Negotiable. Details added via collaboration
-* Valuable. Provides value to the customer
-* Estimable. Too big or too vague = not estimable
-* Small. Can be done in less than a week by the team
-* Testable. Good acceptance criteria
+* (I)ndependent: Reduced dependencies  = easier to plan
+* (N)egotiable: Details added via collaboration
+* (V)aluable: Provides value to the customer
+* (E)stimable: Too big or too vague = not estimable
+* (S)mall: Can be done in less than a week by the team
+* (T)estable: Good acceptance criteria
 
-### User Story-Writing Process
+### User Story writing Process
 
-The story-writing process is integral to understanding user stories.
+The story-writing process is very important to build good User Stories.
 
-The typical template has 3 parts: the title, the description (or body of the user story), and the acceptance criteria.  The title is used to reference the user story and should be kept very short, around 3 to 10 words.  The description is where the meat of the user story is kept.  It is the only part that can be explained as a reasonable template. The acceptance criteria are used to determine when the user story has met the goal of the user – a sort of test.
+The typical template has 3 parts: the title, the description (or body of the user story), and the acceptance criteria.  The title is used to reference the User Story and should be kept very short, around 3 to 10 words.  The description is where the User Story is described.  It is the only part that can be explained as a reasonable template. The acceptance criteria are used to determine when the user story has met the goal of the user – sort of a test.
 
-Start by writing the title. It should be long enough to allow people on the team to differentiate it from other stories but short enough to fit on a small sticky card when written with a marker.  
+1) Start by writing the title. It should be long enough to allow the team to differentiate it from other stories but short enough to fit on a small sticky card when written with a marker.  
 
-Now write the description. You can use the following template: 
+2) Now write the description. You can use the following template: 
 
 *As a [user role] I want to [goal] so I can [reason]*
 
-If the description becomes lengthy (more than will fit on an index card), you should revisit the user story. It is likely it needs to be split into several stories. You might also consider whether you are trying to include too much detail. Remember that the purpose of a user story is to encourage collaboration. A user story is a promise to have a future conversation; it is not meant to document every aspect of the work, as you might in a series of traditional requirements statements.
+If the description becomes too long (more than will fit on an index card), you should reconsider the User Story. It is likely that it needs to be split into several stories. You might also consider whether you are trying to include too many details. Remember that the purpose of an User Story is to encourage collaboration. An User Story is a commitment to have a future conversation; it is not meant to document every aspect of the work, as you might expect in traditional requirement documents.
 
-When writing a user story, you might include some acceptance criteria, perhaps in the form of a test case or a brief description of "done," if those criteria help make the intent of the user story easier to remember. When the team is ready to work on that story, however, the team and the product owner must discuss the user story. This process will include (indeed must include) adding acceptance criteria so the team will know what done means. Later, as the team members begin to work on the story, they might contact the product owner and discuss new/different acceptance criteria as their understanding of the story grows – acceptance criteria enrich the understanding of the story, which in turn brings out new acceptance criteria and more meaningful conversations about what the customer really wants.
+When writing an User Story, you might include some acceptance criteria, perhaps in the form of a test case or a brief description of "done", if those criteria help make the User Story's purpose clearer or easier to remember. When the team is ready to work on that story, however, the team and the product owner must discuss the User Story. This process will include addition of acceptance criteria so the team will know what 'done' means for it. Later, as the team members begin to work on the story, they might need to contact the Product Owner and discuss new or different acceptance criteria as their understanding of the story grows. Acceptance criteria enrich the understanding of the story, which in turn brings out new acceptance criteria and more meaningful conversations about what the customer really wants.
 
 ### Frequent Mistakes in User Stories
 
-There are three main problems we see in stories:
+There are three main problems related to User Story creation:
 
-First is too much information in the description. This leads to a loss of collaboration and a reliance on the old ways of documenting everything. A user story should be thought of as a "talking points", a "to-do list," or a "tickler that a conversation must occur about a topic."  The user story is a placeholder for a conversation or series of conversations: it is only through collaboration that a user story works as an agile tool; otherwise it's just a requirement written on an index card.
+1) Too much information in the description. This leads to a loss of collaboration and a reliance on the old ways of documenting everything. An User Story should be thought of as a "talking points", a "to-do list," or a "tickler that a conversation must occur about a topic."  The User Story is a placeholder for a conversation or a series of conversations: it is only through collaboration that a User Story works as an agile tool; otherwise it's just a requirement written on an index card.
 
-Too much information in a description can lead to the second problem: missing information in acceptance criteria. Before agreeing to work on a story, the team must understand the acceptance criteria. These are essential for knowing what needs to be done in order to satisfy the user story. Acceptance criteria should be detailed enough to define when the user story is satisfied, yet not so detailed as to quash collaboration. Writing acceptance criteria should not an afterthought – it is a crucial part of a user story.
+2) Missing information in acceptance criteria. Before starting to work on a story, the team must understand the acceptance criteria. These are essential for knowing what needs to be done in order to complete the user story. Acceptance criteria should be detailed enough to define when the user story is completed, yet not so detailed as to reduce collaboration. Writing acceptance criteria is a crucial part of an user story.
 
-The third problem is to confuse acceptance criteria and test cases. Both are necessary for a user story. Acceptance criteria answer the question, “How will I know when I’m done with the story?” Test cases answer the questions, “How do I test and what are the test steps?”  While both acceptance tests and test cases should be added to the user story via collaboration, only acceptance criteria are required. Test-driven development is often used to flesh out the test cases as the code is written.
+3) Confuse acceptance criteria and test cases. Both are necessary for an User Story. Acceptance criteria answer the question: “How will I know when I’m done with the story?” and on the other hand, test cases answer the questions: “How do I test and what are the test steps?”. While both of them should be added to the user story via collaboration, only acceptance criteria are required. Test-driven development is often used to fulfill test cases as the code is written.
 
 
 ### References

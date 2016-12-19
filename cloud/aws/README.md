@@ -18,6 +18,7 @@
 	* [IAM](#iam)
 	* [Lambda](#lambda)
 	* [SQS](#sqs)
+	* [RDS](#rds)
 
 ---
 ## Introduction
@@ -51,6 +52,7 @@ Please also note that Information in the part of **Services** it is also split o
 - Lambda
 - SQS
 - DynamoDB
+- RDS
 
 ---
 ## Cloud Best Practices 
@@ -739,6 +741,35 @@ Amazon SQS queues can deliver very high throughput (many thousands of messages p
 SQS automatically deletes messages that have been in a queue for more than maximum message retention period. In some use cases, messages are no longer useful few minutes after they are send to queue. Set a short retention period ( like 5 minutes ) is a good practice to reduce polling of not useful messages.
 
 ---
+### RDS
+
+Amazon Relational Database Service (Amazon RDS) offers a distributed relational database running in the cloud that you can easily set up , operate and scale also provides cost-efficient , resizable capacity and manage common database administration tasks.  
+Engines compatible with aws are MySQL, MariaDB, PostgreSQL, Oracle, Microsoft SQL Server, and MySQL-compatible Amazon Aurora DB .
+
+These are the best practices you should follow when using this service:
+
+* **Monitor :** It is very important to be aware of the use that your database receives to maintain system performance and availability . 
+You can use the console to view metrics in real time for your DB instance or consume Enhanced Monitoring JSON output from CloudWatch Logs , this will help you to be notified when usage patterns change or when you approach the capacity of your deployment . More about [Enhanced Monitoring](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html).  
+Study performance problems in your metrics, you can improve the performance of the most used and most resource consumption queries using Tuning Queries consultations, read about best practices to use in each database engine [here](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_BestPractices.html#CHAP_BestPractices.TuningQueries) .
+
+* **Scale up :** You must be prepared to scale up your DB instance when you receive unexpected increases from your applications.
+
+* **Better safe than sorry :** 
+ * **Automatic backups :** Having backups is a must, enable and select the appropriate time of day to occur. [See more](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html).
+ * **Test failover**  for your database instance to understand how long the process takes for your use case and to make sure that the application that accesses your database instance can automatically connect to the new DB instance later Of the failover.
+ * **Recovery after failover** or database failure is very costly and slow , maintain control over the workload your database requires and if you need to increase it do any or all of the following:
+	* Migrate to a DB instance class with High I/O capacity.
+	* Changing standard storage (magnetic)  by another may be a good choice depending on your upgrade needs, there are more options like General Purpose (SSD) and IOPS Provided (input / output operations per second). Each one is different in its performance characteristics and price, you will also have to take into account if your DB instance is optimized for them. More about [Storage Types](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html) .
+	* If you are already using Provisioned IOPS storage, provision additional throughput capacity.
+
+* **Set a time-to-live (TTL)** when your application caches the DNS data of your database instances. This will prevent your application from attempting to connect to an IP address that is no longer in service after an error.
+
+* **Amazon RDS Security** : Use individual AWS IAM accounts for each user including yourself, giving each one the minimum required permissions for their responsibilities, you can group users using IAM groups.  
+There should be no users with root credentials and you must rotate your IAM credentials regularly, this is the best way to control access to RDS API actions such as create , modify or delete such important resources as DB instances,security groups, option groups, or parameter groups, and others such as backing up and restoring DB instances or configuring Provisioned IOPS storage.  
+For information on IAM best practices see [IAM Best Practices](#iam) .
+
+
+---
 
 ### References
 
@@ -746,6 +777,7 @@ SQS automatically deletes messages that have been in a queue for more than maxim
 * [IAM Best Practices](http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 * [AWS SQS Developer Guide](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/Welcome.html)
 * [Lambda Developer Guide](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+* [RDS Best Practices](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_BestPractices.html)
 
 ___
 
