@@ -2130,11 +2130,11 @@ Of course virtualenv has several options, as you can see in the documentation:
 * Python installation
 * More logging library information
 * Classes usage
-** Class variables
-** Public methods
-** Private methods
-** Descriptors usage( https://docs.python.org/2/howto/descriptor.html )
-** Heritance
+  * Class variables
+  * Public methods
+  * Private methods
+  * Descriptors usage( https://docs.python.org/2/howto/descriptor.html )
+  * Heritance
 * More aboute argparse
 * Search duplicated code
 * Black box tests
