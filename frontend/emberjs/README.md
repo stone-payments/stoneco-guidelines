@@ -86,6 +86,80 @@ export default Ember.Controller.extend({
 
 ---
 
+## Actions
+
+Use camel case for action properties.
+
+**Do this:**
+
+```html
+{{my-component model=project onSave=(action "saveThings")}}
+```
+
+**Don't do this:**
+
+```html
+{{my-component model=project onsave=(action "saveThings")}}
+```
+
+---
+
+Use closure actions whenever applicable.
+
+**Prefer**
+
+```html
+<!-- template.hbs -->
+{{my-component model=project onSave=(action "saveThings")}}
+
+<!-- my-component.hbs -->
+<button {{action attrs.onSave}}>Save</button>
+```
+
+**Over**
+
+```html
+<!-- template.hbs -->
+{{my-component model=project onSave="saveProject"}}
+
+<!-- my-component.hbs -->
+<button {{action "save"}}>Save</button>
+```
+
+```javascript
+// my-component.js
+Ember.Component.extend({
+  actions: {
+    save: function() {
+      this.sendAction('onSave');
+    }
+  }
+});
+```
+
+---
+
+When using closure actions, access the passed closure using `this.attrs`
+
+```html
+<!-- template.hbs -->
+{{my-component model=project onSave=(action "doSomething")}}
+
+<!-- my-component.hbs -->
+<input type="text" oninput={{action "doIt" value="target.value"}} />
+```
+
+```javascript
+// my-component.js
+Ember.Component.extend({
+  actions: {
+    doIt: function(value) {
+      this.attrs.onSave(value);
+    }
+  }
+});
+```
+
 ## Templates
 
 Use double quotes for HTML content, for Handlebars/HTMLBars syntax use simple quotes.
@@ -255,4 +329,3 @@ export default Model.extend({
 **Testing Ember**
 
   - [Ember QUnit](https://github.com/emberjs/ember-qunit)
-
