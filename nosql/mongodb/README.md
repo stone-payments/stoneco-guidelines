@@ -21,7 +21,7 @@
   * [WiredTiger Storage Engine](#wiredtiger-storage-engine)
   * [MMAPv1 Storage Engine](#mmapv1-storage-engine)
   * [In-Memory Storage Engine](#in-memory-storage-engine)
-* [CRUD] (#crud)
+* [CRUD cheatsheet] (#crud-cheatsheet)
 * [References](#references)
 
 ---
@@ -371,7 +371,7 @@ As such, the concept of journal or waiting for data to become durable does not a
 Write operations that specify a write concern journaled are acknowledged immediately. When a mongod instance shuts down, either as result of the shutdown command or due to a system error, recovery of in-memory data is impossible.
 
 
-## CRUD
+## CRUD cheatsheet
 
 We are going to take a look at the CRUD operations in MongoDB. Through these operations we can see and manipulate the content of our collections. A collection stores a series of documents that should be linked between if (although MongoDB is without a schema, the collections should store documents with a same functional sense).
 
@@ -680,6 +680,389 @@ If you don't use the **$elemMatch** operator one element can satisfy one conditi
 ````javascript
 db.users.find( { "grades.score": { $lte: 70 } , "grades.grade": "A"} ) 
 ````
+### Query operators
+
+#### Comparison
+
+* **_$eq_**
+
+Specifies equality condition. The $eq operator matches documents where the value of a field equals the specified value.
+
+````javascript
+db.inventory.find( { qty: { $eq: 20 } } )
+````
+
+* **_$gt_**
+
+Selects those documents where the value of the field is greater than the specified value.
+
+````javascript
+db.inventory.find( { qty: { $gt: 20 } } )
+````
+
+* **_$gte_**
+
+Selects the documents where the value of the field is greater than or equal to (i.e. >=) a specified value (e.g. value.)
+
+````javascript
+db.inventory.find( { qty: { $gte: 20 } } )
+````
+
+* **_$lt_**
+
+Selects the documents where the value of the field is less than the specified value.
+
+````javascript
+db.inventory.find( { qty: { $lt: 20 } } )
+````
+
+* **_$lte_**
+
+Selects the documents where the value of the field is less than or equal to the specified value.
+
+````javascript
+db.inventory.find( { qty: { $lte: 20 } } )
+````
+
+* **_$ne_**
+
+elects the documents where the value of the field is not equal (i.e. !=) to the specified value. This includes documents that do not contain the field.
+
+````javascript
+db.inventory.find( { qty: { $ne: 20 } } )
+````
+
+* **_$in_**
+
+The $in operator selects the documents where the value of a field equals any value in the specified array.
+
+````javascript
+db.inventory.update(
+     { tags: { $in: ["appliances", "school"] } },
+     { $set: { sale:true } }
+   )
+````
+
+* **_$nin_**
+
+Selects the documents where the field value is not in the specified array or the field does not exist.
+
+````javascript
+db.inventory.find( { qty: { $nin: [ 5, 15 ] } } )
+````
+
+#### Logical
+
+
+* **_$or_**
+
+Joins query clauses with a logical OR returns all documents that match the conditions of either clause.
+
+````javascript
+db.inventory.find( { $or: [ { quantity: { $lt: 20 } }, { price: 10 } ] } )
+````
+
+* **_$and_**
+
+Joins query clauses with a logical AND returns all documents that match the conditions of both clauses.
+
+````javascript
+db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] } )
+````
+
+* **_$not_**
+
+Inverts the effect of a query expression and returns documents that do not match the query expression.
+
+````javascript
+db.inventory.find( { price: { $not: { $gt: 1.99 } } } )
+````
+
+* **_$nor_**
+
+Joins query clauses with a logical NOR returns all documents that fail to match both clauses.
+
+````javascript
+db.inventory.find( { $nor: [ { price: 1.99 }, { sale: true } ]  } )
+````
+
+#### Element
+
+* **_$exists_**
+
+Matches documents that have the specified field.
+
+````javascript
+db.inventory.find( { qty: { $exists: true, $nin: [ 5, 15 ] } } )
+````
+
+* **_$type_**
+
+Selects documents if a field is of the specified type.
+
+````javascript
+{ field: { $type: <BSON type number> | <String alias> } }
+````
+
+````javascript
+db.addressBook.find( { "zipCode" : { $type : "string" } } );
+db.addressBook.find( { "zipCode" : { $type : 2 } } );
+````
+
+#### Evaluation
+
+* **_$mod_**
+
+Performs a modulo operation on the value of a field and selects documents with a specified result.
+
+````javascript
+db.inventory.find( { qty: { $mod: [ 4, 0 ] } } )
+````
+
+* **_$regex_**
+
+Selects documents where values match a specified regular expression.
+
+````javascript
+db.products.find( { description: { $regex: /^S/, $options: 'm' } } )
+````
+
+* **_$text_**
+
+Performs text search.
+
+````javascript
+{
+  $text:
+    {
+      $search: <string>,
+      $language: <string>,
+      $caseSensitive: <boolean>,
+      $diacriticSensitive: <boolean>
+    }
+}
+````
+
+````javascript
+db.articles.find( { $text: { $search: "coffee" } } )
+db.articles.find( { $text: { $search: "\"coffee shop\"" } } )
+db.articles.find( { $text: { $search: "leche", $language: "es" } })
+db.articles.find( { $text: { $search: "Coffee", $caseSensitive: true } } )
+````
+
+* **_$where_**
+
+Matches documents that satisfy a JavaScript expression.
+
+````javascript
+db.myCollection.find( { $where: "obj.credits == obj.debits" } );
+db.myCollection.find( { $where: function() { return obj.credits == obj.debits; } } );
+db.myCollection.find( { active: true, $where: function() { return obj.credits - obj.debits < 0; } } );
+````
+
+#### Geospatial
+
+* **_$geoWithin_**
+
+Selects documents with geospatial data that exists entirely within a specified shape. When determining inclusion, MongoDB considers the border of a shape to be part of the shape, subject to the precision of floating point numbers.
+
+````javascript
+db.places.find(
+   {
+     loc: {
+       $geoWithin: {
+          $geometry: {
+             type : "Polygon" ,
+             coordinates: [ [ [ 0, 0 ], [ 3, 6 ], [ 6, 1 ], [ 0, 0 ] ] ]
+          }
+       }
+     }
+   }
+)
+````
+
+* **_$geoIntersects_**
+
+Selects documents whose geospatial data intersects with a specified GeoJSON object; i.e. where the intersection of the data and the specified object is non-empty. This includes cases where the data and the specified object share an edge.
+
+````javascript
+db.places.find(
+   {
+     loc: {
+       $geoIntersects: {
+          $geometry: {
+             type: "Polygon" ,
+             coordinates: [
+               [ [ 0, 0 ], [ 3, 6 ], [ 6, 1 ], [ 0, 0 ] ]
+             ]
+          }
+       }
+     }
+   }
+)
+````
+
+* **_$near_**
+
+Specifies a point for which a geospatial query returns the documents from nearest to farthest. The $near operator can specify either a GeoJSON point or legacy coordinate point.
+
+````javascript
+db.places.find(
+   {
+     location:
+       { $near :
+          {
+            $geometry: { type: "Point",  coordinates: [ -73.9667, 40.78 ] },
+            $minDistance: 1000,
+            $maxDistance: 5000
+          }
+       }
+   }
+)
+````
+
+* **_$nearSphere_**
+
+Returns geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.
+
+````javascript
+db.places.find(
+   {
+     location: {
+        $nearSphere: {
+           $geometry: {
+              type : "Point",
+              coordinates : [ -73.9667, 40.78 ]
+           },
+           $minDistance: 1000,
+           $maxDistance: 5000
+        }
+     }
+   }
+)
+````
+
+#### Array
+
+* **_$all_**
+
+The $all operator selects the documents where the value of a field is an array that contains all the specified elements.
+
+````javascript
+db.articles.find( { tags: { $all: [ [ "ssl", "security" ] ] } } )
+````
+
+* **_$elemMatch_**
+
+The $elemMatch operator matches documents that contain an array field with at least one element that matches all the specified query criteria.
+
+````javascript
+db.scores.find(
+   { results: { $elemMatch: { $gte: 80, $lt: 85 } } }
+)
+````
+
+* **_$size_**
+
+The $size operator matches any array with the number of elements specified by the argument.
+
+````javascript
+db.collection.find( { field: { $size: 2 } } );
+````
+
+#### Bitwise
+
+* **_$bitsAllSet_**
+
+$bitsAllSet matches documents where all of the bit positions given by the query are set (i.e. 1) in field.
+
+````javascript
+db.collection.find( { a: { $bitsAllSet: 35 } } )
+````
+
+
+* **_$bitsAnySet_**
+
+$bitsAnySet matches documents where any of the bit positions given by the query are set (i.e. 1) in field.
+
+````javascript
+db.collection.find( { a: { $bitsAnySet: [ 1, 5 ] } } )
+````
+
+* **_$bitsAllClear_**
+
+$bitsAllClear matches documents where all of the bit positions given by the query are clear (i.e. 0) in field.
+
+````javascript
+db.collection.find( { a: { $bitsAllClear: [ 1, 5 ] } } )
+````
+
+* **_$bitsAnyClear_**
+
+$bitsAnyClear matches documents where any of the bit positions given by the query are clear (i.e. 0) in field.
+
+````javascript
+db.collection.find( { a: { $bitsAnyClear: [ 1, 5 ] } } )
+````
+
+#### Comments
+
+* **_$comment_**
+
+The $comment query operator associates a comment to any expression taking a query predicate.
+
+````javascript
+db.records.find(
+   {
+     x: { $mod: [ 2, 0 ] },
+     $comment: "Find even values."
+   }
+)
+````
+
+#### Projection Operators
+
+* **_$_**
+
+The positional $ operator limits the contents of an array from the query results to contain only the first element matching the query document. To specify an array element to update, see the positional $ operator for updates.
+
+Use $ in the projection document of the find() method or the findOne() method when you only need one particular array element in selected documents.
+
+````javascript
+db.students.find( { grades: { $elemMatch: {
+		    mean: { $gt: 70 },
+		    grade: { $gt:90 }
+		  } } },
+{ "grades.$": 1 } )
+````
+
+* **_$elemMatch_**
+
+The $elemMatch operator limits the contents of an array field from the query results to contain only the first element matching the $elemMatch condition.
+
+````javascript
+db.schools.find( { zipcode: "63109" },
+    { students: { $elemMatch: { school: 102 } } } )
+````
+
+* **_$meta_**
+
+The $meta projection operator returns for each matching document the metadata (e.g. "textScore") associated with the query.
+
+````javascript
+db.collection.find(
+   [query],
+   { score: { $meta: "textScore" } }
+)
+````
+
+* **_$slice**
+
+The $slice operator controls the number of items of an array that a query returns. For information on limiting the size of an array during an update with $push, see the $slice modifier instead.
+
+````javascript
+db.collection.find( { field: value }, { array: {$slice: count } } );
+````
 
 ## Update documents
 
@@ -737,22 +1120,52 @@ Let's look each parameter in detail:
 
 ### db.collection.updateMany()
 
+Updates multiple documents within the collection based on the filter.
+
 ````javascript
-
+db.collection.updateMany(
+   <filter>,
+   <update>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>
+   }
+)
 ````
-
 
 ### db.collection.update()
 
-````javascript
+Modifies an existing document or documents in a collection. The method can modify specific fields of an existing document or documents or replace an existing document entirely, depending on the update parameter.
 
+By default, the update() method updates a single document. Set the Multi Parameter to update all documents that match the query criteria.
+
+````javascript
+db.collection.update(
+   <query>,
+   <update>,
+   {
+     upsert: <boolean>,
+     multi: <boolean>,
+     writeConcern: <document>
+   }
+)
 ````
 
 ### db.collection.replaceOne()
 
+Replaces a single document within the collection based on the filter.
 
 ````javascript
-
+db.collection.replaceOne(
+   <filter>,
+   <replacement>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>
+   }
+)
 ````
 
 ### Update operators
@@ -761,144 +1174,280 @@ Let's look each parameter in detail:
 
 * **_$inc_**
 
-````javascript
+The $inc operator increments a field by a specified value and has the following form:
 
+````javascript
+db.products.update(
+   { sku: "abc123" },
+   { $inc: { quantity: -2, "metrics.orders": 1 } }
+)
 ````
 
 * **_$mul_**
 
-````javascript
+Multiply the value of a field by a number.
 
+````javascript
+db.products.update(
+   { _id: 1 },
+   { $mul: { price: 1.25 } }
+)
 ````
 
 * **_$rename_**
 
-````javascript
+The $rename operator updates the name of a field
 
+````javascript
+db.students.update( { _id: 1 }, { $rename: { 'nickname': 'alias', 'cell': 'mobile' } } )
 ````
 
 * **_$setOnInsert_**
 
-````javascript
+If an update operation with upsert: true results in an insert of a document, then $setOnInsert assigns the specified values to the fields in the document. If the update operation does not result in an insert, $setOnInsert does nothing.
 
+````javascript
+db.products.update(
+  { _id: 1 },
+  {
+     $set: { item: "apple" },
+     $setOnInsert: { defaultQty: 100 }
+  },
+  { upsert: true }
+)
 ````
 
 * **_$set_**
 
-````javascript
+The $set operator replaces the value of a field with the specified value.
 
+````javascript
+db.products.update(
+   { _id: 100 },
+   { $set:
+      {
+        quantity: 500,
+        details: { model: "14Q3", make: "xyz" },
+        tags: [ "coats", "outerwear", "clothing" ]
+      }
+   }
+)
 ````
 
 * **_$unset_**
 
-````javascript
+The $unset operator deletes a particular field.
 
+````javascript
+db.products.update(
+   { sku: "unknown" },
+   { $unset: { quantity: "", instock: "" } }
+)
 ````
 
 * **_$min_**
 
-````javascript
+The $min updates the value of the field to a specified value if the specified value is less than the current value of the field.
 
+````javascript
+db.scores.update( { _id: 1 }, { $min: { lowScore: 150 } } )
 ````
 
 * **_$max_**
 
-````javascript
+The $max operator updates the value of the field to a specified value if the specified value is greater than the current value of the field.
 
+````javascript
+db.scores.update( { _id: 1 }, { $max: { highScore: 870 } } )
 ````
 
 * **_$currentDate_**
 
-````javascript
+The $currentDate operator sets the value of a field to the current date, either as a Date or a timestamp. The default type is Date.
 
+````javascript
+db.users.update(
+   { _id: 1 },
+   {
+     $currentDate: {
+        lastModified: true,
+        "cancellation.date": { $type: "timestamp" }
+     },
+     $set: {
+        status: "D",
+        "cancellation.reason": "user request"
+     }
+   }
+)
 ````
 
 #### Array
 
 * **_$_**
 
-````javascript
+The positional $ operator identifies an element in an array to update without explicitly specifying the position of the element in the array. To project, or return, an array element from a read operation, see the $ projection operator.
 
+When used with update operations, e.g. db.collection.update():
+
+* the positional $ operator acts as a placeholder for the first element that matches the query document.
+* the array field must appear as part of the query document.
+
+For example, if you want to update 80 to 82 in the grades array in the first document, use the positional $ operator if you do not know the position of the element in the array:
+
+````javascript
+db.students.update(
+   { _id: 1, grades: 80 },
+   { $set: { "grades.$" : 82 } }
+)
 ````
 
 * **_$addToSet_**
 
-````javascript
+The $addToSet operator adds a value to an array unless the value is already present, in which case $addToSet does nothing to that array. This operator can works with the $each modifier.
 
+````javascript
+db.test.update(
+   { _id: 1 },
+   { $addToSet: {letters: [ "c", "d" ] } }
+)
 ````
 
 * **_$pop_**
 
-````javascript
+The $pop operator removes the first or last element of an array. Pass $pop a value of -1 to remove the first element of an array and 1 to remove the last element in an array.
 
+````javascript
+db.students.update( { _id: 1 }, { $pop: { scores: -1 } } )
 ````
 
 * **_$pullAll_**
 
-````javascript
+The $pullAll operator removes all instances of the specified values from an existing array. Unlike the $pull operator that removes elements by specifying a query, $pullAll removes elements that match the listed values.
 
+````javascript
+db.survey.update( { _id: 1 }, { $pullAll: { scores: [ 0, 5 ] } } )
 ````
 
 * **_$pull_**
 
-````javascript
+The $pull operator removes from an existing array all instances of a value or values that match a specified condition.
 
+````javascript
+db.stores.update(
+    { },
+    { $pull: { fruits: { $in: [ "apples", "oranges" ] }, vegetables: "carrots" } },
+    { multi: true }
+)
 ````
 
 * **_$pushAll_**
 
-````javascript
-
-````
+Deprecated since version 2.4: Use the $push operator with $each instead.
 
 * **_$push_**
 
-````javascript
+The $push operator appends a specified value to an array. If the value is an array, $push appends the whole array as a single element. To add each element of the value separately, use the $each modifier with $push.
 
+The following example appends 89 to the scores array:
+
+````javascript
+db.students.update(
+   { _id: 1 },
+   { $push: { scores: 89 } }
+)
 ````
 
-#### Modifiers
+These are the modifiers that you can use with push:
 
-
-* **_$each_**
+*  $each: Appends multiple values to the array field. The following example appends each element of [ 90, 92, 85 ] to the scores array for the document where the name field equals joe:
 
 ````javascript
-
+db.students.update(
+   { name: "joe" },
+   { $push: { scores: { $each: [ 90, 92, 85 ] } } }
+)
 ````
 
-* **_$slice_**
+*  $slice: Limits the number of array elements. Requires the use of the $each modifier.
+
+*  $sort: Orders elements of the array. Requires the use of the $each modifier.
+
+The following $push operation uses the $each modifier to add multiple documents to the quizzes array, the $sort modifier to sort all the elements of the modified quizzes array by the score field in descending order, and the $slice modifier to keep only the first three sorted elements of the quizzes array.
 
 ````javascript
-
+db.students.update(
+   { _id: 5 },
+   {
+     $push: {
+       quizzes: {
+          $each: [ { wk: 5, score: 8 }, { wk: 6, score: 7 }, { wk: 7, score: 6 } ],
+          $sort: { score: -1 },
+          $slice: 3
+       }
+     }
+   }
+)
 ````
 
-* **_$sort_**
+*  $position: Specifies the location in the array at which to insert the new elements. Requires the use of the $each modifier. Without the $position modifier, the $push appends the elements to the end of the array.
+
+The following operation updates the scores field to add the elements 20 and 30 at the array index of 2:
 
 ````javascript
-
-````
-
-* **_$position_**
-
-````javascript
-
+db.students.update(
+   { _id: 1 },
+   {
+     $push: {
+        scores: {
+           $each: [ 20, 30 ],
+           $position: 2
+        }
+     }
+   }
+)
 ````
 
 #### Bitwise
 
 * **_$bit_**
 
-````javascript
+The $bit operator performs a bitwise update of a field. The operator supports bitwise and, bitwise or, and bitwise xor (i.e. exclusive or) operations.
 
+````javascript
+db.switches.update(
+   { _id: 1 },
+   { $bit: { expdata: { and: NumberInt(10) } } }
+)
+````
+
+````javascript
+db.switches.update(
+   { _id: 2 },
+   { $bit: { expdata: { or: NumberInt(5) } } }
+)
+````
+
+````javascript
+db.switches.update(
+   { _id: 3 },
+   { $bit: { expdata: { xor: NumberInt(5) } } }
+)
 ````
 
 #### Isolation
 
 * **_$isolated_**
 
-````javascript
+Prevents a write operation that affects multiple documents from yielding to other reads or writes once the first document is written. By using the $isolated option, you can ensure that no client sees the changes until the operation completes or errors out.
 
+````javascript
+db.foo.update(
+    { status : "A" , $isolated : 1 },
+    { $inc : { count : 1 } },
+    { multi: true }
+)
 ````
+In this example, if you don't use the $isolated operator, the multi-update operation will allow other operations to interleave with its update of the matched documents.
 
 
 ## Delete documents
