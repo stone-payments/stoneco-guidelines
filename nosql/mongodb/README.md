@@ -553,25 +553,352 @@ db.users.find( { "favorites.sports": "Football" } )
 
 ### Query on Arrays
 
+When the field holds an array, you can query for an exact array match or for specific values in the array. If the array holds embedded documents, you can query for specific fields in the embedded documents using dot notation.
+
 #### Exact Match on an Array
+
+If you want to match an array inside a document you have to inform the entire array.
+
+````javascript
+db.employee.find({courses: ["Phyton","MongoDB"]})
+````
 
 #### Match an Array Element
 
+Equality matches can specify a single element in the array to match. These specifications match if the array contains at least one element with the specified value.
+
+````javascript
+db.employee.find({courses:"NodeJs"})
+````
+
 #### Match a Specific Element of an Array
+
+Equality matches can specify equality matches for an element at a particular index or position of the array using the dot notation.
+
+````javascript
+db.employee.find({"courses.0":"Polymer"})
+````
 
 #### Specify Multiple Criteria for Array Elements
 
+**_Single element satisfies the criteria_**
+
+Use **$elemMatch** operator to specify multiple criteria on the elements of an array such that at least one array element satisfies all the specified criteria.
+
+````javascript
+db.employee.find({ certification_notes: { $elemMatch: { $gt: 5, $lte: 10 } } })
+````
+**_Combination of elements satisfies the criteria_**
+
+If you don't use the **$elemMatch** operator one element can satisfy one condition and another element can satisfy the other condition, or a single element can satisfy both:
+
+````javascript
+db.user.find({ finished: { $gt: 15, $lt: 20 })
+````
+
 #### Array of Embedded Documents
+
+Take the following json example:
+
+````json
+{
+	"_id" : ObjectId("585a53a9bfd4a35c91fd9cac"),
+	"address" : {
+		"building" : "1007",
+		"coord" : [
+			-73.856077,
+			40.848447
+		],
+		"street" : "Morris Park Ave",
+		"zipcode" : "10462"
+	},
+	"borough" : "Bronx",
+	"cuisine" : "Bakery",
+	"grades" : [
+		{
+			"date" : ISODate("2014-03-03T00:00:00Z"),
+			"grade" : "A",
+			"score" : 2
+		},
+		{
+			"date" : ISODate("2013-09-11T00:00:00Z"),
+			"grade" : "A",
+			"score" : 6
+		},
+		{
+			"date" : ISODate("2013-01-24T00:00:00Z"),
+			"grade" : "A",
+			"score" : 10
+		},
+		{
+			"date" : ISODate("2011-11-23T00:00:00Z"),
+			"grade" : "A",
+			"score" : 9
+		},
+		{
+			"date" : ISODate("2011-03-10T00:00:00Z"),
+			"grade" : "B",
+			"score" : 14
+		}
+	],
+	"name" : "Morris Park Bake Shop",
+	"restaurant_id" : "30075445"
+}
+
+````
+
+**_Match a field in the embedded document using the array index_**
+
+If you know the array index of the embedded document, you can specify the document using the embedded document’s position using the dot notation.
+
+````javascript
+db.restaurants.find( { 'grades.0.score': { $lte: 55 } } )
+````
+
+**_Combination of elements satisfies the criteria_**
+
+If you do not know the index position of the document in the array, concatenate the name of the field that contains the array, with a dot (.) and the name of the field in the embedded document.
+
+````javascript
+db.restaurants.find( { 'grades.score': { $lte: 55 } } )
+````
 
 #### Specify Multiple Criteria for Array of Documents
 
+**_Simple element satisfies the criteria_**
+
+Use **$elemMatch** operator to specify multiple criteria on an array of embedded documents such that at least one embedded document satisfies all the specified criteria.
+
+````javascript
+db.users.find( { grades: { $elemMatch: { score: { $lte: 70 }, grade: "A" } } } )
+````
+
+**_Combination of elements satisfies the criteria_**
+
+If you don't use the **$elemMatch** operator one element can satisfy one condition and another element can satisfy the other condition, or a single element can satisfy both:
+
+````javascript
+db.users.find( { "grades.score": { $lte: 70 } , "grades.grade": "A"} ) 
+````
+
 ## Update documents
 
-**_Building..._**
+MongoDB defines a series of operations to update records on your collections.
+
+### db.collection.updateOne()
+
+This operation updates a single document within the collection based on the filter.
+
+````javascript
+db.collection.updateOne(
+   <filter>,
+   <update>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>
+   }
+)
+````
+
+Let's look each parameter in detail:
+
+* filter: The selection criteria for the update. It's the same query selectors as in the find() method are available. You can specify an empty document { } to update the first document returned in the collection.
+
+* update: The modifications to apply. Later we will go deeper into the update operators.
+
+* upsert: Optional. Defaults to false. When true, updateOne() either:
+  * Creates a new document if no documents match the filter. 
+  * Updates a single document that matches the filter.
+
+* writeConcern: Optional. A document expressing the write concern. Write concern describes the level of acknowledgement requested from MongoDB for write operations. If you want to use the default write concern you only have to omit it.
+  * The w option to request acknowledgment that the write operation has propagated to a specified number of mongod instances or to mongod instances with specified tags.
+  * The j option to request acknowledgement that the write operation has been written to the journal.
+  * The wtimeout option to specify a time limit to prevent write operations from blocking indefinitely.
+
+````javascript
+{ w: <value>, j: <boolean>, wtimeout: <number> }
+````
+
+* collation: Optional. Specifies the collation to use for the operation. Collation allows users to specify language-specific rules for string comparison, such as rules for lettercase and accent marks.
+
+````javascript
+{
+   locale: <string>,
+   caseLevel: <boolean>,
+   caseFirst: <string>,
+   strength: <int>,
+   numericOrdering: <boolean>,
+   alternate: <string>,
+   maxVariable: <string>,
+   backwards: <boolean>
+}
+````
+
+### db.collection.updateMany()
+
+````javascript
+
+````
 
 
+### db.collection.update()
+
+````javascript
+
+````
+
+### db.collection.replaceOne()
 
 
+````javascript
+
+````
+
+### Update operators
+
+#### Fields
+
+* **_$inc_**
+
+````javascript
+
+````
+
+* **_$mul_**
+
+````javascript
+
+````
+
+* **_$rename_**
+
+````javascript
+
+````
+
+* **_$setOnInsert_**
+
+````javascript
+
+````
+
+* **_$set_**
+
+````javascript
+
+````
+
+* **_$unset_**
+
+````javascript
+
+````
+
+* **_$min_**
+
+````javascript
+
+````
+
+* **_$max_**
+
+````javascript
+
+````
+
+* **_$currentDate_**
+
+````javascript
+
+````
+
+#### Array
+
+* **_$_**
+
+````javascript
+
+````
+
+* **_$addToSet_**
+
+````javascript
+
+````
+
+* **_$pop_**
+
+````javascript
+
+````
+
+* **_$pullAll_**
+
+````javascript
+
+````
+
+* **_$pull_**
+
+````javascript
+
+````
+
+* **_$pushAll_**
+
+````javascript
+
+````
+
+* **_$push_**
+
+````javascript
+
+````
+
+#### Modifiers
+
+
+* **_$each_**
+
+````javascript
+
+````
+
+* **_$slice_**
+
+````javascript
+
+````
+
+* **_$sort_**
+
+````javascript
+
+````
+
+* **_$position_**
+
+````javascript
+
+````
+
+#### Bitwise
+
+* **_$bit_**
+
+````javascript
+
+````
+
+#### Isolation
+
+* **_$isolated_**
+
+````javascript
+
+````
 
 
 ## Delete documents
