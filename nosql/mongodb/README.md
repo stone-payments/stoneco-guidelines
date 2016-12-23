@@ -22,6 +22,10 @@
   * [MMAPv1 Storage Engine](#mmapv1-storage-engine)
   * [In-Memory Storage Engine](#in-memory-storage-engine)
 * [CRUD cheatsheet] (#crud-cheatsheet)
+  * [Create documents](#create-documents)
+  * [Read documents](#read-documents)
+  * [Update documents](#update-documents)
+  * [Delete documents](#delete-documents)
 * [References](#references)
 
 ---
@@ -373,7 +377,7 @@ Write operations that specify a write concern journaled are acknowledged immedia
 
 ## CRUD cheatsheet
 
-We are going to take a look at the CRUD operations in MongoDB. Through these operations we can see and manipulate the content of our collections. A collection stores a series of documents that should be linked between if (although MongoDB is without a schema, the collections should store documents with a same functional sense).
+We are going to take a look at the CRUD operations in MongoDB. Through these operations we can see and manipulate the content of our collections. A collection stores a series of documents that should be linked together (although MongoDB is schemaless, the collections should store documents with a same functional sense).
 
 Here we have some records of the __zips__ collection as an example:
 
@@ -393,7 +397,7 @@ Here we have some records of the __zips__ collection as an example:
 ]
 ````
 
-MongoDB provides a series of commands to perform operations of create, delete, query and update documents. Please bear in mind that these operations are based on the version 3.2 of MongoDB. These operations are summarized below:
+MongoDB provides a series of commands for performing operations to create, delete, query and update documents. Please bear in mind that these operations are based on the version 3.2 of MongoDB. These operations are summarized below:
 
 ### Create documents
 
@@ -401,7 +405,7 @@ This operation creates a document into a collection given. If the collection doe
 
 MongoDB provides the following methods for inserting documents into a collection:
 
-### db.collection.insertOne()
+#### db.collection.insertOne()
 
 This operation inserts a single document into a collection.
 
@@ -409,7 +413,7 @@ This operation inserts a single document into a collection.
 db.getCollection('zips').insertOne({_id:"28015", city:"Madrid", loc:[40.418889,-3.691944], pop:6543031})
 ````
 
-### db.collection.insertMany()
+#### db.collection.insertMany()
 
 It inserts a set of documents into a collection. These documents are informed within an array:
 
@@ -420,7 +424,7 @@ It inserts a set of documents into a collection. These documents are informed wi
   	{"_id":"27004","city":"Lugo","loc":[43.011667,-7.557222],"pop":98134}])
 ````
 
-### db.collection.insert() 
+#### db.collection.insert() 
 
 This operation inserts a single document or multiple documents into a collection. To insert a single document, pass a document to the method; to insert multiple documents, pass an array of documents to the method.
 
@@ -437,10 +441,10 @@ db.getCollection('zips').insert([{"_id":"27001","city":"Lugo","loc":[43.011667,-
 
 First of all, don’t worry about the data modeling of the examples. No matter if the collection zips is modeled appropriately.
 
-On the other hand, you should bear in mind that there are other forms of creation of documents in a collection. The updates operations with the option upsert with a true value persists the documents if they don’t exist. 
+On the other hand, you should bear in mind that there are other forms of creation of documents in a collection. The update operations with the option upsert with a true value persists the documents if they don’t exist. 
 
 
-## Read documents
+### Read documents
 
 MongoDB provides the db.collection.find() method to read documents from a collection. The db.collection.find() method returns a cursor to the matching documents.
 
@@ -454,7 +458,7 @@ To use the db.collection.find() method, you can specify the following optional f
 
 * a query filter to specify which documents to return.
 
-* a query projection to specifies which fields from the matching documents to return. The projection limits the amount of data that MongoDB returns to the client over the network.
+* a query projection to specify which fields from the matching documents to return. The projection limits the amount of data that MongoDB returns to the client over the network.
 
 You can optionally add a cursor modifier to impose limits, skips, and sort orders:
 
@@ -494,36 +498,36 @@ function printStudents(pageNumber, nPerPage) {
 
 Now lets see a few uses of this find operation.
 
-### Select All Documents in a Collection
+#### Select All Documents in a Collection
 
 An empty query filter document ({}) selects all documents in the collection:
 
 ````javascript
 db.users.find( {} )
 ````
-### Specify Query Filter Conditions
+#### Specify Query Filter Conditions
 
 We can use a query filter to specify condition for the query:
 
-#### Specify Equality Condition
+##### Specify Equality Condition
 ````javascript
 db.cities.find( { name: "Roma" } )
 ````
-#### Specify Conditions Using Query Operators
+##### Specify Conditions Using Query Operators
 A query filter document can use the query operators to specify conditions. Although you can express this query using the $or operator, use the $in operator rather than the $or operator when performing equality checks on the same field.
 
 ````
 db.users.find( { status: { $in: [ "P", "D" ] } } )
 ````
 
-#### Specify OR Conditions
+##### Specify OR Conditions
 Using the $or operator, you can specify a compound query that joins each clause with a logical OR conjunction so that the query selects the documents in the collection that match at least one condition.
 
 ````javascript
 db.zips.find({$or:[{pop: {$lt:2000}}, {state: "MA"}]})
 ````
 
-#### Specify AND as well as OR Conditions
+##### Specify AND as well as OR Conditions
 
 With additional clauses, you can specify precise conditions for matching documents.
 
@@ -531,11 +535,11 @@ With additional clauses, you can specify precise conditions for matching documen
 db.getCollection('zips').find({ city:"BELCHERTOWN", $or: [ { pop: { $lt: 30000 } }, { state: "MA" } ]  })
 ````
 
-### Query on Embedded Documents
+#### Query on Embedded Documents
 
 When the field holds an embedded document, a query can either specify an exact match on the embedded document or specify a match by individual fields in the embedded document using the dot notation.
 
-#### Exact Match on the Embedded Document
+##### Exact Match on the Embedded Document
 
 To specify an exact equality match on the whole embedded document, use the query document { <field>: <value> } where <value> is the document to match. Equality matches on an embedded document require an exact match of the specified <value>, __including the field order__.
 
@@ -543,7 +547,7 @@ To specify an exact equality match on the whole embedded document, use the query
 db.getCollection('zips').find({"_id":"97206","city":"PORTLAND","loc":[-122.59727,45.483995],"pop":43134,"state":"OR"})
 ````
 
-#### Equality Match on Fields within an Embedded Document
+##### Equality Match on Fields within an Embedded Document
 
 Use the dot notation to match by specific fields in an embedded document. Equality matches for specific fields in an embedded document will select documents in the collection where the embedded document contains the specified fields with the specified values.
 
@@ -551,11 +555,11 @@ Use the dot notation to match by specific fields in an embedded document. Equali
 db.users.find( { "favorites.sports": "Football" } )
 ````
 
-### Query on Arrays
+#### Query on Arrays
 
 When the field holds an array, you can query for an exact array match or for specific values in the array. If the array holds embedded documents, you can query for specific fields in the embedded documents using dot notation.
 
-#### Exact Match on an Array
+##### Exact Match on an Array
 
 If you want to match an array inside a document you have to inform the entire array.
 
@@ -563,7 +567,7 @@ If you want to match an array inside a document you have to inform the entire ar
 db.employee.find({courses: ["Phyton","MongoDB"]})
 ````
 
-#### Match an Array Element
+##### Match an Array Element
 
 Equality matches can specify a single element in the array to match. These specifications match if the array contains at least one element with the specified value.
 
@@ -571,7 +575,7 @@ Equality matches can specify a single element in the array to match. These speci
 db.employee.find({courses:"NodeJs"})
 ````
 
-#### Match a Specific Element of an Array
+##### Match a Specific Element of an Array
 
 Equality matches can specify equality matches for an element at a particular index or position of the array using the dot notation.
 
@@ -579,7 +583,7 @@ Equality matches can specify equality matches for an element at a particular ind
 db.employee.find({"courses.0":"Polymer"})
 ````
 
-#### Specify Multiple Criteria for Array Elements
+##### Specify Multiple Criteria for Array Elements
 
 **_Single element satisfies the criteria_**
 
@@ -596,7 +600,7 @@ If you don't use the **$elemMatch** operator one element can satisfy one conditi
 db.user.find({ finished: { $gt: 15, $lt: 20 })
 ````
 
-#### Array of Embedded Documents
+##### Array of Embedded Documents
 
 Take the following json example:
 
@@ -663,7 +667,7 @@ If you do not know the index position of the document in the array, concatenate 
 db.restaurants.find( { 'grades.score': { $lte: 55 } } )
 ````
 
-#### Specify Multiple Criteria for Array of Documents
+##### Specify Multiple Criteria for Array of Documents
 
 **_Simple element satisfies the criteria_**
 
@@ -680,9 +684,9 @@ If you don't use the **$elemMatch** operator one element can satisfy one conditi
 ````javascript
 db.users.find( { "grades.score": { $lte: 70 } , "grades.grade": "A"} ) 
 ````
-### Query operators
+#### Query operators
 
-#### Comparison
+##### Comparison
 
 * **_$eq_**
 
@@ -726,7 +730,7 @@ db.inventory.find( { qty: { $lte: 20 } } )
 
 * **_$ne_**
 
-elects the documents where the value of the field is not equal (i.e. !=) to the specified value. This includes documents that do not contain the field.
+Selects the documents where the value of the field is not equal (i.e. !=) to the specified value. This includes documents that do not contain the field.
 
 ````javascript
 db.inventory.find( { qty: { $ne: 20 } } )
@@ -751,12 +755,12 @@ Selects the documents where the field value is not in the specified array or the
 db.inventory.find( { qty: { $nin: [ 5, 15 ] } } )
 ````
 
-#### Logical
+##### Logical
 
 
 * **_$or_**
 
-Joins query clauses with a logical OR returns all documents that match the conditions of either clause.
+Joins query clauses with a logical OR, returning all documents that match the conditions of either clause.
 
 ````javascript
 db.inventory.find( { $or: [ { quantity: { $lt: 20 } }, { price: 10 } ] } )
@@ -764,7 +768,7 @@ db.inventory.find( { $or: [ { quantity: { $lt: 20 } }, { price: 10 } ] } )
 
 * **_$and_**
 
-Joins query clauses with a logical AND returns all documents that match the conditions of both clauses.
+Joins query clauses with a logical AND, returning all documents that match the conditions of both clauses.
 
 ````javascript
 db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] } )
@@ -780,13 +784,13 @@ db.inventory.find( { price: { $not: { $gt: 1.99 } } } )
 
 * **_$nor_**
 
-Joins query clauses with a logical NOR returns all documents that fail to match both clauses.
+Joins query clauses with a logical NOR, returning all documents that fail to match both clauses.
 
 ````javascript
 db.inventory.find( { $nor: [ { price: 1.99 }, { sale: true } ]  } )
 ````
 
-#### Element
+##### Element
 
 * **_$exists_**
 
@@ -809,7 +813,7 @@ db.addressBook.find( { "zipCode" : { $type : "string" } } );
 db.addressBook.find( { "zipCode" : { $type : 2 } } );
 ````
 
-#### Evaluation
+##### Evaluation
 
 * **_$mod_**
 
@@ -860,7 +864,7 @@ db.myCollection.find( { $where: function() { return obj.credits == obj.debits; }
 db.myCollection.find( { active: true, $where: function() { return obj.credits - obj.debits < 0; } } );
 ````
 
-#### Geospatial
+##### Geospatial
 
 * **_$geoWithin_**
 
@@ -970,7 +974,7 @@ The $size operator matches any array with the number of elements specified by th
 db.collection.find( { field: { $size: 2 } } );
 ````
 
-#### Bitwise
+##### Bitwise
 
 * **_$bitsAllSet_**
 
@@ -1005,7 +1009,7 @@ $bitsAnyClear matches documents where any of the bit positions given by the quer
 db.collection.find( { a: { $bitsAnyClear: [ 1, 5 ] } } )
 ````
 
-#### Comments
+##### Comments
 
 * **_$comment_**
 
@@ -1064,11 +1068,11 @@ The $slice operator controls the number of items of an array that a query return
 db.collection.find( { field: value }, { array: {$slice: count } } );
 ````
 
-## Update documents
+### Update documents
 
 MongoDB defines a series of operations to update records on your collections.
 
-### db.collection.updateOne()
+#### db.collection.updateOne()
 
 This operation updates a single document within the collection based on the filter.
 
@@ -1118,7 +1122,7 @@ Let's look each parameter in detail:
 }
 ````
 
-### db.collection.updateMany()
+#### db.collection.updateMany()
 
 Updates multiple documents within the collection based on the filter.
 
@@ -1134,7 +1138,7 @@ db.collection.updateMany(
 )
 ````
 
-### db.collection.update()
+#### db.collection.update()
 
 Modifies an existing document or documents in a collection. The method can modify specific fields of an existing document or documents or replace an existing document entirely, depending on the update parameter.
 
@@ -1152,7 +1156,7 @@ db.collection.update(
 )
 ````
 
-### db.collection.replaceOne()
+#### db.collection.replaceOne()
 
 Replaces a single document within the collection based on the filter.
 
@@ -1168,9 +1172,9 @@ db.collection.replaceOne(
 )
 ````
 
-### Update operators
+#### Update operators
 
-#### Fields
+##### Fields
 
 * **_$inc_**
 
@@ -1281,7 +1285,7 @@ db.users.update(
 )
 ````
 
-#### Array
+##### Array
 
 * **_$_**
 
@@ -1303,7 +1307,7 @@ db.students.update(
 
 * **_$addToSet_**
 
-The $addToSet operator adds a value to an array unless the value is already present, in which case $addToSet does nothing to that array. This operator can works with the $each modifier.
+The $addToSet operator adds a value to an array unless the value is already present, in which case $addToSet does nothing to that array. This operator can work with the $each modifier.
 
 ````javascript
 db.test.update(
@@ -1407,7 +1411,7 @@ db.students.update(
 )
 ````
 
-#### Bitwise
+##### Bitwise
 
 * **_$bit_**
 
@@ -1434,7 +1438,7 @@ db.switches.update(
 )
 ````
 
-#### Isolation
+##### Isolation
 
 * **_$isolated_**
 
@@ -1450,11 +1454,11 @@ db.foo.update(
 In this example, if you don't use the $isolated operator, the multi-update operation will allow other operations to interleave with its update of the matched documents.
 
 
-## Delete documents
+### Delete documents
 
 Delete operations do not drop indexes, even if deleting all documents from a collection. All write operations in MongoDB are atomic on the level of a single document. MongoDB provides the following methods for document elimination:
 
-### db.collection.remove()
+#### db.collection.remove()
 
 The db.collection.remove() method can have one of two syntaxes. The remove() method can take a query document and an optional justOne boolean.
 
@@ -1486,7 +1490,7 @@ And here we have an example:
   )
 ````
 
-### db.collection.deleteOne()
+#### db.collection.deleteOne()
 
 This operation removes a single document from a collection. deleteOne deletes the first document that matches the filter, so you must use a field that is part of a unique index such as _id for precise deletions.
 
@@ -1512,7 +1516,7 @@ db.orders.deleteOne( { "productCode" : "78452dfa25564l") } );
   );
 ````
 
-### db.collection.deleteMany()
+#### db.collection.deleteMany()
 
 This method removes all documents that match the filter from a collection.
 
@@ -1532,3 +1536,4 @@ db.orders.deleteMany( { "stock" : "Brent Crude Futures", "limit" : { $gt : 48.88
 ## References
 
 * [MongoDB documentation](https://docs.mongodb.com/manual/)
+
