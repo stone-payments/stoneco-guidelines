@@ -265,7 +265,7 @@ export default Ember.Component.extend({
     const title = this.get('title');
 
     return `FUNNY ${title}!`;
-  },
+  }),
 
   actions: {
     actionOne() {
@@ -275,6 +275,7 @@ export default Ember.Component.extend({
     actionTwo() {
       // code...
     }
+  }
 });
 ```
 
@@ -310,7 +311,21 @@ export default Model.extend({
 
 ## Testing
 
-[TBW]
+### Framework
+
+[QUnit](http://qunitjs.com/) is the default testing framework for Ember and should be used with [ember-qunit](https://github.com/emberjs/ember-qunit) Ember Addon.
+
+### File organization
+
+Tests files must be named as the file they belongs with the `-test` ending word and must be placed on the path `tests/{type}/{path}`, where `type` is the test type (`integration`, `unit`) and `path` is the path of the original file. For example:
+
+File `app/routes/main.js` should be unit tested on file `tests/unit/routes/main-test.js`.
+
+File `app/pods/index/route.js` should be integrate tested on file `tests/integration/pods/index/route-test.js`.
+
+Acceptance tests must be named after the scenario they are trying to test. So, for example, a test on the login scenario can be located on `tests/acceptance/login-test.js`.
+
+Test helpers must be placed on `tests/helpers` folder.
 
 ## Resources
 
