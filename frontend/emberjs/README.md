@@ -232,20 +232,21 @@ Use "Clojure" style formatting when the parameter list is very long (>120 charac
 
 The highest level order is:
 
-* 1) Services;
-* 2) Native Properties; and
-* 3) Custom Properties.
+1. Services;
+2. Native Properties; and
+3. Custom Properties.
 
 Lifecycle hooks (e.g. model, setupController) should be in order of execution.
 
 ### Components:
-* 1) Services;
-* 2) Native component properties;
-* 3) Passed / custom properties;
-* 4) Lifecycle hooks;
-* 5) Computed properties;
-* 6) Any native functions; and
-* 7) Actions.
+
+1. Services;
+2. Native component properties;
+3. Passed / custom properties;
+4. Lifecycle hooks;
+5. Computed properties;
+6. Any native functions; and
+7. Actions.
 
 Create a newline after each, and always line separate actions. So for example:
 
@@ -280,18 +281,19 @@ export default Ember.Component.extend({
 ```
 
 ### Routes:
-* 1) Service declarations;
-* 2) Lifecycle hooks;
-* 3) Any custom functions; and
-* 4) Actions
 
+1. Service declarations;
+2. Lifecycle hooks;
+3. Any custom functions; and
+4. Actions.
 
 ### Models:
-* 1) Service declarations
-* 2) attrs;
-* 3) Relationships;
-* 4) Computed Properties; and
-* 5) Custom functions.
+
+1. Service declarations;
+2. attrs;
+3. Relationships;
+4. Computed Properties; and
+5. Custom functions.
 
 ```javascript
 export default Model.extend({
@@ -311,9 +313,11 @@ export default Model.extend({
 
 ## Testing
 
+_NOTE:_ This chapter covers exclusively Ember ways of testing. There's a broad greater set of best practises on the particular [Testing & QA](../../qa_testing) section of the guide.
+
 ### Framework
 
-[QUnit](http://qunitjs.com/) is the default testing framework for Ember and should be used with [ember-qunit](https://github.com/emberjs/ember-qunit) Ember Addon.
+[QUnit](http://qunitjs.com/) is the default testing framework for Ember and should be used along with [ember-qunit](https://github.com/emberjs/ember-qunit) Ember Addon that provides helpers for testing on this framework.
 
 ### File organization
 
@@ -331,16 +335,17 @@ Test helpers must be placed on `tests/helpers` folder.
 
 **Learning Ember.js**
 
-  - [Ember Guides and Tutorials](https://guides.emberjs.com/v2.10.0/)
-  - [EmberCLI](https://ember-cli.com/)
-  - [The Ember Way](https://emberway.io/)
-  - [Yoember](http://yoember.com/)
-  - [Global Ember Meetup](https://vimeo.com/globalembermeetup)
+- [Ember Guides and Tutorials](https://guides.emberjs.com/)
+- [EmberCLI](https://ember-cli.com/)
+- [The Ember Way](https://emberway.io/)
+- [Yoember](http://yoember.com/)
+- [Global Ember Meetup](https://vimeo.com/globalembermeetup)
 
 **Ember Addons**
 
-  - [Ember Observer](https://emberobserver.com/)
+- [Ember Observer](https://emberobserver.com/)
 
 **Testing Ember**
 
-  - [Ember QUnit](https://github.com/emberjs/ember-qunit)
+- [Ember Testing Guides](https://guides.emberjs.com/v2.10.0/testing/)
+- [Ember QUnit](https://github.com/emberjs/ember-qunit)
