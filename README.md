@@ -29,6 +29,7 @@ If you think any information is wrong or missing please write us an email or dir
 
 ### Cloud Computing
 * [Amazon Web Services](cloud/aws/README.md)
+* [Microsoft Azure](cloud/azure/README.md)
 
 ### DevOps
 * [Configuration Management](devops/configuration_management/README.md)
@@ -47,6 +48,9 @@ If you think any information is wrong or missing please write us an email or dir
 ### IT Security & Hardening
 * [Server Security](it_security/server_security/README.md)
 * [Secure Development](it_security/secure-development/README.md)
+
+### NoSQL
+* [MongoDB](nosql/mongodb/README.md) 
 
 ### Quality Assurance
 * [ATDD Acceptance Test-driven Development](qa_testing/testing/ATDD/README.md)
