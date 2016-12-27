@@ -1,4 +1,4 @@
-![alt text](https://github.com/beeva-joseluismoreno/beeva-best-practices/blob/master/big_data/hadoop/static/logo_hbase.png "HBase Logo")
+![alt text](static/logo_hbase.png "HBase Logo")
 
 -------------------
 Apache HBase is the Hadoop database.
@@ -29,7 +29,7 @@ Clients talk to region servers to access the data.
 ####Basic Pre-requisites
 
 
-![alt text](https://github.com/beeva-joseluismoreno/beeva-best-practices/blob/master/big_data/hadoop/static/jdk_hbase.png "HBase JDK Versions")
+![alt text](static/jdk_hbase.png "HBase JDK Versions")
 
 
 ####Hardware Specifications
@@ -68,7 +68,7 @@ DISKS
  - One core per disk
  - In general, SATA drives are recommended over SAS
 
-![alt text](https://github.com/beeva-joseluismoreno/beeva-best-practices/blob/master/big_data/hadoop/static/disks_hbase.png "HBase disks")
+![alt text](static/disks_hbase.png "HBase disks")
 
 ----------
 
@@ -100,7 +100,7 @@ built against. One of the reasons for this behavior concerns the remote procedur
 
 Hadoop 2.x is recommended.
 
-![alt text](https://github.com/beeva-joseluismoreno/beeva-best-practices/blob/master/big_data/hadoop/static/versions_hbase.png "HBase-Hadoop Versions")
+![alt text](static/versions_hbase.png "HBase-Hadoop Versions")
 
 #####**SSH**
 ssh must be installed and sshd must be running if you want to use the supplied
@@ -148,7 +148,7 @@ Give each ZooKeeper server around 1GB of RAM, and if possible, its own dedicated
 
 For example, to have HBase manage a ZooKeeper quorum on nodes rs{1,2,3,4,5}.example.com, bound to port 2222 (the default is 2181) ensure HBASE_MANAGE_ZK is commented out or set to true in conf/hbase-env.sh and then edit conf/hbase-site.xml and set hbase.zookeeper.property.clientPort and hbase.zookeeper.quorum. You should also set hbase.zookeeper.property.dataDir to other than the default as the default has ZooKeeper persist data under /tmp which is often cleared on system restart. In the example below we have ZooKeeper persist to /user/local/zookeeper. 
 
-![alt text](https://github.com/beeva-joseluismoreno/beeva-best-practices/blob/master/big_data/hadoop/static/zookeeper_hbase.png "HBase Zookeeper Config")
+![alt text](static/zookeeper_hbase.png "HBase Zookeeper Config")
 
 The default timeout is three minutes (specified in milliseconds). This means that if a server crashes, it will be three minutes before the Master notices the crash and starts recovery. 
 
