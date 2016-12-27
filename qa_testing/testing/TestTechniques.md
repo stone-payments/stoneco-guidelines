@@ -68,7 +68,7 @@ on experience. Then the techniques of each of these classifications as
 shown in the figure are described below:
 
  
-![Dynamics](https://github.com/beeva-josemiguelmorales/beeva-best-practices/blob/master/qa_testing/testing/static/Tecnic1.png "Dynamics")
+![Dynamics](static/Tecnic1.png "Dynamics")
  
 -----------------
 ##Based on the specification (black box)
