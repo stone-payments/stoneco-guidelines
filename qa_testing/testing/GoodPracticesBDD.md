@@ -187,4 +187,7 @@ development when choosing which parts of the application prove that
 joined the acceptance test can help to prioritize the development of the
 stories that really add value to the user .
 
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
 

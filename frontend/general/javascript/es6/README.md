@@ -789,4 +789,7 @@ var str = "foo"
 var chars = [ ...str ] // [ "f", "o", "o" ]
 ```
 
-[BEEVA](https://www.beeva.com) | 2016
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

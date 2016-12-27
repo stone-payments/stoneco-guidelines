@@ -235,5 +235,8 @@ HBase does not overwrite row values, but rather stores different values per row 
  - **Rowkeys cannot be changed**. The only way they can be "changed" in a table is if the row is deleted and then re-inserted.
  - 
 
- 
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+
 

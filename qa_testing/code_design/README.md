@@ -18,6 +18,14 @@ At this point we're going to talk about the code design best practices.
 	* [Tools](#tools)
 		* [Documentation](#documentation)
 		* [Naming and format](#naming-and-format)
+* [The SOLID Principles](#the-solid-principles)
+	* [Introduction of SOLID principles](#introduction-of-solid-principles)
+	* [Single Responsibility Principle](#single-responsibility-principle)
+	* [Open / Closed Principle](#open-/-closed-principle)
+	* [Liskov Substitution Principle](#liskov-substitution-principle)
+	* [Interface Segregation Principle](#interface-segregation-principle)
+	* [Dependency Inversion Principle](#dependency-inversion-principle)
+	* [SOLID examples](#solid-examples)
 * [Code design patterns](#code-design-patterns)
 	* [Introduction of code design patterns](#introduction-of-code-design-patterns)
 	* [Gang of four patterns](#gang-of-four-patterns)
@@ -210,6 +218,55 @@ Other tools that helps you depending on the programming language:
 * **Java**: [Checkstyle](http://checkstyle.sourceforge.net/) and [PMD](https://pmd.github.io/) with maven plugin, allow to configure some configuration rules and test that your code is fine when you build your java application, preserving for deployment server errors. You should configure the same rules than sonar. Other useful tool is [FindBugs](http://findbugs.sourceforge.net/). In our [Java Best Practices Guide](../../backend/java/README.md) there are more information.
 * **Python**: [Pylint](http://www.pylint.org/). For more information look into our [Python guide](../../backend/python/README.md).
 * **JavaScript**: [JSHint](http://jshint.com/about/) is a static code analysis tool for JavaScript. Also is recommended use a tool called [Plato](https://github.com/es-analysis/plato) that is a JavaScript source code visualization, static analysis, and complexity tool and can be integrated with the JSHint results. You can find more tools and best practices in our [Javascript Best Practices Guide](../../frontend/javascript/README.md).
+
+
+## The SOLID Principles
+#### Introduction of SOLID principles
+The SOLID principles are five dependency management for object oriented programming and design. The SOLID acronym was introduced by Robert C. Martin, also known as "Uncle Bob". Each letter represents another three-letter acronym that describes one principle.
+
+| Initial  | Stands For | Concept    |
+|:-------:|:---:|-----------|
+| **S** | SRP | Single Responsibility Principle     |
+| **O** | OCP | Open / Closed Principle      |
+| **L** | LSP   | Liskov Substitution Principle |
+| **I** | ISP   | Interface Segregation Principle |
+| **D**  | DIP  | Dependency Inversion Principle |
+
+When working with software in which dependency management is handled badly, the code can become rigid, fragile and difficult to reuse. Rigid code is that which is difficult to modify, either to change existing functionality or add new features. Fragile code is susceptible to the introduction of bugs, particularly those that appear in a module when another area of code is changed. If you follow the SOLID principles, you can produce code that is more flexible and robust, and that has a higher possibility for reuse.
+
+#### Single Responsibility Principle
+This principle states that there should never be more than one reason for a class to change. This means that you should design your classes so that each has a single purpose. This does not mean that each class should have only one method but that all of the members in the class are related to the class's primary function. Where a class has multiple responsibilities, these should be separated into new classes.
+
+When a class has multiple responsibilities, the likelihood that it will need to be changed increases. Each time a class is modified the risk of introducing bugs grows. By concentrating on a single responsibility, this risk is limited.
+
+#### Open / Closed Principle
+This principle specifies that software entities (classes, modules, functions, etc.) should be open for extension but closed for modification. The "closed" part of the rule states that once a module has been developed and tested, the code should only be adjusted to correct bugs. The "open" part says that you should be able to extend existing code in order to introduce new functionality.
+
+As with the SRP, this principle reduces the risk of new errors being introduced by limiting changes to existing code. This principle is atributed to Bertrand Meyer.
+
+#### Liskov Substitution Principle
+This principle states that "functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it".
+
+If you create a class with a dependency of a given type, you should be able to provide an object of that type or any of its subclasses without introducing unexpected results and without the dependent class knowing the actual type of the provided dependency. If the type of the dependency must be checked so that behaviour can be modified according to type, or if subtypes generated unexpected rules or side effects, the code may become more complex, rigid and fragile.
+The principle was formulated by Barbara Liskov.
+
+#### Interface Segregation Principle
+This principle specifies that clients should not be forced to depend upon interfaces that they do not use. This rule means that when one class depends upon another, the number of members in the interface that is visible to the dependent class should be minimised.
+
+Often when you create a class with a large number of methods and properties, the class is used by other types that only require access to one or two members. The classes are more tightly coupled as the number of members they are aware of grows. When you follow the ISP, large classes implement multiple smaller interfaces that group functions according to their usage. The dependents are linked to these for looser coupling, increasing robustness, flexibility and the possibility of reuse.
+This principle was formulated by Robert C. Martin.
+
+#### Dependency Inversion Principle
+This principle makes two statements. The first is that high level modules should not depend upon low level modules. Both should depend upon abstractions. The second part of the rule is that abstractions should not depend upon details. Details should depend upon abstractions.
+
+The DIP primarily relates to the concept of layering within applications, where lower level modules deal with very detailed functions and higher level modules use lower level classes to achieve larger tasks. The principle specifies that where dependencies exist between classes, they should be defined using abstractions, such as interfaces, rather than by referencing classes directly. This reduces fragility caused by changes in low level modules introducing bugs in the higher layers. The DIP is often met with the use of dependency injection.
+This principle was formulated by Robert C. Martin.
+
+#### SOLID Examples
+You can find more detailed explanation at these links:
+
+ - http://blog.gauffin.org/2012/05/solid-principles-with-real-world-examples/
+ - https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)
 
 
 ## Code Design Patterns
@@ -1829,4 +1886,4 @@ These are a good set of tools to use, dependends on your environment
 
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

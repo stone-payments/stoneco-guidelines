@@ -12,4 +12,5 @@ At this point we're going to talk about Hadoop
 
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

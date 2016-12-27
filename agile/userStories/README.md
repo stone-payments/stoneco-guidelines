@@ -52,3 +52,7 @@ There are three main problems related to User Story creation:
 * [User Stories Applied: For Agile Software 
 Development - Mike Cohn](https://www.mountaingoatsoftware.com/books/user-stories-applied)
 * [How to split a user story](http://www.agileforall.com/wp-content/uploads/2012/01/Story-Splitting-Flowchart.pdf)
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

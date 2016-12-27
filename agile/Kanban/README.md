@@ -99,3 +99,7 @@ Once you know your workflow better, you can add new columns representing a more 
 * [Wikipedia](http://tinyurl.com/4nrxsk6)
 * [Kanban - David J. Anderson](http://www.amazon.es/dp/0984521402)
 * [Agile Coaching - Rachel Davies](http://www.amazon.es/dp/1934356433)
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

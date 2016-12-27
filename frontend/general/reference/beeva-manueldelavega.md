@@ -1059,3 +1059,7 @@ Se caracterizan por tener una gran cantidad de componentes “ricos”: árboles
 ## 7\. Referencias
   * [Guía de estilo JS de BEEVA](../javascript/)
   * [Guía de estilo JS de airbnb](https://github.com/airbnb/javascript)
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

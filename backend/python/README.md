@@ -2160,4 +2160,7 @@ The following is the reference list used during the development of this best pra
 * http://docs.python-guide.org/en/latest/
 
 
-[BEEVA](http://www.beeva.com) | 2016
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

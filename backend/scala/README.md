@@ -953,4 +953,4 @@ All of them are or provide plugins to be integrated in SBT.
 
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

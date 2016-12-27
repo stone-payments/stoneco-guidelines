@@ -132,4 +132,6 @@ The main python library for Machine Learning is [scikit-learn](http://scikit-lea
     # Random Forest
     from sklearn.ensemble import RandomForestClassifier
 ````
+___
 
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

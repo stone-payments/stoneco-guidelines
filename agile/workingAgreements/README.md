@@ -99,5 +99,8 @@ The Definition of Done is a live element that changes over time. Organizational 
 * [What is Definition of Done?](https://www.scrumalliance.org/community/articles/2008/september/what-is-definition-of-done-%28dod%29)
 * [Definition of Done](http://guide.agilealliance.org/guide/definition-of-done.html)
 * [Multiple Levels of Done](https://www.mountaingoatsoftware.com/blog/multiple-levels-of-done)
-* [User Stories Applied: For Agile Software 
-Development - Mike Cohn](https://www.mountaingoatsoftware.com/books/user-stories-applied)
+* [User Stories Applied: For Agile Software Development - Mike Cohn](https://www.mountaingoatsoftware.com/books/user-stories-applied)
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

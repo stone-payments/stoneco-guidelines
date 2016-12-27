@@ -204,3 +204,6 @@ is the last phase where being planned according to the results. Depending on the
 It should generate a customized documentation for the various areas involved in the project, failure to do so will not be able to transmit tightly and efficiently gaps, problems or changes in the platform.
 In short, this is the time where you must perform a risk management, if we do not pass on the possible risks, have failed in our task of capacity planning and thus be endangering the business of our company.
 
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

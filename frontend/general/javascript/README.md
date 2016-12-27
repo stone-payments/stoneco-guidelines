@@ -129,4 +129,7 @@
   - [RegExp Builder / Test](https://regex101.com/)
   - [WebComponents](http://webcomponents.org/)
 
-[BEEVA](https://www.beeva.com) | 2016
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

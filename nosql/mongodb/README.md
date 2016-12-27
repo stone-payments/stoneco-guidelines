@@ -1536,4 +1536,6 @@ db.orders.deleteMany( { "stock" : "Brent Crude Futures", "limit" : { $gt : 48.88
 ## References
 
 * [MongoDB documentation](https://docs.mongodb.com/manual/)
+___
 
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

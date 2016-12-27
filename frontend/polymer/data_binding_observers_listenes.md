@@ -169,3 +169,6 @@ In order to have a regular behavior in all cases, consider the use of Polymer.do
 * localTarget: Retargeted event target (equivalent to event.target under shadow DOM)
 
 * path: Array of nodes through which event will pass (equivalent to event.path under shadow DOM).
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

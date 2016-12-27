@@ -148,7 +148,7 @@ QA team implements the feature and proceeds to launch every time you make a spec
 ### References
 
 * [Link](https://www.beeva.com/beeva-view/metodologiasagiles/atdd-la-clave-del-exito-en-equipos-agiles/) Beeva ATDD
-
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

@@ -654,3 +654,6 @@ constantly making decisions about what will be the next to try, when
 performing the test and how much time is available to do it. Thus the
 screening tests can be used to validate the formal testing process,
 ensuring that the most serious defects were found.
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

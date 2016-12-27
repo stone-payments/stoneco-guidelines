@@ -954,4 +954,5 @@ To push your image to your own registry instead of Docker Hub just set the docke
 
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

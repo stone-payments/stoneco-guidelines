@@ -466,5 +466,7 @@ RBAC is a role hierarchy that is thought for describing the responsibility of a 
 The following is the list covers additional references used during the development of this guide:
 
 * Linux Server Security - Michael d. Bauer - O'reilly media 2005
+___
 
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
 
