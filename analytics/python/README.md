@@ -15,20 +15,57 @@
 
 ### Load data
 
-Some examples about how to load a dataset from CSV, text files and urls.
+#### Pandas
+
+##### Input types
+
+In order to read files, the best way is to use pandas's predefined functions. It allows to load the following type of files into a panda object:
+- csv
+- Excel
+- hdf
+- sql
+- json
+- msgpack
+- html
+- gbq
+- stata
+- sas
+- pickle
+
+It also allows you to read text from your clipboard.
+
+The use is as below:
 
 ````python
     import pandas as pd
     df = pd.read_csv('datos.csv')
-    df = read_table('document.txt',sep='\s+', index_col=None)
 ````
+
+##### Separators and performance
+
+To read files containing a dataset in which values are separated by any characters different than the well known commas or tabs, you must use the parameter sep or delimiter (both are valid) to indicate it.
+
+It must be taken into account that the use of custom delimiters might force to change from C's engine to python's engine. The first is always faster but it only allows some delimiters. Python's engine is slower but lets you choose even regular expressions as delimiter.
 
 ````python
-    import urllib
-    url = "http://goo.gl/j0Rvxq" #Pima Indians Diabetes dataset 
-    raw_data = urllib.urlopen(url)
+    import pandas as pd
+    df = pd.read_csv('datos.csv', sep='::', engine='python') # Setting the engine removes warning message.
 ````
 
+##### Loading process information
+
+In order to get visualize a loading bar when you are iterating over any dataset information,
+tqdm library is a good choice.
+
+Suppose you want to change your input dataset, which is very big. You can check if the process is running or blocked with:
+
+````python
+for user in tqdm(np.nditer(users), total=users.shape[0]):
+    user_line = str(user) + '\t'
+    users_value = dataset[dataset['userId'].values == user]
+    for row, value in users_value.iterrows():
+        user_line += str(int(value['movieId'])) + ',' + str(int(value['timestamp'])) + ':'
+````
 
 ### Numpy
 
@@ -38,10 +75,10 @@ Numpy library is an extension for Python which provides mathematical functions f
     import numpy as np
 ````
 The main characteristic of Numpy is array object class. It is quite similar to lists in Python, except one condition. In a numpy array all the elements must be of the same type (ex. float, int, str ...). It is used to make mathematical operations faster and more efficient than using lists.
-For example, using next code a Numpy array (2 rows and 3 columns) is created. The function `np.shape()` is used to check the dimension, and it is useful in case of array multiplication errors. 
+For example, using next code a Numpy array (2 rows and 3 columns) is created. The function `np.shape()` is used to check the dimension, and it is useful in case of array multiplication errors.
 
 ````python
-    X = np.array( [ [1,2,3], [4,5,6]]) 
+    X = np.array( [ [1,2,3], [4,5,6]])
     np.shape(X)
 ````
 **How to index and slice a numpy array?**
@@ -54,7 +91,7 @@ This could be one of the first questions when a person starts with this kind of 
 ````
 As in Matlab the `eye()`function is helpful when you want to create a 2D array with ones on the diagonal and zeros elsewhere. It can be used to reduce computational cost in many optimization algorithms...
 
-Numpy library has a lot of useful functions when you need to work with random numbers. These functions can be imported using `numpy.random`. Notice that you must set a certain `seed()` before using these functions in order to get **reproducible results**. 
+Numpy library has a lot of useful functions when you need to work with random numbers. These functions can be imported using `numpy.random`. Notice that you must set a certain `seed()` before using these functions in order to get **reproducible results**.
 ````python
     np.random.seed(32) # example seed is set to 32
 ````    
@@ -79,7 +116,7 @@ An easy way to start with pandas library is loading a dataset from a csv file, r
     df= pd.read_csv('../datos.csv').fillna(" ")
 ````
 
-In order to introduce this library some tipical questions are answered. 
+In order to introduce this library some tipical questions are answered.
 
 **How to get information from a DataFrame structure?**
 
@@ -97,12 +134,12 @@ The easy way to select a column or field in a DataFrame is using the notation `d
 
 In almost every analysis, we need to merge and join datasets, usually with a specific order and relational way. To resolve this issue pandas library contains at least 3 great functions; `groupby()`, `merge()` and `concat()`.
 
-Groupby function is used basically to compute an aggregation (ex. Sum, mean…), split into slices or groups and perform a transformation. It returns an object called GroupBy which allows other great funcionalities. Also, it provides the ability to group by multiple columns. An example could be, grouping by columns named A and B, compute its mean value (by group): 
+Groupby function is used basically to compute an aggregation (ex. Sum, mean…), split into slices or groups and perform a transformation. It returns an object called GroupBy which allows other great funcionalities. Also, it provides the ability to group by multiple columns. An example could be, grouping by columns named A and B, compute its mean value (by group):
 
 ````python
 Group = df.groupby('A','B']).mean()
 ````
-Also useful if you want to apply multiple functions to a group and collect results. And again, `describe()`function is so useful after group and apply functions because it gives a lot of information about the output. pandas-groupby functionality is great, it performs some operation on each of the pieces and it is similar as `plyr` and `dplyr` packages in R language. 
+Also useful if you want to apply multiple functions to a group and collect results. And again, `describe()`function is so useful after group and apply functions because it gives a lot of information about the output. pandas-groupby functionality is great, it performs some operation on each of the pieces and it is similar as `plyr` and `dplyr` packages in R language.
 
 For SQL programmers, `merge()`function provides two DataFrames to be joined on one or more keys, using common syntax (on, left, right, inner, outer...). For example:   
 
@@ -110,7 +147,7 @@ For SQL programmers, `merge()`function provides two DataFrames to be joined on o
     pd.merge(df1,df2, on ='key', how= 'outer')
 ````
 
-This library also provides `concat()`as a way to combine DataFrame structures. It is similar to `UNION` function in SQL language. So useful when a different approach and model provides a part of the final result and you just want to combine. 
+This library also provides `concat()`as a way to combine DataFrame structures. It is similar to `UNION` function in SQL language. So useful when a different approach and model provides a part of the final result and you just want to combine.
 
 ````python
     pd.concat([df1, df2])
@@ -132,4 +169,3 @@ The main python library for Machine Learning is [scikit-learn](http://scikit-lea
     # Random Forest
     from sklearn.ensemble import RandomForestClassifier
 ````
-
