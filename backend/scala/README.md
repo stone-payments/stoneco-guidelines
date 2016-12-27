@@ -13,6 +13,7 @@
 * [Functional programming](#functional-programming)
 * [Object oriented programming](#object-oriented-programming)
 * [Error handling](#error-handling)
+* [SBT](#sbt)
 * [Tools](#tools)
 * [References](#references)
 
@@ -927,10 +928,83 @@ try {
   case _ => ...
 }
 ```
-
 is almost always wrong, as it would catch fatal errors that need to be propagated.
 
 If handling exceptions is mandatory for your system a better option to deal with it's usign [Try](http://www.scala-lang.org/api/current/scala/util/Try.html) class. It allows us to manage errors with pattern matching and monoid operations  
+
+### <a name="sbt"></a>SBT
+
+#### Introduction
+
+SBT (Simple Build Tool) is the de facto build tool for Scala applications.
+SBT uses the same directory structure as Maven, and like Maven, it uses a “convention over configuration”.
+SBT’s dependency management system is handled by Apache Ivy.
+
+#### Project Structure
+
+built.sbt is the file that define the project
+
+```
+name := """MyProject"""
+
+version := "1.0"
+
+organization := "com.beeva"
+
+scalaVersion := "2.11.8"
+
+```
+
+This is the structure for SBT:
+
+![SBT structure](static/sbt-structure.png "Sbt Structure")
+
+#### Compiling, Running and Packaging
+
+In root directory:
+
+* clean -> $ sbt clean
+* compile -> $ sbt compile
+* run -> $ sbt run
+* package -> $ sbt package
+
+Pipeline commands -> $ sbt clean compile package run
+
+#### Testing
+
+In root directory:
+* test -> $ sbt test
+
+You must add test dependencies in build.sbt:
+
+```
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+
+```
+
+Use always %% and SBT will choose scala versión (_2.10, _2.11, _2.12) for you
+
+#### Managing dependencies
+
+To add multiple managed dependencies to your project, define them as a Seq in your build.sbt file:
+
+```
+libraryDependencies ++= {
+  val akkaVersion = "2.4.9"
+  Seq(
+    "com.typesafe.akka" %% "akka-actor"      % akkaVersion, 
+    "com.typesafe.akka" %% "akka-http-core"  % akkaVersion, 
+    "org.json4s" % "json4s-native_2.11" % "3.5.0",
+    "com.typesafe.akka" %% "akka-slf4j"      % akkaVersion,
+    "ch.qos.logback"    %  "logback-classic" % "1.1.3",
+    "com.enragedginger" %% "akka-quartz-scheduler" % "1.6.0-akka-2.4.x",
+    "com.amazonaws"      % "aws-java-sdk"    % "1.11.52",
+    "org.joda"           % "joda-convert"    % "1.8.1", 
+    "com.typesafe.akka" %% "akka-testkit"    % akkaVersion   % "test",
+    "org.scalatest"     %% "scalatest"       % "2.2.0"       % "test"
+  )
+}
+```
 
 ### <a name="tools"></a>Tools
 There is a set of tools and sbt plugins that help us to prevent bugs and and follow coding best practises in Scala Projects.
@@ -950,6 +1024,7 @@ All of them are or provide plugins to be integrated in SBT.
 * [Scala Cheat Sheet](http://docs.scala-lang.org/cheatsheets/) A scala full cheatsheet
 * [Scala Effective](http://twitter.github.io/effectivescala/)
 * [Scala Style Guide](http://docs.scala-lang.org/style/)
+* [SBT] (http://www.scala-sbt.org/)
 
 ___
 
