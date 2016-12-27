@@ -301,3 +301,6 @@ plsFit <- train(Class ~ .,
 
 The mclust package is a contributed R package for model-based clustering, classification, and density estimation. It assumes a variety of data models and apply maximum likelihood estimation and Bayes criteria to identify the most likely model and number of clusters.
 
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

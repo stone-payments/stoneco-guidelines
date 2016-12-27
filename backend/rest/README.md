@@ -835,6 +835,7 @@ This endpoint **should not be published to third party applications** because th
 * <a id="google-apis">[5]</a> [Google APIs](https://developers.google.com/identity/protocols/OAuth2)
 * <a id="twitter-apis">[6]</a> [Twitter APIs](https://dev.twitter.com/oauth/overview/introduction)
 
----
+___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

@@ -78,4 +78,7 @@ If you think any information is wrong or missing please write us an email or dir
 
 Please see [LICENSE](LICENSE).
 
+___
+
 [BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

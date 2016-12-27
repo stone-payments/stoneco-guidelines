@@ -319,5 +319,7 @@ module.exports = function(config) {
 ## <a name='links'>Links</a>
  -  Home... http://karma-runner.github.io/0.13/index.html
  -  The complete list of pluggins is in... (https://www.npmjs.com/browse/keyword/karma-plugin).
+___
 
-[BEEVA](https://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

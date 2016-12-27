@@ -252,3 +252,7 @@ It is a best practice to define weekly or daily maintenance task for your cluste
 - [Copy Unload IAM Role](http://docs.aws.amazon.com/redshift/latest/mgmt/copy-unload-iam-role.html "Copy Unload IAM Role")
 - [Redshift Database Benchmarks: COPY Performance with Compressed Files](https://blog.stitchdata.com/redshift-database-benchmarks-copy-performance-with-compressed-files-2041b8098366#.lkaltc20l "Redshift Database Benchmarks: COPY Performance with Compressed Files")
 - [Amazon Redshift Database Encryption](http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html "Amazon Redshift Database Encryption")
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

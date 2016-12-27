@@ -1886,4 +1886,4 @@ These are a good set of tools to use, dependends on your environment
 
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

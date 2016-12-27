@@ -1314,4 +1314,4 @@ class nameclass {
 Notice the last line of the comments and the class definition are togerher and there is no break line. This is needed for Puppet in order to generate automatic documentation.
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

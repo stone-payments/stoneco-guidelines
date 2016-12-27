@@ -635,4 +635,6 @@ Other components are functional, that is, focusing on all visual content having 
 
 These two approaches are not mutually exclusive. It is useful to identify elements that are general and create a reuse approach, and certainly appear specifications related to functionality, which will overload these general styles.
 
-[BEEVA](https://www.beeva.com) | 2016
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

@@ -163,3 +163,6 @@ Yeoman is a tool that creates an scaffolding for your app, component...
 Yeoman allow to install generators for creating different structures, from angular apps, to polymer elements, polymer apps... Generators are constantly evolving.
 
 Polymer has developed a really good generator based on seed-element and Polymer Starter Kit, you can take a look [here](https://github.com/yeoman/generator-polymer)
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

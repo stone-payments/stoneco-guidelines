@@ -127,3 +127,8 @@ Initially, Cucumber was created for Ruby, so all other implementations are based
 - features/support - Contains supporting Ruby code. Files in support load before those in step_definitions, which makes it useful for such things as environment configuration (commonly done in a file called env.rb).
 
 There are Cucumber implementations for mostly common programming languages and all of it could be found on it's [main page](https://cucumber.io/docs#reference)
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

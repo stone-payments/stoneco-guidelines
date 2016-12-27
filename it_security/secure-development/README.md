@@ -402,4 +402,7 @@ In Unicode, you can change the same character in several different ways. Prior t
 
 It should explicitly define the charset encodings to be used (UTF-8, ISO 8859-1 ...) depending on the needs of the application, and configure the JVM, the application server and the application accordingly.
 
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
 

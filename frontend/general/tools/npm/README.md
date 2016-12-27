@@ -216,5 +216,7 @@ After updating the version number, you can npm publish again.
 
  -  Home... https://www.npmjs.com/
  -  Documentation... https://docs.npmjs.com/
- 
-[BEEVA](https://www.beeva.com) | 2016
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

@@ -408,4 +408,6 @@ ___
 
 ![beeva logo](../../static/horizontal-beeva-logo.png)
 
-[BEEVA](http://www.beeva.com) | 2016
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
