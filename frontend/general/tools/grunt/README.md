@@ -554,8 +554,6 @@ Today there are hundreds official and unofficial of Grunt plugins for all kinds 
  - <b>ng-annotate:</b> Add, remove and rebuild AngularJS dependency injection annotations.
 
  - <b>wiredep:</b> Inject your Bower dependencies right into your HTML from Grunt.
-
- -  <b>...</b>
 <br/>
 
 <b>Plugins for Validations</b>
@@ -563,8 +561,6 @@ Today there are hundreds official and unofficial of Grunt plugins for all kinds 
  - <b>contrib-jshint:</b> Validate files with JSHint.
 
  - <b>contrib-csslint:</b> Lint CSS files.
-
- -  <b>...</b>
  <br/>
 
 <b>Plugins for Minify</b>
@@ -574,8 +570,6 @@ Today there are hundreds official and unofficial of Grunt plugins for all kinds 
  - <b>contrib-imagemin:</b> Minify images.
 
  - <b>contrib-htmlmin:</b> Minify HTML.
-
- -  <b>...</b>
  <br/>
 
 <b>Plugins for CSS Compilation</b>
@@ -587,18 +581,10 @@ Today there are hundreds official and unofficial of Grunt plugins for all kinds 
  - <b>contrib-compass:</b> Compile Sass to CSS using Compass.
 
  - <b>contrib-stylus:</b> Compile Stylus files to CSS.
-
- -  <b>...</b>
-
-
 <br/>
 <b>Plugins for JS Compilation</b>
 
  - <b>contrib-coffee:</b> Compile CoffeeScript files to JavaScript.
-
- -  <b>...</b>
-
-
 <br/>
 <b>Plugins for Testing</b>
 
@@ -613,18 +599,12 @@ Today there are hundreds official and unofficial of Grunt plugins for all kinds 
  - <b>protractor-runner:</b> A Grunt plugin for running protractor E2E test runner.
 
  - <b>selenium-webdriver:</b> Starts and stops selenium in webdriver or hub mode for use with 3rd party CI platforms where phantomjs / chromedriver can have issue with selenium.
-
- -  <b>...</b>
-
 <br/>
 <b>Plugins for Documentation</b>
 
  - <b>ngdocs:</b> grunt plugin for angularjs documentation.
 
  -  <b>docular:</b> Extensible Documentation Generation Based on AngularJS's Documentation Generation</b>.
-
- -  <b>...</b>
-
 <br/>
 <b>Plugins for ES6</b>
 
@@ -639,9 +619,6 @@ Today there are hundreds official and unofficial of Grunt plugins for all kinds 
  - <b>defs:</b> ES6 const and let statements to ES3.
 
  - <b>ts:</b> grunt plugin to compile TypeScript to JavaScript.
-
- -  <b>...</b>
-
 <br/>
 
 ## <a name='links'>Links</a>

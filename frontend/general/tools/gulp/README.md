@@ -169,8 +169,6 @@ Today there are hundreds official and unofficial of Gulp plugins for all kinds o
  - <b>gulp-uglify:</b> Minify files with UglifyJS.
 
  - <b>gulp-jade:</b> Compile Jade templates.
-
- -  <b>...</b>
 <br/>
 
 <b>Plugins for Validations</b>
@@ -182,8 +180,6 @@ Today there are hundreds official and unofficial of Gulp plugins for all kinds o
  - <b>gulp-scss-lint:</b> Lint SCSS files.
 
  - <b>gulp-htmllint:</b> Lint HTML files.
-
- -  <b>...</b>
  <br/>
 
 <b>Plugins for Minify</b>
@@ -193,8 +189,6 @@ Today there are hundreds official and unofficial of Gulp plugins for all kinds o
  - <b>gulp-imagemin:</b> Minify images.
 
  - <b>gulp-minify-html:</b> Minify HTML.
-
- -  <b>...</b>
  <br/>
 
 <b>Plugins for CSS Compilation</b>
@@ -206,18 +200,10 @@ Today there are hundreds official and unofficial of Gulp plugins for all kinds o
  - <b>gulp-simple-compass:</b> Compile Sass to CSS using Compass.
 
  - <b>gulp-stylus:</b> Compile Stylus files to CSS.
-
- -  <b>...</b>
-
-
 <br/>
 <b>Plugins for JS Compilation</b>
 
  - <b>gulp-coffee:</b> Compile CoffeeScript files to JavaScript.
-
- -  <b>...</b>
-
-
 <br/>
 <b>Plugins for Testing</b>
 
@@ -230,16 +216,10 @@ Today there are hundreds official and unofficial of Gulp plugins for all kinds o
  - <b>gulp-mocha-selenium:</b> Run Selenium tests with wd and Mocha.
 
  - <b>gulp-karma-runner:</b> Gulp plugin for karma test runner.
-
- -  <b>...</b>
-
 <br/>
 <b>Plugins for Documentation</b>
 
  - <b>gulp-ngdocs:</b> gulp plugin for angularjs documentation.
-
- -  <b>...</b>
-
 <br/>
 <b>Plugins for ES6</b>
 
@@ -254,9 +234,6 @@ Today there are hundreds official and unofficial of Gulp plugins for all kinds o
  - <b>gulp-es6-transpiler:</b> ES6 to ES5 JavaScript.
 
  - <b>gulp-typescript:</b> grunt plugin to compile TypeScript to JavaScript.
-
- -  <b>...</b>
-
 <br/>
 
 
