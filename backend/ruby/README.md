@@ -22,7 +22,8 @@
 * [15. Testing](#15-testing)
 * [16. Project Documentation](#16-project-documentation)
 * [17. Development Environments (IDEs)](#17-development-environments-ides)
-* [18. References](#18-References)
+* [18. Ruby Project Templates](#18-ruby-project-templates)
+* [19. References](#19-References)
 
 ## 1. Preface
 
@@ -2929,8 +2930,6 @@ There are a lot of tools that help you to improve your code design for ruby prog
 
 [RuboCop](https://github.com/bbatsov/rubocop) is a Ruby code style checker based on the original style guide. RuboCop already covers a significant portion of the Guide.
 
-We have a template the RuboCop configuration used to check the rubocop source code for your projects based on this style guide. You can find the Rubocop Configuration file [here]((templates/.rubocop.yml)) to use.
-
 ## 15. Testing
 
 _NOTE:_ This chapter covers exclusively Ruby ways of testing. There's a broad greater set of best practises on the particular [Testing & QA](../../qa_testing) section of the guide.
@@ -2962,7 +2961,11 @@ To develop a Ruby program, it isn’t necessary to have a IDE. You can develop i
 [partially based](http://confluence.jetbrains.com/display/RUBYDEV/RubyMine+Inspections)
 on the original guide.
 
-## 18. References
+## 18. Ruby Project Templates
+
+There's a broad greater section of [Ruby Project Templates](templates/templates.md).
+
+## 19. References
 
 The following is the reference list used during the development of this best practices guide. Please follow the links in order to obtain further information regarding Ruby programming and best practices:
 
