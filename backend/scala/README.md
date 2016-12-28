@@ -1006,6 +1006,154 @@ libraryDependencies ++= {
 }
 ```
 
+#### Multiproject
+
+To create related projects:
+
+```
+lazy val commonSettings = Seq(
+  organization := "com.beeva",
+  version := "0.1.0",
+  scalaVersion := "2.11.8"
+)
+
+lazy val core = (project in file("core")).
+  settings(commonSettings: _*).
+  settings(
+    // other settings
+  ).dependsOn(util)
+
+lazy val util = (project in file("util")).
+  settings(commonSettings: _*).
+  settings(
+    // other settings
+  )
+
+lazy val root = (project in file(".")).
+  aggregate(util, core)
+
+```
+aggregate -> Aggregation means that running a task on the aggregate project will also run it on the aggregated projects.
+dependsOn -> A project may depend on code in another project.
+
+#### Documentation
+
+In root directory:
+
+* documentation -> $ sbt doc
+
+#### Main Class
+
+You can set your main class on run command by:
+
+```
+mainClass in (Compile, run) := Some("com.beeva.Main")
+```
+
+You can set your main class for packaging the main jar:
+
+```
+mainClass in (Compile, packageBin) := Some("com.beeva.Main")
+```
+
+#### Adding repositories
+
+You can specify repositories for depencencies by:
+
+```
+resolvers ++= Seq(
+"Typesafe" at "http://repo.typesafe.com/typesafe/releases/",
+"Java.net Maven2 Repository" at "http://download.java.net/maven/2/"
+)
+```
+
+#### Log Level
+
+You can specify SBT log level in build.sbt
+
+```
+logLevel := Level.Debug
+```
+
+or interactive with command:
+
+```
+set logLevel := Level.Debug
+```
+
+#### Assembly and distribution
+
+When you execute packaging command you only compile your code and pack your classes and resources.
+
+Sometimes you need to package dependencies and scala libreries to deploy.
+
+You can specify plugins in plugins.sbt:
+```
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.13.0")
+```
+
+In your build.sbt you can specify your configuration:
+```
+assemblyOption in assembly :=
+  (assemblyOption in assembly).value.copy(includeScala = false)
+
+// Project Assembly
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
+
+}
+```
+And run this command:
+```
+$ sbt assembly
+```
+
+You can distribute your application as distribution: code, dependencies, scripts, configuration...
+SBT support several distribution: zip, tarball, docker, dmg
+
+For universal distribution you must add this plugin in plugins.sbt:
+```
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.0-RC1")
+```
+
+And this in your build.sbt:
+```
+mainClass in Compile := Some("com.beeva.Main")
+
+mappings in Universal ++= {
+  directory("scripts") ++
+  contentOf("src/main/resources").toMap.mapValues("conf/" + _)
+}
+
+scriptClasspath := Seq("../conf/") ++ scriptClasspath.value
+```
+
+You must run dist command:
+```
+$ sbt dist
+```
+
+#### Publish
+
+You can publish your artifacts. To define repository:
+```
+publishTo := Some("Sonatype Snapshots Nexus" at "https://oss.sonatype.org/content/repositories/snapshots")
+```
+or local
+```
+publishTo := Some(Resolver.file("file", new File("/Users/beeva/tmp")))
+```
+For credentials, you must specify:
+```
+credentials += Credentials("Some Nexus Repository Manager", "my.artifact.repo.net", "admin", "admin123")
+```
+
+You must run publish command:
+```
+$ sbt publish
+```
+
 ### <a name="tools"></a>Tools
 There is a set of tools and sbt plugins that help us to prevent bugs and and follow coding best practises in Scala Projects.
 
