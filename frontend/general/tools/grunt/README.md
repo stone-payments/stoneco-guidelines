@@ -7,39 +7,43 @@
 
 * [Introduction](#introduction)
 * [Gruntfile](#gruntfile)
-* [Pluggins](#pluggins)
+* [Plugins](#plugins)
 * [Links](#links)
- 
+
 ----
 ## <a name='introduction'>Introduction</a>
 
 Grunt, the JavaScript Task Runner is implemented with NodeJS and used for configuration and implementation of automated tasks for:
 
    - <b>Improving Productivity</b>, speed up the development workflow.
-   
-   - <b>Enhancing the Performance</b>, optimizing each byte. 
- 
+
+   - <b>Enhancing the Performance</b>, optimizing each byte.
+
+   - <b>Carrying repetitive time-consuming tasks</b>, like minification, validation, documentation generation or hosting code upload.
+
    - <b>Increasing Quality</b>, through testing and documentation.
-   
+
 <br>
 The Grunt ecosystem is huge and it's growing every day with hundreds of plugins to configure and automatize task with a minimum of effort for:
 
 - Validation of the code (JS, CSS).
 
-- Compression and Obfuscation of the code
+- Compression and Obfuscation of the code.
 
 - Execution of automated test.
 
 - Management and installation of dependencies.
 
-- Generation of project documentation
+- Generation of project documentation.
+
+- ES6 workflow.
 
 - And much more..
- 
+
 
 ## <a name='gruntfile'>Gruntfile</a>
 
-The configuration and execution of all tasks and pluggins is done in the configuration file <b>Gruntfile</b>.
+The configuration and execution of all tasks and plugins is done in the configuration file <b>Gruntfile</b>.
 
 ```javascript
 module.exports = function (grunt) {
@@ -523,35 +527,39 @@ module.exports = function (grunt) {
 
 ```
 
-## <a name='pluggins'>Pluggins</a>
+## <a name='plugins'>Plugins</a>
 
-Today there are hundreds official and unofficial of Grunt pluggins for all kinds of tasks. Some of the most important pluggins are:
+Today there are hundreds official and unofficial of Grunt plugins for all kinds of tasks. Some of the most important plugins are:
 
-<b>Pluggins Most Used</b>
+<b>Most Used Plugins</b>
 
- - <b>contrib-copy: </b> Copy files and folders
-   
- - <b>contrib-concat: </b> Concatenate files.
+ - <b>contrib-copy:</b> Copy files and folders
 
- - <b>contrib-connect: </b> Start a connect web server.
+ - <b>contrib-concat:</b> Concatenate files.
 
- - <b>contrib-livereload: </b>Reload assets live in the browser
+ - <b>contrib-clean:</b> Clean files and folders from the project.
 
- - <b>contrib-uglify: </b> Minify files with UglifyJS.
+ - <b>contrib-connect:</b> Start a connect web server.
 
- - <b>contrib-compress: </b>Compress files and folders.
+ - <b>contrib-livereload:</b> Reload assets live in the browser
 
- - <b>contrib-jade: </b> Compile Jade templates.
- 
- - <b>ng-annotate: </b> Add, remove and rebuild AngularJS dependency injection annotations.
+ - <b>contrib-watch:</b> Watch for file changes.
 
- - <b>wiredep: </b>Inject your Bower dependencies right into your HTML from Grunt.
- 
+ - <b>contrib-uglify:</b> Minify files with UglifyJS.
+
+ - <b>contrib-compress:</b> Compress files and folders.
+
+ - <b>contrib-jade:</b> Compile Jade templates.
+
+ - <b>ng-annotate:</b> Add, remove and rebuild AngularJS dependency injection annotations.
+
+ - <b>wiredep:</b> Inject your Bower dependencies right into your HTML from Grunt.
+
  -  <b>...</b>
 <br/>
 
-<b>Pluggins for Validations</b>
-     
+<b>Plugins for Validations</b>
+
  - <b>contrib-jshint:</b> Validate files with JSHint.
 
  - <b>contrib-csslint:</b> Lint CSS files.
@@ -559,74 +567,89 @@ Today there are hundreds official and unofficial of Grunt pluggins for all kinds
  -  <b>...</b>
  <br/>
 
-<b>Pluggins for Minify</b>
- 
- - <b>contrib-cssmin: </b>Minify CSS.
- 
- - <b>contrib-imagemin: </b>Minify images.
- 
- - <b>contrib-htmlmin: </b>Minify HTML.
+<b>Plugins for Minify</b>
+
+ - <b>contrib-cssmin:</b> Minify CSS.
+
+ - <b>contrib-imagemin:</b> Minify images.
+
+ - <b>contrib-htmlmin:</b> Minify HTML.
 
  -  <b>...</b>
  <br/>
 
-<b>Pluggins for CSS Compilation</b> 
+<b>Plugins for CSS Compilation</b>
 
- - <b>contrib-sass: </b> Compile Sass to CSS.
- 
- - <b>contrib-less: </b>Compile LESS files to CSS.
- 
- - <b>contrib-compass: </b>Compile Sass to CSS using Compass.
+ - <b>contrib-sass:</b> Compile Sass to CSS.
 
- - <b>contrib-stylus: </b> Compile Stylus files to CSS.
+ - <b>contrib-less:</b> Compile LESS files to CSS.
 
- -  <b>...</b>
+ - <b>contrib-compass:</b> Compile Sass to CSS using Compass.
 
- 
-<br/>
-<b>Pluggins for JS Compilation</b>
-  
- - <b>contrib-coffee: </b> Compile CoffeeScript files to JavaScript.
+ - <b>contrib-stylus:</b> Compile Stylus files to CSS.
 
  -  <b>...</b>
 
 
 <br/>
-<b>Pluggins for Testting</b>
+<b>Plugins for JS Compilation</b>
 
- - <b>contrib-jasmine: </b> Run jasmine specs headlessly through PhantomJS.
- 
- - <b>contrib-nodeunit: </b> Run Nodeunit unit tests.
- 
- - <b>contrib-qunit : </b> Run QUnit unit tests in a headless PhantomJS instance..
- 
+ - <b>contrib-coffee:</b> Compile CoffeeScript files to JavaScript.
+
+ -  <b>...</b>
+
+
+<br/>
+<b>Plugins for Testing</b>
+
+ - <b>contrib-jasmine:</b> Run jasmine specs headlessly through PhantomJS.
+
+ - <b>contrib-nodeunit:</b> Run Nodeunit unit tests.
+
+ - <b>contrib-qunit:</b> Run QUnit unit tests in a headless PhantomJS instance..
+
  - <b>karma: </b> Grunt plugin for karma test runner.
- 
- - <b>protractor-runner: </b> A Grunt plugin for running protractor E2E test runner.
- 
- - <b>selenium-webdriver: </b> Starts and stops selenium in webdriver or hub mode for use with 3rd party CI platforms where phantomjs / chromedriver can have issue with selenium.
+
+ - <b>protractor-runner:</b> A Grunt plugin for running protractor E2E test runner.
+
+ - <b>selenium-webdriver:</b> Starts and stops selenium in webdriver or hub mode for use with 3rd party CI platforms where phantomjs / chromedriver can have issue with selenium.
 
  -  <b>...</b>
 
 <br/>
-<b>Pluggins for Documentation</b>
+<b>Plugins for Documentation</b>
 
- - <b>ngdocs: </b> grunt plugin for angularjs documentation.
- 
- -  <b>docular:</b> Extensible Documentation Generation Based on AngularJS's Documentation Generation</b> .
- 
+ - <b>ngdocs:</b> grunt plugin for angularjs documentation.
+
+ -  <b>docular:</b> Extensible Documentation Generation Based on AngularJS's Documentation Generation</b>.
+
  -  <b>...</b>
 
 <br/>
+<b>Plugins for ES6</b>
 
+ - <b>babel:</b> grunt plugin for transforming ES6+ JavaScript to ES5 JavaScript.
+
+ -  <b>traceur:</b> plugin to compile ES6 JavaScript to ES3.
+
+ - <b>es6-module-transpiler:</b> plugin for transforming ES6 export syntax to the structure used by AMD, CommonJS among others.
+
+ -  <b>regenerator:</b> grunt plugin to transpile ES6 generator functions to ES5 ones.
+
+ - <b>defs:</b> ES6 const and let statements to ES3.
+
+ - <b>ts:</b> grunt plugin to compile TypeScript to JavaScript.
+
+ -  <b>...</b>
+
+<br/>
 
 ## <a name='links'>Links</a>
 
  -  Home... http://gruntjs.com
- -  The complete list of pluggins is in... http://gruntjs.com/plugins
+ -  The complete list of plugins is in... http://gruntjs.com/plugins
  -  Getting Started... http://gruntjs.com/getting-started
 
 ___
 
 [BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
-
