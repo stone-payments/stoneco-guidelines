@@ -23,7 +23,7 @@ If you think any information is wrong or missing please write us an email or dir
 * [Best practices for Hadoop](big_data/hadoop/hadoop-management.md)
 * [Hadoop Development & Best Practices](big_data/hadoop/hadoop-development.md)
 * [Hadoop Management Hardware and OS](big_data/hadoop/hadoop-management-hardware-and-os.md)
-* [Hadoop Management](big_data/hadoop/hadoop-management-hbase.md)
+* [HBase Management](big_data/hadoop/hadoop-management-hbase.md)
 * [Spark Best Practices](big_data/spark/README.md)
 * [Amazon Redshift Best Practices](big_data/redshift/README.md)
 
