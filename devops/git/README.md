@@ -105,7 +105,7 @@ Do commit early and often, have periodic checkpoints help you to have control an
 ### Push only finished and tested code
 Its very important that all code that you push into the remote repository works properly and be tested. All people that synchronize within the repository should be able to execute it without problems.
 
-For ensure this is very recommended using continuous delivery tools for testing code, you can find more information at this [guide](../../qa_testing/sonar/README.md).
+For ensure this is very recommended using continuous delivery tools for testing code, you can find more information at our [Sonar guide](../../qa_testing/sonar/README.md).
 
 ### Divide repositories
 Often is a good idea create different repositories depending of his functionallity, project or team who work with it. For example, may be interesting have a different repositories for the backend application than the frontend application, and may be interesting have one for the devops configuration files like puppet.
