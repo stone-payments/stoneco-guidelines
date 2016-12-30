@@ -11,6 +11,7 @@
   * [Visualization](#visualization)
   * [Machine Learning](machine_learning)
     * [scikit-learn](#scikit-learn)
+  * [Titanic Example](#titanic_example)
 
 
 ### Load data
@@ -132,6 +133,15 @@ The main python library for Machine Learning is [scikit-learn](http://scikit-lea
     # Random Forest
     from sklearn.ensemble import RandomForestClassifier
 ````
+
+### Titanic Example:
+Main goal of this exercise is to focus on the analysis and data exploration with Pandas and Numpy, as well as generate visualizations with Matplotlib.
+The exercise uses the Titanic dataset to understand which factors determined the passengers' survival probabilities. During the process, examples to demonstrate the use of Pandas as well as Matplotlib representations will be included to allow readers to familiarize with the basics uses of such famous libraries. 
+
+To end, a basic decision tree will be deployed and a visualization of the tree provided for a deeper understanding of the model. 
+
+[Link to exercise!](http://scikit-learn.org/)
+
 ___
 
 [BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
