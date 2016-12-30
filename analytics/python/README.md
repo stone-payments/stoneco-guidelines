@@ -4,12 +4,12 @@
 
 ## Index
   * [Load data](#load-data)
-  * [Work with data](#work-data)
+  * [Work with data](#work-with-data)
     * [Numpy](#numpy)
     * [SciPy](#scipy)
     * [pandas](#pandas)
   * [Visualization](#visualization)
-  * [Machine Learning](machine-learning)
+  * Machine Learning
     * [scikit-learn](#scikit-learn)
   * [Titanic Example](#titanic-example)
 
@@ -140,7 +140,7 @@ The exercise uses the Titanic dataset to understand which factors determined the
 
 To end, a basic decision tree will be deployed and a visualization of the tree provided for a deeper understanding of the model. 
 
-[Link to exercise!](https://github.com/beeva-rafaelcastillo/beeva-best-practices/blob/master/analytics/python/Ejercicio_practico_Titanic.ipynb)
+[Link to exercise!](https://github.com/beeva/beeva-best-practices/blob/master/analytics/python/Ejercicio_practico_Titanic.ipynb)
 
 ___
 
