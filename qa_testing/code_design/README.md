@@ -102,7 +102,7 @@ Each programming language have itself recommendations and best practices. It's i
 * [Python](https://www.python.org/dev/peps/pep-0008/)
 * [Javascript](http://www.w3schools.com/js/js_conventions.asp)
 * [The twelve-factor app](http://12factor.net/): The twelve-factor app is a methodology for building software-as-a-service apps. The twelve-factor methodology can be applied to apps written in any programming language, and which use any combination of backing services (database, queue, memory cache, etc).
-
+* [Ruby](https://github.com/bbatsov/ruby-style-guide)
 
 ### Code Documentation
 
@@ -205,7 +205,7 @@ The documentation tools make it possible to generate documentation directly from
 * **Java**: [Javadoc](http://www.oracle.com/technetwork/articles/java/index-jsp-135444.html)
 * **Python**: [PyDoc](https://wiki.python.org/moin/PyDoc)
 * **Javascript**: [jsdoc toolkit](https://code.google.com/p/jsdoc-toolkit/)
-* **Ruby**: [Rubydoc](http://ruby-doc.org/)
+* **Ruby**: [Rubydoc](http://ruby-doc.org/), [Yard](http://yardoc.org/)
 
 
 #### Naming and format
@@ -218,7 +218,7 @@ Other tools that helps you depending on the programming language:
 * **Java**: [Checkstyle](http://checkstyle.sourceforge.net/) and [PMD](https://pmd.github.io/) with maven plugin, allow to configure some configuration rules and test that your code is fine when you build your java application, preserving for deployment server errors. You should configure the same rules than sonar. Other useful tool is [FindBugs](http://findbugs.sourceforge.net/). In our [Java Best Practices Guide](../../backend/java/README.md) there are more information.
 * **Python**: [Pylint](http://www.pylint.org/). For more information look into our [Python guide](../../backend/python/README.md).
 * **JavaScript**: [JSHint](http://jshint.com/about/) is a static code analysis tool for JavaScript. Also is recommended use a tool called [Plato](https://github.com/es-analysis/plato) that is a JavaScript source code visualization, static analysis, and complexity tool and can be integrated with the JSHint results. You can find more tools and best practices in our [Javascript Best Practices Guide](../../frontend/javascript/README.md).
-
+* **Ruby**: [RuboCop](https://github.com/bbatsov/rubocop) is a Ruby code style checker based on the [original style guide](https://github.com/bbatsov/ruby-style-guide). You can find more tools and best practices in our [Ruby Guide](../../backend/ruby/README.md).
 
 ## The SOLID Principles
 #### Introduction of SOLID principles
