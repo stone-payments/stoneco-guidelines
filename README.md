@@ -6,6 +6,10 @@ Here is the list of best practices, guidelines, codestyles and recommendations t
 
 If you think any information is wrong or missing please write us an email or directly create an issue inside this repo.
 
+### Analytics
+* [Python](analytics/pythonREADME.md)
+* [Kanban](analytics/R/README.md)
+
 ### Agile
 * [Kanban](agile/Kanban/README.md)
 * [User Stories](agile/userStories/README.md)
