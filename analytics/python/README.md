@@ -140,7 +140,7 @@ The exercise uses the Titanic dataset to understand which factors determined the
 
 To end, a basic decision tree will be deployed and a visualization of the tree provided for a deeper understanding of the model. 
 
-[Link to exercise!](http://scikit-learn.org/)
+[Link to exercise!](https://github.com/beeva-rafaelcastillo/beeva-best-practices/blob/master/analytics/python/Ejercicio_practico_Titanic.ipynb)
 
 ___
 
