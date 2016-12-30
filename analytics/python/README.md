@@ -30,8 +30,9 @@ Some examples about how to load a dataset from CSV, text files and urls.
     raw_data = urllib.urlopen(url)
 ````
 
+### Work with data
 
-### Numpy
+#### Numpy
 
 Numpy library is an extension for Python which provides mathematical functions for problems where arrays and matrix computations are required. For **Matlab software** users, Numpy library could be a great substitute. Numpy has also the advantage that was part of python from the beginning and it has a lot of developments. Next piece of code could be used in order to load this library:
 
@@ -62,11 +63,11 @@ Numpy library has a lot of useful functions when you need to work with random nu
 Some functions from `numpy.random`are: `randn()` which generates a 'standard normal' distribution; `randint` which returns random integers from a low to a high input values; `shuffle()`	is useful to modify an input sequence by shuffling its contents; `permutation()` randomly permutes a sequence...
 
 
-### Scipy
+#### Scipy
 SciPy (Scientific Python) is a Python library which is often mentioned in the same way as NumPy. SciPy extends the capabilities of NumPy with further useful functions for minimization, regression, Fourier-transformation and many others.
 
 
-### pandas
+#### Pandas
 This part gives a brief introduction to pandas data structures and some advices. Pandas is a Python library for data analysis which has many functions for using DataFrame structures. A DataFrame structure called `df` is used for clarify all the examples contained in this part. The next code allows to import the library and to create an empty dataframe.
 
 ````python
