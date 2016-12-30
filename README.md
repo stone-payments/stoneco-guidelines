@@ -8,7 +8,7 @@ If you think any information is wrong or missing please write us an email or dir
 
 ### Analytics
 * [Python](analytics/pythonREADME.md)
-* [Kanban](analytics/R/README.md)
+* [R](analytics/R/README.md)
 
 ### Agile
 * [Kanban](agile/Kanban/README.md)
