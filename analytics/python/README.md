@@ -3,18 +3,18 @@
 ![alt text](static/python-logo.png "Python")
 
 ## Index
-  * [Load data](#load_data)
-  * [Work with data](#work_data)
+  * [Load data](#load-data)
+  * [Work with data](#work-data)
     * [Numpy](#numpy)
     * [SciPy](#scipy)
     * [pandas](#pandas)
   * [Visualization](#visualization)
-  * [Machine Learning](machine_learning)
+  * [Machine Learning](machine-learning)
     * [scikit-learn](#scikit-learn)
-  * [Titanic Example](#titanic_example)
+  * [Titanic Example](#titanic-example)
 
 
-### Load data
+### <a name="load_data"></a>Load data
 
 Some examples about how to load a dataset from CSV, text files and urls.
 
