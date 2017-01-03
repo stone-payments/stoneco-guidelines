@@ -1,4 +1,5 @@
 # R for Data Science
+![alt text](static/r-logo.png "R")
 
 ## Index
   * [Introduction](#introduction)
