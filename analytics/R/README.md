@@ -15,7 +15,7 @@
   * [Model](#model)
     * [caret](#caret)
     * [mclust](#mclust)
-    
+  * [Deploy services](#deploy-services)
 
 
 
@@ -326,6 +326,17 @@ plsFit <- train(Class ~ .,
 ###mclust
 
 The mclust package is a contributed R package for model-based clustering, classification, and density estimation. It assumes a variety of data models and apply maximum likelihood estimation and Bayes criteria to identify the most likely model and number of clusters.
+
+#DEPLOY SERVICES
+
+There are several options to deploy Machine Learning models on R as REST services. At the moment, the best option we found for this task is to use [Azure ML](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-r-csharp-web-service-examples). 
+
+However, for high demand scenarios, Azure ML services based on custom R models could provide not enough quality of service, in terms of latency and concurrency. In comparison, for instance, to services based on native Azure ML models. The latter with better performance but less flexibility than custom models.
+
+More info on this topic:
+- http://blog.algorithmia.com/deploying-r-models-production-web-services/
+- http://stackoverflow.com/questions/22309236/options-for-deploying-r-models-in-production
+- https://github.com/jpmml/r2pmml
 
 ___
 
