@@ -16,6 +16,7 @@
     * [caret](#caret)
     * [mclust](#mclust)
   * [Deploy services](#deploy-services)
+  * [Big data](#big-data)
 
 
 
@@ -337,6 +338,14 @@ More info on this topic:
 - http://blog.algorithmia.com/deploying-r-models-production-web-services/
 - http://stackoverflow.com/questions/22309236/options-for-deploying-r-models-in-production
 - https://github.com/jpmml/r2pmml
+
+#BIG DATA
+
+R language is not oriented to (true) Big Data in general terms. Anyway there are specialized packages and alternatives as:
+* [pbdR](http://pbdr.org): a set of R packages for large scale, distributed computing and profiling.
+* [SparkR](http://spark.apache.org/docs/latest/sparkr.html): a light-weight frontend to use Apache Spark from R. Good reading: [10 things I wish someone had told me before I started using Apache SparkR](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8599738367597028/1792412399382575/3601578643761083/latest.html).
+
+Moreover, as [previously said](#general-information), R language is not oriented to efficiency too. However, the work from [Revolution Analytics](https://en.wikipedia.org/wiki/Revolution_Analytics) to get a multithreaded version of R has been integrated into [Microsoft R Open](https://mran.microsoft.com/documents/rro/multithread).
 
 ___
 
