@@ -464,7 +464,7 @@ events with labels transitions (Figure Example no actions explicitly
 shown, but it would be a message to the client things like "Please enter
 PIN").
 
-![State transition](https://documents.lucidchart.com/documents/4c504f61-cf17-4ff1-81dc-52378dc62814/pages/0_0?a=1433&x=184&y=1892&w=1239&h=616&store=1&accept=image%2F*&auth=LCA%20c488fe5fd719b1d9a1dd152ea8a0165cb347aa6c-ts%3D1448542384)
+![State transition](static/state_transition.png)
 
 *Drawing 1: Example of state transition*
  
