@@ -10,6 +10,8 @@
     * [data.table](#data.table)
     * [foreach](#foreach)
   * [Visualize](#visualize)
+    * [ggplot2](#ggplot2)
+    * [shiny](#shiny)
   * [Model](#model)
     * [caret](#caret)
     * [mclust](#mclust)
@@ -290,6 +292,12 @@ We could add lines or other elements, since they are treated as independet layer
 Finally, saving we can save them with *ggsave("filename.jpg")*. It will autodetect the extension of the filename and save it using that.
 
 The [documentation](http://docs.ggplot2.org/current/) of ggplot is big, and potent.
+
+###Shiny
+
+[Shiny](https://shiny.rstudio.com) is a web application framework for R. It is designed for fully interactive visualizations. 
+
+Shiny is intended to easily deploy web apps based on R analysis. No web development skills are required
 
 #MODEL
 
