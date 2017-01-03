@@ -1,3 +1,20 @@
+# R for Data Science
+
+## Index
+  * [Introduction](#introduction)
+  * [Load data](#load-data) 
+  * [Manipulate data](#manipulate-data)
+    * [tidyr](#tidyr)
+    * [dplyr](#dplyr)
+    * [data.table](#data.table)
+    * [foreach](#foreach)
+  * [Visualize](#visualize)
+  * [Model](#model)
+    * [caret](#caret)
+    * [mclust](#mclust)
+    
+
+
 
 #INTRODUCTION
 
