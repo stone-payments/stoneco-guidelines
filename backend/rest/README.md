@@ -1,5 +1,5 @@
 # REST Best Practices
-At this point we're going to talk about best practices for develop Restful API
+In this guide we are going to describe BEEVA best practices for developing REST APIs
 
 ![BEEVA](https://github.com/beeva/beeva-best-practices/blob/master/static/horizontal-beeva-logo.png "BEEVA")
 
@@ -26,12 +26,12 @@ At this point we're going to talk about best practices for develop Restful API
 
 In this guide we are going to describe the best practices we consider most relevant at design time for a good REST API.
 
-According with the wikipedia definition:
+According to Wikipedia's definition:
 * *Representational State Transfer (REST)* ***is the software architectural style*** *of the World Wide Web. REST gives a coordinated set of constraints to the design of components in a distributed hypermedia system that can lead to a higher-performing and more maintainable architecture.* [[1](#rest_wikipedia)]
 
-In the above definition, we can see that REST is a architectural style not an implementation. An implementation of this architecture is ***RESTFul***. This is a common mistake that some people have.
+This definition implies that REST is an architectural style rather than an implementation. When we want to refer to an implementation of this architecture, we refer to ***RESTFul***.
 
-The use of REST is often preferred over the more heavyweight SOAP (Simple Object Access Protocol) style because REST does not leverage as much bandwidth, which makes it a better fit for use over the Internet.
+Use of REST APIs is often preferred over SOAP (Simple Object Access Protocol) style, not only because SOAP is heavier but also because REST does not leverage as much bandwidth, which makes it a better fit for use over the Internet.
 
 REST, which typically runs over HTTP (Hypertext Transfer Protocol), has several architectural constraints:
 
@@ -45,44 +45,44 @@ REST, which typically runs over HTTP (Hypertext Transfer Protocol), has several 
 
 5. Leverages a uniform interface
 
-The REST style emphasizes that interactions between clients and services is enhanced by having a limited number of operations (verbs). Flexibility is provided by assigning resources (nouns) their own unique Universal Resource Identifiers (URIs). Because each verb has a specific meaning (GET, POST, PUT and DELETE), REST avoids ambiguity.
+REST style emphasizes that interactions between clients and services are enhanced by having a limited number of operations (verbs) to perform. Flexibility is provided by assigning resources (nouns) their own unique Universal Resource Identifiers (URIs). As each verb has a specific meaning (GET, POST, PUT, DELETE, ...), REST avoids ambiguity.
 
-The use of hypermedia both for application information as to the state transitions of the application: the representation of this state in a REST system are typically HTML, XML or JSON. As a result, it is possible to browse a resource REST to many others simply following links without requiring the use of registries or another additional infrastructure.
+Use of hypermedia, both for application information and for application's state transitions: state representation in a REST system is typically HTML, XML or JSON. As a result, it is possible to navigate from a REST resource to other by simply following links without requiring the use of registries or another additional infrastructure.
 
 ## 2. URL Construction
 
 ---
 
-The first important thing in the URL construction is not using verbs, **only nouns**. This is because the verbs are implicit in the method:
+The first important thing in the URL construction is not using verbs, **only nouns**. This is because the verbs are implicit in the method. The main methods are:
 
 Method	| Verb
 ---		| ---	
-POST    	| Create
+POST    | Create
 GET		| Read
 PUT		| Update
 DELETE	| Delete	
 
-With this in mind, you can start thinking which are the best nouns that describe your resources. It is good that the names are as **simple as posible and best describe** the resource.
+With this in mind, you can start thinking about appropriate nouns to describe your resources. It is recommended that chosen nouns are as **simple as posible and best describe** the resource.
 
-There are some points to consider when you construct the URL:
+Some things to remember when constructing your URLs:
 
-- Shorts, to makes them easy to write and remenber.
-- Predictable, to makes the users understand them and  the site structure. 
-- The nouns must be in plural to make more easy to use for the users.
-- Use the same noun with the differents methods of http to do the actions that represent the methods.
+- Make them short, to make them easy to write and remember.
+- Make them predictable, to makes the users understand them and site structure. 
+- Nouns should be plural to make more easy to use for the users (or at least keep your criteria over the whole API)
+- Use the same noun with different HTTP methods to perform required actions over that resource.
 
 ###Relations
 
-If there is a relation that can only exist within another resource. You must to put the reference of the resources one next to the other.
+Related resources must be referenced in a hierarchical way, putting resource identifiers immediately after its noun. For example: 
 
 ```
-/films/57/reviews		// Return all the reviews of the film 57
-/films/57/reviews/5		// Return the review 5 of the film 57
+/films/57/reviews		// Return all the reviews for film with identifier 57
+/films/57/reviews/5		// Return review with identifier 5 for film with identifier 57
 ```
 
 
 ###Versioning
-It is advisable to put the version of the API in the URL and don't release without it. Another recommendation is that the version number is preceded by a *v* to avoid disambiguations.
+It is strongly recommended to use a version number for *every release** of your API. To avoid ambiguity with identifiers, we recommend to use a 'v' preceding the version number as part of URLs.
 
 Only put the **MAJOR** version number, never the MINOR or PATCH. For example don't use v1.2 or v2.1.3.
 
@@ -96,28 +96,28 @@ Correct form:
 
 ---
 
-The operations over resources are limited, the variety is on the resources. The operations over REST are specified as the standard HTTP methods, it constraints the construction of operations trough these methods.
+Operations over resources are limited but number of resources are not. REST operations are described by standard HTTP methods.
 
-There are operations that are **idempotent**, it means that it can be called many times without different outcomes. It would not matter if the method is called only once, or ten times over, the system state will be the same.
+There are operations that are **idempotent**, it means that it can be called many times with the same outcome, keeping the same system state.
 
-Moreover, there are **safe operations**, which should never change the resource. These operations could be cached without any consequence to the resource.
+Additionally, there are **safe operations**, which should never change the resource. These operations could be cached without any collateral effect over the resource.
 
 ### Basic operations
-In a REST implementation there are four basic operations which can be published for a resource.
+In a REST implementation there are four main basic operations which can be published for a resource.
 
 #### GET
 
-This operation retrieves all the information of a resource, or all resources in a collection (if the resource is a collection). It's a safe operation and it should not have other effect.
+This operation retrieves information for a given resource, or all resources in a collection (if the resource is a collection). It's a safe operation and it should not have any collateral effect.
 
 ```
-GET /clients/123
+GET /clients/123    // Retrieves information about client resource with identifier 123
 
 ```
 
 
 #### POST
 
-It introduces an item in the collection represented by the resource. It is used to create a *new* item in the collection, the URI of the final resource will be defined by the server.
+It creates a new resource, specified by operation URL. Resource details are included in request body, usually as JSON or XML, depending on the API implementation.
 
 ```
 POST /products
@@ -127,9 +127,9 @@ POST /products
 
 #### PUT
 
-PUT operation requests that the entity is stored in the resource indicated. It means that the resource doesn't exist, it creates it. However, if the resource exists, it is overwritten by the given entity. Because of this behavoir, it is idempotent.
+Updates an existing resource, or creates a new one if it does not exist. Again, resource details are provided in request body. 
 
-POST and PUT are similar, POST will be used when we don't know the locality of the resource, and PUT where we know it. For this reason, POST is usually implemented as create operation while PUT can be used as update.
+Although POST and PUT looks similar, usually POST is used to create a new resource and PUT to update an existing resource. 
 
 ```
 PUT /products/123
@@ -139,7 +139,7 @@ PUT /products/123
 
 #### DELETE
 
-It deletes the specified resource. Despite the server could return other response if the item already was deleted (the resource does not exist), this operation is idempotent, because the system status will be the same.
+It deletes the specified resource, if exists.
 
 ```
 DELETE /client/123
@@ -151,11 +151,11 @@ DELETE /client/123
 
 These are the basic operations, they allow to implement CRUD operations, but there are some extra operations. It can be used in some special requirements.
 
-**HEAD** operation is similar to GET, with the difference that with HEAD operation the data retrieved only includes the header. Normally it is used if the size of content of the resources is large.
+**HEAD** operation is similar to GET, but only retrieves headers for requested information. It is useful when response's size is large too large but the full response is not needed.
 
-All the operations doesn't have to be implemented, with **OPTIONS** operation the client can discover the list of methods implemented for a resource.
+You are not required to implement every operation, so there is a way of finding out which operations are actually implemented: **OPTIONS** operation allows the client to discover implemented methods for a given resource.
 
-The HTTP methods **PATCH** can be used to update partial resources. While PUT operation must take a full resource representation as the request entity (if only few attributes are provided, the others should be removed), PATCH operation allow partial changes to a resource. It is not idempotent. This operation should not be used as a partial data which only will be updated, it should define the 'suboperation' that are going to do over the resource.
+**PATCH** can be used to update resources partially. While PUT operation must take a full resource representation as the request entity (if only few attributes are provided, the others should be removed), PATCH operation allow partial changes to a resource. It is recommended to parameterize request body, including a field for operation to be performed, the field to be updated and the value for that field.
 
 ```
 PATCH /clients/123
@@ -164,33 +164,65 @@ PATCH /clients/123
 ]
 ```
 
-All these operations, specially the basic operations must be used like they were defined. POST operation must never be used to get a resource, or GET to produce any modification. All implementations in REST should be defined as a combination of resource-request_method, don't use new operations, respect standard HTTP methods.
-
-
+It is important to maintain the purpose of each verb, as they are widely accepted by everyone. For example, POST operation must never be used to get a resource, or GET to produce any modification. All implementations in REST should be defined as a combination of resource-request_method.
 
 ## 4. Status codes
 
 ---
 
-When you are developing a REST API, a common doubt is what status code use in response.  
+Unfortunately, there is not any REST standard that defines which status code should return our API for every implemented operation. In this section we are going to describe how we design our APIs in BEEVA.
 
 ### Introduction
 
-One of the most important point, while you are designing an API Rest, is correctly choose how we will inform our customers of the status of their requests. Since one of the main features of the REST services is that they are built on HTTP protocol, the best way to inform the user will be to use HTTP status codes.
+An important aspect of REST API design is to properly define our responses' status codes, as they are the main mechanism to inform the caller about the result of his requests.
 
-It is a good practice to add to the response of REST services a new field "result" which contains HTTP status code number and a more descriptive message related to contexts of the request.
+### Response structure
 
-### New Resources
+We recommend to use a fixed structure for all responses, adding at least a field to include response's metadata and another to include the response's data. 
 
-When you are creating new resources, you have to report to client that these resources has been created.
+For example:
 
-Method: POST (We can also use PUT method intead of POST, but POST it's most recomended for creating resources).
+``` json
+{
+    "result":{
+        "code": 201,
+        "information": "Resource created"
+    },
+    "data":{
+        "id": "5189936c63"
+    }
+    
+}
+```
+
+In case of errors, an 'errors' node could be used instead of 'data':
+
+``` json
+{
+    "result":{
+        "code": 404
+    },
+    "errors":[
+        {
+            "code": "0x0000",
+            "message": "Could not find specified resource"
+        }
+    ]
+    
+}
+```
+
+### New resources
+
+When you are creating new resources, it is a good practice to, at least return the identifier for the just created resource.
+
+Method: POST
 
 ---
 
 |Result 			|Code 	|Response Body 			|
 | ----------------------- | ---------- | ------------------------------------- |
-|Sucessful created	|201		|Empty					|
+|Successfully created	|201		|Empty					|
 |Bad Request		|400		|codeError and description	|
 |Invalid credentials	|401		|codeError and description	|
 
@@ -198,15 +230,15 @@ Method: POST (We can also use PUT method intead of POST, but POST it's most reco
 
 ### Update Resources
 
-When you are updating existing resources, you have to report to client that these resources has been updated.
+When you are updating existing resources, it is a good practice to, at least return the identifier for the updated resource, and maybe could be useful to return the whole resource after the update.
 
-Method: PUT (We can also use POST method intead of PUT, but PUT it's most recomended for updating resources).
+Method: PUT
 
 ---
 
 |Result 			|Code 	|Response Body	 					|
 | ----------------------- | ----------- | ------------------------------------------------------- |
-|Sucessful updated	|200		|Empty or fields of updated resource		|
+|Successfully updated	|200		|Empty or fields of updated resource		|
 |Bad Request		|400		|codeError and description recommended	|
 |Invalid credentials	|401		|codeError and description recommended	|
 |Resource not found|404	|Empty								|
@@ -215,7 +247,7 @@ Method: PUT (We can also use POST method intead of PUT, but PUT it's most recome
 
 ### Query a Resource
 
-When you are querying an unique and existing resource, you have to report to client the content of this resource.
+When you are querying an unique existing resource, the whole resource should be returned in response's body, as expected.
 
 Method: GET.
 
@@ -223,7 +255,7 @@ Method: GET.
 
 |Result 				|Code 	|Response Body 						|
 | ------------------------------ | ---------- | ------------------------------------------------------- |
-|Resource founded		|200		|Resource with partially or fully data		|
+|Resource found		|200		|Full resource information |
 |Resource don't exists	|204		|Empty								|
 |Bad Request			|400		|codeError and description recommended	|
 |Invalid credentials		|401		|codeError and description recommended	|
@@ -233,7 +265,7 @@ Method: GET.
 
 ### Query Resource List by pattern or all resources
 
-When you are querying a list of resources by certain pattern, you have to report to client at least a list with some info about these resources.
+When you are querying a list of resources by certain pattern, an object array or list should be returned as response's body.
 
 It's also recommended to return info about pagination like total number of resources in list, number of pages, current page, etc....
 
@@ -243,9 +275,9 @@ Method: GET.
 
 |Result 				|Code 	|Response Body 						|
 | ------------------------------ | ---------- | ------------------------------------------------------- |
-|Resources founded	|200		|Resource list with partial or full data		|
-|Resources not founded	|204		|Empty								|
-|Resources paginated	|206		|Resource list with pagination info		|
+|Resources found	|200		|Resource list with full data		|
+|Resources not found	|204		|Empty								|
+|Partial response|206		|Partial resource list with pagination info		|
 |Bad Request			|400		|codeError and description recommended	|
 |Invalid credentials		|401		|codeError and description recommended	|
 
@@ -253,20 +285,21 @@ Method: GET.
 
 ### General Purpose
 
-There are other status codes than have to be taken into account:
+There are other status codes than have to be considered:
 
 ---
 
 |Action										|Code 	| Example							|
 | -------------------------------------------------------------------- | ---------- | -------------------------------------------------------- |
 |Request to non-existent or without sense method	| 405	| PUT over all resource collection			|
-|Request to existent resource with invalid headers	| 412	| One header is no correct or field missed	|
+|Request to existent resource with invalid headers	| 412	| One header is no correct or missing field |
+|All                                                | 429   | Too many requests (throughput restrictions, see section 10 below)
 
 ---
 
 ### Annexed 1: 2XX Success
 
-These status codes are informative and tell the user that his request has been processed correctly.
+These status codes are informative and tell the user that his request was successfully processed.
 
 ---
 
@@ -320,45 +353,40 @@ They are used to inform the user of errors in valid requests
 | 500 | Internal Server Error | Generic code indicating an unexpected error |
 | 503 | Service Unavailable | The server is currently unable to handle the request due to a temporary overloading or maintenance of the server|
 
-
-
-
-
-
-
 ---
 
 ## 5. Payload formatting
 
 ---
 
-The payload is the actual data provided in a REST message, the payload does not include the overhead data. That means it is not either the headers or the envelope.
+Payload is the actual data provided in a REST message, excluding overhead data (headers and envelopes).
 
-Both the *requests* and the *responses* can have a payload.
+Both *requests* and *responses* can include a payload.
 
 For example, in operations such as GET and DELETE, it does not make sense, because there should not be content in the payload. On the other hand, operations like PUT or POST usually contains a payload with data.
 Most of the responses may contain a payload, for responses with data content and for providing extra information about the success (or not) of the operation.
 
 There are many formats as payload, the most used are **JSON** and **XML** though. The structure for a payload depends on the information that is represented on it. It will not be the same for an item creation, error content response, successful message, etc.
 
-**Respecting status codes** - It's a bad practice to send a response with status 200, and return in the payload the detail that the response was not successful, with a particular messages result format for our API. The status code for a response must be used to define how was it, don't use the payload to specify the nature of the response. The payload should be used in that case to specify the detail of the operation result.
+Our recommendation is, at least, to support JSON format, as it is the most widely used at the moment. Nonetheless, some legacy applications could use XML still, so it could be feasible to support this format too.
 
-Sometimes, our API can be prepared to return the responses in xml or json format, the client should specify the format required. There are two ways to define the format of the response expected:
+**Respecting status codes** - It's a bad practice to send a response with status 200, and return in the payload the detail that the response was not successful, with a particular messages result format for our API. The payload should be used if some additional context or information is needed about the operation result.
+
+In case our API supports several output formats, the client should be able to specify the preferred format. There are two ways to define the format of the response expected:
 * Accept header: Indicating in the _Accept_ http header what are the contents types accepted. The request put _application/xml_ or _application/json_ to ask for a xml or json response format.
 * Extension: other way to specify the response format is indicating the extension on the resource. For example, GET _/api/resource.xml?param=value_ or _/api/resource.json?param=value_.
 
-When we are developing a new project, it's important to define a common layout for payloads on requests and responses. It will make easier for us and the clients of our REST api. It facilitates to identify any kind of response, error or success, if the layout doesn't match, it could produce confusion and errors.
-
+As previously stated, when we are designing an API, it is very important to define a common layout for payloads on requests and responses. It will make easier for us and the clients of our REST api. It eases response understanding , be it error or success.
 
 ## 6. Filters
 
 ---
 
-There are several ways to filter the resources of a REST Api. However is a good practice to design an API with the next four features
+There are several ways to filter resources on a REST API. However, it is a good practice to design an API with the following features.
 
 ### Filtering
 
-Avoid use one unique parameter for filtering all fields, is a much better approach to use one parameter for each field to filter. Use multiple values separted by comma if you need to filter a resource by multiple field values.
+Avoid using a single parameter for filtering all fields. It is a much better approach to use one parameter for each field to filter. Use multiple comma-separated values if you need to filter a resource by multiple field values.
 
 ---
 ```html
@@ -368,7 +396,7 @@ GET /campaigns?status=computed&provider=CVIP,BBVA
 
 ### Sorting
 
-Generic parameter "sort" can be used to describe sorting rules. Allow sort by multiple fields with the use of a list of fields separated by comma. Use - sign before fields to sort in descent order and no sign to sort in ascending order.
+Generic parameter "sort" can be used to describe sorting rules. Allow multiple fields sorting using a comma-separated field list. An interesting and compact way of specifying order direction is to use an hyphen (-) sign before fields to sort in descent order and no sign at all to sort in ascending order.
 
 ---
 ```html
@@ -378,7 +406,7 @@ GET /campaigns?sort=last_update,-status
 
 ### Field Selection
 
-Sometimes API consumers don't need all attributes of a resource. Is a good practice give the consumer the ability to choose returned fields. This will improve API's performance and reduce the network bandwidth.
+Sometimes API consumers do not need all resource attributes. In that cases, it is a good practice supporting the feature of selecting which fields are going to be returned. This will drastically improve our API's performance and reduce the network bandwidth usage.
 
 ---
 ```html
@@ -388,7 +416,7 @@ GET /campaigns?fields=id,status,name
 
 ### Searching
 
-Define search as a sub-resorce for your collection. Use generic query parameter like "q" to perform a full text search over your resources and return the search result in the same format as a normal list result. In order to make more complex searches allow the use of full text search operators like + - or "/ .
+Use a generic query parameter like "q" to perform a full text search over your resources and return the search result in the same format as a normal list result. In order to make more complex searches allow the use of full text search operators like + - or "/ .
 
 ---
 ```html
@@ -423,17 +451,16 @@ Link: <https://www.beeva.com/sample/api/v1/cars?offset=15&limit=5>; rel="next",
 |prev      | The link relation for the immediate previous page of results.  |
 
 
-But this isn't a complete solution as many APIs do like to return the additional pagination information, like a count of the total number of available results. An API that requires sending a count can use a custom HTTP header like ***X-Total-Count.***
+But this is not a complete solution as many APIs return additional pagination information, like a count of the total number of available results. An API that requires sending a count can use a custom HTTP header like ***X-Total-Count.***
 
-On the other hand, in order to indicate the page that we want to visualize and amount of data per page, we should use some parameters in the rest calling. There are some kind of pagination-based [(you cand find some of them here)](https://developers.facebook.com/docs/graph-api/using-graph-api/v2.5#paging), and these parameters had been define by pagination-type based.
+On the other hand, in order to indicate the page that we want to visualize and amount of data per page, we should use some parameters in the REST call. There are some kind of pagination-based solutions, [(you cand find some of them here)](https://developers.facebook.com/docs/graph-api/using-graph-api/v2.5#paging).
 
-Anyway whatever pagination-based you choose, there must always be a parameter that indicates  the number of individual objects that are returned in each page (usaully is *limit*) and another one that indicates current page (like *page* , *page_number*, *offset*...)
+Anyways, no matter what pagination-based solution you choose, there must always be a parameter that indicates  the number of individual objects that are returned in each page (usually *limit*) and another one that indicates current page (like *page* , *page_number*, *offset*...)
 
-
-Sometimes, at Beeva projects, we use a link node in the responses instead of use the link header  to paginate. See the example below:
+As an alternative, you can also include pagination information as part of response's payload (HATEOAS style). For example:
 
 ---
-```javascript
+```json
 {
   "result": {
     "code": 206,
@@ -486,25 +513,25 @@ Let’s take as an example an Amazon customer who wishes to read the details of 
 * List all his orders
 * Select his last order
 
-On the Amazon website, he does not need to be a web expert to read his last order: he just has to login into his account, then click on the “my orders” link and finally select the most recent one.
+On Amazon's website, he just has to login into his account, then click on the “my orders” link and finally select the most recent one.
 
 Now let’s imagine the customer wishes to use an API to do the same thing!
 
-He must begin by reading Amazon documentation to find the URL that returns the list of orders. When he finds it, he must make an actual HTTP call to this URL. He’ll see the reference of his order in the list, but he’ll need to make a second call to another URL to get its details. He will have to figure out how to construct the proper URL from Amazon‘s documentation.
+He must begin by reading Amazon's documentation to find the URL that returns the list of orders. When he finds it, he must perform a HTTP call to this URL. He’ll see the reference of his order in the list, but he’ll need to make a second call to another URL to get its details. He will have to figure out how to construct the proper URL from Amazon‘s documentation.
 
-There is one main difference between these two scenarii: In the first one, the customer just needed to know the first URL “http://www.amazon.com” then follow the links on the web page. Whereas in the second one, he needed to read the documentation so as to elaborate the URL.
+There is a main difference between these two scenario: In the first one, the customer just needed to know the first URL “http://www.amazon.com” then follow the links on the web page. In the second scenario, he needed to read the documentation so as to elaborate the URL.
 
 The drawbacks of the second process are:
 
 * The developers do not like documentation.
-* In real life, the documentation is usually not up to date. The developer may miss one or several available services just because they are not properly documented.
+* In real life, the documentation can potentially be outdated. The developer may miss one or several available services just because they are not properly documented.
 * The API is less accessible.
 
 Now let’s assume we develop a component to automatically create these contextual URLs. What happens when Amazon modifies its URLs?
 
 In practical, HATEOAS is like a urban legend. Everybody talks about it but nobody ever witnessed an actual implementation. [Paypal](https://developer.paypal.com/docs/integration/direct/paypal-rest-payment-hateoas-links/) proposes one:
 
-```javascript
+```json
 [{
 	"href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-6RV70583SB702805EKEYSZ6Y",
 	"rel": "self",
@@ -545,7 +572,7 @@ GET /customers/007
 	]
 }
 ```
-For implementing HATEOAS, we therefore recomment using the following method, also applied in the pagination section, compliant with [RFC 5988](http://tools.ietf.org/html/rfc5988#page-6) and usable by clients that don’t support several Header “Link”:
+For implementing HATEOAS, we recommend using the following method, also applied in the pagination section, compliant with [RFC 5988](http://tools.ietf.org/html/rfc5988#page-6) and usable by clients that don’t support several Header “Link”:
 
 ```
 GET /customers/007
@@ -564,13 +591,12 @@ https://api.domain.com/v1/orders/1234; rel="orders"; method:"GET"
 ## 9. API Versioning
 ---
 
-Make the API Version mandatory and do not release an unversioned API. There are two versioning topics on wich we will talk. The first one is the what versioning specification should we use to release our api. And the second one is how and when should we engage it with our API releasing.
-
+As a rule of thumb, **never release a non-versioned API** to production.
 
 ### Semantic Versioning
-As a especification of our APIs we use [Semantic Versioning](http://semver.org/). This is an spefication authored by Tom Preston-Werner based on three digits *MAJOR.MINOR.PATCH*
+As a specification of our APIs we use [Semantic Versioning](http://semver.org/). This is an specification authored by Tom Preston-Werner based on three digits *MAJOR.MINOR.PATCH*
 
-Theses are the main rules about this speficiation
+Theses are the main rules about this specification
 
 * A normal version number MUST take the form X.Y.Z where X, Y, and Z are non-negative integers, and MUST NOT contain leading zeroes. X is the major version, Y is the minor version, and Z is the patch version. Each element MUST increase numerically. For instance: 1.9.0 -> 1.10.0 -> 1.11.0.
 
@@ -578,29 +604,29 @@ Theses are the main rules about this speficiation
 
 * Version 1.0.0 defines the public API. The way in which the version number is incremented after this release is dependent on this public API and how it changes.
 
-* Patch version Z (x.y.Z | x > 0) MUST be incremented if only backwards compatible bug fixes are introduced. A bug fix is defined as an internal change that fixes incorrect behavior.
+* Patch version Z (x.y.**Z** | Z > 0) MUST be incremented if only backwards compatible bug fixes are introduced. A bug fix is defined as an internal change that fixes incorrect behavior.
 
-* Minor version Y (x.Y.z | x > 0) MUST be incremented if new, backwards compatible functionality is introduced to the public API. It MUST be incremented if any public API functionality is marked as deprecated. It MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes. Patch version MUST be reset to 0 when minor version is incremented.
+* Minor version Y (x.**Y**.z | Y > 0) MUST be incremented if new, backwards compatible functionality is introduced to the public API. It MUST be incremented if any public API functionality is marked as deprecated. It MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes. Patch version MUST be reset to 0 when minor version is incremented.
 
-* Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatible changes are introduced to the public API. It MAY include minor and patch level changes. Patch and minor version MUST be reset to 0 when major version is incremented.
+* Major version X (**X**.y.z | X > 0) MUST be incremented if any backwards incompatible changes are introduced to the public API. It MAY include minor and patch level changes. Patch and minor version MUST be reset to 0 when major version is incremented.
 
 
 ## 10. API throughput restrictions
 ---
-For performance reasons and to ensure a homogeneous response times APIs, it is good practice to limit the consumption of APIs. This limitation can be performed based on many factors:
+For performance reasons and to ensure homogeneous response times in our APIs, it is good practice to limit the API's consumption. This limitation can be performed based on many factors:
 
 * **Limit requests in a time slot for an authenticated user**. Such limitations are usually carried out in public APIs to control abusive access to the APIs. There are several approaches such as restricting the number of day / month requests for authenticated users.
-* **Limit requests for public / private consumption API depending on the authenticated user profile**. Usually public APIs have limited consumption, always with the concept of ensuring homogeneous consumption of all users allowing resizes infrastructure in stages. Now another factor to consider, the payment appears APIs. If someone pays for higher demand requests, we can not make this service affects the service consumer of APIs, so normally corresponding changes will be made in infrastructure to ensure the number of requests the client demands, and there is a unique routing requests asigned to the user profile.
+* **Limit requests for public / private consumption API depending on the authenticated user profile**. Usually public APIs have limited consumption, always with the concept of ensuring homogeneous consumption of all users allowing resizing infrastructure in stages. We have to pay special care to paying consumers in non-free APIs and respect consumer's quotas.
 
-To manage the rate of requests are often used the following headers in responses of each request:
+To manage request' rates, some headers could be used:
 
-* **X-Rate-Limit-Limit**: The number of allowed requests in the current period
-* **X-Rate-Limit-Remaining**: The number of remaining requests in the current period
-* **X-Rate-Limit-Reset**: The number of seconds left in the current period. It is necessary to clarify at this point that should not be confused with a timestamp, you should be the seconds remaining to avoid problems with time zones.
+* **X-Rate-Limit-Limit**: Allowed request number for current period of time (window)
+* **X-Rate-Limit-Remaining**: Remaining request number for current period of time (window)
+* **X-Rate-Limit-Reset**: The number of seconds left in the current period time (window). It is necessary to clarify at this point that should not be confused with a timestamp, you should use seconds remaining to avoid problems with time zones.
 
-As we can see in the following [link](#examples-api-throughput-restrictions), There are multiple APIs that use these headers (and sometimes more), to inform the user of the limits.
+As we can see in the following [link](#examples-api-throughput-restrictions), There are multiple APIs that use these headers to provide information about throughput and limits.
 
-For ending this section, when the request limit is reached, the response will return this code status: ***HTTP - 429 Too Many Requests*** as indicated in the [RFC 6585 Section 4](#rfc-6585-section-4)
+Finally, , when request limit is reached, response will return this code status: ***HTTP - 429 Too Many Requests*** as indicated in the [RFC 6585 Section 4](#rfc-6585-section-4)
 
 
 ## 11. OAuth
@@ -608,13 +634,13 @@ For ending this section, when the request limit is reached, the response will re
 
 ### Introduction
 
-The OAuth authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
+The Open Authentication (OAuth) authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
 
 This is a very brief introduction, please refer to [OAuth RFC 6749](https://tools.ietf.org/html/rfc6749) for a detailed documentation.
 
 ### Roles
 
-It is very important to know the involved roles for the sake of this section understanding:
+It is very important to know the involved roles for the sake of this section's understanding:
 
 OAuth defines four roles:
 
@@ -646,11 +672,11 @@ Access tokens are associated to a set of scopes that represent permissions on ho
 
 ### Token expiration and refresh
 
-Access tokens should have an expiration time defined. It is not a good practice to allow a token to last forever. If a client need to extend the expiration time, a "refresh token" endpoint should be available. In this case, in step 2 of protocol flow a refresh token is provided along with the access token. This refresh token should be used by the client for refreshing the expiration time of a token. See RFC for further details.
+Access tokens should have a defined expiration time. It is not a good practice to allow a token to last forever. If a client need to extend the expiration time, a "refresh token" endpoint should be available. In this case, in step 2 of protocol flow a refresh token is provided along with the access token. This refresh token should be used by the client for refreshing the expiration time of a token. See RFC for further details.
 
 ### Caching access tokens
 
-A good practice to avoid an unnecesary traffic overhead to the authorization server is to enable caching in clients. This access token will not change until expires.
+A good practice to avoid an unnecessary traffic overhead to the authorization server is to enable caching in clients. This access token will not change until expires.
 
 ### Use of TLS/SSL
 
@@ -668,13 +694,13 @@ Below is a list of sample implementations of OAuth 2.0:
 ## 12. Errors
 ---
 
-A major element of web services is planning for when things go wrong, and propagating error messages back to client applications. However, REST-based web services do not have a well-defined convention for returning error messages. 
+A major element of web services is planning for when things go wrong, and propagating error messages back to consumer applications. However, REST-based web services do not have a well-defined convention for returning error messages. 
 
-Nonetheless, here are the most important criteria for manage REST API response errors:
+Nonetheless, here are the most important criteria for managing REST API response errors:
 
-1. Error Messages must be readable for humans: Part of the major appeal of REST based web services is that you can open any browser, type in the right URL, and see an immediate response -- no special tools needed. However, HTTP error codes do not always provide enough information and we need to share with client a short description of the error committed. 
+1. Error Messages must be readable for humans: Part of the major appeal of REST based web services is that you can open any browser, type in the right URL, and see an immediate response -- no special tools needed. However, HTTP error codes do not always provide enough information and we need to include a short description of the error occurred. 
 
-2. Application Specific Errors: The response body in errors must have the imprint of the application. 
+2. Application Specific Errors: The response's body in errors must have the imprint of the application. 
 
 3. Error Codes must be readable for other applications: As a third criteria, error codes should be easily readable by other applications.
 
@@ -688,31 +714,21 @@ So the best option for response error are:
 
 #### 400: Bad Request
 
-User error. This can mean that a required field or parameter has not been provided, the value supplied is invalid, or the combination of provided fields is invalid.
+User error. A required field or parameter has not been provided, the value supplied is invalid, or the combination of provided fields is invalid.
 
-This error can be thrown when trying to add a duplicate parent to a Drive item. It can also be thrown when trying to add a parent that would create a cycle in the directory graph.
+This error can be thrown when trying to add a duplicate resource. For example:
 
 ```json
+Response's status code : 400
+
+Response's payload
 {
- 	"error": {
-		"errors": [
+ 	"errors": [
 		{
-			"domain": "global",
-			"reason": "badRequest",
-			"message": "Bad Request"
-		}],
-		"code": 400,
-		"message": "Bad Request"
-	}
-}
-```
-or
-
-```json
-{
-	"error": "short_description",
-	"error_description": "longer description, human-readable",
-	"error_uri": "URI to a detailed error description on the API developer website"
+		    "code": "0x00000",
+		    "message": "Bad Request"
+		}
+	]
 }
 ```
 
@@ -721,27 +737,16 @@ or
 Invalid authorization header. The access token you're using is either expired or invalid.
 
 ```json
-{
-	"error": {
-		"errors": [
-		{
-			"domain": "global",
-			"reason": "authError",
-			"message": "Invalid Credentials",
-			"locationType": "header",
-			"location": "Authorization",
-		}],
-		"code": 401,
-		"message": "Invalid Credentials"
-	}
-}
-```
-or
+Response's status code : 401
 
-```json
+Response's payload
 {
-	"error": "no_credentials", 
-	"error_description": "This resource requires authorization, you must be authenticated and have the correct rights to access it"
+ 	"errors": [
+		{
+		    "code": "0x00001",
+		    "message": "Invalid credentials"
+		}
+	]
 }
 ```
 
@@ -750,26 +755,16 @@ or
 You are identified, but you do not have the necessary authorizations.
 
 ```json
-{
-	"error": {
-		"errors": [
-		{
-			"domain": "global",
-			"reason": "authError",
-			"message": "Forbidden",
-			"location": "Authorization",
-		}],
-		"code": 403,
-		"message": "Forbidden"
-	}
-}
-```
-or
+Response's status code : 403
 
-```json
+Response's payload
 {
-	"error": "not_allowed", 
-	"error_description": "You're not allowed to perform this request"
+ 	"errors": [
+		{
+		    "code": "0x00002",
+		    "message": "You are not allowed to access the specified resource"
+		}
+	]
 }
 ```
 
