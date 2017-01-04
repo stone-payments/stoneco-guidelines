@@ -1,3 +1,24 @@
+# R for Data Science
+![alt text](static/r-logo.png "R")
+
+## Index
+  * [Introduction](#introduction)
+  * [Load data](#load-data) 
+  * [Manipulate data](#manipulate-data)
+    * [tidyr](#tidyr)
+    * [dplyr](#dplyr)
+    * [data.table](#data.table)
+    * [foreach](#foreach)
+  * [Visualize](#visualize)
+    * [ggplot2](#ggplot2)
+    * [shiny](#shiny)
+  * [Model](#model)
+    * [caret](#caret)
+    * [mclust](#mclust)
+  * [Deploy services](#deploy-services)
+  * [Big data](#big-data)
+
+
 
 #INTRODUCTION
 
@@ -9,15 +30,15 @@ There are thousands of packages available for R, but in this guide we'll mention
 
 ##What is R
 
-R is an scripting language designed to make data analysis and stadistics easier. It's free, open source and available on every major platform making it easily replicable.
+R is an scripting language designed to make data analysis and statistics easier. It's free, open source and available on every major platform making it easily replicable.
 
 ##What is R good for
 
-R has a great community behind it, and a massive set of packages for statistical modeling, machine learning, visualisation and manipulation of data. The data mungling cappabilities are second to no one, and whatever model you are trying to do, you'll have a package for almost for sure.
+R has a great community behind it, and a massive set of packages for statistical modeling, machine learning, visualization and manipulation of data. The data mungling capabilities are second to no one, and whatever model you are trying to do, you'll have a package for almost for sure.
 
 ##What isn't R good for
 
-R loads everything in memory. That's a powerful feature for iterative processes but also imposes an strong limit on the size of you data. Furthermore, some R functions don't modify the object but a copy thus requiring even more memory. The rule of thumb is 3 times higher than the data to work confortably.
+R loads everything in memory. That's a powerful feature for iterative processes but also imposes a strong limit on the size of you data. Furthermore, some R functions don't modify the object but a copy thus requiring even more memory. The rule of thumb is 3 times higher than the data to work comfortably.
 
 It's also an interpreted language, which makes it [quite slow](#http://adv-r.had.co.nz/Performance.html). You should use as much packages and functions as you can instead of building a function from zero, since most of them are interfaces to a much more optimized versions programmed in C, Fortran or C++. Some functions written in pure R can take 45 minutes and only 0.15s when using the correct package.
 
@@ -79,7 +100,7 @@ For example:
 |       3 |  F  |   9.5 | 13.1 | 13.8 |
 |       4 |  M  |  11.5 | 13.4 | 12.9 |
 
-This also known as *tidy data*, and while is the prefered format, you'll have to move between them depending on which function or algorithm you use.  The package *tidyr* has two functions for that purpose:
+This also known as *tidy data*, and while is the prefered format, you'll have to move between them depending on which function or algorithm you use. The package *tidyr* has two functions for that purpose:
 
 * From wide to long:
 
@@ -97,7 +118,7 @@ This also known as *tidy data*, and while is the prefered format, you'll have to
 
 ###dplyr
 
-Dplyr is one of the best packages for data manipulation (also known as *data munging*). It provides an array of tools to model data with great efficiency. It also allows function chaining with pipes (*%>%*) and even connect to databases.Whenever posible you should use this functions instead of the base ones for efficiency reasons.
+Dplyr is one of the best packages for data manipulation (also known as *data munging*). It provides an array of tools to model data with great efficiency. It also allows function chaining with pipes (*%>%*) and even connect to databases. Whenever posible you should use this functions instead of the base ones for efficiency reasons.
 
 
 * filter() (and slice())
@@ -190,7 +211,7 @@ The [documentation](https://cran.r-project.org/web/packages/data.table/vignettes
 
 ####On dplyr VS data.table
 
-On [this stackoverflow debate](http://stackoverflow.com/questions/21435339/data-table-vs-dplyr-can-one-do-something-well-the-other-cant-or-does-poorly/27840349#27840349) there's some conversation about it, including [this](https://github.com/Rdatatable/data.table/wiki/Benchmarks-%3A-Grouping) benchmark where data.table is cleary the winner. On the other hand, dplyr has some capabilities outside the scope of data.table such as SQL connections of a better position to improve parallel performance (but this is still on the air) while having a more verbose but approachable syntax.
+On [this stackoverflow debate](http://stackoverflow.com/questions/21435339/data-table-vs-dplyr-can-one-do-something-well-the-other-cant-or-does-poorly/27840349#27840349) there's some conversation about it, including [this](https://github.com/Rdatatable/data.table/wiki/Benchmarks-%3A-Grouping) benchmark where data.table is clearly the winner. On the other hand, dplyr has some capabilities outside the scope of data.table such as SQL connections of a better position to improve parallel performance (but this is still on the air) while having a more verbose but approachable syntax.
 
 ###foreach
 
@@ -207,7 +228,7 @@ There are some cases that a for-each loop is inevitable, and in some of those pa
 
 The foreach function allows for a *combine* parameter which will process the task results as they are generated. Specifying 'c' is useful for concatenating results into a vector. The values 'rbind' and 'cbind' can combine vectors into a matrix, and values such as '+' or '*' can be used to process numerical data. By default the results are returned into a list. An important note about this is the parameter *multicombine* that allows to specify how many parameters *combine* will take. In some cases (like using *cbind*) performance will improve greatly if it's allowed to combine more than 2 elements each time.
 
-There's something to keep in mind. Because the multicore mode starts its workrers using fork without doing a subsequent exec, it has some limitations. Some operations cannot be performed properly by fokerd processes. For example, a connection object most likely won't work, which can corrupt the object thus forcing the R session to crash.
+There's something to keep in mind. Because the multicore mode starts its workers using fork without doing a subsequent exec, it has some limitations. Some operations cannot be performed properly by forked processes. For example, a connection object most likely won't work, which can corrupt the object thus forcing the R session to crash.
 
 Finally, foreach allows to operate not only in a multicore scenario, but can be applied to a cluster using the doSNOW library.
 
@@ -216,7 +237,7 @@ Finally, foreach allows to operate not only in a multicore scenario, but can be 
 
 ###ggplot2
 
-ggplot2 is a plotting system for R. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providding a powerful model of graphics that makes it easy to produce complex multi-layered graphics. The multi-layered part is important, since it allows to add new information to the graphic incrementally, instead of rendering it completely each time.
+ggplot2 is a plotting system for R. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providing a powerful model of graphics that makes it easy to produce complex multi-layered graphics. The multi-layered part is important, since it allows to add new information to the graphic incrementally, instead of rendering it completely each time.
 
 There are two major functions for ggplot2:
 
@@ -273,6 +294,12 @@ Finally, saving we can save them with *ggsave("filename.jpg")*. It will autodete
 
 The [documentation](http://docs.ggplot2.org/current/) of ggplot is big, and potent.
 
+###Shiny
+
+[Shiny](https://shiny.rstudio.com) is a web application framework for R. It is designed for fully interactive visualizations. 
+
+Shiny is intended to easily deploy web apps based on R analysis. No web development skills are required.
+
 #MODEL
 
 ###caret
@@ -300,6 +327,25 @@ plsFit <- train(Class ~ .,
 ###mclust
 
 The mclust package is a contributed R package for model-based clustering, classification, and density estimation. It assumes a variety of data models and apply maximum likelihood estimation and Bayes criteria to identify the most likely model and number of clusters.
+
+#DEPLOY SERVICES
+
+There are several options to deploy Machine Learning models on R as REST services. At the moment, the best option we found for this task is to use [Azure ML](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-r-csharp-web-service-examples). 
+
+However, for high demand scenarios, Azure ML services based on custom R models could provide not enough QoS, in terms of latency and concurrency. In comparison, for instance, to services based on native Azure ML models. The latter with better performance but less flexibility than custom models.
+
+More info on this topic:
+- http://blog.algorithmia.com/deploying-r-models-production-web-services/
+- http://stackoverflow.com/questions/22309236/options-for-deploying-r-models-in-production
+- https://github.com/jpmml/r2pmml
+
+#BIG DATA
+
+R language is not oriented to (true) Big Data in general terms. Anyway there are specialized packages and alternatives as:
+* [pbdR](http://pbdr.org): a set of R packages for large scale, distributed computing and profiling.
+* [SparkR](http://spark.apache.org/docs/latest/sparkr.html): a light-weight frontend to use Apache Spark from R. Good reading: [10 things I wish someone had told me before I started using Apache SparkR](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8599738367597028/1792412399382575/3601578643761083/latest.html).
+
+Moreover, as [previously said](#general-information), R language is not oriented to efficiency too. However, the work from [Revolution Analytics](https://en.wikipedia.org/wiki/Revolution_Analytics) to get a multithreaded version of R has been integrated into [Microsoft R Open](https://mran.microsoft.com/documents/rro/multithread).
 
 ___
 
