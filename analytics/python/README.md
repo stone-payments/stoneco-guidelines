@@ -39,8 +39,8 @@ It also allows you to read text from your clipboard.
 The use is as below:
 
 ````python
-    import pandas as pd
-    df = pd.read_csv('datos.csv')
+import pandas as pd
+df = pd.read_csv('datos.csv')
 ````
 
 ##### Loading json
@@ -48,15 +48,6 @@ The use is as below:
 Due to the wide use of json, it is important to know how pandas can help to load information with that format.
 
 The method json_normalize can convert a json file into a pandas dataframe.
-
-````python
-    from pandas.io.json import json_normalize
-    df_technologies = json_normalize(db_techs)
-````
-
-It still have problems by loading nested objects, but nothing that cannot be solved with some
-additional operations.
-
 
 ````python
 data = [{'state': 'Florida',
@@ -89,6 +80,10 @@ The ouput would be like:
 |3| Summit| 1234|John Kasich| Ohio| OH
 |4| Cuyahoga|1337| John Kasich|Ohio| OH
 
+Example taken from [pandas doc](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.io.json.json_normalize.html)
+
+It still have problems by loading nested objects, but nothing that cannot be solved with some
+additional operations.
 
 ##### Separators and performance
 
