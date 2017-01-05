@@ -17,6 +17,8 @@
 
 #### Pandas
 
+Pandas library is the most extended one for analytics in python. It uses numpy on the background, what makes it very fast.
+
 ##### Input types
 
 In order to read files, the best way is to use pandas's predefined functions. It allows to load the following type of files into a panda object:
@@ -41,41 +43,92 @@ The use is as below:
     df = pd.read_csv('datos.csv')
 ````
 
+##### Loading json
+
+Due to the wide use of json, it is important to know how pandas can help to load information with that format.
+
+The method json_normalize can convert a json file into a pandas dataframe.
+
+````python
+    from pandas.io.json import json_normalize
+    df_technologies = json_normalize(db_techs)
+````
+
+It still have problems by loading nested objects, but nothing that cannot be solved with some
+additional operations.
+
+
+````python
+data = [{'state': 'Florida',
+          'shortname': 'FL',
+         'info': {
+               'governor': 'Rick Scott'
+          },
+          'counties': [{'name': 'Dade', 'population': 12345},
+                      {'name': 'Broward', 'population': 40000},
+                      {'name': 'Palm Beach', 'population': 60000}]},
+         {'state': 'Ohio',
+          'shortname': 'OH',
+          'info': {
+               'governor': 'John Kasich'
+          },
+          'counties': [{'name': 'Summit', 'population': 1234},
+                       {'name': 'Cuyahoga', 'population': 1337}]}]
+from pandas.io.json import json_normalize
+result = json_normalize(data, 'counties', ['state', 'shortname',
+                                          ['info', 'governor']])
+````                                        
+
+The ouput would be like:
+
+|index|name| population | info.governor | state | shortname
+|---|---|---|---|---|---|
+|0|Dade|12345|Rick Scott|  Florida| FL|
+|1| Broward| 40000| Rick Scott|Florida| FL
+|2| Palm Beach| 60000|Rick Scott|Florida| FL
+|3| Summit| 1234|John Kasich| Ohio| OH
+|4| Cuyahoga|1337| John Kasich|Ohio| OH
+
+
 ##### Separators and performance
 
 To read files containing a dataset in which values are separated by any characters different than the well known commas or tabs, you must use the parameter sep or delimiter (both are valid) to indicate it.
 
-It must be taken into account that the use of custom delimiters might force to change from C's engine to python's engine. The first is always faster but it only allows some delimiters. Python's engine is slower but lets you choose even regular expressions as delimiter.
+It must be taken into account that the use of custom delimiters might force to change from C's engine to python's engine. **C is always faster** but it only allows some delimiters. **Python's engine is slower but lets you choose even regular expressions as delimiter**.
 
 ````python
     import pandas as pd
     df = pd.read_csv('datos.csv', sep='::', engine='python') # Setting the engine removes warning message.
 ````
 
-##### Loading process information
+#### Loading process information
 
 In order to get visualize a loading bar when you are iterating over any dataset information,
-tqdm library is a good choice.
+**tqdm** library is a good choice.
 
-Suppose you want to change your input dataset, which is very big. You can check if the process is running or blocked with:
+Suppose you want to modify something in your input dataset, which is very big. You can check if the process is running or blocked with:
 
 ````python
-for user in tqdm(np.nditer(users), total=users.shape[0]):
-    user_line = str(user) + '\t'
-    users_value = dataset[dataset['userId'].values == user]
-    for row, value in users_value.iterrows():
-        user_line += str(int(value['movieId'])) + ',' + str(int(value['timestamp'])) + ':'
+for elem in tqdm(np.nditer(elements), total=elements.shape[0]):
+  do_something()
 ````
 
-### Numpy
+The output would be something like:
+
+76%|████████████████████████████        | 7568/10000 [00:33<00:10, 229.00it/s]
+
+### Work with data
+
+#### Numpy
 
 Numpy library is an extension for Python which provides mathematical functions for problems where arrays and matrix computations are required. For **Matlab software** users, Numpy library could be a great substitute. Numpy has also the advantage that was part of python from the beginning and it has a lot of developments. Next piece of code could be used in order to load this library:
 
 ````python
     import numpy as np
 ````
-The main characteristic of Numpy is array object class. It is quite similar to lists in Python, except one condition. In a numpy array all the elements must be of the same type (ex. float, int, str ...). It is used to make mathematical operations faster and more efficient than using lists.
-For example, using next code a Numpy array (2 rows and 3 columns) is created. The function `np.shape()` is used to check the dimension, and it is useful in case of array multiplication errors.
+The main characteristic of Numpy is array object class. It is quite similar to lists in Python, except one condition: **In a numpy array all the elements must be of the same type** (ex. float, int, str ...). It is used to make mathematical operations **faster and more efficient than using lists**.
+
+For example, using the next code a Numpy array (2 rows and 3 columns) is created. The function `np.shape()` is used to check the dimension, and it is useful in case of array multiplication errors.
 
 ````python
     X = np.array( [ [1,2,3], [4,5,6]])
