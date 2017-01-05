@@ -15,6 +15,7 @@
   * [Encoding](#encoding)
   * [Constraints](#constraints)
 * [Loading Data](#loading-data)
+  * [Copy Command](#copy-command)
 * [User Defined Functions](#user-defined-functions)
 * [Security](#security)
   * [Authentication and Authorization](#authentication-and-authorization)
@@ -89,6 +90,8 @@ In order to manage concurrency and resource planning Redshift provides execution
 
 Queries can be routed to different queues using Query Groups and User Groups. As a rule of thumb, is considered a best practice to have separate queues for long running resource-intensive queries and fast queries that don't require big amounts of memory and CPU.
 
+By default, Amazon Redshift configures one queue with a **concurrency level of five**, which enables up to five queries to run concurrently, plus one predefined Superuser queue, with a concurrency level of one. You can define up to eight queues. Each queue can be configured with a maximum concurrency level of 50. The maximum **total concurrency level for all user-defined queues (not including the Superuser queue) is 50.**
+
 ### Designing Tables
 
 Working with large datasets requires a high degree of resource optimization and we often find I/O, CPU, Memory or Disk bottlenecks due to wrong table designs.
@@ -104,18 +107,22 @@ In order to optimize your cluster you should understand and properly design your
 Table distribution style determines **how data is distributed across compute nodes** and we have three options:
 
 ##### Key
+
 A single column acts as distribution key (DISTKEY). As a rule of thumb you should choose a column that:
 
  1. **Is uniformly distributed.** Otherwise skew data will cause unbalances in the volume of data that will be stored in each compute node leading to undesired situations where some slices will process bigger amounts of data than others and causing bottlenecks.
  2. If this table is related with dimensions tables (star-schema), it is better to **choose as DISTKEY the field that acts as the JOIN field with the larger dimension table.** This way, related data (same join-field values) will reside in the same node, **reducing the amount of data that needs to be broadcasted through the network**.
 
 ##### Even
+
 Default. **Data is distributed automatically using a round-robin algorithm.** This is better when the table does not take part in joins or it is not clear which column can act as DISTKEY.
 
 ##### All
+
 The whole **table is replicated in every compute node**. This distribution style is intended for small tables that don't change too often. For instance, small dimension tables are good candidates. Having data available in each compute node reduces the amount of data that needs to be broadcasted through the network when executing joins.
 
 #### Sort Key
+
 Sort keys define in which order data will be stored. You can define only one sort key per table, but it can be composed with one or more columns. The are two kinds of sort keys in Redshift: Compound and Interleaved.
 
 When you load data in a table for the first time it will be stored in order and Redshift will register metadata with max and min sortkey values for each disk block in a **zone map**. This zone map will be used for the query planner to prune the search tree and drastically improve execution plans for range-restricted queries.
@@ -137,6 +144,7 @@ Performing ad-hoc multi-dimensional analytics often requires pivoting, filtering
 Interleaved Sort Keys is Amazon Redshift implementation for **Z-order curve** ordering. This model is preferable when dealing with muli-dimensional analytics as it provides worst performance than compound keys for the leading columns but better average performance for the whole sortkey if we use different arbitrary.
 
 #### Encoding
+
 As discussed above, columnar storage let us chose the best compression/encoding model for each row. There are two ways to setup encodings:
 
 1. If you load data into an empty table the for the first time with the **COPY command**, then Redshift will automatically apply the best compression based in a sample of the data (be sure that this data is a good sample of the whole dataset for that table).
@@ -152,19 +160,81 @@ You can create **UNIQUE, PRIMARY KEY and FOREIGN KEY** constraints in Redshift b
 You can also create **NOT NULL** constraints. **Redshift does enforce NOT NULL column constraints.**
 
 ### Loading Data
-TBD
+
+You can load data in your tables using the three following methods:
+
+1. Using Multi-Row INSERT
+2. Using Bulk INSERT
+3. Using COPY command
+
+It's strongly recommended to use COPY command in the mayority of the cases and avoid the use of Multi-Row inserts. Specially when you need to load large amount of data from outside cluster.
+
+#### Copy Command
+
+You can use COPY command to load data from Amazon DynamoDB , Amazon EMR , Amazon S3 or from many hosts by ssh protocol in parallel. Copy command load data more efficiently than inserts and store the data more efficiently too.
+
+There are some best practices that you can use in order to improve your COPY commands performance
+
+##### Use a Single COPY Command to Load from Multiple Files
+
+If you want to load multiple files into a table you should use a single copy command and Redshift automatically will load those files in parallel. If you specify multiple COPY commands to load one table from multiple files, Amazon Redshift is forced to perform a serialized load, which is much slower.
+
+##### Split Your Load Data into Multiple Files
+
+You can parallelize your loads by split your data into multiple files. Using this method the COPY command divides the workload among the nodes in your cluster. If you try to load all the data form a single large file Redshift is force to perform a serialized load wich is much slower.
+
+It is a good practice to divide your data in multiple files with equal size ( between 1MB and 1GB ) and that the number of files be a multiple of the number of **slices in your cluster**. In this way the workload is distributed uniformly in your cluster.
+
+##### Use a Manifest File
+
+Amazon S3 provides **eventual consistency** for some operations, so it is possible that new data will not be available immediately after the upload, which could result in an incomplete data load or loading stale data. You can manage data consistency by using a manifest file to load data. In addition with the Manifest file you can specify different S3 locations in a more efficient way that with the use of S3 prefixes.
+
+##### Compress Your Data Files
+
+If you have to load large amount of data ( more that 50MB ) in a Redshift table is a good practice to compress that data. If your priority is to reduce the time spent by COPY commands you should use **LZO compession**. In the other hand if your priority is to reduce the size of the files in S3 and your network bandwitch you should use **BZ2 compression**.
+
+Avoid to use compression if you have small amount of data because the benefit of compression would be outweighed by the processing cost of decompression.
+
+##### Load Data in Sort Key Order
+
+Load your data in sort key order to avoid needing to vacuum.
+
+As long as each batch of new data follows the existing rows in your table, your data will be properly stored in sort order, and you will not need to run a vacuum. You don't need to presort the rows in each load because COPY sorts each batch of incoming data as it loads.
+
+##### Load Data using IAM role
+
+In order to avoid to expose your AWS Access Key and Secret Key in your queries it is a good practice to use a IAM Role.  
+
+You must follow the next steps in order to use COPY command with a IAM Role:
+
+1. Create an IAM role for use with your Amazon Redshift cluster.
+2. Associate the IAM role with the cluster.
+3. Include the IAM role's ARN when you call the COPY command.
 
 ### User Defined Functions
+
 TBD
 
 ### Security
-TBD
+
+Security is an important point to keep in mind specially if your cluster work with sensitive data. It is important to protect your data and control efficiently how your cluster is accessed.
+
+Like other AWS services network access to your cluster is managed by VPCs and security grops, it is a best practice to open your cluster SG only to some specific AWS Services and IPs and not open your cluster to the Internet.
 
 #### Authentication and Authorization
-TBD
+
+Like other databases Redshift can grant different permission to different database users over one or multiple tables and schemes. If you have multiple users with different roles is a good practice to define groups with different users and grant permissions to that groups and not to singular users.
+
+You should avoid the use or distribution of database owner user credentials in production clusters. You must create *superusers* with the same privileges as database owner and use that credentials only for some maintenance tasks.
+
 
 #### Encryption
-TBD
+
+It is a good practice to enable encryption in your cluster specially if you store sensitive data in your cluster. When you enable encryption the data blocks , system metadata and backups are encrypted.
+
+You can choose between AWS Key Management Service (AWS KMS) or a hardware security module (HSM) to manage the top-level encryption key. In the mayority of the cases AWS KMS is the best option becase are automatically integrated with Redshift.
+
+**If you want to go from an encrypted cluster to an unencrypted cluster or the other way around, you must unload your data from the existing cluster and reload it in a new cluster with the chosen encryption setting.**
 
 ### Maintenance
 
@@ -178,3 +248,11 @@ It is a best practice to define weekly or daily maintenance task for your cluste
 - [Top 10 Performance Tuning Techniques for Amazon Redshift](https://blogs.aws.amazon.com/bigdata/post/Tx31034QG0G3ED1/Top-10-Performance-Tuning-Techniques-for-Amazon-Redshift "Top 10 Performance Tuning Techniques for Amazon Redshift")
 - [Best Practices for Micro-Batch Loading on Amazon Redshift](http://blogs.aws.amazon.com/bigdata/post/Tx2ANLN1PGELDJU/-Best-Practices-for-Micro-Batch-span-class-matches-Loading-span-on-Amazon-Redshi "Best Practices for Micro-Batch Loading on Amazon Redshift")
 - [Z Order Curve](https://en.wikipedia.org/wiki/Z-order_curve "Z Order Curve")
+- [Amazon Redshift Best Practices for Loading Data](http://docs.aws.amazon.com/redshift/latest/dg/c_loading-data-best-practices.html "Amazon Redshift Best Practices for Loading Data")
+- [Copy Unload IAM Role](http://docs.aws.amazon.com/redshift/latest/mgmt/copy-unload-iam-role.html "Copy Unload IAM Role")
+- [Redshift Database Benchmarks: COPY Performance with Compressed Files](https://blog.stitchdata.com/redshift-database-benchmarks-copy-performance-with-compressed-files-2041b8098366#.lkaltc20l "Redshift Database Benchmarks: COPY Performance with Compressed Files")
+- [Amazon Redshift Database Encryption](http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html "Amazon Redshift Database Encryption")
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

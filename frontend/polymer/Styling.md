@@ -225,6 +225,12 @@ For example:
     /* Custom properties that inherit down the document tree may be defined */
     :root {
       --my-header-title-color: green;
+      
+      --my-header-title-theme: {
+          color: --my-header-title-color;
+          font-weight: bold;
+        };
+      
     }
   </style>
 </head>
@@ -279,3 +285,7 @@ To use a style module in an element, we must import the module using `<link>` ta
 [//]: # (Reference links)
 
    [shadow]: <http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/>
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

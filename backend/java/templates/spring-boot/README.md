@@ -25,3 +25,7 @@ This is a sample project intended to help you to start coding a Spring Boot appl
 
 http://localhost:8080/hello
 http://localhost:8080/controlled-error
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

@@ -22,3 +22,7 @@ Use mediator pattern in polymer.
 Minimize property reflection.
 
 Minimize the elements rendered.
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

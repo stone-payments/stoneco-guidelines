@@ -91,4 +91,7 @@ A gulp plugin to copy files into a normalized file structure, arranged by packag
  - <b>Dandelion</b>
 Dandelion provides an integration with Bower. All Bower components are scanned and automatically converted into vendor bundles.
 
-[BEEVA](https://www.beeva.com) | 2016
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

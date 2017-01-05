@@ -78,6 +78,22 @@ Execution commands:
 
 ![Gemfile](./static/gemfile.png "Gemfile")
 
+- Hook's files: contains the hooks for each platform.
+
+This files are located inside *impl/support* directory, separated by one folder for each platform: *android* and *ios*.
+
+Inside *impl/support/android* we can find the next files:
+
+- app_installation_hooks.rb: contains the scenario and *AfterConfiguration* hooks.
+- app_file_cycle_hooks.rb: contains the *Before* and *After* global hooks.
+- hook.rb: contains the user custom hooks.
+
+Inside *impl/support/ios* we can find the next files:
+
+- 01_launch.rb: contains the default preconfigurated hooks.
+- hooks.rb: contains the user custom hooks.
+
+You can edit this files to accomplish your needs. You can read more about hooks [here](https://github.com/cucumber/cucumber/wiki/Hooks)
 
 ### Background
 
@@ -112,4 +128,5 @@ The background should be used for any generic task used by the feature's scenari
 
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
+

@@ -122,3 +122,6 @@ The main advantages over its rivals are:
 
  - In case of using CDH, it is recommended to use parcels (not rpms) for cluster deployment.
 
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

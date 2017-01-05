@@ -267,3 +267,6 @@ Now you can just use this behavior in the client.
   behaviors: [ApplePriceDiscountBehavior];
 ```
 
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

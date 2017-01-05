@@ -165,5 +165,6 @@ The complete guide of frameworks  installation and configuration can be found [h
 	 
  - WebDriverJs Wiki.. 
      https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs
+___
 
-[BEEVA](https://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

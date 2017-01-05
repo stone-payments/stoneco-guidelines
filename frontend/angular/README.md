@@ -10,13 +10,16 @@
 * [General](#general)
 * [Controllers](#controllers)
 * [Directives](#directives)
+* [Components](#components)
 * [Filters](#filters)
 * [Services](#services)
 * [Other stuff](#other-stuff)
   * [`$watch` expressions](#dont-overuse-watch-expressions)
   * [`$templateCache`](#use-templatecache-to-compile-your-views)
   * [JSON resources for pro](#inject-your-jsons-in-production-via-constants)
-* [Testing] (#testing)
+  * [Start using Angular with ES6](#start-using-angular-with-es6)
+  * [ES6 with WebPack](#es6-with-webpack)
+* [Testing](#testing)
 * [Miscellaneous](#miscellaneous)
 
 # Preface
@@ -63,7 +66,7 @@ When you request Angular to load a route, you're internally triggering some task
 
 * `$routeChangeStart`: This event is fired once a new route is requested. If you listen to this event you could intercept all route changes, and make some controlling within (verify authorization for the requested path, log information...).
 * `$stateChangeSuccess`: Once your new route is loaded and if everything went smooth, you'll get this event triggered.
-* `$routeChangeError`: If anything went south this event will be dispatched. 
+* `$routeChangeError`: If anything went south this event will be dispatched.
 
 _NOTE:_ All above-menctioned events are documented [here](https://docs.angularjs.org/api/ngRoute/service/$route).
 
@@ -93,7 +96,7 @@ angular.module('myFancyApp')
  .controller('myFancyCtrl', ['$scope', '$filter', 'otherDependency', function($scope, $filter, otherDependency) {
   ...
  }]);
- 
+
 /*
  * InsteadOf this
  */
@@ -129,7 +132,7 @@ angular.module('myFancyApp').directive('anotherDirective', [..., function(...) {
 /*
  * InsteadOf this
  */
- 
+
 // Directives.js
 angular.module('myFancyApp').directive('sampleDirective', [..., function(...) {
  ...
@@ -177,10 +180,10 @@ angular.module('myFancyApp', [...]);
 angular.module('myFancyApp')
  .controller(...);
 
-/* 
+/*
  * InsteadOf this
  */
- 
+
 // Setting up
 var myFancyApp = angular.module('myFancyApp', [...]);
 
@@ -192,7 +195,7 @@ myFancyApp.controller(...);
 
 ## Modularise your app
 
-In almost every project you will be facing some feature development that doesn't belong to your project's core, or that could be otherwise extracted from central functionalities. 
+In almost every project you will be facing some feature development that doesn't belong to your project's core, or that could be otherwise extracted from central functionalities.
 
 If you extract these features outside your core, you will ease code understanding, and you could reuse all modularised functionalities into other projects that suit, as they will be component-ready for direct-importing.
 
@@ -330,7 +333,7 @@ angular.module('myFancyApp')
    templateUrl: '/path/to/your/view.html'
   };
  })
- 
+
 /*
  * InsteadOf this
  */
@@ -375,7 +378,7 @@ angular.module('myFancyApp')
 
 ## Use _object hash_ isolated scopes
 
-Directives are directly nested down on DOM's structure, and hence on the `$scope` hierarchy. Thus, a directive will inherit by default all `$scope` attributes available on the context the directive's at. 
+Directives are directly nested down on DOM's structure, and hence on the `$scope` hierarchy. Thus, a directive will inherit by default all `$scope` attributes available on the context the directive's at.
 
 Directive isolation lets you define which attributes the directive could use, and even tell angular how.
 
@@ -396,7 +399,7 @@ angular.module('myFancyApp')
    }
   };
  })
- 
+
  /*
   * InsteadOf this (full isolated scope)
   */
@@ -407,7 +410,7 @@ angular.module('myFancyApp')
    scope: true
   };
  })
- 
+
  /*
   * Or this (no isolated scope)
   */
@@ -440,7 +443,7 @@ angular.module('myFancyApp')
    }
   };
  })
- 
+
  /*
  * InsteadOf this
  */
@@ -454,7 +457,193 @@ angular.module('myFancyApp')
  })
 ```
 
-#Filters
+# Components
+
+A component is a special kind of directive that uses a simpler configuration which is suitable for a component-based application structure.
+
+It has been supported in Angular since 1.5 version, but [Todd Motto has back-ported it to 1.3+](https://toddmotto.com/angular-component-method-back-ported-to-1.3/). You can get the [polyfill here](https://github.com/toddmotto/angular-component).
+
+Writing components directives will make it easier to upgrade to Angular 2 (and other frameworks like React or EmberJS), and it sticks with the actual web development standards.
+
+With a component based architecture, it's easier to predict when data changes and what the state of a component is, due to the fact that components implements a clearly defined API based on inputs and outputs, and minimize two-way data binding.
+
+## Components `best practices`.
+
+* Components only control `their own View and Data`. Only the component that owns the data should modify it. Components should never modify any data or DOM that is out of their own scope. For component communication and state management between components, you need to use component defined API through inputs & outputs.
+
+* Sticky with `$ctrl` as default `controllerAs name` convention for managing component controller inside template.
+
+* Initialize components on `$onInit()` event. It's called on each controller after all the controllers on an element have been constructed and had their bindings initialized.
+
+* React to component bindings changes on `$onChanges(changesObj)` event. It's called when one-way bindings are updated, and it contains a hash whose keys the names of the bound properties that have changed, and the values are an object of the form `{ currentValue, previousValue, isFirstChange() }`.
+
+* Start designing your application as a `tree of components`. Ideally, the whole application should be a tree of components that implement clearly defined inputs and outputs, and minimize two-way data binding. That way, it's easier to predict when data changes and what the state of a component is.
+
+* Try to not nest more than `2 levels deep of components inside a component`, or you are going to get messy with components events callbacks.
+
+## When `not to use components`.
+
+* for directives that need to perform actions in `compile and pre-link functions`, because they aren't available
+
+* when you need advanced directive definition options like `priority, terminal, multi-element`.
+
+* when you want a directive that is triggered by an `attribute or CSS class`, rather than an `element`.
+
+## Suggested approach to structure your component-based application.
+
+* It's recommended to define an initial/starter component called 'app'. If you need to retrieve some initial data for your application, use $onInit() component hook. `(You should NOT retrieve remote data on $onInit() hook if you are using a routing solution that provides resolve capacity directly to component - see routable components for this)`
+
+* Store all your `common application components` inside a folder called `components` (with their respective module definition inside of it).
+
+* Store all your `specific route/feature components` inside a folder with their name (that will match route/feature url), and with their respective `module definition inside of it`.
+
+* Store all your specific component-components inside a folder called `components` on their respective `component` folder.
+
+```
+src/
+├── app/
+│   ├── about/
+│   │   ├── about.component.js
+│   │   ├── about.module.js
+│   │   ├── about.state.js
+│   │   └── about.html
+│   ├── components/
+│   │   ├── app-side-nav/
+│   │   │   ├── app-side-nav.component.js
+│   │   │   └── app-side-nav.html
+│   │   ├── app-toolbar/
+│   │   │   ├── app-toolbar.component.js
+│   │   │   └── app-side-nav.html
+│   │   │── search-box/
+│   │   │   ├── search-box.component.js
+│   │   │   └── search-box.html
+│   │   └── components.module.js
+│   ├── home/
+│   │   ├── components/
+│   │   │   ├── home-header
+│   │   │   │   ├── home-header.component.js
+│   │   │   │   └── home-header.html
+│   │   │   ├── home-dashboard
+│   │   │   │   ├── home-dashboard.component.js
+│   │   │   │   └── home-dashboard.html
+│   │   │   ├── home-footer
+│   │   │   │   ├── home-footer.component.js
+│   │   │   │   └── home-footer.html
+│   │   ├── home.component.js
+│   │   ├── home.module.js
+│   │   ├── home.state.js
+│   │   └── home.html
+│   ├── info/
+│   │   ├── info.component.js
+│   │   ├── info.module.js
+│   │   ├── info.state.js
+│   │   └── info.html
+│   ├── app.component.js
+│   ├── app.config.js
+│   ├── app.constants.js
+│   ├── app.html
+│   ├── app.module.js
+│   ├── app.run.js
+│   └── app.state.js
+├── assets/
+├── scripts/
+└── index.html
+```
+
+## Routable components
+
+`ui-router` provides a mechanism to directly `fill in a route view with a component`, eliminating the need to define a template and a controller, allowing our `routes/features to be directly provided by a component`, giving us the chance to have a clean state definition, a true modular approach, and a separation of concerns.
+
+`ui-router` also allows to pass `resolved properties to component input bindings`, giving us the chance to define a `clean architecture where the data flow is clearly defined on state resolve process`.
+
+Let's suppose that we have a route called 'courses' that needs to fetch some remote data and pass it down to the component.
+
+**courses.state.js**
+```javascript
+(function() {
+  'use strict';
+
+  angular
+    .module('app.courses')
+    .config(appConfig);
+
+    appConfig.$inject = ['$stateProvider'];
+
+    function appConfig($stateProvider) {
+      var states = getStates();
+
+      states.forEach(function(state) {
+          $stateProvider.state(state);
+      });
+    }
+
+    function getStates() {
+      return [
+          {
+            name: 'courses',
+            url: '/courses',
+            component: 'courses',
+            resolve: {
+              courses: ['dataService', function(dataService) {
+                  return dataService.getCoursesList();
+              }],
+              searchEnabled: function() {
+                return true;
+              }
+            },
+            data: {
+              title: 'COURSES LIST'
+            }
+          }
+      ];
+    }
+})();
+```
+
+**courses.component.js**
+```javascript
+(function() {
+  'use strict';
+
+  angular
+    .module('app.courses')
+    .component('courses', {
+      template:
+      '<search-box ' +
+        'ng-if="$ctrl.searchEnabled" ' +
+        'title="\'Search your course...\'"' +
+        'on-change="$ctrl.search($event.text);"> ' +
+      '</search-box> ' +
+      '<course-gallery ' +
+        'layout="row" layout-wrap ' +
+        'courses="$ctrl.courses" ' +
+        'filter="$ctrl.filter"> ' +
+      '</course-gallery>',
+      bindings: {
+        //inputs
+        courses: '<',
+        searchEnabled: '<'
+
+        //outputs
+      },
+      controller: CoursesController
+    });
+
+    function CoursesController() {
+      var $ctrl = this;
+
+      $ctrl.onInit = function() {
+        $ctrl.filter = '';
+      }
+
+      $ctrl.search = function(value) {
+        $ctrl.filter = value;
+      }
+    }
+})();
+```
+
+# Filters
 
 ## Use `predefined filters`. They are localized
 
@@ -480,7 +669,7 @@ angular.module('myFancyApp')
     return function (input) {     
       var st = input ? 'YES' : 'NOT';
       st = $translate('COMMON.'+st);
-            
+
       return st;        
     };
   }]);
@@ -495,7 +684,7 @@ Angular provides several kinds of services, having them some differences among e
 
 ### Use `factories` for data management
 
-Factories are yet another recipe for defining a service in angular. Due to its name (and given that `factories` are often use to manage data) seems just reasonable to use this kind of service for such purpose. 
+Factories are yet another recipe for defining a service in angular. Due to its name (and given that `factories` are often use to manage data) seems just reasonable to use this kind of service for such purpose.
 
 #### Use `$resource` to connect to web services
 
@@ -517,9 +706,9 @@ Angular constants are mutable. Weird? Yeah, but true. It's therefore your sole r
 
 ## Don't overuse `$watch` expressions
 
-Watch expressions engage your `$scope` and view together, syncing changes bi-directionally, via `dirty checking`. Hence, once you start using a `$watcher`, all changes on the view model will be reflected autommatically in the view, and vice-versa. Watchers could be defined within a view (via the double-curly syntax - i.e. `{{ watcher }}`), or directly declared over your `$scope` (i.e. `$scope.$watch('scopeParam', ...)`). 
+Watch expressions engage your `$scope` and view together, syncing changes bi-directionally, via `dirty checking`. Hence, once you start using a `$watcher`, all changes on the view model will be reflected autommatically in the view, and vice-versa. Watchers could be defined within a view (via the double-curly syntax - i.e. `{{ watcher }}`), or directly declared over your `$scope` (i.e. `$scope.$watch('scopeParam', ...)`).
 
-As using a watcher means listening to every change performed, overloading your app with an excessive amount of watchers could trigger a dramatic perfomance leak. 
+As using a watcher means listening to every change performed, overloading your app with an excessive amount of watchers could trigger a dramatic perfomance leak.
 
 As stated by Ben Nadel on his article [_Counting the number of watchers in Angular_](http://www.bennadel.com/blog/2698-counting-the-number-of-watchers-in-angularjs.htm), you **must keep your `watcher` count under 2,000**.
 
@@ -587,6 +776,255 @@ options: {
 ```
 
 **WARNING:** When injecting your i18n resources this way, you might find your texts messed-up. To overcome this, be sure the `config.js` file generated with such resources is loaded into the app with its proper encoding and mime-type.
+
+## Start using Angular with ES6
+
+ES6 allows our codebase to be cleaner, modular, and more concise, eliminating the need to define 'angular modules' and start using real modules through one of main ES6 features: named & default exports.
+
+ES6 provides several useful features that allows to write a clear, cleaner, and DRY code, through the use of class, arrow functions, string templates, default params values on functions, variable destructuring, constants, etc...
+
+### BEFORE ES6
+```javascript
+src/
+└── app/
+    └──components/
+        ├── search-box
+        │   ├── search-box.component.js
+        │   └── search-box.html
+        └── components.module.js
+```
+
+**search-box.component.js**
+```javascript
+(function() {
+  'use strict';
+
+  angular
+    .module('app.components')
+    .component('searchBox', {
+      templateUrl: 'app/components/search-box/search-box.html',
+      controller: SearchBoxController,
+      bindings: {
+        //inputs
+        title: '<',
+
+        //outputs
+        onChange: '&'
+      }
+    });
+
+  function SearchBoxController() {
+    var $ctrl = this;
+
+    $ctrl.onSearch = function(value) {
+      $ctrl.onChange({
+        $event: {
+          text: value
+        }
+      });
+    }
+  }
+})();
+```
+
+**search-box.html**
+```javascript
+<div layout="row" layout-margin>
+  <md-input-container flex>
+    <label ng-if="$ctrl.title">{{$ctrl.title}}</label>
+    <input ng-change="$ctrl.onSearch($ctrl.searchValue);"
+        ng-model="$ctrl.searchValue"
+        ng-model-options="{ debounce: 500 }" />
+  </md-input-container>
+</div>
+```
+
+**components.module.js**
+```javascript
+(function() {
+    'use strict';
+
+    angular
+        .module('app.components', []);
+})();
+```
+
+### ES6
+```javascript
+src/
+└── app/
+    └── components/
+        ├── search-box
+        │   └── search-box.component.js
+        └── components.module.js
+```
+
+**search-box.component.js**
+```javascript
+const template = `
+  <div layout="row" layout-margin>
+    <md-input-container flex>
+      <label ng-if="$ctrl.title">{{$ctrl.title}}</label>
+      <input ng-change="$ctrl.onSearch($ctrl.searchValue);"
+          ng-model="$ctrl.searchValue"
+          ng-model-options="{ debounce: 500 }" />
+    </md-input-container>
+  </div>
+`;
+
+export class SearchBoxController {
+  constructor() {
+
+  }
+
+  onSearch(value) {
+    this.onChange({ $event: { text: value } });
+  }
+}
+
+export default {
+  template,
+  bindings: {
+    //inputs
+    title: '@',
+
+    //outputs
+    onChange: '&'
+  },
+  controller: SearchBoxController
+}
+```
+
+**components.module.js**
+```javascript
+import { loadNg1Module, ngmodule } from '../bootstrap/ngmodule'; // custom boilerplate to easily load all modules & dependencies from WebPack.
+
+import appSideNav from './app-side-nav/app-side-nav.component'; // not used in example
+import appToolbar from './app-toolbar/app-toolbar.component'; // not used in example
+
+import buttonEnrollCounter from './button-enroll-counter/button-enroll-counter.component'; // not used in example
+import buttonLikeCounter from './button-like-counter/button-like-counter.component'; // not used in example
+
+import searchBox from './search-box/search-box.component';
+import totalEnrollCounter from './total-enroll-counter/total-enroll-counter.component'; // not used in example
+import totalLikeCounter from './total-like-counter/total-like-counter.component'; // not used in example
+
+const componentsModule = {
+  components: { appSideNav, appToolbar, buttonEnrollCounter, buttonLikeCounter, searchBox,
+    totalEnrollCounter, totalLikeCounter }
+};
+
+loadNg1Module(ngmodule, componentsModule);
+```
+
+### ES6 bootstrap & loadNg1Module
+
+ui-router sample offers a simple & modular way to load & combine all our ES6 modules on a single angular module (app) through the use of import & exports, reducing all the boilerplate needed to craft a big and robust scalable angularjs app with ES6.
+
+[You can check it here](https://github.com/ui-router/sample-app-ng1).
+
+```javascript
+src/
+└── app/
+    └── bootstrap/
+        ├── bootstrap.js
+        └── ngmodule.js
+```
+
+**bootstrap.js**
+```javascript
+/**
+ * This file is the main entry point for the entire app.
+ *
+ * If the application is being bundled, this is where the bundling process
+ * starts.  If the application is being loaded by an es6 module loader, this
+ * is the entry point.
+ *
+ * Point Webpack or SystemJS to this file.
+ *
+ * This module imports all the different parts of the application which registers them with angular.
+ * - Submodules
+ *   - States
+ *   - Components
+ *   - Directives
+ *   - Services
+ *   - Filters
+ *   - Run and Config blocks
+ *     - Transition Hooks
+ * - 3rd party Libraries and angular1 module
+ */
+
+ // import all the app sub modules
+ // Each module registers it states/services/components, with the `ngmodule`
+import '../app.module';
+import '../components/components.module';
+import '../courses/courses.module';
+
+ // Import CSS (WebPack will inject it into the document)
+ import 'angular-material/angular-material.css';
+```
+
+ **ngmodule.js**
+ ```javascript
+ /**
+ * This file imports the third party library dependencies, then creates the angular module "demo"
+ * and exports it.
+ */
+
+// External dependencies
+import * as angular from 'angular';
+
+import uiRouter from 'angular-ui-router';
+import stateEvents from 'angular-ui-router/release/stateEvents';
+import angularMaterial from 'angular-material';
+
+// Create the angular module "app".
+//
+// Since it is exported, other parts of the application (in other files) can then import it and register things.
+// In bootstrap.js, the module is imported, and the components, services, and states are registered.
+export const ngmodule = angular.module('app', [uiRouter, 'ui.router.state.events',  angularMaterial]);
+
+const BLANK_MODULE = {
+  states: [],
+  components: {},
+  directives: {},
+  services: {},
+  filters: {},
+  configBlocks: [],
+  runBlocks: []
+};
+
+/**
+ * Register each app module's states, directives, components, filters, services,
+ * and config/run blocks with the `ngmodule`
+ *
+ * @param ngModule the `angular.module()` object
+ * @param appModule the feature module consisting of components, states, services, etc
+ */
+export function loadNg1Module(ngModule, appModule) {
+  let module = Object.assign({}, BLANK_MODULE, appModule);
+
+  ngModule.config(['$stateProvider', $stateProvider => module.states.forEach(state => $stateProvider.state(state))]);
+
+  Object.keys(module.components).forEach(name => ngModule.component(name, module.components[name]));
+
+  Object.keys(module.directives).forEach(name => ngModule.directive(name, module.directives[name]));
+
+  Object.keys(module.services).forEach(name => ngModule.service(name, module.services[name]));
+
+  Object.keys(module.filters).forEach(name => ngModule.filter(name, module.filters[name]));
+
+  module.configBlocks.forEach(configBlock => ngModule.config(configBlock));
+
+  module.runBlocks.forEach(runBlock => ngModule.run(runBlock));
+
+  return ngModule;
+}
+```
+
+## ES6 with WebPack
+
+WIP.
 
 # Testing
 
@@ -664,7 +1102,7 @@ _Image provided by Ben Nadel on his article [My experience with AngularJS](http:
 
 ### Trust the community
 
-Angular is awesome, right. But most of its awesomeness is that finding someone that had already dealt with some challenge your facing is an almost-sure thing. Plus, its [documentation](https://docs.angularjs.org/guide/concepts) is neat. 
+Angular is awesome, right. But most of its awesomeness is that finding someone that had already dealt with some challenge your facing is an almost-sure thing. Plus, its [documentation](https://docs.angularjs.org/guide/concepts) is neat.
 
 ### Provide to the community
 
@@ -682,4 +1120,4 @@ We cannot say nothing about the public community, as open source contributions a
 
 ___
 
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

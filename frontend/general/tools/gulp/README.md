@@ -5,48 +5,52 @@
 
 ## Gulp
 
-*  [Introduction](#introduction)
+* [Introduction](#introduction)
 * [Gulpfile](#gulpfile)
-* [Pluggins](#pluggins)
+* [Plugins](#plugins)
 * [Links](#links)
- 
+
 ----
 ## <a name='introduction'>Introduction</a>
 
-Gulp is a open source  build system built on Node.js and used in the world of web development to automate tasks for: 
+Gulp is a open source  build system built on Node.js and used in the world of web development to automate tasks for:
 
    - <b>Improving Productivity</b>, speed up the development workflow, making it faster and more efficient.
-   
-   - <b>Enhancing the Performance</b>, optimizing each byte. 
- 
+
+   - <b>Enhancing the Performance</b>, optimizing each byte.
+
+   - <b>Carrying repetitive time-consuming tasks</b>, like minification, validation, documentation generation or hosting code upload.
+
    - <b>Increasing Quality</b>, through testing and documentation.
-   
+
 
 The Gulp ecosystem is huge and it's growing every day with hundreds of plugins to implemented task with a minimum of effort for:
 
 - Validation of the code (JS, CSS).
 
-- Compression and Obfuscation of the code
+- Compression and Obfuscation of the code.
 
 - Execution of automated test.
 
 - Management and installation of dependencies.
 
-- Generation of project documentation
+- Generation of project documentation.
 
-- And much more..
+- ES6 workflow.
+
+- And much more...
 
 
 The main features of Gulp are:
 
-- Streaming and piping for speed.  Gulp uses node.js streams, making it faster to build as it doesn’t need to write temporary files/folders to disk, 
-  
-- Code over configuration.  Gulp’s code-over-configuration makes it not only easy to write tasks for, but also much easier to read and maintain.
+- Streaming and piping for speed. Gulp uses node.js streams, making it faster to build as it does not need to write temporary files/folders to disk,
+
+- Code over configuration. Gulp’s code-over-configuration makes it not only easy to write tasks for, but also much easier to read and maintain.
 
 
 ## <a name='gulpfile'>Gulpfile</a>
 
-The  "gulpfile.js" file informs the task runner which plug-ins to load and defines the available tasks to perform as well as setting the order of any chained tasks. 
+The  "gulpfile.js" file informs the task runner which plugins to load and defines the available tasks to perform as well as setting the order of any chained tasks.
 
 ```javascript
 // gulpfile.js
@@ -152,99 +156,95 @@ The complete documentation of gulpfile.js can be found [here](https://github.com
 
 
 
-## <a name='pluggins'>Pluggins</a>
+## <a name='plugins'>Plugins</a>
 
-Today there are hundreds official and unofficial of Gulp pluggins for all kinds of tasks. Some of the most important pluggins are:
+Today there are hundreds official and unofficial of Gulp plugins for all kinds of tasks. Some of the most important plugins are:
 
-<b>Pluggins Most Used</b>
-   
- - <b>gulp-concat: </b> Concatenate files.
+<b>Plugins Most Used</b>
 
- - <b>gulp-livereload: </b>Reload assets live in the browser
+ - <b>gulp-concat:</b> Concatenate files.
 
- - <b>gulp-uglify: </b> Minify files with UglifyJS.
+ - <b>gulp-livereload:</b> Reload assets live in the browser
 
- - <b>gulp-jade: </b> Compile Jade templates.
- 
- -  <b>...</b>
+ - <b>gulp-uglify:</b> Minify files with UglifyJS.
+
+ - <b>gulp-jade:</b> Compile Jade templates.
 <br/>
 
-<b>Pluggins for Validations</b>
-     
+<b>Plugins for Validations</b>
+
  - <b>gulp-jshint:</b> Validate files with JSHint.
 
- - <b>gulp-csslint</b> Lint CSS files.
- 
- -  <b>gulp-scss-lint</b> Lint SCSS files.
+ - <b>gulp-csslint:</b> Lint CSS files.
 
- -  <b>...</b>
+ - <b>gulp-scss-lint:</b> Lint SCSS files.
+
+ - <b>gulp-htmllint:</b> Lint HTML files.
  <br/>
 
-<b>Pluggins for Minify</b>
- 
- - <b>gulp-minify-css: </b>Minify CSS.
- 
- - <b>gulp-imagemin: </b>Minify images.
- 
- - <b>gulp-minify-html: </b>Minify HTML.
+<b>Plugins for Minify</b>
 
- -  <b>...</b>
+ - <b>gulp-minify-css:</b> Minify CSS.
+
+ - <b>gulp-imagemin:</b> Minify images.
+
+ - <b>gulp-minify-html:</b> Minify HTML.
  <br/>
 
-<b>Pluggins for CSS Compilation</b> 
+<b>Plugins for CSS Compilation</b>
 
- - <b>gulp-sass: </b> Compile Sass to CSS.
- 
- - <b>gulp-less: </b>Compile LESS files to CSS.
- 
- - <b>gulp-simple-compass: </b>Compile Sass to CSS using Compass.
+ - <b>gulp-sass:</b> Compile Sass to CSS.
 
- - <b>gulp-stylus: </b> Compile Stylus files to CSS.
+ - <b>gulp-less:</b> Compile LESS files to CSS.
 
- -  <b>...</b>
+ - <b>gulp-simple-compass:</b> Compile Sass to CSS using Compass.
 
- 
+ - <b>gulp-stylus:</b> Compile Stylus files to CSS.
 <br/>
-<b>Pluggins for JS Compilation</b>
-  
- - <b>gulp-coffee: </b> Compile CoffeeScript files to JavaScript.
+<b>Plugins for JS Compilation</b>
 
- -  <b>...</b>
-
-
+ - <b>gulp-coffee:</b> Compile CoffeeScript files to JavaScript.
 <br/>
-<b>Pluggins for Testting</b>
+<b>Plugins for Testing</b>
 
- - <b>gulp-jasmine-phantom: </b> Run jasmine specs headlessly through PhantomJS.
- 
- - <b>gulp-nodeunit-runner: </b> Run Nodeunit unit tests.
- 
- - <b>gulp-qunit : </b> Run QUnit unit tests in a headless PhantomJS instance.
- 
- - <b>gulp-mocha-selenium: </b> Run Selenium tests with wd and Mocha.
- 
- - <b>gulp-karma-runner: </b> Gulp plugin for karma test runner.
+ - <b>gulp-jasmine-phantom:</b> Run jasmine specs headlessly through PhantomJS.
 
- -  <b>...</b>
+ - <b>gulp-nodeunit-runner:</b> Run Nodeunit unit tests.
 
+ - <b>gulp-qunit:</b> Run QUnit unit tests in a headless PhantomJS instance.
+
+ - <b>gulp-mocha-selenium:</b> Run Selenium tests with wd and Mocha.
+
+ - <b>gulp-karma-runner:</b> Gulp plugin for karma test runner.
 <br/>
-<b>Pluggins for Documentation</b>
+<b>Plugins for Documentation</b>
 
- - <b>gulp-ngdocs: </b> gulp plugin for angularjs documentation.
+ - <b>gulp-ngdocs:</b> gulp plugin for angularjs documentation.
+<br/>
+<b>Plugins for ES6</b>
 
- -  <b>...</b>
+ - <b>gulp-babel:</b> gulp plugin for transforming ES6+ JavaScript to ES5 JavaScript.
 
+ -  <b>gulp-traceur:</b> gulp plugin to compile ES6 JavaScript to ES3.
+
+ -  <b>gulp-regenerator:</b> grunt plugin to transpile ES6 generator functions to ES5 ones.
+
+ - <b>gulp-es6-module-transpiler:</b> plugin for transforming ES6 export syntax to the structure used by AMD, CommonJS among others.
+
+ - <b>gulp-es6-transpiler:</b> ES6 to ES5 JavaScript.
+
+ - <b>gulp-typescript:</b> grunt plugin to compile TypeScript to JavaScript.
 <br/>
 
 
-The complete list of Gulp pluggins can be found [here](http://gulpjs.com/plugins/).
+The complete list of Gulp plugins can be found [here](http://gulpjs.com/plugins/).
 
 
 ## <a name='links'>Links</a>
 
  -  Home... http://gulpjs.com/
- -  The complete list of pluggins is in... http://gulpjs.com/plugins/
+ -  The complete list of plugins is in... http://gulpjs.com/plugins/
  -  Getting Started... https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
+___
 
-
-[BEEVA](https://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

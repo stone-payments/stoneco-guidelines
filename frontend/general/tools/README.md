@@ -45,5 +45,6 @@ The most important tools in web development are:
 
   - <b>Protractor</b>.
    Protractor is an end-to-end test framework for AngularJS applications.  [More info...](protactor) 
+___
 
-[BEEVA](https://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

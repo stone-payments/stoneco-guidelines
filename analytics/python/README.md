@@ -3,17 +3,18 @@
 ![alt text](static/python-logo.png "Python")
 
 ## Index
-  * [Load data](#load_data)
-  * [Work with data](#work_data)
+  * [Load data](#load-data)
+  * [Work with data](#work-with-data)
     * [Numpy](#numpy)
     * [SciPy](#scipy)
     * [pandas](#pandas)
   * [Visualization](#visualization)
-  * [Machine Learning](machine_learning)
+  * Machine Learning
     * [scikit-learn](#scikit-learn)
+  * [Titanic Example](#titanic-example)
 
 
-### Load data
+### <a name="load_data"></a>Load data
 
 #### Pandas
 
@@ -146,11 +147,11 @@ Numpy library has a lot of useful functions when you need to work with random nu
 Some functions from `numpy.random`are: `randn()` which generates a 'standard normal' distribution; `randint` which returns random integers from a low to a high input values; `shuffle()`	is useful to modify an input sequence by shuffling its contents; `permutation()` randomly permutes a sequence...
 
 
-### Scipy
+#### Scipy
 SciPy (Scientific Python) is a Python library which is often mentioned in the same way as NumPy. SciPy extends the capabilities of NumPy with further useful functions for minimization, regression, Fourier-transformation and many others.
 
 
-### pandas
+#### Pandas
 This part gives a brief introduction to pandas data structures and some advices. Pandas is a Python library for data analysis which has many functions for using DataFrame structures. A DataFrame structure called `df` is used for clarify all the examples contained in this part. The next code allows to import the library and to create an empty dataframe.
 
 ````python
@@ -217,3 +218,6 @@ The main python library for Machine Learning is [scikit-learn](http://scikit-lea
     # Random Forest
     from sklearn.ensemble import RandomForestClassifier
 ````
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

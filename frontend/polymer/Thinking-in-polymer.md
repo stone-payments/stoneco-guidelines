@@ -282,3 +282,6 @@ Custom elements, like components you author today, should ideally have unit test
    [reuse]: <https://www.polymer-project.org/0.5/docs/start/reusableelements.html>
    [design-pattern]: <http://www.w3.org/TR/wai-aria-practices/#aria_ex>
    [aria]: <http://www.w3.org/WAI/PF/aria/>
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

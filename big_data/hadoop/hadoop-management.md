@@ -406,6 +406,4 @@ HBase does not overwrite row values, but rather stores different values per row 
 
 ___
 
-![beeva logo](../../static/horizontal-beeva-logo.png)
-
-[BEEVA](http://www.beeva.com) | 2016
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies

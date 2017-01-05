@@ -2146,3 +2146,7 @@
   - [26.1](#26.1) <a name='26.1'></a> Refer to [Kangax](https://twitter.com/kangax/)'s ES5 [compatibility table](http://kangax.github.io/es5-compat-table/).
 
 **[⬆ back to top](#table-of-contents)**
+
+___
+
+[BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
