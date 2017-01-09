@@ -15,7 +15,7 @@ Let's focus on two kind of times to reduce.  Reduce Time === Improve Performance
 
 One way to reduce download time is the use of the web components by themselves.
 
-Using <import> also reduce the number of downloads (<import> don't downloads the same file two times).
+Using 'import' also reduce the number of downloads ('import' don't downloads the same file two times).
 
 Minimize JS, HTML and CSS.
 
