@@ -611,6 +611,63 @@ The exception management may be performance expensive, is better write proactive
 * If you need divide by a variable, is more efficient test if the divider is 0 than management an exception.
 * Also is better test a correct format for a variable than make a cast and catch the error.
 
+When used to best advantage, exceptions can improve a program's readability, reliability and maintainability. When used improperly, they can have the opposite effect. These advices provides guidelines for using exceptions effectively:
+
+* **Use exceptions rather than return codes**
+
+>With return codes the caller must check for errors immediatly after the call. It's better to throw an exception when you encountered an error. The calling code is cleaner. Its logic is not obscured by error handling.
+
+* **Use exceptions only for exceptional conditions**
+
+>Exceptions are as their name implies, to be used only for exceptional conditions. A well designed API must not force its clients to use exceptions for ordinay control flow. A class with a _state-dependent_ method that can be invoked only under certain unpredictable conditions should generally have a separate _state-testing_ method indicating whether it is appropriate to invoke the _state-dependent_ method.
+
+* **Use checked exceptions for recoverable conditions**
+
+>Use checked exceptions for conditions from which the caller can reasonably by expected to recover. By throwing a checked exception you force the caller to handle the exception in a `catch` clause or to propagate it outward. Each checked exception that a method is declared to throw is therefore a potent indication to the API user that the associate condition is a posible outcome of invoking the method. It's specially important for such exceptions to provide methods that furnish information that could help the caller to recover.
+
+* **Use unchecked exceptions for programming errors**
+
+>The great majority of these exceptions indicate _precondition violations_. A _precondition violation_ is simple a failure by the client of an API to adhere to the contract established by the API specification.
+
+* **Avoid unnecesary use of checked exceptions**
+
+>Checked exceptions aren't necessary for the production of robust software. C#, C++, Python or Ruby don't have them and it's possible to write robust software in all of these languages. The price of checked exceptions is an [Open/Closed Principle](https://github.com/beeva/beeva-best-practices/blob/master/qa_testing/code_design/README.md#open--closed-principle) violation. A change at a low level of the software can force signature changes on many higher levels.
+Checked exceptions also make changing code more difficult. Refactoring code with checked exceptions is more difficult and tedious than code without.
+
+* **Favor the use of standard exceptions**
+
+>Code reuse is good. Exceptions are no exception to this rule.
+
+* **Define exception classes in terms of a caller's method**
+
+>On the one hand there are many ways to classify errors. We can classify them by their source: Did the come from one component or another? Or their type: Are they device failures, network failures or programming errors? However when we define exception classes in an application, our most important concern should be how they are caught.
+>
+>On the other hand, exceptions occur at different levels of abstraction therefore throw exceptions appropiate to the abstraction. Catching and reporting a low-level exception can be confusing to someone who is not expecting it.
+>
+>Therefore higher layers should catch lower-level exceptions and throw exceptions that can be explained in terms of the higher-level abstraction. It's also known as *exception translation*. A special form of exception translation called [exception chaining](https://en.wikipedia.org/wiki/Exception_chaining) is appropiate in cases where the lower-level exception might be helpful to someone debugging the problem than caused the higher-level exception, due to contains valuable information for diagnosing a defect.
+
+* **Include failure-capture information in detail messages**
+
+>To capture the failure, the detail message of an exception should contain the values of all parameters and fields that _contributed to the exception_. Each exception that you throw should provide enough context to determine the source and location of an error. Create informative error messages and pass them along with your exceptions. Mention the operation that failed and the type of failure. If you are logging in your application, pass along enough information to be able to log the error in your `catch`.
+
+* **Strive for failure atomicity**
+
+>Any generated exception that is part of a method's specification should leave the object in the same state it was in prior to the method invocation.
+
+* **Don't ignore exceptions**
+
+>May seem obvious but an empty `catch` block defeats the purpose of exceptions. At the very least it should contain a comment explaining why it's appropiate to ignore the exception.
+
+* **Don't return null**
+
+>When whe return `null`, we are essentially creating work for ourselves and foisting problems upon our callers. If you are tempted to return `null` from a method, consider throwing an exception or returning a [Special Case Object](https://martinfowler.com/eaaCatalog/specialCase.html) instead. If you are calling a `null`-returning method from a third-party API, consider wrapping that method with a method that either throws an exception or returns a special case object. Thus you will minimize the chance fo `NullPointerException` and your code will be cleaner.
+
+* **Don't pass null**
+
+>Passing `null` into methods is worse. In most programming languages there is no good way to deal with a `null` that is passed by a caller accidentally. The best approach is to forbid passing `null` by default.
+
+
+
 ## Tools
 
 ### Loggers
@@ -641,8 +698,11 @@ At above section we talk about [dead code or unreachable code](#unreachable-code
 * [Graphs](https://en.wikipedia.org/wiki/Graph_(abstract_data_type))
 * [Profiling](https://en.wikipedia.org/wiki/Profiling_(computer_programming))
 * [Loop optimization](https://en.wikipedia.org/wiki/Loop_optimization)
+* Exceptions:
+	* [Effective Java. Second Edition. Joshua Bloch. Addison-Wesley, 2008](https://books.google.es/books?id=I6sTBQAAQBAJ)
+	* [Clean Code. Robert C. Martin. Prentice Hall, 2009](https://books.google.es/books?id=_i6bDeoCQzsC)
+	* [Implementation Patterns. Kent Beck, 2008](https://books.google.es/books?id=xLyXPCxBhQUC)
 
 ___
 
 [BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
-
