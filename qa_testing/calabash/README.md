@@ -11,6 +11,7 @@ Calabash enables you to write and execute automated acceptance test of mobile ap
 * [Project structure](#project-structure)
 * [Background](#background)
 * [Useful commands](#useful-commands)
+* [Example](#example)
 * [References](#references)
 
 ### Page objects pattern
@@ -118,6 +119,12 @@ The background should be used for any generic task used by the feature's scenari
 
     Genymotion: VBoxManage list vms
 ```
+
+
+### Example
+
+This [example project](https://github.com/beeva/beeva-best-practices/tree/master/qa_testing/calabash/calabash-example) is intented to help you understand how calabash works
+
 
 ### References
 
