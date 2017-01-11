@@ -609,7 +609,292 @@ DynamoDB best feature is the high performance, this guideline is a summary of be
 * Take Advantage of Sparse Indexes: for any item in a table, DynamoDB will only write a corresponding index entry if the index sort key value is present in the item. If the sort key does not appear in every table item, the index is said to be sparse.
 * Global secondary indexes can be a powerful feature since they since them let you define alternative partition key and sort key attributes for your data so you can query a global secondary index in the same way that you query a table, always having in mind that it's very important to distribute the read and write activity evenly across the entire table based on the indexes so you should choose partition keys and sort keys that have a high number of values relative to the number of items in the index. Rremember that global secondary indexes do not enforce uniqueness.
 
+#### Java Testing Using DynamoDBLocal
 
+
+Whenever it comes to test parts of a Java project that depends on DynamoDB, it is neccessary to mock this database in the local enviroment. To that end, one of the alternatives proposed by Amazon <sup id ="a1">[1](#f1)</sup> is to use DynamoDBLocal <sup id ="a1">[2](#f2)</sup>.
+
+This document provides a guide to use DynamoDBLocal in the context of a Maven project, where:
+* DynamoDBMapper <sup id ="a3">[3](#f3)</sup> is being used as the main component for mapping client-side classes to DynamoDB tables and,
+* JUnit is being used as testing framework.
+
+This document is structured in two sections:
+
+1. DynamoDBLocal Configuration
+2. JUnit Example
+
+##### 1. DynamoDBLocal Configuration
+
+In order to use DynamoDBLocal you need to follow these steps:
+
+1. Get the DynamoDBLocal Maven dependency.
+2. Get the Native SQLite4Java dependecies.
+3. Set sqlite4java.library.path properly.
+
+###### 1. Get the DynamoDBLocal Maven dependency
+
+Not so long ago the only way to have DynamoDB running in local was to download and run an executable .jar file<sup id ="a4">[4](#f4)</sup>. Since August 2015 DynamoDBLocal can be downloaded as a Maven dependency, which allow you to integrate this component seamlessly in your projects.
+
+The following lines must be added to the pom.xml file:
+
+```xml
+<repositories>
+	<repository>
+		<id>dynamodb-local</id>
+		<name>DynamoDB Local Release Repository</name>
+		<url>http://dynamodb-local.s3-website-us-west-2.amazonaws.com/release</url>
+	</repository>
+</repositories>
+```
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.amazonaws</groupId>
+        <artifactId>DynamoDBLocal</artifactId>
+        <version>1.11.0.1</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
+
+NOTE: If you are using gradle you can follow [this tutorial](http://blog.xebia.fr/2016/03/30/draft-amazon-dynamodb-guide-par-les-tests/) which, in fact, is the one we have adapted to create this document.
+
+###### 2. Get the Native SQLite4Java dependecies
+
+Once the main dependency is added, you need to add the native SQLite4Java dependencies. If these libraries are not present in the system DynamoDBLocal does not start due to an error on execution time. 
+
+```xml
+<dependency>
+    <groupId>com.almworks.sqlite4java</groupId>
+    <artifactId>sqlite4java</artifactId>
+    <version>1.0.392</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>com.almworks.sqlite4java</groupId>
+    <artifactId>sqlite4java-win32-x86</artifactId>
+    <version>1.0.392</version>
+    <type>dll</type>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>com.almworks.sqlite4java</groupId>
+    <artifactId>sqlite4java-win32-x64</artifactId>
+    <version>1.0.392</version>
+    <type>dll</type>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>com.almworks.sqlite4java</groupId>
+    <artifactId>libsqlite4java-osx</artifactId>
+    <version>1.0.392</version>
+    <type>dylib</type>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>com.almworks.sqlite4java</groupId>
+    <artifactId>libsqlite4java-linux-i386</artifactId>
+    <version>1.0.392</version>
+    <type>so</type>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>com.almworks.sqlite4java</groupId>
+    <artifactId>libsqlite4java-linux-amd64</artifactId>
+    <version>1.0.392</version>
+    <type>so</type>
+    <scope>test</scope>
+</dependency>
+```
+
+Besides, you need to add a plugin to move the native dedepencies to an specific folder:
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.10</version>
+            <executions>
+                <execution>
+                    <id>copy</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <includeScope>test</includeScope>
+                        <includeTypes>so,dll,dylib</includeTypes>
+                        <outputDirectory>${project.basedir}/native-libs</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+```
+
+###### 3. Set sqlite4java.library.path properly
+
+Finally, you need to set `sqlite4java.library.path` system property. It can be done using this sentence in your java code: 
+
+```java
+System.setProperty("sqlite4java.library.path", "native-libs");
+```
+
+An example of this usage is shown below.
+
+##### 2. JUnit Example
+
+Once you have followed the previous steps, you can use DynamoDBLocal in your JUnit tests. Code below shows an example of how to use DynamoDBLocal from JUnit.
+
+Create an utility class like the following:
+
+```java
+public class DynamoDBLocal {
+
+	public DynamoDBMapper dynamoDBMapper;
+	public AmazonDynamoDBClient client;
+	public DynamoDB dynamoDB;
+	public DynamoDBProxyServer server;
+	public AmazonDynamoDB dynamodb;
+	public AmazonDynamoDBClient dynamoDbClient;
+	public DynamoDBProxyServer localDb;
+	public Class<?> DAOClass;
+
+	public DynamoDBLocal() {
+		AWSCredentials credentials = new BasicAWSCredentials("Fake", "Fake");
+		dynamoDbClient = new AmazonDynamoDBClient(credentials);
+		dynamoDbClient.setEndpoint("http://localhost:19444");
+		DynamoDBMapperConfig config = new DynamoDBMapperConfig.Builder().
+                                      withConversionSchema(ConversionSchemas.V2).build();          
+		dynamoDBMapper = new DynamoDBMapper(dynamoDbClient, config);
+		dynamoDB = new DynamoDB(dynamoDbClient);
+	}
+
+	public void startDynamo() throws Exception {
+		System.setProperty("org.eclipse.jetty.util.log.class",
+                           "org.eclipse.jetty.util.log.Slf4jLog");
+		System.setProperty("sqlite4java.library.path", "native-libs");
+		localDb = new DynamoDBProxyServer(19444,    
+				      new LocalDynamoDBServerHandler(
+                      new LocalDynamoDBRequestHandler(0, true, null, true, true), null));
+		try {
+			localDb.start();
+			listMyTables();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stopDynamo() throws Exception {
+		localDb.stop();
+	}
+
+	public static void listTables(ListTablesResult result, String method) {
+		for (String table : result.getTableNames()) {
+			System.out.println(table);
+		}
+	}
+
+	public void listMyTables() {
+		ListTablesResult tables = dynamoDbClient.listTables();
+		for (String table : tables.getTableNames()) {
+			System.out.println(table);
+		}
+	}
+
+	public void createTable(Class<?> DAOClass) throws Exception {
+		try {
+			CreateTableRequest req = dynamoDBMapper.generateCreateTableRequest(DAOClass);
+			req.setProvisionedThroughput(new ProvisionedThroughput().
+                							withReadCapacityUnits(1L).
+               								withWriteCapacityUnits(1L));
+		} catch (Exception e) {
+			server.stop();
+		}
+	}
+}
+```
+
+Then you can use this class from a test class:
+
+```java
+public class UserRepositoryImplTest {
+
+	private DynamoDBLocal dynamo;
+
+	@Before
+	public void setUp() throws Exception {
+		dynamo = new DynamoDBLocal();
+		//foreach test dynamo must be started
+		dynamo.startDynamo();
+		dynamo.createTable(UserDAO.class);
+	}
+
+	@After
+	public void close() throws Exception {
+ 		//once each test finishes, dynamodb must be stopped.
+		dynamo.stopDynamo();
+	}
+
+	@Test
+	public void userRepositoryTest() throws Exception {
+		//load data for this specific test
+		insertTestData("fakeFile.csv");
+		User user = dynamoDBMapper.load(User.class, ID);
+    	assertThat(user.getId()).isEqualTo(ID);
+	}
+
+
+	/**
+     * Method that inserts data for each specific test. For example you
+	 * can use a CSV file with fake items on it.
+     * DynamoDB items can be loaded using dynamoDBMapper.save instruction 
+     */
+	private void insertTestData(String fileName) throws Exception {
+                User userDAO = new User();
+                userDAO.setId(UUID.randomUUID().toString());
+                dynamo.dynamoDBMapper.save(userDAO);
+	}
+
+}
+```
+
+Finally, the User class must be defined using DynamoDBMapper:
+```java
+@DynamoDBTable(tableName = "User")
+public class User {
+    @DynamoDBHashKey
+    private String id;
+
+    private String email;
+
+    public User() {}
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
+
+```
+<a name="f1">1</a>: https://aws.amazon.com/es/blogs/aws/amazon-dynamodb-libraries-mappers-and-mock-implementations-galore/. [↩](#a1)  
+<a name="f2">2</a>:http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html [↩](#a2)
+<a name="f3">3</a>:http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBMapper.html [↩](#a3) 
+<a name="f4">4</a>:https://aws.amazon.com/es/blogs/aws/dynamodb-local-for-desktop-development/ [↩](#a4)  
 
 ### Scaling (ELBs y ASGs)
 ---
