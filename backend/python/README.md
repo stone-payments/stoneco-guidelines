@@ -109,7 +109,7 @@ http://artifex.org/~hblanks/talks/2011/pep20_by_example.html
 
 There are other areas where Python's philosophy affects development:
 
-* Access to code: Since code is not compiled, and because of the way it is usually distributed (please see [18. Application packaging and distribution](#18-application-packaging-and-distribution)), code from libraries and frameworks is accessible to developers in general. However, it is possible to provide bytecode only packages that do not disclose the code. 
+* Access to code: Since code is not compiled, and because of the way it is usually distributed (please see [21. Application packaging and distribution](#21-application-packaging-and-distribution)), code from libraries and frameworks is accessible to developers in general. However, it is possible to provide bytecode only packages that do not disclose the code.
 * Documentation: The information of modules, classes and methods is available for developers to request while developing if it has been included in the code. This allows interactively requesting information on the method to be used while developing.
 * Performance optimizations: In general, Python developments seek avoiding optimisation of the code during the first development. This is due to the fact that optimizations might affect code readability or complexity. It is only if performance shows to be a crucial point for operation, when optimizations are recommended.
 
