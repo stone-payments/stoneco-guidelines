@@ -111,7 +111,7 @@ There are other areas where Python's philosophy affects development:
 
 * Access to code: Since code is not compiled, and because of the way it is usually distributed (please see [21. Application packaging and distribution](#21-application-packaging-and-distribution)), code from libraries and frameworks is accessible to developers in general. However, it is possible to provide bytecode only packages that do not disclose the code.
 * Documentation: The information of modules, classes and methods is available for developers to request while developing if it has been included in the code. This allows interactively requesting information on the method to be used while developing.
-* Performance optimizations: In general, Python developments seek avoiding optimisation of the code during the first development. This is due to the fact that optimizations might affect code readability or complexity. It is only if performance shows to be a crucial point for operation, when optimizations are recommended.
+* Performance optimizations: In general, Python developments prefer to avoid spend much time in the code optimisation during the first development, this is due to the fact that optimizations may affect code readability or complexity. However, when performance is important it is recommended to optimize the code trying not to affect to the readability.
 
 ### 3. Python 2 vs Python 3
 
@@ -537,22 +537,18 @@ Use inline comments sparingly.
 
 An inline comment is a comment on the same line as a statement. Inline comments should be separated by at least two spaces from the statement. They should start with a # and a single space.
 
-Inline comments are unnecessary and in fact distracting if they state the obvious. Don't do this:
+Inline comments should be used only when really needed (with useful information), so try to avoid comments similar to:
 ```python
 x = x + 1                 # Increment x
-```
-But sometimes, this is useful:
-```python
-x = x + 1                 # Compensate for border
 ```
 
 #### 5.10.3 Documentation Strings
 
-Conventions for writing good documentation strings (a.k.a. "docstrings") are immortalized in PEP 257 .
+Conventions for writing good documentation strings (a.k.a. "docstrings") is specified in PEP 257 .
 
-Write docstrings for all public modules, functions, classes, and methods. Docstrings are not necessary for non-public methods, but you should have a comment that describes what the method does. This comment should appear after the def line.
+It is recommended to write docstrings for all public modules, functions, classes, and methods but they are not necessary for non-public methods, you should have a comment that describes what the method does instead (this comment should appear after the def line).
 
-PEP 257 describes good docstring conventions. Note that most importantly, the """ that ends a multiline docstring should be on a line by itself, e.g.:
+Note one important thing regarding the """ that ends a multiline docstring, and it should be on a line by itself, e.g.:
 
 """Return a foobang
 
@@ -569,7 +565,7 @@ These lines should be included after the module's docstring, before any other co
 
 ### 5.12 Naming Conventions
 
-The currently recommended naming standards
+This part is specified in PEP 423.
 
 #### 5.12.1 Overriding Principle
 
