@@ -11,6 +11,11 @@
 * [Controllers](#controllers)
 * [Directives](#directives)
 * [Components](#components)
+  * [Components `best practices`](#components-best-practices)
+  * [When `not to use components`](#when-not-to-use-components)
+  * [Structure for component-based applications](#suggested-approach-to-structure-your-component-based-application)
+  * [Routable components](#routable-components)
+  * [Unit testing](#unit-testing-components)
 * [Filters](#filters)
 * [Services](#services)
 * [Other stuff](#other-stuff)
@@ -473,9 +478,89 @@ With a component based architecture, it's easier to predict when data changes an
 
 * Sticky with `$ctrl` as default `controllerAs name` convention for managing component controller inside template.
 
-* Initialize components on `$onInit()` event. It's called on each controller after all the controllers on an element have been constructed and had their bindings initialized.
+* Initialize components on `$onInit()` event. It's called on each component controller after all the controllers on an element have been constructed and had their bindings initialized. `$onInit() event ONLY works on component controllers, not on standalone controllers, as they do not get the lifecycle hooks - and don't have bindings either.`
+
+**NOTE**: Since AngularJS 1.6, a component controller is no longer initialized, by default, before `$onInit()` event is called. ALL the components controller initialization `MUST` be placed inside `$onInit()` event.
+
+To re-enable old behaviour:
+
+```javascript
+(function() {
+  'use strict';
+
+  angular
+    .module('app')
+    .config(appConfig);
+
+    appConfig.$inject = ['$compileProvider'];
+
+    function appConfig($compileProvider) {
+      $compileProvider.preAssignBindingsEnabled(true);
+    }
+})();
+```
+
+**will NOT work on AngularJS 1.6**
+```javascript
+const template = `
+  ...
+`;
+
+export class SearchBoxController {
+  constructor() {
+    this.configuration.bootstrap();
+  }
+}
+
+export default {
+  template,
+  bindings: {
+    //inputs
+    configuration: '<',
+
+    //outputs
+  },
+  controller: SearchBoxController
+}
+```
+
+**will work on AngularJS 1.6**
+```javascript
+const template = `
+  ...
+`;
+
+export class SearchBoxController {
+  $onInit() {
+    this.configuration.bootstrap();
+  }
+}
+
+export default {
+  template,
+  bindings: {
+    //inputs
+    configuration: '<',
+
+    //outputs
+  },
+  controller: SearchBoxController
+}
+```
 
 * React to component bindings changes on `$onChanges(changesObj)` event. It's called when one-way bindings are updated, and it contains a hash whose keys the names of the bound properties that have changed, and the values are an object of the form `{ currentValue, previousValue, isFirstChange() }`.
+
+**NOTE**: You should use `one way bindings` and `$onChanges` instead of `$scope.watch`: This allow you to remove the injection of `$scope` (devil) in your component, and of course, avoid the watches on it - Angular has its own watch on the binding anyway in order to sync it between components, and we’re taking advantage of it - better performance, and modern code.
+
+You should take into account:
+
+- `$onChanges` only works with one-way bindings (and @ bindings).
+
+- `$onChanges` is only triggered when the parent component reassigns the value. It will not be triggered if you reassign it inside the component itself.
+
+- If you need to detect/reject the `initialization call`, you can use `isFirstChange` method that comes with each hash key of the bound properties that have changed through  `$onChanges(changesObj)` event. `(Example: !changesObj.foo.isFirstChange())`.
+
+- Angular triggers the `initial $onChanges right before calling the $onInit event`. You should be aware of that when you write your component’s lifecycle hooks and make sure that you don’t rely in `$onChanges` on anything that gets setup by `$onInit`, and if so, make sure to account for it on the first change call.
 
 * Start designing your application as a `tree of components`. Ideally, the whole application should be a tree of components that implement clearly defined inputs and outputs, and minimize two-way data binding. That way, it's easier to predict when data changes and what the state of a component is.
 
@@ -492,6 +577,8 @@ With a component based architecture, it's easier to predict when data changes an
 ## Suggested approach to structure your component-based application.
 
 * It's recommended to define an initial/starter component called 'app'. If you need to retrieve some initial data for your application, use $onInit() component hook. `(You should NOT retrieve remote data on $onInit() hook if you are using a routing solution that provides resolve capacity directly to component - see routable components for this)`
+
+**NOTE**: Since AngularJS 1.6, a component controller is no longer initialized, by default, before `$onInit()` event is called. ALL the components controller initialization `MUST` be placed inside `$onInit()` event.
 
 * Store all your `common application components` inside a folder called `components` (with their respective module definition inside of it).
 
@@ -642,6 +729,10 @@ Let's suppose that we have a route called 'courses' that needs to fetch some rem
     }
 })();
 ```
+
+## Unit testing components
+
+WIP.
 
 # Filters
 
