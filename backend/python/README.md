@@ -975,7 +975,7 @@ if sys.argv[1].startswith('--'):
 ```
 #### 10.2 Os module
 
-This module represents operating system specific functionality. This module is especially important if you want to make your programs platform-independent i.e. it should run on Linux as well as Windows without any problems and without requiring changes.
+This module represents operating system specific functionality. This module is especially important if you want to develop your programs platform-independent i.e. it should run on Linux as well as Windows without any problems and without requiring changes.
 
 Example: To get the complete path of the current working directory enter.
 
@@ -1045,15 +1045,14 @@ logging.config.listen()
 Python has a built-in class named ***str*** which substitutes older ***string*** module.
 This class allows us to perform many operations on the right way.
 
-There exist three ways to enclose our strings in python.
+There are three ways to enclose strings in python.
 You can either use double or single quote, and each of them can contain the other one.
 To span an string literal into multiple lines, you can use the backslash at the end of each line, or use triple quoted strings which allows multiple lines of text.
 
 Python strings are ***immutable*** so they can not be changed after they are created.
 Characters in strings literals can be accessed using the standard [] syntax using zero-based indexing. Furthermore, you can use ***slice*** syntax to refer to sub-parts of sequences
 
-Python includes the ***%*** operator that allows to fill strings with variables in the same way we do it
-with printf C function.
+Python includes the ***%*** operator that allows to fill strings with variables in the same way we do it with printf C function.
 
 Although regular Python strings are just plain bytes, it manages i18n within its strings by using ***unicode***.
 
