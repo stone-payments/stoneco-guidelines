@@ -280,9 +280,9 @@ reduce(lambda x,y: ''.join([x,y]), ['B','EE','VA'])
 
 ### 5. Style guide (Pep 8)
 
-This section is a summary of official PEP8 documentation, the examples are from this PEP8. Please for more information visit to official PEP8 web site:
+This section is a summary of official PEP8 documentation, the examples are from this PEP8. For more information please visit to official PEP8 web site:
 
-https://www.python.org/dev/peps/pep-0008/#maximum-line-length
+https://www.python.org/dev/peps/pep-0008/
 
 #### 5.1. Indentation
 Use 4 spaces per indentation level.
@@ -361,10 +361,10 @@ You should put a blank line between each group of imports.
 #### 5.7. String Quotes
 In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it. When a string contains single or double quote characters, however, use the other one to avoid backslashes in the string. It improves readability.
 
-For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in PEP 257 .
+For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/) .
 
 #### 5.8. Whitespace in Expressions and Statements
-Pet Peeves
+
 Avoid extraneous whitespace in the following situations:
 
 Immediately inside parentheses, brackets or braces.
@@ -544,7 +544,8 @@ x = x + 1                 # Increment x
 
 #### 5.10.3 Documentation Strings
 
-Conventions for writing good documentation strings (a.k.a. "docstrings") is specified in PEP 257 .
+Conventions for writing good documentation strings (a.k.a. "docstrings") is specified in [PEP 257](https://www.python.org/dev/peps/pep-0257/
+.0) .
 
 It is recommended to write docstrings for all public modules, functions, classes, and methods but they are not necessary for non-public methods, you should have a comment that describes what the method does instead (this comment should appear after the def line).
 
@@ -565,7 +566,7 @@ These lines should be included after the module's docstring, before any other co
 
 ### 5.12 Naming Conventions
 
-This part is specified in PEP 423.
+This part is specified in [PEP 423](https://www.python.org/dev/peps/pep-0423/).
 
 #### 5.12.1 Overriding Principle
 
@@ -847,7 +848,7 @@ For example it is possible to define the following function, which computes an o
 
 This approach allows developing functions or frameworks that provide a greater level of abstraction and power. However, the added complexity should be backed up by a relevant need.
 
-##### 9.1.2. Function polymorfism
+##### 9.1.2. Function polymorphism
 
 In Python, objects of different types can have the same type of interfaces or protocols implemented, while the operation performed is understood in a different way. For example, the + operation can be applied both to strings and to numbers with a different interpretation, concatenation in the first case and addition in the second:
 
@@ -859,7 +860,7 @@ In Python, objects of different types can have the same type of interfaces or pr
 9
 ```
 
-And therefore, a function that does not force its parameters to be of a fixed type, it is a polymorfic function. As it can be seen in the following example, the plus function can operate on different object types:
+And therefore, a function that does not force its parameters to be of a fixed type, it is a polymorphic function. As it can be seen in the following example, the plus function can operate on different object types:
 
 ```python
 >>> def plus(one, two):
@@ -2045,7 +2046,7 @@ List of IDEs:
 * Pycharm [1] is nowadays one of the most used for python developers. It has a free licence, named free community and other commercial named professional. The free licence is very nice and includes a lot of features, for example:
   * Debugger
   * Intelligent Code Editor, autocomplete, code analyze...
-  * Refactor code to PEP 8
+  * Refactor code to [PEP 8](https://www.python.org/dev/peps/pep-0008/)
   * And other features.
 * Eric [2], it is other IDE for python, it is really nice, because it is open source and you can use it for free. A few features for this IDE are the following:
   * Debugger
