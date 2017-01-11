@@ -4,8 +4,11 @@ In this section, we will address some good practices related to KANBAN.
 
 ## Index
 * [KANBAN definition](#definition-of-kanban)
-* [Core Properties](#core-properties)
+* [Core Values](#core-values)
+* [Core Practices](#core-practices)
+* [Value Stream Mapping](#value-stream-mapping)
 * [KANBAN Board](#kanban-board)
+* [Kanban meetings](#kanban-meetings)
 * [Iterations](#iterations)
 * [Planning](#planning)
 * [Optimization and improvement](#optimization-and-improvement)
@@ -14,27 +17,79 @@ In this section, we will address some good practices related to KANBAN.
 
 ### KANBAN definition
 
-Wikipedia's definition for KANBAN is:
+There are differences between **k**anban system and **K**anban method.
+
+#### Wikipedia's definition for **KANBAN SYSTEM** is:
+
+> KANBAN is a scheduling system for lean manufacturing and just-in-time manufacturing (JIT). Kanban is an inventory-control system to control the supply chain. Kanban became an effective tool to support running a production system as a whole, and an excellent way to promote improvement.
+
+Sakichi Toyoda, Kiichiro Toyota and the engineer Taiichi Ohno created it between 1946 and 1975.
+
+The KANBAN word is a japanese word where **KAN** means **'visual'** and **BAN** means **'card'**. Toyota's Production System is based on cards used for production system control. Those cards contain all information needed to make the required pieces at a given time.
+
+<img src="./static/kanbantoyota.jpg" alt="Toyota Kanban Card" width="400" height="200">
+<br>
+**Kanban Card in 1950s**
+
+<img src="./static/kanbantoyotanow.jpg" alt="Toyota Kanban Card Now" width="400" height="200">
+<br>
+**Kanban Card now**
+
+#### Wikipedia's definition for **KANBAN METHOD** is:
+
 > KANBAN is a method for managing knowledge work with an emphasis on just-in-time delivery while not overloading the team members. In this approach, the process, from definition of a task to its delivery to the customer, is displayed for participants to see. Team members pull work from a queue.
+
+It appears in **2002** by **David J. Anderson**, who begins to propose a different form in management of software development projects.
 
 > KANBAN in the context of software development can mean a visual process-management system that tells what to produce, when to produce it, and how much to produce - inspired by the Toyota Production System and by Lean manufacturing.
 
-The KANBAN word is a japanese word that means 'card'. Toyota's Production System is based on cards used for production system control. Those cards contain all information needed to make the required pieces at a given time.
+It starts from **you are doing right now**, It makes **work visible**, It delivers **knowledge work** and It **uses kanban system** to do it.
 
-![alt text](./static/kanbantoyota.jpg "Toyota Kanban Card")
+### Core values
 
-### Core Properties
+There are **nine** Core Values on KANBAN Method:
 
-There are four Core Properties on KANBAN Method:
+ 1. **Transparency**: To share information openly improve business flow.
+ 2. **Balance**: To understand that differents aspects, points of view and capabilities must be balanced to reach the success.
+ 3. **Collaboration**: To make team work together and coordinated.
+ 4. **Customer Focus**: To know the project target and always keep the team thinking in its achievement.
+ 5. **Flow**: Work increment and continuous improvement.
+ 6. **Leadership**: To inspire to other team members to act.
+ 7. **Understanding**: Individual and organizational auto-knowledgement to go forward.
+ 8. **Agreement**: Commitment to go forward to the target but we always have to respect differences and opinions.
+ 9. **Respect**: To the process, to people, to the work, ... It's the base on which we must to build the rest of the values.
+
+### Core Practices
+
+There are **six** Core Practices on KANBAN Method:
 
  1. **Visualize the work**: Getting all work visible allows a better management and identification of queues and bottlenecks (or personal procrastination on specific tasks).
  2. **Limit Work In Progress (WIP)**: Increase focus and set priorities, manage overload (keeping an adequate margin). A proper load of Work In Progress will keep the team in the flow instead of facing anxiety or boredom.
- 3. **Measure and optimize the workflow**: Try to constantly analyze the flow to increase productivity and improve the flow's smoothness.
- 4. **Make the policies visible and explicit**: Every team member must know the defined policies for the process.
+ 3. **Manage flow**: The flow of work items through each state in the workflow should be monitored and reported - often referred to as Measuring Flow.
+ 4. **Make policies visible and explicit**: Every team member must know the defined policies for the process.
+ 5. **Feedback loops**: Implement at a service delivery level in organizations, Kanban, uses four specific practices for feedback: the standup meeting; the service delivery review; the operations review; and the risk review. The purpose of feedback loops is to be able to compare expected outcomes with actual outcomes and make adjustments
+ 6. **Improve and evolve the workflow**: Try to constantly analyze the flow to increase productivity and improve the flow's smoothness.
+
+### Value Stream Mapping
+
+A Value Stream Map (VSM) shows your workflow as well as the time it takes to do the work. Here is a ximpel example:
+
+<img src="./static/valueStreamMapping.png" alt="Value Stream Mapping" width="800" height="300">
+<br>
+**Value Stream Mapping**
+
 
 ### KANBAN Board
 
-The KANBAN board is the main tool for following the Core Properties of KANBAN. It reflects the status for a task or story's workflow, from the moment of its creation until it is completed and delivered. 
+The KANBAN board is the main tool for following the Core Practices of KANBAN. It reflects the status for a task or story's workflow, from the moment of its creation until it is completed and delivered.
+
+It only convers part of the VSM. Usually only from input to development through deployment. It does not cover the first part of the value stream.
+
+Compare the **Kanban board** below with the **value stream map** above.
+
+<img src="./static/kanbanBoardExample.png" alt="Kanban Board" width="800" height="250">
+<br>
+**Kanban Board Example**
 
 A KANBAN board can be a physical board or a collaborative digital board. But in any of them, the good practices to follow are the same:
 * **Keep the KANBAN board updated**: The board must represent the actual state of the work.
@@ -59,12 +114,28 @@ Once you know your workflow better, you can add new columns representing a more 
 * **Blocked Indicators**: These indicators can help to visualize blocked tasks, than can not be completed or advance through the workflow.
 
 * **Classes of service**: Depending on the tasks' nature, different class of service can be defined. It is completely different to resolve a bug than building a new functionality. Each team must define its own classes of service, but a generic guideline can be followed : 
-  * Expedite: Very important task that can not wait to be done.
-  * Fixed delivery date: A task that must be delivered at a fixed time.
-  * Standard class: A normal task which describes functionality and can be estimated.
-  * Intangible class: Tasks that can not be estimated.
+  * **Expedite**: Very important task that can not wait to be done.
+  * **Fixed** delivery date: A task that must be delivered at a fixed time.
+  * **Standard** class: A normal task which describes functionality and can be estimated.
+  * **Intangible** class: Tasks that can not be estimated.
 
-* **Policies**: The KANBAN board is a good place to make your policies explicit. You can consider general policies or specific ones for every class of service. 
+* **Policies**: The KANBAN board is a good place to make your policies explicit. You can consider general policies or specific ones for every class of service.
+
+### Kanban meetings
+
+The value of identifying the **seven** meetings is to look at how we’re getting this stuff done now and to evaluate if there are any gaps and whether we have established a regular cadence that makes sense or if some of these functions are still being handled in an ad hoc fashion rather than proactively.
+
+ 1. **Standup Meeting**: It serves to keep the team on the same page about the state of affairs in the project. It addresses questions like who’s working on what, who needs help, and if any tasks are blocked.
+ 2. **Replenishment Meeting**: It's the meeting in which we decide what those tasks will be. Scrum calls this the sprint planning meeting, but the format may differ and multiple shareholders may be involved.
+ 3. **Operations Review**: The operations review is a higher-level view of how the various teams/divisions/departments/tribes are collaborating as an organization.
+ 4. **Delivery Planning Meeting**: This is the meeting that acknowledges that most of us don’t deliver directly to the final customer. It’s the meeting that smooths out hand-offs between teams or departments.
+ 5. **Service Delivery Review**: It looks at a Kanban system from the point of view of the people who matter most, the intended beneficiaries of the service.
+ 6. **Risk Review**: A risk review conversation can happen at any level of the organization, and probably should occur at all levels. Its purpose is to assess the likelihood of failing to deliver to expectations, either to downstream system components or to end users.
+ 7. **Strategy Review**: It examines changes in the market and questions whether our current operational goals are optimized to serve emerging needs.
+
+<img src="./static/kanbanCadences.png" alt="Kanban Cadences" width="800" height="400">
+<br>
+**Kanban Cadences Diagram**
 
 ### Iterations
 
@@ -99,6 +170,7 @@ Once you know your workflow better, you can add new columns representing a more 
 * [Wikipedia](http://tinyurl.com/4nrxsk6)
 * [Kanban - David J. Anderson](http://www.amazon.es/dp/0984521402)
 * [Agile Coaching - Rachel Davies](http://www.amazon.es/dp/1934356433)
+* [The seven Kanban Cadences](http://blog.kanbanery.com/the-seven-kanban-cadences)
 
 ___
 
