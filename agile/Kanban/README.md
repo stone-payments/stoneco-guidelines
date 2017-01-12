@@ -121,9 +121,9 @@ Once you know your workflow better, you can add new columns representing a more 
 
 * **Policies**: The KANBAN board is a good place to make your policies explicit. You can consider general policies or specific ones for every class of service.
 
-### Kanban meetings
+### Feedback loops
 
-People often think that Kanban have less meetings or formalities that other agile methodologies, but really, Kanban have **seven** official meetings in total. Although in each case, teams use only the ones they need. Most of them are auto explicatives:
+People often think that Kanban have less meetings or formalities that other agile methodologies, but really, Kanban have **seven** official feedback loops in total. Although in each case, teams use only the ones they need. Most of them are auto explicatives:
 
  1. **Standup Meeting**: It's the equivalent to the Scrum Daily meeting. Its objective is to keep the team coordinated and that all people know what are doing each one. In this way, the information can flow. It answer to the questions: "Who is doing that task", "Who needs some help", "Tasks blocked", etc...
  2. **Replenishment Meeting**: It's the equivalent to the Scrum Planning meeting. Its objective is to decide what tasks will be in the kanban board. It have some differences between Scrum, because for example, stakeholders can attend to this meeting.
