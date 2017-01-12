@@ -732,7 +732,95 @@ Let's suppose that we have a route called 'courses' that needs to fetch some rem
 
 ## Unit testing components
 
-WIP.
+With the introduction of components, AngularJS provides us with a `$componentController` service inside `ngMock` that allows us to test a component controller functions & bindings without the need to expose the component itself.
+
+**NOTE**: Since AngularJS 1.6, and in case your component implements `$onInit()` event, you should make sure to explicitly call it in your tests, because `$componentController` doesn't handle it automatically.
+
+**total-like-counter.component.js**
+```javascript
+const template = `
+  <h5 ng-if="!$ctrl.display || $ctrl.display == 'text'">You like {{$ctrl.calculateLikeCounter($ctrl.courses)}} courses.</h5>
+
+  <md-button
+    ng-if="$ctrl.display == 'icon'"
+    class="md-icon-button"
+    aria-label="Favorite"
+    ui-sref='courses-my-favourites'>
+
+    <small>{{$ctrl.calculateLikeCounter($ctrl.courses)}}</small>
+    <i class="material-icons md-24">thumb_up</i>
+
+    <md-tooltip>
+      You like {{$ctrl.calculateLikeCounter($ctrl.courses)}} courses.
+    </md-tooltip>
+  </md-button>
+`;
+
+export class TotalLikeCounterController {
+  constructor() {
+
+  }
+
+  calculateLikeCounter(courses) {
+    return ( courses || [] ).filter(course => course.liked).length;
+  }
+}
+
+export default {
+  template,
+  bindings: {
+    //inputs
+    courses: '<',
+    display: '<'
+
+    //outputs
+  },
+  controller: TotalLikeCounterController
+}
+```
+
+**total-like-counter.spec.js**
+```javascript
+describe('Component: total-enroll-counter', () => {
+  const initialData = [
+    { enrolled: true },
+    { enrolled: false },
+    { enrolled: true },
+    { enrolled: false },
+    { enrolled: true }
+  ];
+
+  describe('Controller: TotalEnrollCounter', () => {
+    it('should calculate total enrolls when there is no data', () => {
+      const controller = $componentController('total-enroll-counter', null, {
+        courses: null
+      });
+
+      // in case we have $onInit() event defined...
+      // controller.$onInit();
+
+      const expected = 0;
+      const result = controller.calculateEnrollCounter();
+
+      expect(result).to.be.equal(expected);
+    });
+
+    it('should calculate total enrolls when data is present', () => {
+      const controller = $componentController('total-enroll-counter', null, {
+        courses: initialData
+      });
+
+      // in case we have $onInit() event defined...
+      // controller.$onInit();
+
+      const expected = 3;
+      const result = controller.calculateEnrollCounter(initialData);
+
+      expect(result).to.be.equal(expected);
+    });
+  });
+});
+```
 
 # Filters
 
@@ -1115,7 +1203,11 @@ export function loadNg1Module(ngModule, appModule) {
 
 ## ES6 with WebPack
 
-WIP.
+Webpack configuration should not differ from another ES6 webpack project configuration, but you should take into account the following:
+
+- .js files should be loaded/concatenated with 'ng-annotate' as loader, in case you write your code without annotations. (**REMEMBER** to mark-up functions to be annotated with the 'ngInject' directive prologue)
+
+- If you use UglifyJsPlugin plugin in your configuration, you must take into account that you must make an exception in mangle the following variables: '$super', '$', 'exports', 'require', 'angular'.
 
 # Testing
 
@@ -1206,6 +1298,7 @@ We cannot say nothing about the public community, as open source contributions a
 * [Angular Site](https://angularjs.org) API, SDK, News & Documentation
 * [ng-newsletter](http://www.ng-newsletter.com) Newsletter about the angular community
 * [ng-book](https://www.ng-book.com) Book about Angular 1.4
+* [Angular 1.x styleguide ES2015 by Todd Motto](https://github.com/toddmotto/angular-styleguide)
 * [Angular John Papa's Styleguide](https://github.com/johnpapa/angular-styleguide)
 * [CodeSchool free MOOC] (https://www.codeschool.com/courses/shaping-up-with-angular-js)
 
