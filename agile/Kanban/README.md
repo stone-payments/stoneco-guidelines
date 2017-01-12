@@ -67,8 +67,24 @@ There are **six** Core Practices on KANBAN Method:
  2. **Limit Work In Progress (WIP)**: Increase focus and set priorities, manage overload (keeping an adequate margin). A proper load of Work In Progress will keep the team in the flow instead of facing anxiety or boredom.
  3. **Manage flow**: The flow of work items through each state in the workflow should be monitored and reported - often referred to as Measuring Flow.
  4. **Make policies visible and explicit**: Every team member must know the defined policies for the process.
- 5. **Feedback loops**: Implement at a service delivery level in organizations, Kanban, uses four specific practices for feedback: the standup meeting; the service delivery review; the operations review; and the risk review. The purpose of feedback loops is to be able to compare expected outcomes with actual outcomes and make adjustments
+ 5. **Feedback loops**: Implement at a service delivery level in organizations, Kanban, uses seven specific practices for feedback: standup meeting; replanishment meeting, operations review, delivery planning meeting, service delivery review, risk review and strategy review. The purpose of feedback loops is to be able to compare expected outcomes with actual outcomes and make adjustments. Below is explained with more detail.
  6. **Improve and evolve the workflow**: Try to constantly analyze the flow to increase productivity and improve the flow's smoothness.
+
+### Feedback loops
+
+People often think that Kanban have less meetings or formalities that other agile methodologies, but really, Kanban have **seven** official feedback loops in total. Although in each case, teams use only the ones they need. Most of them are auto explicatives:
+
+ 1. **Standup Meeting**: It's the equivalent to the Scrum Daily meeting. Its objective is to keep the team coordinated and that all people know what are doing each one. In this way, the information can flow. It answer to the questions: "Who is doing that task", "Who needs some help", "Tasks blocked", etc...
+ 2. **Replenishment Meeting**: It's the equivalent to the Scrum Planning meeting. Its objective is to decide what tasks will be in the kanban board. It have some differences between Scrum, because for example, stakeholders can attend to this meeting.
+ 3. **Operations Review**: It isn't have equivalent in Scrum, It's specific in Kanban. This is a look of how is the collaboration inside and between teams or departments. The target is that the different tribes are coordinated and synchronized.
+ 4. **Delivery Planning Meeting**: It analyze what is ready to deliver with the approval of the people that are going to receive it. It takes into account risks during the development process, for example if priority of some tasks in progress have been changed or if some extra information is needed to ensure a smooth transfer of WIP. In summary, teams decide what to deliver and when.
+ 5. **Service Delivery Review**: This meeting is mainly focused in customer satisfaction. We must explore needs to know if the users and customers are going to be satisfied with the development team processes, efficiency and communication. The target is to improve the confidence between teams and customers, through the transparency.
+ 6. **Risk Review**: It examines what possibles risks the teams can have in a near future, failures that the team have had previously and tasks that are blocked or into re-working process right now. In summary, the teams contributes to identify risks through a comprehensive planning based on experience.
+ 7. **Strategy Review**: The main focus of this meeting is the marketing team. It analyze if the goals are optimized and updated to meet market trends and needs. We have to question us if there are mismatches between that we are doing right now and the new market demands. Usually, the results of this meeting are changes in the guidelines or KPIs if needed.
+
+<img src="./static/kanbanCadences.png" alt="Kanban Cadences" width="800" height="400">
+<br>
+**Kanban Cadences Diagram**
 
 ### Value Stream Mapping
 
@@ -120,22 +136,6 @@ Once you know your workflow better, you can add new columns representing a more 
   * **Intangible** class: Tasks that can not be estimated.
 
 * **Policies**: The KANBAN board is a good place to make your policies explicit. You can consider general policies or specific ones for every class of service.
-
-### Feedback loops
-
-People often think that Kanban have less meetings or formalities that other agile methodologies, but really, Kanban have **seven** official feedback loops in total. Although in each case, teams use only the ones they need. Most of them are auto explicatives:
-
- 1. **Standup Meeting**: It's the equivalent to the Scrum Daily meeting. Its objective is to keep the team coordinated and that all people know what are doing each one. In this way, the information can flow. It answer to the questions: "Who is doing that task", "Who needs some help", "Tasks blocked", etc...
- 2. **Replenishment Meeting**: It's the equivalent to the Scrum Planning meeting. Its objective is to decide what tasks will be in the kanban board. It have some differences between Scrum, because for example, stakeholders can attend to this meeting.
- 3. **Operations Review**: It isn't have equivalent in Scrum, It's specific in Kanban. This is a look of how is the collaboration inside and between teams or departments. The target is that the different tribes are coordinated and synchronized.
- 4. **Delivery Planning Meeting**: It analyze what is ready to deliver with the approval of the people that are going to receive it. It takes into account risks during the development process, for example if priority of some tasks in progress have been changed or if some extra information is needed to ensure a smooth transfer of WIP. In summary, teams decide what to deliver and when.
- 5. **Service Delivery Review**: This meeting is mainly focused in customer satisfaction. We must explore needs to know if the users and customers are going to be satisfied with the development team processes, efficiency and communication. The target is to improve the confidence between teams and customers, through the transparency.
- 6. **Risk Review**: It examines what possibles risks the teams can have in a near future, failures that the team have had previously and tasks that are blocked or into re-working process right now. In summary, the teams contributes to identify risks through a comprehensive planning based on experience.
- 7. **Strategy Review**: The main focus of this meeting is the marketing team. It analyze if the goals are optimized and updated to meet market trends and needs. We have to question us if there are mismatches between that we are doing right now and the new market demands. Usually, the results of this meeting are changes in the guidelines or KPIs if needed.
-
-<img src="./static/kanbanCadences.png" alt="Kanban Cadences" width="800" height="400">
-<br>
-**Kanban Cadences Diagram**
 
 ### Iterations
 
