@@ -27,7 +27,7 @@ It is a common practice to implement scrum but with little modifications to adap
 
 * During the first sprint, the developer team have to create the first functional and releasable part of software.
 
-* The maximum duration of a sprint is **1 month**, but usually are shorter (one week).
+* The maximum duration of a sprint is **1 month**, but usually are shorter.
 
 * The time-box for sprint planning meeting is 8 hours for 1 mount sprint or less for shorter sprints.
 
@@ -41,7 +41,7 @@ It is a common practice to implement scrum but with little modifications to adap
 
 * In daily meeting, It should be avoided to enter into discussions and simply tell what has been done on the last day, what is going to be done today and the problems that have arisen.
 
-* It is recommended that each member of the team does not take more than 2 minutes to explain their work in the daily meeting, to make it agile.
+* Each developer team member must answer the three questions (yesterday, today and problems) keeping the daily meeting agile.
 
 
 ## 3. Good practices for Scrum teams
@@ -56,14 +56,14 @@ It is a common practice to implement scrum but with little modifications to adap
 
 * The **development team** should not change members often because it implies a loss of productivity.
 
-* It is the responsibility of the **product owner** to deal with other external managers who wish to modify the scope of an sprint or add items in sprint backlog.
+* It is the responsibility of the **product owner** to deal with other managers who wish to modify the scope of an sprint or add items in sprint backlog.
 
-* It is the responsibility of the **scrum master** to implement the scrum methodology and ensure that it is met. Especially making sure that the daily meeting is held.
+* It is the responsibility of the **scrum master** to implement the scrum methodology and ensure that it is met. Among other things, the scrum master must ensure that the daily meeting is held, awareness of self-organization or facilitate retrospectives.
 
 
 ## 4. Planing poker
 
-Planning poker is used to estimate the time it takes to make a product backlog's item. However, it use is unusual and the development team often makes direct estimates without the cards.
+Planning poker is used to estimate the time it takes to make a product backlog's item. However, the development team often makes direct estimates without the cards.
 
 ![alt text](./static/beeva-poker.png "Beeva planing poker")
 
