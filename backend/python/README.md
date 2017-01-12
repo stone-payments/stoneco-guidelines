@@ -109,9 +109,9 @@ http://artifex.org/~hblanks/talks/2011/pep20_by_example.html
 
 There are other areas where Python's philosophy affects development:
 
-* Access to code: Since code is not compiled, and because of the way it is usually distributed (please see [18. Application packaging and distribution](#18-application-packaging-and-distribution)), code from libraries and frameworks is accessible to developers in general. However, it is possible to provide bytecode only packages that do not disclose the code. 
+* Access to code: Since code is not compiled, and because of the way it is usually distributed (please see [21. Application packaging and distribution](#21-application-packaging-and-distribution)), code from libraries and frameworks is accessible to developers in general. However, it is possible to provide bytecode only packages that do not disclose the code.
 * Documentation: The information of modules, classes and methods is available for developers to request while developing if it has been included in the code. This allows interactively requesting information on the method to be used while developing.
-* Performance optimizations: In general, Python developments seek avoiding optimisation of the code during the first development. This is due to the fact that optimizations might affect code readability or complexity. It is only if performance shows to be a crucial point for operation, when optimizations are recommended.
+* Performance optimizations: In general, Python developments prefer to avoid spend much time in the code optimisation during the first development, this is due to the fact that optimizations may affect code readability or complexity. However, when performance is important it is recommended to optimize the code trying not to affect to the readability.
 
 ### 3. Python 2 vs Python 3
 
@@ -280,9 +280,9 @@ reduce(lambda x,y: ''.join([x,y]), ['B','EE','VA'])
 
 ### 5. Style guide (Pep 8)
 
-This section is a summary of official PEP8 documentation, the examples are from this PEP8. Please for more information visit to official PEP8 web site:
+This section is a summary of official PEP8 documentation, the examples are from this PEP8. For more information please visit to official PEP8 web site:
 
-https://www.python.org/dev/peps/pep-0008/#maximum-line-length
+https://www.python.org/dev/peps/pep-0008/
 
 #### 5.1. Indentation
 Use 4 spaces per indentation level.
@@ -361,10 +361,10 @@ You should put a blank line between each group of imports.
 #### 5.7. String Quotes
 In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it. When a string contains single or double quote characters, however, use the other one to avoid backslashes in the string. It improves readability.
 
-For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in PEP 257 .
+For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/) .
 
 #### 5.8. Whitespace in Expressions and Statements
-Pet Peeves
+
 Avoid extraneous whitespace in the following situations:
 
 Immediately inside parentheses, brackets or braces.
@@ -537,22 +537,19 @@ Use inline comments sparingly.
 
 An inline comment is a comment on the same line as a statement. Inline comments should be separated by at least two spaces from the statement. They should start with a # and a single space.
 
-Inline comments are unnecessary and in fact distracting if they state the obvious. Don't do this:
+Inline comments should be used only when really needed (with useful information), so try to avoid comments similar to:
 ```python
 x = x + 1                 # Increment x
-```
-But sometimes, this is useful:
-```python
-x = x + 1                 # Compensate for border
 ```
 
 #### 5.10.3 Documentation Strings
 
-Conventions for writing good documentation strings (a.k.a. "docstrings") are immortalized in PEP 257 .
+Conventions for writing good documentation strings (a.k.a. "docstrings") is specified in [PEP 257](https://www.python.org/dev/peps/pep-0257/
+.0) .
 
-Write docstrings for all public modules, functions, classes, and methods. Docstrings are not necessary for non-public methods, but you should have a comment that describes what the method does. This comment should appear after the def line.
+It is recommended to write docstrings for all public modules, functions, classes, and methods but they are not necessary for non-public methods, you should have a comment that describes what the method does instead (this comment should appear after the def line).
 
-PEP 257 describes good docstring conventions. Note that most importantly, the """ that ends a multiline docstring should be on a line by itself, e.g.:
+Note one important thing regarding the """ that ends a multiline docstring, and it should be on a line by itself, e.g.:
 
 """Return a foobang
 
@@ -569,7 +566,7 @@ These lines should be included after the module's docstring, before any other co
 
 ### 5.12 Naming Conventions
 
-The currently recommended naming standards
+This part is specified in [PEP 423](https://www.python.org/dev/peps/pep-0423/).
 
 #### 5.12.1 Overriding Principle
 
@@ -851,7 +848,7 @@ For example it is possible to define the following function, which computes an o
 
 This approach allows developing functions or frameworks that provide a greater level of abstraction and power. However, the added complexity should be backed up by a relevant need.
 
-##### 9.1.2. Function polymorfism
+##### 9.1.2. Function polymorphism
 
 In Python, objects of different types can have the same type of interfaces or protocols implemented, while the operation performed is understood in a different way. For example, the + operation can be applied both to strings and to numbers with a different interpretation, concatenation in the first case and addition in the second:
 
@@ -863,7 +860,7 @@ In Python, objects of different types can have the same type of interfaces or pr
 9
 ```
 
-And therefore, a function that does not force its parameters to be of a fixed type, it is a polymorfic function. As it can be seen in the following example, the plus function can operate on different object types:
+And therefore, a function that does not force its parameters to be of a fixed type, it is a polymorphic function. As it can be seen in the following example, the plus function can operate on different object types:
 
 ```python
 >>> def plus(one, two):
@@ -978,7 +975,7 @@ if sys.argv[1].startswith('--'):
 ```
 #### 10.2 Os module
 
-This module represents operating system specific functionality. This module is especially important if you want to make your programs platform-independent i.e. it should run on Linux as well as Windows without any problems and without requiring changes.
+This module represents operating system specific functionality. This module is especially important if you want to develop your programs platform-independent i.e. it should run on Linux as well as Windows without any problems and without requiring changes.
 
 Example: To get the complete path of the current working directory enter.
 
@@ -1048,15 +1045,14 @@ logging.config.listen()
 Python has a built-in class named ***str*** which substitutes older ***string*** module.
 This class allows us to perform many operations on the right way.
 
-There exist three ways to enclose our strings in python.
+There are three ways to enclose strings in python.
 You can either use double or single quote, and each of them can contain the other one.
 To span an string literal into multiple lines, you can use the backslash at the end of each line, or use triple quoted strings which allows multiple lines of text.
 
 Python strings are ***immutable*** so they can not be changed after they are created.
 Characters in strings literals can be accessed using the standard [] syntax using zero-based indexing. Furthermore, you can use ***slice*** syntax to refer to sub-parts of sequences
 
-Python includes the ***%*** operator that allows to fill strings with variables in the same way we do it
-with printf C function.
+Python includes the ***%*** operator that allows to fill strings with variables in the same way we do it with printf C function.
 
 Although regular Python strings are just plain bytes, it manages i18n within its strings by using ***unicode***.
 
@@ -2049,7 +2045,7 @@ List of IDEs:
 * Pycharm [1] is nowadays one of the most used for python developers. It has a free licence, named free community and other commercial named professional. The free licence is very nice and includes a lot of features, for example:
   * Debugger
   * Intelligent Code Editor, autocomplete, code analyze...
-  * Refactor code to PEP 8
+  * Refactor code to [PEP 8](https://www.python.org/dev/peps/pep-0008/)
   * And other features.
 * Eric [2], it is other IDE for python, it is really nice, because it is open source and you can use it for free. A few features for this IDE are the following:
   * Debugger
