@@ -9,6 +9,7 @@
   * [Angular's Lifecycle](#angulars-lifecycle)
 * [General](#general)
 * [Naming conventions](#naming-conventions)
+* [Best practices](#Best practices)
 * [Controllers](#controllers)
 * [Directives](#directives)
 * [Components](#components)
@@ -100,7 +101,7 @@ _NOTE:_ As word of advice, read *carefully* the section about bindings and expre
 | Services      | UpperCamelCase          | Service           | constructor |
 | Factories     | lowerCamelCase          | factoryExample    | others      |
 
-## Others
+## Best practices
 
 * Use:
 ⋅⋅* $timeout instead of setTimeout
@@ -1407,7 +1408,7 @@ We cannot say nothing about the public community, as open source contributions a
 * [Angular 1.x styleguide ES2015 by Todd Motto](https://github.com/toddmotto/angular-styleguide)
 * [Angular John Papa's Styleguide](https://github.com/johnpapa/angular-styleguide)
 * [CodeSchool free MOOC] (https://www.codeschool.com/courses/shaping-up-with-angular-js)
-
+* [Alex Kras] (https://www.alexkras.com/11-tips-to-improve-angularjs-performance/)
 ___
 
 [BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
