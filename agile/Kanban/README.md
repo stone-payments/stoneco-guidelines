@@ -123,15 +123,15 @@ Once you know your workflow better, you can add new columns representing a more 
 
 ### Kanban meetings
 
-The value of identifying the **seven** meetings is to look at how we’re getting this stuff done now and to evaluate if there are any gaps and whether we have established a regular cadence that makes sense or if some of these functions are still being handled in an ad hoc fashion rather than proactively.
+People often think that Kanban have less meetings or formalities that other agile methodologies, but really, Kanban have **seven** official meetings in total. Although in each case, teams use only the ones they need. Most of them are auto explicatives:
 
- 1. **Standup Meeting**: It serves to keep the team on the same page about the state of affairs in the project. It addresses questions like who’s working on what, who needs help, and if any tasks are blocked.
- 2. **Replenishment Meeting**: It's the meeting in which we decide what those tasks will be. Scrum calls this the sprint planning meeting, but the format may differ and multiple shareholders may be involved.
- 3. **Operations Review**: The operations review is a higher-level view of how the various teams/divisions/departments/tribes are collaborating as an organization.
- 4. **Delivery Planning Meeting**: This is the meeting that acknowledges that most of us don’t deliver directly to the final customer. It’s the meeting that smooths out hand-offs between teams or departments.
- 5. **Service Delivery Review**: It looks at a Kanban system from the point of view of the people who matter most, the intended beneficiaries of the service.
- 6. **Risk Review**: A risk review conversation can happen at any level of the organization, and probably should occur at all levels. Its purpose is to assess the likelihood of failing to deliver to expectations, either to downstream system components or to end users.
- 7. **Strategy Review**: It examines changes in the market and questions whether our current operational goals are optimized to serve emerging needs.
+ 1. **Standup Meeting**: It's the equivalent to the Scrum Daily meeting. Its objective is to keep the team coordinated and that all people know what are doing each one. In this way, the information can flow. It answer to the questions: "Who is doing that task", "Who needs some help", "Tasks blocked", etc...
+ 2. **Replenishment Meeting**: It's the equivalent to the Scrum Planning meeting. Its objective is to decide what tasks will be in the kanban board. It have some differences between Scrum, because for example, stakeholders can attend to this meeting.
+ 3. **Operations Review**: It isn't have equivalent in Scrum, It's specific in Kanban. This is a look of how is the collaboration inside and between teams or departments. The target is that the different tribes are coordinated and synchronized.
+ 4. **Delivery Planning Meeting**: It analyze what is ready to deliver with the approval of the people that are going to receive it. It takes into account risks during the development process, for example if priority of some tasks in progress have been changed or if some extra information is needed to ensure a smooth transfer of WIP. In summary, teams decide what to deliver and when.
+ 5. **Service Delivery Review**: This meeting is mainly focused in customer satisfaction. We must explore needs to know if the users and customers are going to be satisfied with the development team processes, efficiency and communication. The target is to improve the confidence between teams and customers, through the transparency.
+ 6. **Risk Review**: It examines what possibles risks the teams can have in a near future, failures that the team have had previously and tasks that are blocked or into re-working process right now. In summary, the teams contributes to identify risks through a comprehensive planning based on experience.
+ 7. **Strategy Review**: The main focus of this meeting is the marketing team. It analyze if the goals are optimized and updated to meet market trends and needs. We have to question us if there are mismatches between that we are doing right now and the new market demands. Usually, the results of this meeting are changes in the guidelines or KPIs if needed.
 
 <img src="./static/kanbanCadences.png" alt="Kanban Cadences" width="800" height="400">
 <br>
