@@ -8,6 +8,8 @@
   * [Guide's Scope](#guides-scope)
   * [Angular's Lifecycle](#angulars-lifecycle)
 * [General](#general)
+* [Naming conventions](#naming-conventions)
+* [Best practices](#Best practices)
 * [Controllers](#controllers)
 * [Directives](#directives)
 * [Components](#components)
@@ -25,6 +27,7 @@
   * [Start using Angular with ES6](#start-using-angular-with-es6)
   * [ES6 with WebPack](#es6-with-webpack)
 * [Testing](#testing)
+* [Performance](#performance)
 * [Miscellaneous](#miscellaneous)
 
 # Preface
@@ -86,6 +89,53 @@ This rendering flow is in most cases completely automatic. Thanks to Angular's `
 _NOTE:_ As word of advice, read *carefully* the section about bindings and expressions. Is not usually a good practise to override Angular's native cycle through manual `$apply` calls, and most of the times this could be overcome with a slightly different approach.
 
 # General
+
+## Naming conventions
+
+| Element       | Naming style            | Example           |  Usage      |
+| ------------- |:-----------------------:| :----------------:| -----------:|
+| Modules       | lowerCamelCase          | exampleModule     |             |
+| Controllers   | Functionality  'Ctrl'  | ControllerExample |             |
+| Directives    | lowerCamelCase          | directiveInfo     |             |
+| Filters       | lowerCamelCase          | filterExample     |             |
+| Services      | UpperCamelCase          | Service           | constructor |
+| Factories     | lowerCamelCase          | factoryExample    | others      |
+
+## Best practices
+
+* Use:
+⋅⋅* $timeout instead of setTimeout
+⋅⋅* $interval instead of setInterval
+⋅⋅* $window instead of window
+⋅⋅* $document instead of document
+⋅⋅* $http instead of $.ajax
+⋅⋅* $location instead of window.location or $window.location
+⋅⋅* $cookies instead of document.cookie
+
+This will make your testing easier and in some cases prevent unexpected behaviours (for example, if you missed $scope.$apply in setTimeout).
+
+* Automate your workflow using tools like:
+⋅⋅* NPM
+⋅⋅* Gulp
+⋅⋅* Bower
+⋅⋅* Grunt
+⋅⋅* Yeoman
+
+* Use promises ($q) instead of callbacks. It will make your code look more elegant and clean, and save you from callback.
+* Use $resource instead of $http when possible. The higher level of abstraction will save you from redundancy.
+* Don't use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.
+* Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE).
+* Don´t use $ prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
+* Don´t use JQUERY inside your app, If you must, use JQLite instead with angular.element.
+* When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:
+
+```javascript
+module.factory('ServiceExample', function ($rootScope, $timeout, CustomDependency1, CustomDependency2) {
+  return {
+    //Something
+  };
+});
+```
 
 ## Write obfuscation-ready code
 
@@ -1274,6 +1324,63 @@ E2E tests allow you to simulate user's behavior executing certain tasks. Plus is
 
 Protractor leverages web drivers (just as Selenium or other tools do) to launch your favorite web browser and execute the tasks you've automated first. With this tool you can assure compliance of all covered behaviors, which is a really handy information before deploying into production environments, at the very least.
 
+## performance
+
+* Minimize/Avoid Watchers
+Usually, if you think that your Angular app is slow, it means that you have too many watcher, or those watchers are working harder then they should be.
+
+Angular uses dirty checking to keep track of all the changes in app. This means it will have to go through every watcher to check if they need to be updated (call the digest cycle). If one of the watcher is relied upon by another watcher, Angular would have to re-run the digest cycle again, to make sure that all of the changes has propagated. It will continue to do so, until all of the watchers have been updated and app has stabilized.
+
+1. Watches are set on:
+⋅⋅* $scope.$watch
+⋅⋅* {{ }} type bindings
+⋅⋅* Most directives (i.e. ng-show)
+⋅⋅* Scope variables scope: { bar: '='}
+⋅⋅* Filters {{ value | myFilter }}
+⋅⋅*  ng-repeat
+
+2. Watchers (digest cycle) run on
+⋅⋅* User action (ng-click etc). Most built in directives will call $scope.apply upon completion which triggers the digest cycle.
+⋅⋅* ng-change
+⋅⋅* ng-model
+⋅⋅* $http events (so all ajax calls)
+⋅⋅* $q promises resolved
+⋅⋅* $timeout
+⋅⋅* $interval
+⋅⋅* Manual call to $scope.apply and $scope.digest
+
+
+* Avoid ng-repeat
+This was the biggest win for our app
+
+For example a unique step id, is a good value to track by when doing an ng-repeat.
+
+```html
+<li ng-repeat="Task in Tasks track by Task"></li>
+```
+
+* Use Bind once when possible
+Angular 1.3 added :: notation to allow one time binding. In summary, Angular will wait for a value to stabilize after it’s first series of digest cycles, and will use that value to render the DOM element. After that, Angular will remove the watcher forgetting about that binding.
+
+
+* Use $watchCollection instead of $watch (with a 3rd parameter)
+Use $watch with only 2 parameters, is faster. However, Angular can support a 3rd parameter, that can look like this: $watch('valueExample', function(){}, true). The third parameter, tells Angular deep checking to perform, meaning to check every property of the object, which could be very expensive.
+
+* Avoid repeated filters and cache data whenever possible
+Binding doesn't seem to play well with filters. There seems to be work arounds to make it work, it’s cleaner and more intuitive to simply assign the needed value to a variable.
+
+For example, instead of:
+
+{{'DESCRIPTION' | translate }}
+
+You can do:
+– In JavaScript $scope.description: $translate.instant('DESCRIPTION')
+– In HTML {{::description}}
+
+* Use console.time to benchmark your functions
+console.time is a great API, very helpful when debugging issues with Angular.
+
+
 ## Miscellaneous
 
 ### Be patient
@@ -1301,7 +1408,7 @@ We cannot say nothing about the public community, as open source contributions a
 * [Angular 1.x styleguide ES2015 by Todd Motto](https://github.com/toddmotto/angular-styleguide)
 * [Angular John Papa's Styleguide](https://github.com/johnpapa/angular-styleguide)
 * [CodeSchool free MOOC] (https://www.codeschool.com/courses/shaping-up-with-angular-js)
-
+* [Alex Kras] (https://www.alexkras.com/11-tips-to-improve-angularjs-performance/)
 ___
 
 [BEEVA](https://www.beeva.com) | Technology and innovative solutions for companies
