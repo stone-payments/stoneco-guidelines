@@ -21,6 +21,7 @@ If you think any information is wrong or missing please write us an email or dir
 * [Node.js](backend/nodejs/README.md)
 * [Python](backend/python/README.md)
 * [REST Services](backend/rest/README.md)
+* [Ruby](backend/ruby/README.md)
 * [Scala](backend/scala/README.md)
 
 ### Big Data
