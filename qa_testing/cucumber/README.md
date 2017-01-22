@@ -14,27 +14,27 @@ Test, automation and alive documentation with Cucumber
 
 ### What is Cucumber?
 
-Cucumber is a development tool for the automatic execution of the application acceptance test. It allow the business analyst to describe in a natural way the acceptance criteria of the application using Gherkin for it. On the same way it give the developers the possibility of execute that criteria like test against the application. That feature makes Cucumber really useful on agile development methodologies like [ATDD](../testing/ATDD/README.md) and [BDD](../testing/GoodPractivesBDD.md)
+Cucumber is a development tool for the automatic execution of the application acceptance test. It allows the business analyst to describe in a natural way the acceptance criteria of the application using Gherkin for it. On the same way it gives the developers the possibility of executing that criteria as tests against the application. That feature makes Cucumber really useful on agile development methodologies like [ATDD](../testing/ATDD/README.md) and [BDD](../testing/GoodPractivesBDD.md)
 
 ### ATDD and BDD with Cucumber
 
-Without details, ATDD is an agile development methodology guided by acceptance test. ATDD also includes BDD, which is an agile development methodology guided by the behavior of the application. It means that, the same acceptance criteria can includes different behavior criteria for the application.
+Without details, ATDD is an agile development methodology guided by acceptance test. ATDD also includes BDD, which is an agile development methodology guided by the behavior of the application. It means the same acceptance criteria can include different behavior criteria for the application.
 
-One of the biggest difference between ATDD and BDD is the detail level on the criteria description. Thus Cucumber can be applied on both methodologies. Cucumber allow the execution of criteria or behavior of the application described by business analyst like a test. That is why all depends on the detail level which the different criteria would be described. If both methodologies are used, it could be possible to have a few high level acceptance test that shows the use of ATDD on the project and, on the other hand, a greater number of more detailed behavior test following BDD methodology.
+One of the biggest difference between ATDD and BDD is the detail level on the criteria description. Thus Cucumber can be applied on both methodologies. Cucumber allows the execution of criteria or behavior of the application described by business analyst as a tests and because of that all depends on the detail level which the different criteria would be described. If both methodologies are used, it is possible to have a few high level acceptance test that shows the use of ATDD on the project and, on the other hand, a greater number of more detailed behavior tests following BDD methodology.
 
-That is why Cucumber can be used with both methodologies, making easier the agile development on both of them.
+Therefore, Cucumber can be used with both methodologies, making easier the agile development for both of them.
 
 ### Alive documentation
 
 Another advantage given by cucumber is that it can be part of the project documentation.
 
-One of the biggest problems found on projects should be the project documentation maintenance and now more than ever, because the projects are more agile, dynamical and changing. Using agile development methodologies like commented ones, the applications are constantly changing, leaving documentation outdated frequently. This means that maintenance expenses can be huge if we want to keep it updated.
+One of the biggest problems found in projects is the project documentation maintenance and now more than ever, because the projects are more agile, dynamical and changing. Using agile development methodologies like commented ones, the applications are constantly changing, leaving documentation outdated frequently. This means that maintenance expenses can be huge if we want to keep it updated.
 
-One of the Cucumber main features is use it to describe the requirements of the project both acceptance and functional and that this descriptions are part of the documentation. Besides proyect documentation, this descriptions are the acceptance and functional test, that will be executed against the project once and again. It means that this documentation cant be outdated because the test will fail until they are updated. This way, the project documentation will evolve with the application and never will be outdated.
+One of the Cucumber main features is describing the requirements of the project both acceptance and functional and that this descriptions are part of the documentation. Besides project documentation, this descriptions are the acceptance and functional tests, that will be executed against the project once and again. It means that this documentation cannot be outdated because the test will fail until they are updated. Therefore, the project documentation will evolve with the application and never will be outdated.
 
 ### Life cycle
 
-The ideal life cycle for cucumber test is as follows:
+The ideal life cycle for cucumber tests is as follows:
 
 **Write behavior scenarios with Gherkin**
 
@@ -42,9 +42,9 @@ The scenarios on Cucumber are written using Gherkin, which is a business readabl
 
 Each scenario should describe an specific functionality, keeping an appropiate abstraction level. It means that the scenario descriptions should be on balance between business and technical vision, depending on the detail of the criteria specified on it.
 
-Thus the scenarios should be written jointly by a business person, a developer and a QA. This allows them to be more coordinated and that understanding by both of them be easily and with less missunderstanding.
+Thus the scenarios should be written jointly by a business person, a developer and a QA. This allows them to be more coordinated and facilitates understanding between them.
 
-The scenarios are grouped on features files. A feature file group an indeterminate number of scenarios with similar functionality. An example of a simple feature file with an only scenario written with Gherkin would be the next:
+The scenarios are grouped on features files. A feature file groups an indeterminate number of scenarios with similar functionality. An example of a simple feature file with an only scenario written with Gherkin would be the next:
 
 ```
 Feature: Hello Cucumber
@@ -58,29 +58,29 @@ When I go to the homepage
 Then I should see the welcome message
 ```
 
-As can be seen on the example, all features files have 3 main parts:
+As can be seen on the example, all features files have three main parts:
 
-- Feature declaration: It is always de same. "Feature:" header with a brief description about the common functionality of the scenarios.
+- Feature declaration: header with a brief description about the common functionality of the scenarios.
 
-- Scenario declaration: Like the Feature header, it has a brief but accurate description about the scenario functionality and the specific behaviour of the application. Every scenario should have one or more of the 3 main steps:
+- Scenario declaration: brief but accurate description about the scenario functionality and the specific behaviour of the application. Every scenario should have one or more of the three main steps:
 
-> * Given steps: On the "Given" steps is detailed the initial state of the application. It is set the application on an starting point to describe the funcionality.
-> * When steps: On the "When" steps, is described the funcionality that the application will execute, like on the example "go to the home page". 
-> * Then steps: On the "Them" steps, is checked that the application behaves properly as expected.
+> * Given steps: On the "Given" steps the initial state of the application is detailed. It is set the application on an starting point to describe the funcionality.
+> * When steps: On the "When" steps is described the funcionality that the application will execute, for example "go to the home page". 
+> * Then steps: On the "Then" steps is checked that the application behaves properly as expected.
 
-Those 3 types of steps could be used as desired, but it is advisable that every scenario should have only 3 of those simple steps. This will keep the scenario simple and understandable.
+Those three types of steps could be used as desired, but it is advisable that every scenario should have only three of those simple steps. This will keep the scenario simple and understandable.
 
 On a feature file it can be found other parts like:
 
-> * Background: Only can be 1 "background" for a feature. It declares the steps that will be the same for all the scenarios of the feature.
+> * Background: Only can be one "background" for a feature. It declares the steps that will be the same for all the scenarios of the feature.
 
-> * Example: When some scenarios are really similar between them and only differ on the data tested, all of them could be grouped on an only one scenario with an "example" table, which contains all the data for every scenario.
+> * Example: When some scenarios are really similar between them and only differ on the data tested, all of them could be grouped on an only one scenario with an "example" table, which contains all the parameters for every scenario.
 
 The detail of the different features implementation could be found on main cucumber [page](https://cucumber.io/docs#reference)
 
 **Scenarios implementation**
 
-When the scenarios are properly written and business people and developers have reached an agreement, it is the moment to implement those scenarios. Using cucumber it can be given functionality to all of the Gherkin steps. Thus every step will interact with the application, getting automated test for the application.
+When the scenarios are properly written and business people and developers have reached an agreement, it is the moment to implement those scenarios. Using cucumber it can be given functionality to all of the Gherkin steps. Thus every step will interact with the application, getting automated tests for the application.
 
 ```
 When(/^I go to the homepage$/) do
@@ -96,7 +96,7 @@ The next logic step is to implement the application functionality, which should 
 
 **Automation of scenarios**
 
-And finally, as the funcionalities are being created, we should create executable scenarios with as against the application. Making the execution of those scenarios automatic, we will ensure that the application behave as expected without being worry about possible application errors and problems.
+And finally, as the functionalities are being created, we should create executable scenarios with as against the application. Making the execution of those scenarios automatic, we will ensure that the application behave as expected without being worry about possible application errors and problems.
 
 That way, we also get an alive documentation that will be updated next to application, that evolves with it and that ensures our application behaviour. 
 
