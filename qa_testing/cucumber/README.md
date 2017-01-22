@@ -67,7 +67,7 @@ As can be seen on the example, all features files have three main parts:
 
 > * Given steps: On the "Given" steps the initial state of the application is detailed. It is set the application on an starting point to describe the functionality. After a "Given" step can be added an “And” step to complete the initial state.
 > * When steps: On the "When" steps is described the functionality that the application will execute, for example "go to the home page". 
-> * Then steps: On the "Then" steps is checked that the application behaves properly as expected. Also after a "Then" step can be added an “And” step in order to create more requirements to satisfy the scenario.
+> * Then steps: On the "Then" steps is checked that the application behaves properly as expected.
 
 Apart from three main steps, there are "And" and "But" steps that can be added after each previous steps to join multiple definitions.
 
@@ -79,7 +79,7 @@ Then the energy should be 26500 MJ
 And the protein should be 215 kg
 ```
 
-Those three types of steps could be used as desired, but it is advisable that every scenario should have only three of those simple steps. This will keep the scenario simple and understandable. The detail of the steps definition could be found in cucumber documentation [page](https://cucumber.io/docs/reference#step-definitions)
+Those three types of steps could be used as desired, but it is advisable that every scenario should have only three of those simple steps. This will keep the scenario simple and understandable. The detail of the steps definition could be found in cucumber documentation [page](https://cucumber.io/docs/reference#step-definitions).
 
 On a feature file it can be found other parts like:
 
@@ -128,7 +128,7 @@ When(/^I go to the homepage$/) do
 end
 ```
 
-The step implementations can have variables as property fields or tables with multiple values. The following example pass an integer to the test in Groovy:
+The step implementations can have variables as property fields or tables with multiple values. The following example pass an integer to the test implementation in Groovy:
 ```
 Then(~/^I should have (\d+) cucumbers$/) { Integer cucumber_left ->
     validate(cucumber_left)
@@ -207,7 +207,7 @@ Initially, Cucumber was created for Ruby, so all other implementations are based
 
 - features/support - Contains supporting Ruby code. Files in support load before those in step_definitions, which makes it useful for such things as environment configuration (commonly done in a file called env.rb).
 
-There are Cucumber implementations for mostly common programming languages and all of it could be found on it's [main page](https://cucumber.io/docs#reference)
+There are Cucumber implementations for mostly common programming languages and all of it could be found on it's [main page](https://cucumber.io/docs#reference).
 
 
 ### Reporting
@@ -216,7 +216,7 @@ Executing cucumber tests generate an ouput log where you can identify easily whi
 
 If you need to extract reports from tests executed, Cucumber can report results in different formats using formatters plugins (Pretty, HTML, JSON, Progress, Usage JUnit and Rerun). Plugins can be consulted [here](https://cucumber.io/docs/reference#reports).
 
-For continuous integration, there are some plugins as [this](https://plugins.jenkins.io/cucumber-reports) one for Jenkins. It is interesting to automate Cucumber tests and can have a historical report from executions.
+For continuous integration, there are some plugins as [this](https://plugins.jenkins.io/cucumber-reports) one for Jenkins. It is interesting to automate Cucumber tests and have a historical report from executions.
 
 ___
 
