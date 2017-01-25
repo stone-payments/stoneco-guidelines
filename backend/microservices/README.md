@@ -366,7 +366,26 @@ Additionally, we recommend to avoid Single Points Of Failure (SPOF) providing se
     - microservice1.yml
     - microservice1-local.yml
 
+#### Security
 
+You can secure the config server to add an extra layer of security. You can use the default basic security HTTP configuration including spring security 
+in the classpath (spring-boot-starter-security).By default it uses a username "user"  and a randomly generated password. 
+It is a good practice to set a password for the property (security.user.password) and to encrypt it. If you want to change 
+the username you have to make use of the property (security.user.name)
+
+#### Encryption and Decryption
+
+It is possible to encrypt the properties (values beginning with {cipher}), which will be decrypted before sending to clients over HTTP.
+There are 2 enpoints /encrypt and /decrypt to encrypt or decrypt values
+
+``` java
+$ curl localhost:8888/encrypt -d mysecret
+682bc583f4641835fa2db009355293665d2647dade3375c0ee201de2a49f7bda
+```
+``` java
+$ curl localhost:8888/decrypt -d 682bc583f4641835fa2db009355293665d2647dade3375c0ee201de2a49f7bda
+mysecret
+```
 ### 3.3 Eureka
 
 Eureka is a module responsible for both service registering and service discovering. It is comprised of two modules:
