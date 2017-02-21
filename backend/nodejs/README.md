@@ -1263,7 +1263,7 @@ Another interesting point thinking on how web applications should be written it'
 Node.js and Best Practices
 * [Node.js Oficial WebSite](http://www.nodejs.org)
 * [Node.js design patterns](https://blog.risingstack.com/fundamental-node-js-design-patterns/)
-* [Risingstack Best Practices](https://blog.risingstack.com/node-js-best-practices)
+* [Risingstack Best Practices](https://github.com/RisingStack/node-style-guide)
 * [ES6 & callback-promise Best Practices](https://blog.risingstack.com/how-to-become-a-better-node-js-developer-in-2016)
 * [Heroku Best Practices](https://devcenter.heroku.com/articles/node-best-practices)
 
