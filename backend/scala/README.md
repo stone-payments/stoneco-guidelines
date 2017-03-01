@@ -330,6 +330,28 @@ Use the Future combinators. Future.select, Future.join, and Future.collect codif
 
 Do not throw your own exceptions in methods that return Futures. Futures represent both successful and failed computations. Therefore, it’s important that errors involved in that computation are properly encapsulated in the returned Future.
 
+### Execution context
+
+Now that we've talked about Futures, it is a good idea to introduce the concept of the Execution context.
+
+As we've stated, Futures are a great way to handle concurrency. However, when building a big project with multiple modules using futures, we should be weary of the __Execution context__.
+
+An Execution Context is the one responsible for executing the future's computations.
+Scala comes pre-packed with an execution context which is most likely the one you have been using if you ever used Futures.
+
+This execution context is located in _scala.concurrent.ExecutionContext.Implicits.global_. It comes with a _ForkJoinPool_, which provides a limited number of threads. The reason why you should be weary of this is because if you create too many Futures that can eventually block its own thread, you __might block the whole execution context, impeding the computations of newly created futures__.
+
+If you are about to create a concurrency-heavy module that generates lots of futures that might be long-lasting, you should consider creating your own execution context so you don't accidentally block the global execution context, which is likely to be used by other programmers in your project.
+
+So, to sum it up:
+
+- Avoid creating too many futures. Itreating over a collection and creating futures at every element is __very__ discouraged. Try to pack things up.
+
+- Create your own execution contexts for long-lasting, future-heavy modules.
+
+More information [here](http://docs.scala-lang.org/overviews/core/futures.html)
+
+
 ####Collections
 
 In most practical situations they are a nonissue: Always start with the simplest, most boring, and most standard collection that serves the purpose. Don’t reach for a concurrent collection before you know that a synchronized one won’t do.
