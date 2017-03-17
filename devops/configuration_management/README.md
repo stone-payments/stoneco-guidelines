@@ -66,10 +66,6 @@ In the develop stage, it uses SCRUM as methodology, encouraging the  evolutive i
 
 All the code is pushed to Subversion or Git repositories to keep a ordenated version control system and improve the traceability of changes.
 
-For this document it's supposed that, in new projects, starting from a Git configured project following the standard defined in the Open Platform *Software Management* document:
-
-[https://docs.google.com/a/bbva.com/document/d/1g2dpCixAczQ66S3cgLfDq0I4l_sE5nSkhzkVv9wdtos/edit?usp=sharing](https://docs.google.com/a/bbva.com/document/d/1g2dpCixAczQ66S3cgLfDq0I4l_sE5nSkhzkVv9wdtos/edit?usp=sharing)
-
 Every time a sprint ends it makes use of continuous integration tools like Jenkins and quality assurance (unit tests, Cucumber, Sonar, Selenium) for building the project.
 
 For deploying to the different environments doing it from a orchestrated way and minimizing the human error, the applications are independents from environment and they get packet in a common repository to all environments.
