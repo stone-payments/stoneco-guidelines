@@ -1,6 +1,6 @@
 ![alt text](/static/horizontal-beeva-logo.png "BEEVA")
 
-#Best Practices in BEEVA
+# Best Practices in BEEVA
 
 Here is the list of best practices, guidelines, codestyles and recommendations that we follow and encourage in BEEVA, please read the contrib [guidelines](#contrib-guidelines) before sending your pull request with your content.
 
