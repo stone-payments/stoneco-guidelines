@@ -55,7 +55,7 @@ If you think any information is wrong or missing please write us an email or dir
 * [Server Security](it_security/server_security/README.md)
 * [Secure Development](it_security/secure-development/README.md)
 
-### NoSQL
+### NoSQL
 * [MongoDB](nosql/mongodb/README.md) 
 
 ### Quality Assurance
