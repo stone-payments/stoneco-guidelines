@@ -1,10 +1,10 @@
-**Stone Code of Conduct**
+# Code of Conduct Guideline
 
-**The Dream**
+## The Dream
 
 We at Stone want to encourage a welcoming, happy and collaborative environment where new ideas can flourish and be discussed respectfully. Our strength comes from our diversity and we always seek participation from those who magnify it.
 
-**Our standards**
+## Our standards
 
 - **Be welcoming and friendly** : We strive to be a community that welcomes and supports people of all backgrounds and identities. This includes, but is not limited to members of any race, ethnicity, culture, national origin, color, immigration status, social and economic class, educational level, sex, sexual orientation, gender identity and expression, age, size, family status, political belief, religion, and mental and physical ability.
 
@@ -14,7 +14,7 @@ We at Stone want to encourage a welcoming, happy and collaborative environment w
 - **Be collaborative** : What we produce is a complex whole made of many parts, it is the sum of many dreams. Collaboration between teams that each have their own goal and vision is essential; for the whole to be more than the sum of its parts, each part must make an effort to understand the whole.
 - **Ask for help when unsure** : The purpose here is sharing, helping each other out and growing together, so ask questions freely. Those who are asked should be responsive and polite, but what will really make them eager to help is they seeing you tried your best to find an answer yourself, so make sure you do your homework.
 
-**What isn't acceptable**
+## What isn't acceptable
 
 - Offensive comments related to gender, gender identity and expression, sexual orientation, disability, mental illness, neuro(a)typicality, physical appearance, body size, race, age, regional discrimination, political or religious affiliation
 
@@ -27,21 +27,19 @@ We at Stone want to encourage a welcoming, happy and collaborative environment w
 - Publishing others&#39; private information, such as a physical or electronic address, without explicit permission
 - Other conduct which could reasonably be considered inappropriate in a professional setting
 
-**Enforcement**
+## Enforcement
 
 Should you come to suffer or witness any instance of abusive, harassing or otherwise unacceptable behavior, contact [\*\*\*](mailto:HELPME@stone.com.br). All complaints will be thoroughly investigated and in case they are confirmed true, all personnel responsible will be accordingly punished – unacceptable behavior will not be tolerated. Rest assured that he confidentiality of the issue reporter will always be guaranteed.
 
-**Scope**
+## Scope
 
 This Code of Conduct applies both within community environment and in public spaces where an individual is representing the company or its community. These cases include, but do not resume to, using on official company e-mail address or acting as an appointed representative at an online or offline event. Community managers will be able to further define and clarify representation of the company.
 
-
-
-**What does the Code of Conduct mean for me?**
+## What does the Code of Conduct mean for me?
 
 Our Code of Conduct means that you are responsible for treating everyone on the community with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do our best to ensure that the abuser is reprimanded appropriately, per our code. Remember: The Code is here for you, not against you. Live by the Code.
 
-**Sources/Inspirations for the Code**
+## Sources/Inspirations for the Code
 
 [http://contributor-covenant.org/version/1/4/code\_of\_conduct.txt](http://contributor-covenant.org/version/1/4/code_of_conduct.txt);
 
