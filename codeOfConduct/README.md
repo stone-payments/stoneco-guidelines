@@ -39,7 +39,7 @@ This Code of Conduct applies both within community environment and in public spa
 
 Our Code of Conduct means that you are responsible for treating everyone on the community with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do our best to ensure that the abuser is reprimanded appropriately, per our code. Remember: The Code is here for you, not against you. Live by the Code.
 
-## Sources/Inspirations for the Code
+## Sources/Inspirations for this document:
 
 [http://contributor-covenant.org/version/1/4/code\_of\_conduct.txt](http://contributor-covenant.org/version/1/4/code_of_conduct.txt);
 

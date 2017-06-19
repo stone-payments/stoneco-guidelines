@@ -14,11 +14,6 @@ If you think any information is wrong or missing please write us an email or dir
 * [Topics](topics/README.md)
 * [LICENSE.md](license/README.md)
 
-### Agile
-* [Kanban](agile/Kanban/README.md)
-* [User Stories](agile/userStories/README.md)
-* [Working Agreements](agile/workingAgreements/README.md)
-
 ## Contrib Guidelines
 * Please contribute with [OC](http://m.memegen.com/hyndzm.jpg) only no body likes copy/paste gangstas around, but if you think another site has already explained a section/technology better than you provide a link and add __attributions and references__ if necessary to external sites, it's nice when your work is recognized by others. We know its hard to write something new that explains something old, that is simpler and more clear so in some cases its better to make diagrams to explain yourself and try to explain the same concepts in a more interesting and fun way.
 * User your beeva github account (beeva-*) not your personal account, so we can track your contributions properlly.
