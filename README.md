@@ -28,7 +28,7 @@ If you think any information is wrong or missing please write us an email or dir
 
 ---
 
-# Licence
+# License
 
 Please see [LICENSE](LICENSE).
 
