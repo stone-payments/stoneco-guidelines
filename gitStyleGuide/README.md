@@ -38,9 +38,9 @@ _Tip_: Use **git add -p** to interactively stage specific portions of the modifi
 
 - **Don&#39;t split a single logical change into several commits.** For example, the implementation of a feature and the corresponding tests should be in the same commit.
 
-- **Commit **** early **** and **** often ****.**  Small, self-contained commits are easier to understand and revert when something goes wrong.
+- **Commit _early_ and _often_.**  Small, self-contained commits are easier to understand and revert when something goes wrong.
 
-- **Commits should be ordered **** logically ****.**  For example, if commit X depends on changes done in commit Y, then commit Y should come before commit X.
+- **Commits should be ordered _logically_ .**  For example, if commit X depends on changes done in commit Y, then commit Y should come before commit X.
 
 ### Commit Messages
 
@@ -76,7 +76,12 @@ The type is contained within the title and can be one of the following:
 
   Subjects should be no greater than 50 characters, should begin with a capital letter and do not end with a period. Use the imperative mood in the subject line. Separate the subject from the body (when there is one) with a blank line.
 
-_Example_: #good# Refactor subsystem X for readability #good# Remove deprecated methods #bad# Fixed bug with Y #bad# More fixes from broken stuff
+_Example_: 
+
+      #good# Refactor subsystem X for readability 
+      #good# Remove deprecated methods 
+      #bad# Fixed bug with Y 
+      #bad# More fixes from broken stuff
 
 ### Body
 
