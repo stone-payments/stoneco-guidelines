@@ -111,8 +111,10 @@ _Exemplo_:
 - Mantenha o histórico limpo e simples. Imediatamente antes de dar merge no seu ramo:
 	- Certifique-se de que ele está conforme o guia de estilo e realize qualquer ação necessária se ele não estiver de acordo (dar squash/reordenar commits, reescrever mensagens, etc.)
 	- Dar rebase do seu ramo no ramo em que ele será "mergido"
-Isso resulta num ramo que pode ser aplicado diretamente ao fim do ramo "master" e resulta num histórico muito simples.
-Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao incés de dar rebase nele.
+	
+	Isso resulta num ramo que pode ser aplicado diretamente ao fim do ramo "master" e resulta num histórico muito simples.
+	
+	Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao incés de dar rebase nele.
 
 - Se o seu ramo inclui mais de um commit, não dê merge com fast-forward:
 
