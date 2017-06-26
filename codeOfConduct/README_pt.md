@@ -18,13 +18,20 @@ Nós da Stone queremos encorajar um ambiente receptivo, feliz e colaborativo ond
 ## O que não é aceitável
 
 - Comentários ofensivos relacionados a identidade e expressão de gênero, orientação sexual, deficiência, doença mental, (a)tipicalidade neural, aparência física, tamanho corporal, raça, idade, discriminação regional, afiliação política ou religiosa
+
 - Comentários negativos acerca das práticas e escolhas de vida de alguém, incluindo aquelas relacionadas a comida, saúde, educação dos filhos, drogas e emprego
+
 - Contato físico e contato físico simulado sem o consentimento ou depois de um pedido para parar
 - Ameaças de violência, tanto física quanto psicológica
+
 - Comentários troll ou insultivos a ataques pessoais ou políticos
+
 - Atenção sexual indesejada, incluindo comportamentos ou imagens sexuais gratuitas e sem contexto
+
 - Padrão de contato social inapropriado, como pedir/assumir níveis inapropriados com outros
+
 - Publicar informações privadas de outros, como endereço físico ou eletrônico, sem permissão explícita
+
 - Outra conduta que possa ser considerada com razoabilidade como inapropriada num ambiente profissional
 
 ## Punição
