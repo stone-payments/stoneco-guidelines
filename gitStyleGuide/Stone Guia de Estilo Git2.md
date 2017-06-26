@@ -30,11 +30,15 @@ _Dica_: Use o seguinte comando quando estiver no “master”, para listar ramos
 
 ## Commits
 
-Cada commit deve ser uma única mudança lógica. Não coloque várias mudanças em um único commit. Por exemplo, se um patch conserta um bug e otimiza a performance de uma funcionalidade, divida-o em dois commits separados.
-Dica: Use git add -p para organizar interativamente porções específicas dos arquivos modificados.
-Não separe uma mudança lógica única em diversos commits. Por exemplo, a implementação de uma funcionalidade e os testes correspondentes devem estar no mesmo commit.
-Faça commits cedo e frequentemente. Commits pequenos e contidos são mais fáceis de entender e reverter se algo sair errado.
-Commits devem ser ordenados logicamente. Por exemplo, se o commit X depende de mudanças feitas no commit Y, então o commit Y deve vir antes do commit X.
+**Cada commit deve ser uma única mudança lógica.** Não coloque várias mudanças em um único commit. Por exemplo, se um patch conserta um bug e otimiza a performance de uma funcionalidade, divida-o em dois commits separados.
+
+_Dica_: Use **git add -p** para organizar interativamente porções específicas dos arquivos modificados.
+
+**Não separe uma mudança lógica única em diversos commits.** Por exemplo, a implementação de uma funcionalidade e os testes correspondentes devem estar no mesmo commit.
+
+**Faça commits cedo e frequentemente.** Commits pequenos e contidos são mais fáceis de entender e reverter se algo sair errado.
+
+**Commits devem ser ordenados logicamente.** Por exemplo, se o commit X depende de mudanças feitas no commit Y, então o commit Y deve vir antes do commit X.
 
 ## Mensagens de Commit
 
