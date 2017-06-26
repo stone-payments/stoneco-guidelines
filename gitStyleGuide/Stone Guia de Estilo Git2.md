@@ -53,14 +53,22 @@ Resolves: #1234
 O título se divide em 2 partes: o tipo e o assunto.
 
 ### Tipo
+
 O tipo fica contido no título e pode ser um dos seguintes:
-feat: uma nova funcionalidade
-fix: um conserto de bug
-docs: mudanças de documentação
-style: formatação, ponto-e-vírgula faltando, etc.; sem mudança de código
-refactor: refatoração código de produção
-test: adicionar testes, refatorar testes; sem mudança de código de produção
-chore: atualização de build tasks, configuração de gerente de pacotes, etc.; sem mudança de código de produção
+
+- **feat:** uma nova funcionalidade
+
+- **fix:** um conserto de bug
+
+- **docs:** mudanças de documentação
+
+- **style:** formatação, ponto-e-vírgula faltando, etc.; sem mudança de código
+
+- **refactor:** refatoração código de produção
+
+- **test:** adicionar testes, refatorar testes; sem mudança de código de produção
+
+- **chore:** atualização de build tasks, configuração de gerente de pacotes, etc.; sem mudança de código de produção
 
 ### Assunto
 Assuntos não devem ter mais de 50 caracteres, devem começar com uma letra maiúscula e não terminar com ponto. Use o modo imperativo na linha de assunto. Separe o assunto do corpo (quando houver um) com uma linha em branco.
