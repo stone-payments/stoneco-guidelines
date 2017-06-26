@@ -92,10 +92,14 @@ Quando escrever uma mensagem de commit, pense no que você mesmo precisaria sabe
 Limite o corpo a 72 caracteres por linha.
 
 ### Rodapé
+
 O rodapé também é opcional e é usado para monitoramento/referência de issues:
-Exemplo: 
-Resolves: #123
-Veja também: #456, #789
+
+_Exemplo_: 
+
+    Resolves: #123
+    
+    Veja também: #456, #789
 
 ## Merging
 
