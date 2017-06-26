@@ -118,11 +118,11 @@ Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em ou
 
 - Se o seu ramo inclui mais de um commit, não dê merge com fast-forward:
 
-      #bom# - assegura que um commit de merge é criado
+	#bom# - assegura que um commit de merge é criado
 		
       $ git merge --no-ff my-branch 
 
-      #ruim#
+	#ruim#
 
       $ git merge my-branch
 
