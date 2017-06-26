@@ -5,6 +5,7 @@
 - Escolha nomes curtos e descritivos:
 
       #bom# $ git checkout -b oauth-migtration
+      
       #ruim# $git checkout -b login_fix
       
 - Identificadores de tickets correspondentes num serviço externo (p.ex. um issue do GitHub) também são bons candidatos para uso em nomes de ramos. Por exemplo:
