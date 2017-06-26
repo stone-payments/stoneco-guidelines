@@ -112,19 +112,19 @@ _Exemplo_:
 	- Certifique-se de que ele está conforme o guia de estilo e realize qualquer ação necessária se ele não estiver de acordo (dar squash/reordenar commits, reescrever mensagens, etc.)
 	- Dar rebase do seu ramo no ramo em que ele será "mergido"
 	
-	Isso resulta num ramo que pode ser aplicado diretamente ao fim do ramo "master" e resulta num histórico muito simples.
+Isso resulta num ramo que pode ser aplicado diretamente ao fim do ramo "master" e resulta num histórico muito simples.
 	
-	Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao incés de dar rebase nele.
+Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao incés de dar rebase nele.
 
 - Se o seu ramo inclui mais de um commit, não dê merge com fast-forward:
 
-#bom# - assegura que um commit de merge é criado
+      #bom# - assegura que um commit de merge é criado
+		
+      $ git merge --no-ff my-branch 
 
-    $ git merge --no-ff my-branch
+      #ruim#
 
-#ruim#
-
-    $ git merge my-branch
+      $ git merge my-branch
 
 - NUNCA dê commit em algo como “Fix linter” ou “Fix tests” (consertos de bugs/tests). Esses “fixes” devem tomar squash para os commits que os originaram.
 - NUNCA dê squash totalmente num ramo antes de dar merge nele, a não ser que o ramo inteiro (todos os commits) estejam relacionados a uma única mudança lógica.
