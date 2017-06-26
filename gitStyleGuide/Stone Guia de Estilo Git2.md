@@ -10,7 +10,7 @@
       
 - Identificadores de tickets correspondentes num serviço externo (p.ex. um issue do GitHub) também são bons candidatos para uso em nomes de ramos. Por exemplo:
 
-      #issue do GitHub #23
+      #Issue do GitHub #23
 
       $ git checkout -b issue-15
       
