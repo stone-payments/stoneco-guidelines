@@ -116,29 +116,29 @@ Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em ou
 
 - Se o seu ramo inclui mais de um commit, não dê merge com fast-forward:
 
-#bom - assegura que um commit de merge é criado
+#bom# - assegura que um commit de merge é criado
 
-$ git merge --no-ff my-branch
+    $ git merge --no-ff my-branch
 
-#ruim
+#ruim#
 
-$ git merge my-branch
+    $ git merge my-branch
 
-NUNCA dê commit em algo como “Fix linter” ou “Fix tests” (consertos de bugs/tests). Esses “fixes” devem tomar squash para os commits que os originaram.
-NUNCA dê squash totalmente num ramo antes de dar merge nele, a não ser que o ramo inteiro (todos os commits) estejam relacionados a uma única mudança lógica.
-NUNCA use git merge master num ramo. SEMPRE use git rebase master, depois force-push, espere que o CI (sistema de Integração Contínua) liberar e só então merge ele no "master".
-A CONVENÇÃO é sempre usar a interface web do Github para dar merge no "master" e NUNCA usar Git na linha de comando (isto é, git checkout master; git merge --no-ff branch; git push). Isso evita confusão e esquecer de coisas muito importantes como merge sem fast-forward.
+- NUNCA dê commit em algo como “Fix linter” ou “Fix tests” (consertos de bugs/tests). Esses “fixes” devem tomar squash para os commits que os originaram.
+- NUNCA dê squash totalmente num ramo antes de dar merge nele, a não ser que o ramo inteiro (todos os commits) estejam relacionados a uma única mudança lógica.
+- NUNCA use git merge master num ramo. SEMPRE use git rebase master, depois force-push, espere que o CI (sistema de Integração Contínua) liberar e só então merge ele no "master".
+- A CONVENÇÃO é sempre usar a interface web do Github para dar merge no "master" e NUNCA usar Git na linha de comando (isto é, git checkout master; git merge --no-ff branch; git push). Isso evita confusão e esquecer de coisas muito importantes como merge sem fast-forward.
 
-Diversos
+## Diversos
 
-•	Existem variados workflows e cada um tem suas forças e fraquezas. Se um deles se adéqua ao seu caso, depende do seu time, do projeto e do seu procedimento de desenvolvimento.
+- Existem variados workflows e cada um tem suas forças e fraquezas. Se um deles se adéqua ao seu caso, depende do seu time, do projeto e do seu procedimento de desenvolvimento.
+
 Com isso em mente, o mais importante é de fato escolher um workflow e seguir firme com ele.
-•	Seja consistente. Isso é relacionado ao workflow mas também se expande para coisas como mensagens de commit, nomes de ramos e tags. Ter um estilo constistente através do seu repositório faz dele mais fácil que todos os contributors possam compreender o que está acontecendo ao olhar o log, uma mensagem de commit, etc.
-•	Teste antes de dar push. Não dê push em trabalho feito pela metade.
 
-Use o Senso Comum, Luke
+- _Seja consistente_. Isso é relacionado ao workflow mas também se expande para coisas como mensagens de commit, nomes de ramos e tags. Ter um estilo constistente através do seu repositório faz dele mais fácil que todos os contributors possam compreender o que está acontecendo ao olhar o log, uma mensagem de commit, etc.
+- _Teste antes de dar push_. Não dê push em trabalho feito pela metade.
 
-Use o Senso Comum, Luke. SIGA ESSE GUIA! Isso é muito importante, caso contrário nós não faríamos você lê-lo antes de contribuir com nossos repositórios.
+**Use o Senso Comum, Luke**. SIGA ESSE GUIA! Isso é muito importante, caso contrário nós não faríamos você lê-lo antes de contribuir com nossos repositórios.
 
 ## Agradecimentos
 
