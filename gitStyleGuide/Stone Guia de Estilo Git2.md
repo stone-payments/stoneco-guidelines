@@ -16,10 +16,14 @@
       
 - Use barras para separar palavras
 - Quando várias pessoas estiverem trabalhando numa mesma funcionalidade, pode ser conveniente ramos de funcionalidade pessoais e um ramo de funcionalidade do time. Use a seguinte convenção para nomes:
-	$ git checkout -b feature-a/master # ramo do time
-	$ git checkout -b feature-a/joao # ramo do João
-	$ git checkout -b feature-a/maria # ramo da Maria
-	"Merge" livremente os ramos pessoais ao ramo do time. Eventualmente, o ramo do time será "mergido" ao master.
+
+      $ git checkout -b feature-a/master # ramo do time
+      
+      $ git checkout -b feature-a/joao # ramo do João
+      
+      $ git checkout -b feature-a/maria # ramo da Maria
+      
+"Merge" livremente os ramos pessoais ao ramo do time. Eventualmente, o ramo do time será "mergido" ao master.
 - Apague o seu ramo do repositório superior depois que ele for "mergido", a não ser que haja uma razão específica para não fazer isso.
 	Dica: Use o seguinte comando quando estiver no “master”, para listar ramos "mergidos": 
 	$ git branch --merged | grep -v “\*”
