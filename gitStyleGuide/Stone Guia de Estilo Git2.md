@@ -9,8 +9,11 @@
       #ruim# $git checkout -b login_fix
       
 - Identificadores de tickets correspondentes num serviço externo (p.ex. um issue do GitHub) também são bons candidatos para uso em nomes de ramos. Por exemplo:
-	#issue do GitHub #23
-	$ git checkout -b issue-15
+
+      #issue do GitHub #23
+
+      $ git checkout -b issue-15
+      
 - Use barras para separar palavras
 - Quando várias pessoas estiverem trabalhando numa mesma funcionalidade, pode ser conveniente ramos de funcionalidade pessoais e um ramo de funcionalidade do time. Use a seguinte convenção para nomes:
 	$ git checkout -b feature-a/master # ramo do time
