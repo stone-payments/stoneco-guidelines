@@ -36,9 +36,9 @@ _Dica_: Use **git add -p** para organizar interativamente porções específicas
 
 - **Não separe uma mudança lógica única em diversos commits.** Por exemplo, a implementação de uma funcionalidade e os testes correspondentes devem estar no mesmo commit.
 
-- **Faça commits cedo e frequentemente.** Commits pequenos e contidos são mais fáceis de entender e reverter se algo sair errado.
+- **Faça commits _cedo_ e _frequentemente_.** Commits pequenos e contidos são mais fáceis de entender e reverter se algo sair errado.
 
-- **Commits devem ser ordenados logicamente.** Por exemplo, se o commit X depende de mudanças feitas no commit Y, então o commit Y deve vir antes do commit X.
+- **Commits devem ser ordenados _logicamente_.** Por exemplo, se o commit X depende de mudanças feitas no commit Y, então o commit Y deve vir antes do commit X.
 
 ### Mensagens de Commit
 
