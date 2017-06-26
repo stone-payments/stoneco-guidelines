@@ -44,11 +44,11 @@ _Dica_: Use **git add -p** para organizar interativamente porções específicas
 
 Uma mensagem de commit consiste de três partes distintas separadas por uma linha em branco: o título, o corpo (opcional) e o rodapé (opcional). O layout fica assim:
 
-_Feat: Ensina como escrever mensagem de commit
+_Feat: Ensina como escrever mensagem de commit_
 
-_Às vezes, uma maior explicação pode ser útil.
+_Às vezes, uma maior explicação pode ser útil._
 
-_Resolves: #1234
+_Resolves: #1234_
 
 O título se divide em 2 partes: o tipo e o assunto.
 
