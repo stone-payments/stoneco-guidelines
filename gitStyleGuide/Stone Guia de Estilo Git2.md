@@ -25,8 +25,7 @@
       
 	"Merge" livremente os ramos pessoais ao ramo do time. Eventualmente, o ramo do time será "mergido" ao master.
 - Apague o seu ramo do repositório superior depois que ele for "mergido", a não ser que haja uma razão específica para não fazer isso.
-	Dica: Use o seguinte comando quando estiver no “master”, para listar ramos "mergidos": 
-	$ git branch --merged | grep -v “\*”
+_Dica_: Use o seguinte comando quando estiver no “master”, para listar ramos "mergidos": $ git branch --merged | grep -v “\*”
 
 ## Commits
 
