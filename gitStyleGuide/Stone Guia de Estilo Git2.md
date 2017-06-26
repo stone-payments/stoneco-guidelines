@@ -1,105 +1,105 @@
 # Guia de Estilo Git
 
-## Ramificação (Branching)
+## RamificaÃ§Ã£o (Branching)
 
 - Escolha nomes curtos e descritivos:
-	#bom# $ git checkout -b oauth-migtration
-	#ruim# $git checkout -b login_fix
-- Identificadores de tickets correspondentes num serviço externo (p.ex. um issue do GitHub) também são bons candidatos para uso em nomes de ramos. Por exemplo:
+#bom# $ git checkout -b oauth-migtration
+#ruim# $git checkout -b login_fix
+- Identificadores de tickets correspondentes num serviÃ§o externo (p.ex. um issue do GitHub) tambÃ©m sÃ£o bons candidatos para uso em nomes de ramos. Por exemplo:
 	# issue do GitHub #23
 	$ git checkout -b issue-15
-•	Use barras para separar palavras
-•	Quando várias pessoas estiverem trabalhando numa mesma funcionalidade, pode ser conveniente ramos de funcionalidade pessoais e um ramo de funcionalidade do time. Use a seguinte convenção para nomes:
+â€¢	Use barras para separar palavras
+â€¢	Quando vÃ¡rias pessoas estiverem trabalhando numa mesma funcionalidade, pode ser conveniente ramos de funcionalidade pessoais e um ramo de funcionalidade do time. Use a seguinte convenÃ§Ã£o para nomes:
 	$ git checkout -b feature-a/master # ramo do time
-	$ git checkout -b feature-a/joao # ramo do João
+	$ git checkout -b feature-a/joao # ramo do JoÃ£o
 	$ git checkout -b feature-a/maria # ramo da Maria
-	"Merge" livremente os ramos pessoais ao ramo do time. Eventualmente, o ramo do time será "mergido" ao master.
-•	Apague o seu ramo do repositório superior depois que ele for "mergido", a não ser que haja uma razão específica para não fazer isso.
-	Dica: Use o seguinte comando quando estiver no “master”, para listar ramos "mergidos": 
-	$ git branch --merged | grep -v “\*”
+	"Merge" livremente os ramos pessoais ao ramo do time. Eventualmente, o ramo do time serÃ¡ "mergido" ao master.
+â€¢	Apague o seu ramo do repositÃ³rio superior depois que ele for "mergido", a nÃ£o ser que haja uma razÃ£o especÃ­fica para nÃ£o fazer isso.
+	Dica: Use o seguinte comando quando estiver no â€œmasterâ€, para listar ramos "mergidos": 
+	$ git branch --merged | grep -v â€œ\*â€
 
 Commits
 
-Cada commit deve ser uma única mudança lógica. Não coloque várias mudanças em um único commit. Por exemplo, se um patch conserta um bug e otimiza a performance de uma funcionalidade, divida-o em dois commits separados.
-Dica: Use git add -p para organizar interativamente porções específicas dos arquivos modificados.
-Não separe uma mudança lógica única em diversos commits. Por exemplo, a implementação de uma funcionalidade e os testes correspondentes devem estar no mesmo commit.
-Faça commits cedo e frequentemente. Commits pequenos e contidos são mais fáceis de entender e reverter se algo sair errado.
-Commits devem ser ordenados logicamente. Por exemplo, se o commit X depende de mudanças feitas no commit Y, então o commit Y deve vir antes do commit X.
+Cada commit deve ser uma Ãºnica mudanÃ§a lÃ³gica. NÃ£o coloque vÃ¡rias mudanÃ§as em um Ãºnico commit. Por exemplo, se um patch conserta um bug e otimiza a performance de uma funcionalidade, divida-o em dois commits separados.
+Dica: Use git add -p para organizar interativamente porÃ§Ãµes especÃ­ficas dos arquivos modificados.
+NÃ£o separe uma mudanÃ§a lÃ³gica Ãºnica em diversos commits. Por exemplo, a implementaÃ§Ã£o de uma funcionalidade e os testes correspondentes devem estar no mesmo commit.
+FaÃ§a commits cedo e frequentemente. Commits pequenos e contidos sÃ£o mais fÃ¡ceis de entender e reverter se algo sair errado.
+Commits devem ser ordenados logicamente. Por exemplo, se o commit X depende de mudanÃ§as feitas no commit Y, entÃ£o o commit Y deve vir antes do commit X.
 
 Mensagens de Commit
 
-Uma mensagem de commit consiste de três partes distintas separadas por uma linha em branco: o título, o corpo (opcional) e o rodapé (opcional). O layout fica assim:
+Uma mensagem de commit consiste de trÃªs partes distintas separadas por uma linha em branco: o tÃ­tulo, o corpo (opcional) e o rodapÃ© (opcional). O layout fica assim:
 
 Feat: Ensina como escrever mensagem de commit
 
-Às vezes, uma maior explicação pode ser útil.
+Ã€s vezes, uma maior explicaÃ§Ã£o pode ser Ãºtil.
 
 Resolves: #1234
 
-O título se divide em 2 partes: o tipo e o assunto.
+O tÃ­tulo se divide em 2 partes: o tipo e o assunto.
 
 Tipo
-O tipo fica contido no título e pode ser um dos seguintes:
+O tipo fica contido no tÃ­tulo e pode ser um dos seguintes:
 feat: uma nova funcionalidade
 fix: um conserto de bug
-docs: mudanças de documentação
-style: formatação, ponto-e-vírgula faltando, etc.; sem mudança de código
-refactor: refatoração código de produção
-test: adicionar testes, refatorar testes; sem mudança de código de produção
-chore: atualização de build tasks, configuração de gerente de pacotes, etc.; sem mudança de código de produção
+docs: mudanÃ§as de documentaÃ§Ã£o
+style: formataÃ§Ã£o, ponto-e-vÃ­rgula faltando, etc.; sem mudanÃ§a de cÃ³digo
+refactor: refatoraÃ§Ã£o cÃ³digo de produÃ§Ã£o
+test: adicionar testes, refatorar testes; sem mudanÃ§a de cÃ³digo de produÃ§Ã£o
+chore: atualizaÃ§Ã£o de build tasks, configuraÃ§Ã£o de gerente de pacotes, etc.; sem mudanÃ§a de cÃ³digo de produÃ§Ã£o
 
 Assunto
-Assuntos não devem ter mais de 50 caracteres, devem começar com uma letra maiúscula e não terminar com ponto. Use o modo imperativo na linha de assunto. Separe o assunto do corpo (quando houver um) com uma linha em branco.
+Assuntos nÃ£o devem ter mais de 50 caracteres, devem comeÃ§ar com uma letra maiÃºscula e nÃ£o terminar com ponto. Use o modo imperativo na linha de assunto. Separe o assunto do corpo (quando houver um) com uma linha em branco.
 Exemplo: #bom# Refactor subsystem X for readability #bom# Remove deprecated methods #ruim# Fixed bug with Y #ruim# More fixes from broken stuff
 
 Corpo
-Como nem todos os commits são complexos o suficiente para requerer um corpo, ele só deve estar presente na mensagem quando deixar um contexto ali e agora poupar o tempo de colegas e futuros contributors. 
-Use o corpo para explicar o "o quê?" e o "por quê?" de um commit, não o "como?" – o código é que deve fazer isso. 
-Quando escrever uma mensagem de commit, pense no que você mesmo precisaria saber se você desse de cara com o seu commit daqui a um ano.
+Como nem todos os commits sÃ£o complexos o suficiente para requerer um corpo, ele sÃ³ deve estar presente na mensagem quando deixar um contexto ali e agora poupar o tempo de colegas e futuros contributors. 
+Use o corpo para explicar o "o quÃª?" e o "por quÃª?" de um commit, nÃ£o o "como?" â€“ o cÃ³digo Ã© que deve fazer isso. 
+Quando escrever uma mensagem de commit, pense no que vocÃª mesmo precisaria saber se vocÃª desse de cara com o seu commit daqui a um ano.
 Limite o corpo a 72 caracteres por linha.
 
-Rodapé
-O rodapé também é opcional e é usado para monitoramento/referência de issues:
+RodapÃ©
+O rodapÃ© tambÃ©m Ã© opcional e Ã© usado para monitoramento/referÃªncia de issues:
 Exemplo: 
 Resolves: #123
-Veja também: #456, #789
+Veja tambÃ©m: #456, #789
 
 Merging
 
-•	Não reescreva histórico publicado. O histórico do repositório é valioso por si próprio e é muito importante para que se possa dizer o que realmente aconteceu. Alterar histórico publicado é fonte comum de problemas para qualquer um trabalhando no projeto.
-•	No entanto, existem casos em que reescrever o histórico é legítimo. Esses casos são:
-o	Você é o único trabalhando naquele ramo e ele não está sendo revisado.
-o	Você quer arrumar o seu ramo (p.ex. dar squash em commits) e/ou dar rebase dele no “master” para dar merge mais tarde.
-Dito isso, nunca reescreva o histórico do ramo "master" ou qualquer outro ramo especial (isto é, utilizados por servidores de produção ou CI)
-•	Mantenha o histórico limpo e simples. Imediatamente antes de dar merge no seu ramo:
-o	Certifique-se de que ele está conforme o guia de estilo e realize qualquer ação necessária se ele não estiver de acordo (dar squash/reordenar commits, reescrever mensagens, etc.)
-o	Dar rebase do seu ramo no ramo em que ele será "mergido"
-Isso resulta num ramo que pode ser aplicado diretamente ao fim do ramo "master" e resulta num histórico muito simples.
-Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao incés de dar rebase nele.
-•	Se o seu ramo inclui mais de um commit, não dê merge com fast-forward:
-# bom - assegura que um commit de merge é criado
+â€¢	NÃ£o reescreva histÃ³rico publicado. O histÃ³rico do repositÃ³rio Ã© valioso por si prÃ³prio e Ã© muito importante para que se possa dizer o que realmente aconteceu. Alterar histÃ³rico publicado Ã© fonte comum de problemas para qualquer um trabalhando no projeto.
+â€¢	No entanto, existem casos em que reescrever o histÃ³rico Ã© legÃ­timo. Esses casos sÃ£o:
+o	VocÃª Ã© o Ãºnico trabalhando naquele ramo e ele nÃ£o estÃ¡ sendo revisado.
+o	VocÃª quer arrumar o seu ramo (p.ex. dar squash em commits) e/ou dar rebase dele no â€œmasterâ€ para dar merge mais tarde.
+Dito isso, nunca reescreva o histÃ³rico do ramo "master" ou qualquer outro ramo especial (isto Ã©, utilizados por servidores de produÃ§Ã£o ou CI)
+â€¢	Mantenha o histÃ³rico limpo e simples. Imediatamente antes de dar merge no seu ramo:
+o	Certifique-se de que ele estÃ¡ conforme o guia de estilo e realize qualquer aÃ§Ã£o necessÃ¡ria se ele nÃ£o estiver de acordo (dar squash/reordenar commits, reescrever mensagens, etc.)
+o	Dar rebase do seu ramo no ramo em que ele serÃ¡ "mergido"
+Isso resulta num ramo que pode ser aplicado diretamente ao fim do ramo "master" e resulta num histÃ³rico muito simples.
+Essa estratÃ©gia Ã© mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao incÃ©s de dar rebase nele.
+â€¢	Se o seu ramo inclui mais de um commit, nÃ£o dÃª merge com fast-forward:
+# bom - assegura que um commit de merge Ã© criado
 $ git merge --no-ff my-branch
 # ruim
 $ git merge my-branch
-NUNCA dê commit em algo como “Fix linter” ou “Fix tests” (consertos de bugs/tests). Esses “fixes” devem tomar squash para os commits que os originaram.
-NUNCA dê squash totalmente num ramo antes de dar merge nele, a não ser que o ramo inteiro (todos os commits) estejam relacionados a uma única mudança lógica.
-NUNCA use git merge master num ramo. SEMPRE use git rebase master, depois force-push, espere que o CI (sistema de Integração Contínua) liberar e só então merge ele no "master".
-A CONVENÇÃO é sempre usar a interface web do Github para dar merge no "master" e NUNCA usar Git na linha de comando (isto é, git checkout master; git merge --no-ff branch; git push). Isso evita confusão e esquecer de coisas muito importantes como merge sem fast-forward.
+NUNCA dÃª commit em algo como â€œFix linterâ€ ou â€œFix testsâ€ (consertos de bugs/tests). Esses â€œfixesâ€ devem tomar squash para os commits que os originaram.
+NUNCA dÃª squash totalmente num ramo antes de dar merge nele, a nÃ£o ser que o ramo inteiro (todos os commits) estejam relacionados a uma Ãºnica mudanÃ§a lÃ³gica.
+NUNCA use git merge master num ramo. SEMPRE use git rebase master, depois force-push, espere que o CI (sistema de IntegraÃ§Ã£o ContÃ­nua) liberar e sÃ³ entÃ£o merge ele no "master".
+A CONVENÃ‡ÃƒO Ã© sempre usar a interface web do Github para dar merge no "master" e NUNCA usar Git na linha de comando (isto Ã©, git checkout master; git merge --no-ff branch; git push). Isso evita confusÃ£o e esquecer de coisas muito importantes como merge sem fast-forward.
 
 Diversos
 
-•	Existem variados workflows e cada um tem suas forças e fraquezas. Se um deles se adéqua ao seu caso, depende do seu time, do projeto e do seu procedimento de desenvolvimento.
-Com isso em mente, o mais importante é de fato escolher um workflow e seguir firme com ele.
-•	Seja consistente. Isso é relacionado ao workflow mas também se expande para coisas como mensagens de commit, nomes de ramos e tags. Ter um estilo constistente através do seu repositório faz dele mais fácil que todos os contributors possam compreender o que está acontecendo ao olhar o log, uma mensagem de commit, etc.
-•	Teste antes de dar push. Não dê push em trabalho feito pela metade.
+â€¢	Existem variados workflows e cada um tem suas forÃ§as e fraquezas. Se um deles se adÃ©qua ao seu caso, depende do seu time, do projeto e do seu procedimento de desenvolvimento.
+Com isso em mente, o mais importante Ã© de fato escolher um workflow e seguir firme com ele.
+â€¢	Seja consistente. Isso Ã© relacionado ao workflow mas tambÃ©m se expande para coisas como mensagens de commit, nomes de ramos e tags. Ter um estilo constistente atravÃ©s do seu repositÃ³rio faz dele mais fÃ¡cil que todos os contributors possam compreender o que estÃ¡ acontecendo ao olhar o log, uma mensagem de commit, etc.
+â€¢	Teste antes de dar push. NÃ£o dÃª push em trabalho feito pela metade.
 
 Use o Senso Comum, Luke
 
-Use o Senso Comum, Luke. SIGA ESSE GUIA! Isso é muito importante, caso contrário nós não faríamos você lê-lo antes de contribuir com nossos repositórios.
+Use o Senso Comum, Luke. SIGA ESSE GUIA! Isso Ã© muito importante, caso contrÃ¡rio nÃ³s nÃ£o farÃ­amos vocÃª lÃª-lo antes de contribuir com nossos repositÃ³rios.
 
 Agradecimentos
 
-This guide was inspired on other guides found in the community, some of which we’d like to give a special thanks:
+This guide was inspired on other guides found in the community, some of which weâ€™d like to give a special thanks:
 https://github.com/agis/git-style-guide#merging
 https://chris.beams.io/posts/git-commit/
 https://github.com/chrisjlee/git-style-guide
