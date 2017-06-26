@@ -76,15 +76,19 @@ Assuntos não devem ter mais de 50 caracteres, devem começar com uma letra mai�
 
 _Exemplo_: 
 
-    #bom# Refactor subsystem X for readability 
-    #bom# Remove deprecated methods 
-    #ruim# Fixed bug with Y 
-    #ruim# More fixes from broken stuff
+      #bom# Refactor subsystem X for readability 
+      #bom# Remove deprecated methods 
+      #ruim# Fixed bug with Y 
+      #ruim# More fixes from broken stuff
 
 ### Corpo
+
 Como nem todos os commits são complexos o suficiente para requerer um corpo, ele só deve estar presente na mensagem quando deixar um contexto ali e agora poupar o tempo de colegas e futuros contributors. 
+
 Use o corpo para explicar o "o quê?" e o "por quê?" de um commit, não o "como?" – o código é que deve fazer isso. 
+
 Quando escrever uma mensagem de commit, pense no que você mesmo precisaria saber se você desse de cara com o seu commit daqui a um ano.
+
 Limite o corpo a 72 caracteres por linha.
 
 ### Rodapé
