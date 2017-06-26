@@ -40,7 +40,7 @@ _Dica_: Use **git add -p** para organizar interativamente porções específicas
 
 - **Commits devem ser ordenados logicamente.** Por exemplo, se o commit X depende de mudanças feitas no commit Y, então o commit Y deve vir antes do commit X.
 
-## Mensagens de Commit
+### Mensagens de Commit
 
 Uma mensagem de commit consiste de três partes distintas separadas por uma linha em branco: o título, o corpo (opcional) e o rodapé (opcional). O layout fica assim:
 
@@ -52,7 +52,7 @@ Resolves: #1234
 
 O título se divide em 2 partes: o tipo e o assunto.
 
-## Tipo
+### Tipo
 O tipo fica contido no título e pode ser um dos seguintes:
 feat: uma nova funcionalidade
 fix: um conserto de bug
@@ -62,17 +62,17 @@ refactor: refatoração código de produção
 test: adicionar testes, refatorar testes; sem mudança de código de produção
 chore: atualização de build tasks, configuração de gerente de pacotes, etc.; sem mudança de código de produção
 
-## Assunto
+### Assunto
 Assuntos não devem ter mais de 50 caracteres, devem começar com uma letra maiúscula e não terminar com ponto. Use o modo imperativo na linha de assunto. Separe o assunto do corpo (quando houver um) com uma linha em branco.
 Exemplo: #bom# Refactor subsystem X for readability #bom# Remove deprecated methods #ruim# Fixed bug with Y #ruim# More fixes from broken stuff
 
-## Corpo
+### Corpo
 Como nem todos os commits são complexos o suficiente para requerer um corpo, ele só deve estar presente na mensagem quando deixar um contexto ali e agora poupar o tempo de colegas e futuros contributors. 
 Use o corpo para explicar o "o quê?" e o "por quê?" de um commit, não o "como?" – o código é que deve fazer isso. 
 Quando escrever uma mensagem de commit, pense no que você mesmo precisaria saber se você desse de cara com o seu commit daqui a um ano.
 Limite o corpo a 72 caracteres por linha.
 
-## Rodapé
+### Rodapé
 O rodapé também é opcional e é usado para monitoramento/referência de issues:
 Exemplo: 
 Resolves: #123
@@ -90,11 +90,17 @@ Dito isso, nunca reescreva o histórico do ramo "master" ou qualquer outro ramo 
 	- Dar rebase do seu ramo no ramo em que ele será "mergido"
 Isso resulta num ramo que pode ser aplicado diretamente ao fim do ramo "master" e resulta num histórico muito simples.
 Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao incés de dar rebase nele.
-•	Se o seu ramo inclui mais de um commit, não dê merge com fast-forward:
-# bom - assegura que um commit de merge é criado
+
+- Se o seu ramo inclui mais de um commit, não dê merge com fast-forward:
+
+#bom - assegura que um commit de merge é criado
+
 $ git merge --no-ff my-branch
-# ruim
+
+#ruim
+
 $ git merge my-branch
+
 NUNCA dê commit em algo como “Fix linter” ou “Fix tests” (consertos de bugs/tests). Esses “fixes” devem tomar squash para os commits que os originaram.
 NUNCA dê squash totalmente num ramo antes de dar merge nele, a não ser que o ramo inteiro (todos os commits) estejam relacionados a uma única mudança lógica.
 NUNCA use git merge master num ramo. SEMPRE use git rebase master, depois force-push, espere que o CI (sistema de Integração Contínua) liberar e só então merge ele no "master".
