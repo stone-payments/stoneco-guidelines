@@ -74,12 +74,12 @@ O tipo fica contido no título e pode ser um dos seguintes:
 
 Assuntos não devem ter mais de 50 caracteres, devem começar com uma letra maiúscula e não terminar com ponto. Use o modo imperativo na linha de assunto. Separe o assunto do corpo (quando houver um) com uma linha em branco.
 
-Exemplo: 
+_Exemplo_: 
 
-#bom# Refactor subsystem X for readability 
-#bom# Remove deprecated methods 
-#ruim# Fixed bug with Y 
-#ruim# More fixes from broken stuff
+    #bom# Refactor subsystem X for readability 
+    #bom# Remove deprecated methods 
+    #ruim# Fixed bug with Y 
+    #ruim# More fixes from broken stuff
 
 ### Corpo
 Como nem todos os commits são complexos o suficiente para requerer um corpo, ele só deve estar presente na mensagem quando deixar um contexto ali e agora poupar o tempo de colegas e futuros contributors. 
