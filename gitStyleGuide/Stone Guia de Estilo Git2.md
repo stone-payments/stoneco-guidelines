@@ -145,6 +145,9 @@ Com isso em mente, o mais importante é de fato escolher um workflow e seguir fi
 ## Agradecimentos
 
 This guide was inspired on other guides found in the community, some of which we’d like to give a special thanks:
+
 https://github.com/agis/git-style-guide#merging
+
 https://chris.beams.io/posts/git-commit/
+
 https://github.com/chrisjlee/git-style-guide
