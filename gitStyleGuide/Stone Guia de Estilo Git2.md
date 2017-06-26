@@ -103,7 +103,7 @@ _Exemplo_:
 
 ## Merging
 
-- Não reescreva histórico publicado. O histórico do repositório é valioso por si próprio e é muito importante para que se possa dizer o que realmente aconteceu. Alterar histórico publicado é fonte comum de problemas para qualquer um trabalhando no projeto.
+- **Não reescreva histórico publicado.** O histórico do repositório é valioso por si próprio e é muito importante para que se possa dizer o que realmente aconteceu. Alterar histórico publicado é fonte comum de problemas para qualquer um trabalhando no projeto.
 - No entanto, existem casos em que reescrever o histórico é legítimo. Esses casos são:
 	- Você é o único trabalhando naquele ramo e ele não está sendo revisado.
 	- Você quer arrumar o seu ramo (p.ex. dar squash em commits) e/ou dar rebase dele no “master” para dar merge mais tarde.
