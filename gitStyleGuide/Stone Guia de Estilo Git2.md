@@ -107,7 +107,7 @@ _Exemplo_:
 - No entanto, existem casos em que reescrever o histórico é legítimo. Esses casos são:
 	- Você é o único trabalhando naquele ramo e ele não está sendo revisado.
 	- Você quer arrumar o seu ramo (p.ex. dar squash em commits) e/ou dar rebase dele no “master” para dar merge mais tarde.
-Dito isso, nunca reescreva o histórico do ramo "master" ou qualquer outro ramo especial (isto é, utilizados por servidores de produção ou CI)
+	Dito isso, nunca reescreva o histórico do ramo "master" ou qualquer outro ramo especial (isto é, utilizados por servidores de produção ou CI)
 - Mantenha o histórico limpo e simples. Imediatamente antes de dar merge no seu ramo:
 	- Certifique-se de que ele está conforme o guia de estilo e realize qualquer ação necessária se ele não estiver de acordo (dar squash/reordenar commits, reescrever mensagens, etc.)
 	- Dar rebase do seu ramo no ramo em que ele será "mergido"
