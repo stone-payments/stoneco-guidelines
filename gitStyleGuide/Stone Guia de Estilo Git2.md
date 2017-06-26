@@ -126,10 +126,10 @@ Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em ou
 
       $ git merge my-branch
 
-- NUNCA dê commit em algo como “Fix linter” ou “Fix tests” (consertos de bugs/tests). Esses “fixes” devem tomar squash para os commits que os originaram.
-- NUNCA dê squash totalmente num ramo antes de dar merge nele, a não ser que o ramo inteiro (todos os commits) estejam relacionados a uma única mudança lógica.
-- NUNCA use git merge master num ramo. SEMPRE use git rebase master, depois force-push, espere que o CI (sistema de Integração Contínua) liberar e só então merge ele no "master".
-- A CONVENÇÃO é sempre usar a interface web do Github para dar merge no "master" e NUNCA usar Git na linha de comando (isto é, git checkout master; git merge --no-ff branch; git push). Isso evita confusão e esquecer de coisas muito importantes como merge sem fast-forward.
+- **NUNCA** dê commit em algo como “Fix linter” ou “Fix tests” (consertos de bugs/tests). Esses “fixes” devem tomar squash para os commits que os originaram.
+- **NUNCA** dê squash totalmente num ramo antes de dar merge nele, a não ser que o ramo inteiro (todos os commits) estejam relacionados a uma única mudança lógica.
+- **NUNCA** use git merge master num ramo. SEMPRE use git rebase master, depois force-push, espere que o CI (sistema de Integração Contínua) liberar e só então merge ele no "master".
+- **A CONVENÇÃO** é sempre usar a interface web do Github para dar merge no "master" e NUNCA usar Git na linha de comando (isto é, git checkout master; git merge --no-ff branch; git push). Isso evita confusão e esquecer de coisas muito importantes como merge sem fast-forward.
 
 ## Diversos
 
