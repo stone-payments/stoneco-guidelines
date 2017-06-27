@@ -4,39 +4,47 @@
 
 - Choose short and descriptive names:
 
-      #good# $ git checkout -b oauth-migtration
+```
+# GOOD
+$ git checkout -b feature/oauth-migtration
 
-      #bad# $git checkout -b login\_fix
+# BAD
+$git checkout -b login_fix
+```
 
 - Identifiers from corresponding tickets in an external service (eg. a GitHub issue) are also good candidates for use in branch names. For example:
 
-    #GitHub issue #23
+```
+# GitHub issue #23
 
-      $ git checkout -b issue-15
+$ git checkout -b fix/issue-15
+```
 
 - Use slashes to separate words
 - When several people are working on the same feature, it might be convenient to have personal feature branches and a team-wide feature branch. Use the following name convention:
 
-      $ git checkout -b feature-a/master # team-wide branch
+```
+$ git checkout -b feature-a/master # team-wide branch
 
-      $ git checkout -b feature-a/joao # Joao&#39;s personal branch
+$ git checkout -b feature-a/joao # Joao's personal branch
 
-      $ git checkout -b feature-a/maria # Maria&#39;s personal branch
+$ git checkout -b feature-a/maria # Maria's personal branch
+```
 
-    Merge at will the personal branches to the team-wide branch. Eventually, the team-wide branch will be merged to &quot;master&quot;.
-
-- Delete your branch from the upstream repository after it&#39;s merged, unless there is a specific reason not to.
-
-_Tip_: Use the following command while being on &quot;master&quot;, to list merged branches: $ git branch --merged | grep -v &quot;\\*&quot;
-
+- Merge at will the personal branches to the team-wide branch. Eventually, the team-wide branch will be merged to `master`.
+- Delete your branch from the upstream repository after it's merged, unless there is a specific reason not to. 
+- _Tip_: Use the following command while being on `master`, to list merged branches:
+```
+$ git branch --merged | grep -v `\\*`
+```
 
 ## Commits
 
-- **Each commit should be a single logical change.** Don&#39;t make several logical changes in one commit. For example, if a patch fixes a bug and optimizes the performance of a feature, split it into two separate commits.
+- **Each commit should be a single logical change.** Don't make several logical changes in one commit. For example, if a patch fixes a bug and optimizes the performance of a feature, split it into two separate commits.
 
-_Tip_: Use **git add -p** to interactively stage specific portions of the modified files.
+- _Tip_: Use `git add -p` to interactively stage specific portions of the modified files.
 
-- **Don&#39;t split a single logical change into several commits.** For example, the implementation of a feature and the corresponding tests should be in the same commit.
+- **Don't split a single logical change into several commits.** For example, the implementation of a feature and the corresponding tests should be in the same commit.
 
 - **Commit _early_ and _often_.**  Small, self-contained commits are easier to understand and revert when something goes wrong.
 
@@ -45,47 +53,46 @@ _Tip_: Use **git add -p** to interactively stage specific portions of the modifi
 ### Commit Messages
 
 A commit message consists of three distinct parts separated by a blank line: the title, the (optional) body and the (optional) footer. The layout looks like this:
+```
+feat: teach how to write commit message
 
-  _Feat: teach how to write commit message_
+A further explanation is a good practice we recommend you follow.
 
-  _Sometimes, a further explanation may be of use._
-
-  _Resolves: #1234_
-
-The title splits into 2 parts: the type and the subject.
+Resolves: #1234
+```
+The **title** is split into 2 parts: the **type** and the **subject**.
 
 ### Type
 
 The type is contained within the title and can be one of the following:
 
 - **feat:** a new feature
-
 - **fix:** a bug fix
-
 - **docs:** changes to documentation
-
 - **style:** formatting, missing semi-colons, etc.; no code change
-
 - **refactor:** refactoring production code
-
 - **test:** adding tests, refactoring test; no production code change
-
 - **chore:** updating build tasks, package manager configs, etc.; no production code change
 
 ### Subject
 
-  Subjects should be no greater than 50 characters, should begin with a capital letter and do not end with a period. Use the imperative mood in the subject line. Separate the subject from the body (when there is one) with a blank line.
+Subjects should be no greater than 50 characters, should begin with a capital letter and do not end with a period. Use the imperative mood in the subject line. Separate the subject from the body (when there is one) with a blank line.
 
-_Example_: 
+Example:
 
-      #good# Refactor subsystem X for readability 
-      #good# Remove deprecated methods 
-      #bad# Fixed bug with Y 
-      #bad# More fixes from broken stuff
+```
+# GOOD
+refactor: Refactor subsystem X for readability
+fix: Remove deprecated methods
+
+# BAD
+Fixed bug with Y
+More fixes from broken stuff
+```
 
 ### Body
 
-As not all commits are complex enough to warrant a body, it should only be present in the message when providing context there and then will save fellow and future contributors&#39; time.
+As not all commits are complex enough to warrant a body, it should only be present in the message when providing context there and then will save fellow and future contributors' time. Normally you'll want to provide more context when your commit has one of these types: `feat`, `refactor` and `fix`.
 
 Use the body to explain the what and why of a commit, not the how – the code is supposed to do that.
 
@@ -97,48 +104,52 @@ Wrap the body at 72 characters per line.
 
 The footer is also optional and is used for tracking/referring to issues:
 
-_Example_:
+Example:
 
-    Resolves: #123
+```
 
-    See also: #456, #789
+Resolves: #123
 
+See also: #456, #789
+
+```
 
 ## Merging
 
-- **Do not rewrite published history.** The repository&#39;s history is valuable in its own right and it is very important to be able to tell what actually happened. Altering published history is a common source of problems for anyone working on the project.
+- **Do not rewrite published history.** The repository's history is valuable in its own right and it is very important to be able to tell what actually happened. Altering published history is a common source of problems for anyone working on the project.
 - However, there are cases where rewriting history is legitimate. These are when:
   - You are the only one working on the branch and it is not being reviewed.
-  - You want to tidy up your branch (eg. squash commits) and/or rebase it onto the &quot;master&quot; in order to merge it later.
+  - You want to tidy up your branch (eg. squash commits) and/or rebase it onto the `master` in order to merge it later.
 
-That said, never rewrite the history of the &quot;master&quot; branch or any other special branches (ie. used by production or CI servers).
+- That said, never rewrite the history of the `master` branch or any other special branches (ie. used by production or CI servers).
 
 - Keep the history clean and simple. Just before you merge your branch:
-  - Make sure it conforms to the style guide and perform any needed actions if it doesn&#39;t (squash/reorder commits, reword messages etc.)
-  - Rebase it onto the branch it&#39;s going to be merged to
+  - Make sure it conforms to the style guide and perform any needed actions if it doesn't (squash/reorder commits, reword messages etc.)
+  - Rebase it onto the branch it's going to be merged to
 
-This results in a branch that can be applied directly to the end of the &quot;master&quot; branch and results in a very simple history.
+- This results in a branch that can be applied directly to the end of the `master` branch and results in a very simple history.
 
-This strategy is better suited for projects with short-running branches. Otherwise it might be better to occasionally merge the &quot;master&quot; branch instead of rebasing onto it.
+- This strategy is better suited for projects with short-running branches. Otherwise it might be better to occasionally merge the `master` branch instead of rebasing onto it.
 
 - If your branch includes more than one commit, do not merge with a fast-forward:
 
-  #good# - ensures that a merge commit is created
+```
+# GOOD - ensures that a merge commit is created
 
-      $ git merge --no-ff my-branch
+$ git merge --no-ff my-branch
 
-  #bad#
+# BAD
   
-      $ git merge my-branch
+$ git merge my-branch
+```
 
-- **NEVER** commit something like &quot;Fix linter&quot; or &quot;Fix tests&quot;. These &quot;fixes&quot; should be squashed to the commits that originated the change.
+- **NEVER** commit something like `Fix linter` or `Fix tests`. These `fixes` should be squashed to the commits that originated the change.
 
 - **NEVER** fully squash a branch before merging it, unless the whole branch (all commits) are related to a single logical change.
 
 - **NEVER** use git merge master on a branch. **ALWAYS** use git rebase master, then force-push, wait for the CI to clear and only then merge into master.
 
-- **CONVENTION** is to always use Github&#39;s web interface to merge into master and **NEVER** using Git on the command -line (i.e. git checkout master; git merge --no-ff branch; git push). This avoids confusion and forgetting about some really important things such as non-fast-forward merge.
-
+- **CONVENTION** is to always use Github's web interface to merge into master and **NEVER** using Git on the command -line (i.e. git checkout master; git merge --no-ff branch; git push). This avoids confusion and forgetting about some really important things such as non-fast-forward merge.
 
 ## Miscellaneous
 
@@ -151,10 +162,9 @@ That said, the most important thing is to actually choose a workflow and stick w
 
 **Use the Common Sense, Luke.** FOLLOW THIS GUIDE! This is really important, otherwise we would not make you read this before contributing to our repositories.
 
-
 ## Acknowledgments
 
-This guide was inspired on other guides found in the community, some of which we&#39;d like to give a special thanks:
+This guide was inspired on other guides found in the community, some of which we'd like to give a special thanks:
 
 [https://github.com/agis/git-style-guide#merging](https://github.com/agis/git-style-guide#merging)
 
