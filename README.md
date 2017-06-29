@@ -1,4 +1,5 @@
 # Best Practices in DLP
+Portuguese translation available [here](README_pt.md).
 
 Here is the list of best practices, guidelines, codestyles and recommendations that we follow and encourage in the DLP companies. Remember, everything proposed on this repository is only supposed to be a guideline, suggestion on how to organize your own repositories and is not mandatory. 
 
