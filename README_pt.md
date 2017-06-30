@@ -7,12 +7,12 @@ Por favor leia as [diretrizes](#contrib-guidelines) para contributors antes de e
 Se você acha que qualquer informação está errada ou faltando, por favor nos envie um e-mail ou crie diretamente um issue dentro deste repositório. 
 
 ### GitHub
-* [README.md](readme/README.md)
-* [Code of Conduct](codeOfConduct/README.md)
-* [CONTRIBUTING.md](contributing/README.md)
-* [Git Style Guide](gitStyleGuide/README.md)
-* [Topics](topics/README.md)
-* [LICENSE.md](license/README.md)
+* [README.md](readme/README_pt.md)
+* [Code of Conduct](codeOfConduct/README_pt.md)
+* [CONTRIBUTING.md](contributing/README_pt.md)
+* [Git Style Guide](gitStyleGuide/README_pt.md)
+* [Topics](topics/README_pt.md)
+* [LICENSE.md](license/README_pt.md)
 
 ## Contrib Guidelines
 * Por favor contribua apenas com [conteúdo original](http://m.memegen.com/hyndzm.jpg), ninguém gosta de malandros do ctrl+c/ctrl+v por aqui, mas se você acredita que outro site já explicou uma seção/tecnologia melhor do que você, forneça um link e adicione __atribuições e referências__ se necessário a sites externos - é legal quando o seu trabalho é reconhecido por outros. Nós sabemos que é difícil escrever algo novo que explica algo antigo, que é mais simples e claro e, em alguns casos, melhor fazer diagramas para explicar o que você quer dizer e tentar explicar os mesmos conceitos de uma maneira mais interessante e divertida.
