@@ -8,7 +8,7 @@ O principal propósito por trás de um arquivo readme num repositório do GitHub
 
 Isso é tão simples quanto descrever o que a aplicação faz, porque ela foi feita e como ela foi feita. É aqui que você fará as pessoas se interessarem em utilizá-la e consequentemente contribuir com ela.
 
-### Requerimento/Dependêmncias (se existirem)
+### Requerimento/Dependências (se existirem)
 
 Como diz o título, aqui você vai listar qualquer dependência relacionada ao uso da sua aplicação. Qualquer coisa que não entre no tutorial Como Começar.
 
