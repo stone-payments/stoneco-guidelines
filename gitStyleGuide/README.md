@@ -54,7 +54,7 @@ $ git branch --merged | grep -v `\\*`
 
 A commit message consists of three distinct parts separated by a blank line: the title, the (optional) body and the (optional) footer. The layout looks like this:
 ```
-feat: teach how to write commit message
+feat: Teach how to write commit message
 
 A further explanation is a good practice we recommend you follow.
 
