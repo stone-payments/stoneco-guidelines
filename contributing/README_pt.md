@@ -1,4 +1,5 @@
 # Diretrizes para Contributors
+:honeybee: Existe um template para Contributing.md disponível [aqui](template.md):honeybee:
 
 ## Pull Requests
 
