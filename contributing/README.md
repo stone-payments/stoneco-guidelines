@@ -1,5 +1,7 @@
 # Contributor Guidelines
 
+:honeybee: There is a template for a contributing.md in brazilian-portuguese available [here](template.md):honeybee:
+  
 ## Pull Requests
 
 - **DO** give PRs short-but-descriptive names (e.g. &quot;Improve code coverage for System.Console by 10%&quot;, not &quot;Fix #1234&quot;).
