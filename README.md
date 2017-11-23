@@ -8,6 +8,7 @@ Please read the contrib [guidelines](#contrib-guidelines) before sending your pu
 If you think any information is wrong or missing please write us an email or directly create an issue inside this repo. 
 
 ### GitHub
+* [Description](description/README.md)
 * [README.md](readme/README.md)
 * [Code of Conduct](codeOfConduct/README.md)
 * [CONTRIBUTING.md](contributing/README.md)
