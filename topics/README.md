@@ -1,5 +1,5 @@
 ## GitHub's Topics
-You can find the portuguese translation [here](topics_pt.md)
+You can find the portuguese translation [here](README_pt.md)
 
 As GitHub explains in its [About topics page](https://help.github.com/articles/about-topics/) "With topics, you can explore repositories in a particular subject area, find projects to contribute to, and discover new solutions to a specific problem."
 
