@@ -7,6 +7,7 @@ Por favor leia as [diretrizes](#contrib-guidelines) para contributors antes de e
 Se você acha que qualquer informação está errada ou faltando, por favor nos envie um e-mail ou crie diretamente um issue dentro deste repositório. 
 
 ### GitHub
+* [Description](description/README_pt.md)
 * [README.md](readme/README_pt.md)
 * [Code of Conduct](codeOfConduct/README_pt.md)
 * [CONTRIBUTING.md](contributing/README_pt.md)
