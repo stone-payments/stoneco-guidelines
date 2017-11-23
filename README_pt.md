@@ -7,12 +7,13 @@ Por favor leia as [diretrizes](#contrib-guidelines) para contributors antes de e
 Se você acha que qualquer informação está errada ou faltando, por favor nos envie um e-mail ou crie diretamente um issue dentro deste repositório. 
 
 ### GitHub
-* [Description](description/README_pt.md)
+* [Nomenclatura](NamingConvention/README_pt.md)
+* [Descrição](description/README_pt.md)
 * [README.md](readme/README_pt.md)
-* [Code of Conduct](codeOfConduct/README_pt.md)
+* [Codigo de Conduta](codeOfConduct/README_pt.md)
 * [CONTRIBUTING.md](contributing/README_pt.md)
 * [Git Style Guide](gitStyleGuide/README_pt.md)
-* [Topics](topics/README_pt.md)
+* [Topicos](topics/README_pt.md)
 * [LICENSE.md](license/README_pt.md)
 
 ## Contrib Guidelines
