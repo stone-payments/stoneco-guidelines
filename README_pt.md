@@ -1,6 +1,6 @@
-# Melhores Práticas na DLP
+# Melhores Práticas na Stone co
 
-Aqui está uma lista de melhores práticas, diretrizes, estilos de código e recomendações que nós seguimos e encorajamos nas companhias DLPs. Mas lembre-se: tudo que está proposto nesse repositório serve apenas como guia, uma sugestão de como organizar os seus próprios repositórios e não é obrigatório.
+Aqui está uma lista de melhores práticas, diretrizes, estilos de código e recomendações que nós seguimos e encorajamos nas companhias Stone. Mas lembre-se: tudo que está proposto nesse repositório serve apenas como guia, uma sugestão de como organizar os seus próprios repositórios e não é obrigatório.
 
 Por favor leia as [diretrizes](#contrib-guidelines) para contributors antes de enviar seu pull request com seu conteúdo.
 
