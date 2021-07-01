@@ -29,7 +29,7 @@ We at Stone want to encourage a welcoming, happy and collaborative environment w
 
 ## Enforcement
 
-Should you come to suffer or witness any instance of abusive, harassing or otherwise unacceptable behavior, contact [\*\*\*](mailto:HELPME@stone.com.br). All complaints will be thoroughly investigated and in case they are confirmed true, all personnel responsible will be accordingly punished – unacceptable behavior will not be tolerated. Rest assured that he confidentiality of the issue reporter will always be guaranteed.
+Should you come to suffer or witness any instance of abusive, harassing or otherwise unacceptable behavior, contact [Canal Confidencial](https://canalconfidencial.com.br/orelhaostone/). All complaints will be thoroughly investigated and in case they are confirmed true, all personnel responsible will be accordingly punished – unacceptable behavior will not be tolerated. Rest assured that he confidentiality of the issue reporter will always be guaranteed.
 
 ## Scope
 
