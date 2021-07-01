@@ -36,7 +36,7 @@ Nós da Stone queremos encorajar um ambiente receptivo, feliz e colaborativo ond
 
 ## Punição
 
-Se você sofrer ou testemunhar qualquer caso de comportamento abusivo, de assédio ou de alguma forma inaceitável, contate [\*\*\*](mailto:HELPME@stone.com.br). Todas as reclamações serão minuciosamente investigadas e caso sejam provadas verdadeiras, todos os responsáveis serão devidamente punidos - comportamento inaceitável não será tolerado. Esteja seguro de que a confidencialidade do reportador do problema sempre será garantida.
+Se você sofrer ou testemunhar qualquer caso de comportamento abusivo, de assédio ou de alguma forma inaceitável, contate [Canal Confidencial](https://canalconfidencial.com.br/orelhaostone/). Todas as reclamações serão minuciosamente investigadas e caso sejam provadas verdadeiras, todos os responsáveis serão devidamente punidos - comportamento inaceitável não será tolerado. Esteja seguro de que a confidencialidade do reportador do problema sempre será garantida.
 
 ## Escopo
 
