@@ -1,6 +1,4 @@
-## GitHub's Topics
-You can find the portuguese translation [here](README_pt.md)
+## Topics do GitHub
+Como o GitHub explica no [About topics](https://help.github.com/articles/about-topics/) "com topics, você pode explorar repositórios em assuntos específicos, encontrar projetos para contribuir e descobrir novas soluções para um problema específico.
 
-As GitHub explains in its [About topics page](https://help.github.com/articles/about-topics/) "With topics, you can explore repositories in a particular subject area, find projects to contribute to, and discover new solutions to a specific problem."
-
-Therefore, we **request** our members to use topics in our repositories as a way to link its subject area, language, team or important derived information, as a way to create a more integrated community within our org and, moreover, within GitHub itself.
+Dessa forma, nós **pedimos** que nossos membros usem topics em nossos repositórios como uma forma de associá-los a seus assuntos específicos, linguagem, time ou importantes assuntos dele derivados, de forma a criar uma comunidade mais integrada dentro da nossa org e, de certa forma, dentro do próprio GitHub. 
