@@ -1,31 +1,11 @@
-# README.md Guideline
+# Diretriz do README.md
 
-The main purpose behind a readme file in a GitHub repository is to present the tool to a possible new contributor and to serve as a reference guide to a regular contributor. Few things are necessary to accomplish this, which are listed below. Additions to the file are always welcome, but be aware of not making the document too cluttered.
+![Ícone de Boa Prática da Stone Co.](https://img.shields.io/badge/STONE-BOA%20PR%C3%81TICA-green?style=for-the-badge)
 
-## Necessary content for a good readme:
+O principal propósito por trás de um arquivo `README` em um repositório do GitHub é apresentar a ferramenta a um possível novo contributor e servir de guia de referência para um contributor regular.
 
-### Application presentation
+Um bom `README` deve ser conciso e objetivo, o site `Make a Readme` sugere alguns tópicos e é baseado em se questionar *O que, Por que, Como, Quando, Onde e Quem*. Além disso oferece um exemplo simples, somos livres para inserir mais coisa como _Badges_, _Videos_, _GIFs_, _Imagens_, _Links_ e _Referências_, **mas lembre-se de manter o foco no conteúdo objetivo**, o [principio do KISS](https://www.interaction-design.org/literature/topics/keep-it-simple-stupid) se aplica aqui.
 
-This is as simple as describing what the application does, why it was made and how it was made. It's here where you will make people interested in using it and consequently contributing with it.
-
-### Requirements/dependencies (if there are any)
-
-As the title says, here you list any dependency related to using your application. Anything that wouldn't go on the Getting Started tutorial.
-
-### Getting Started 
-
-Guide to running your application. The entire purpose of making an application public is to allow other users to run your application on their machines. This plus the previous topic MUST allow them to do that, if it doesn't than it means you have failed on attracting contributors and users.
-
-### Main Releases
-
-List of previous main releases and also what is planned on the next ones. This allows the user/contributor to understand where your application is coming from and also to understand it's end goal.
-
-### Code status
-
-### License
-
-The License that is attached to any code on your repository. This is essential and obligatory. Be careful when choosing your license. Also, it's good practice to refer to your license in every code file on your repository.
-
-### Credits
-
-Who did what. People love to be recognised for their work! Do not forget to include anyone.
+Referências:
+- [README 101](https://www.makeareadme.com/)
+- [freeCodeCamp - How to Write a Good README File for Your GitHub Project](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/)
