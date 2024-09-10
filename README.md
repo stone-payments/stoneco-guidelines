@@ -1,38 +1,39 @@
-# Best Practices in StoneCo
-__Portuguese translation available [here](README_pt.md).__
+# Melhores Práticas na StoneCo
 
-Here is the list of best practices, guidelines, codestyles and recommendations that we follow and encourage in the StoneCo companies. Remember, everything proposed on this repository is only supposed to be a guideline, suggestion on how to organize your own repositories and is not mandatory. 
+![Ícone de Diretriz da Stone Co.](https://img.shields.io/badge/STONE-diretriz-green?style=for-the-badge)
+![Ícone de Boa Prática da Stone Co.](https://img.shields.io/badge/STONE-BOA%20PR%C3%81TICA-green?style=for-the-badge)
 
-Please read the contrib [guidelines](#contrib-guidelines) before sending your pull request with your content.
 
-If you think any information is wrong or missing please write us an email or directly create an issue inside this repo. 
+_Esse documento está em processo de revisão em um Fórum de Boas Práticas e Comunidade Open Source da Stone Co. se você é colaborador e deseja participar procure no Slack por #temp-stone-open-source, para solicitar a entrada pode procurar @EndersonMenezes_
 
-### GitHub
-* [Naming Convention](NamingConvention/README.md)
-* [Description](description/README.md)
+
+Este repositório contém uma coleção de melhores práticas, diretrizes, estilos de código e recomendações adotadas e incentivadas pelas organizações que fazem parte da Stone Co.
+
+Dentro deste repositório, você encontrará dois tipos principais de informações:
+
+- Guia de Boas Práticas: Recomendações de boas práticas para diversos assuntos.
+- Diretriz: Padrões consensuais a serem seguidos.
+
+Se você acha que qualquer informação está errada ou faltando, por favor crie diretamente uma _Issue_ dentro deste repositório. 
+
+## GitHub
+
+* [Nomenclaturas](naming-convention/README.md)
 * [README.md](readme/README.md)
-* [Code of Conduct](codeOfConduct/README.md)
+* [Código de Conduta](code-of-conduct/README.md)
 * [CONTRIBUTING.md](contributing/README.md)
-* [Git Style Guide](gitStyleGuide/README.md)
-* [Topics](topics/README.md)
-* [LICENSE.md](license/README.md)
-
-## Contrib Guidelines
-* Please contribute with [OC](http://m.memegen.com/hyndzm.jpg) only no body likes copy/paste gangstas around, but if you think another site has already explained a section/technology better than you provide a link and add __attributions and references__ if necessary to external sites, it's nice when your work is recognized by others. We know its hard to write something new that explains something old, that is simpler and more clear so in some cases its better to make diagrams to explain yourself and try to explain the same concepts in a more interesting and fun way.
-* Each user should make his contributions with his own account, for the same reason as above otherwise we won't be able to tell __who__ contributed with __what__.
-* To contrib please use github issues and [pull requests](https://help.github.com/articles/using-pull-requests/). For instance if you want to contrib to the documents of __Code of Conduct__ and __Topics__ you first should check if there is an [__issue__](https://github.com/stone-payments/stoneco-best-practices/issues) about those topics, if there isn't you should create 2 separate issues, and explain on the body of the issue what contributions you want to make, the whole idea behind this is that if another employee wants to contribute to the same topic you both don't duplicate content and work on the same __fork__, so the __issues__ will be the communication method between the __committers__. Once you agree on how you will contribute either alone or with your colleagues you can create a fork from the repo, you and other committers of the same topic/document/subject have to use the same forked repository to make your changes, so you will need to agree who will be the "fork" responsible (and of course grant write permissions between yourself in your own fork).
-* Once all your contributions are finished in your fork, you should send a Pull Request petition so the integrators can review it and merge it into the main repository of best practices.
-* Don't forget to check if your contribution it's linked here in the [main index file](README.md) or in a parent section referenced here.
-* [Here is](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) the markdown cheatsheet you can use to create your documents.
-* Write in english please :), don't worry if everything is not perfect as we will continue improving this guidelines overtime as we find and implement new best practices.
-* __VERY IMPORTANT__, add the images that you required to this repo in the *static* subfolder of each subsection, in this way we ensure no broken links will be ever created, avoid using external image links.
-
+* [Git Style](git-style/README.md)
+* [Tópicos](topics/README.md)
+* [Licença](license/README.md)
 
 ---
 
-# License
+# Licença
 
-Please see [LICENSE](LICENSE).
+Por favor veja o arquivo [LICENSE](LICENSE).
 
+---
+
+_Inspirado em [Beeva Bestpractices](https://github.com/beeva-enriqueotero/beeva-best-practices)_
 
 
