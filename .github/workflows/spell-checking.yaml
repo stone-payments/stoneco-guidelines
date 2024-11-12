@@ -16,6 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      
+      - run: |
+          npm install -g @cspell/dict-pt-br
+
       - uses: streetsidesoftware/cspell-action@v6
         with:
           incremental_files_only: ${{ github.event.inputs.incremental_files_only }}
