@@ -19,3 +19,5 @@ jobs:
       - uses: streetsidesoftware/cspell-action@v6
         with:
           incremental_files_only: ${{ github.event.inputs.incremental_files_only }}
+          files: |
+            **/*.{md,txt}
