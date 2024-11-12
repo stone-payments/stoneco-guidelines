@@ -20,4 +20,5 @@ jobs:
         with:
           incremental_files_only: ${{ github.event.inputs.incremental_files_only }}
           files: |
-            **/*.{md,txt}
+            **/*.{md,txt,json}
+            LICENSE
