@@ -14,7 +14,7 @@ Dentro deste repositório, você encontrará dois tipos principais de informaç�
 - Guia de Boas Práticas: Recomendações de boas práticas para diversos assuntos.
 - Diretriz: Padrões consensuais a serem seguidos.
 
-Se você acha que qualquer informação está errada ou faltando, por favor crie diretamente uma _Issue_ dentro deste repositório. 
+Se você acha que qualquer informação está errada ou faltando, por favor crie diretamente uma _Issue_ dentro deste repositório.  Se você deseja reportar um problema de segurança por favor utilize [esse e-mail](mailto:opensourcesec@stone.com.br)
 
 ## GitHub
 
