@@ -23,7 +23,8 @@ jobs:
           node-version: 18
       
       - run: |
-          npm install -g @cspell/dict-pt-br
+          cd .cspell 
+          npm install
 
       - uses: streetsidesoftware/cspell-action@v6
         with:
