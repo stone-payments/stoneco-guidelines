@@ -3,9 +3,7 @@
 ![Ícone de Diretriz da Stone Co.](https://img.shields.io/badge/STONE-diretriz-green?style=for-the-badge)
 ![Ícone de Boa Prática da Stone Co.](https://img.shields.io/badge/STONE-BOA%20PR%C3%81TICA-green?style=for-the-badge)
 
-
 _Esse documento está em processo de revisão em um Fórum de Boas Práticas e Comunidade Open Source da Stone Co. se você é colaborador e deseja participar procure no Slack por #temp-stone-open-source, para solicitar a entrada pode procurar @EndersonMenezes_
-
 
 Este repositório contém uma coleção de melhores práticas, diretrizes, estilos de código e recomendações adotadas e incentivadas pelas organizações que fazem parte da Stone Co.
 
