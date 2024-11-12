@@ -4,7 +4,7 @@
 
 - Escolha nomes curtos e descritivos:
 
-      #bom# $ git checkout -b oauth-migtration
+      #bom# $ git checkout -b oauth-migration
       
       #ruim# $git checkout -b login_fix
       
@@ -110,11 +110,11 @@ _Exemplo_:
 	Dito isso, nunca reescreva o histórico do ramo "master" ou qualquer outro ramo especial (isto é, utilizados por servidores de produção ou CI)
 - Mantenha o histórico limpo e simples. Imediatamente antes de dar merge no seu ramo:
 	- Certifique-se de que ele está conforme o guia de estilo e realize qualquer ação necessária se ele não estiver de acordo (dar squash/reordenar commits, reescrever mensagens, etc.)
-	- Dar rebase do seu ramo no ramo em que ele será "mergido"
+	- Dar rebase do seu ramo no ramo em que ele será _"merged"_
 	
 Isso resulta num ramo que pode ser aplicado diretamente ao fim do ramo "master" e resulta num histórico muito simples.
 	
-Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao incés de dar rebase nele.
+Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em outros casos pode ser melhor ocasionalmente dar merge no ramo "master" ao invés de dar rebase nele.
 
 - Se o seu ramo inclui mais de um commit, não dê merge com fast-forward:
 
@@ -137,7 +137,7 @@ Essa estratégia é mais adequada para projetos com ramos "de tiro curto". Em ou
 
 Com isso em mente, o mais importante é de fato escolher um workflow e seguir firme com ele.
 
-- _Seja consistente_. Isso é relacionado ao workflow mas também se expande para coisas como mensagens de commit, nomes de ramos e tags. Ter um estilo constistente através do seu repositório faz dele mais fácil que todos os contributors possam compreender o que está acontecendo ao olhar o log, uma mensagem de commit, etc.
+- _Seja consistente_. Isso é relacionado ao workflow mas também se expande para coisas como mensagens de commit, nomes de ramos e tags. Ter um estilo consistente através do seu repositório faz dele mais fácil que todos os contributors possam compreender o que está acontecendo ao olhar o log, uma mensagem de commit, etc.
 - _Teste antes de dar push_. Não dê push em trabalho feito pela metade.
 
 **Use o Senso Comum, Luke**. SIGA ESSE GUIA! Isso é muito importante, caso contrário nós não faríamos você lê-lo antes de contribuir com nossos repositórios.
