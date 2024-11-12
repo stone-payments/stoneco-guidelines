@@ -1,0 +1,15 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "Beeva",
+        "Bestpractices",
+        "Enderson",
+        "joao"
+    ],
+    "ignoreWords": [],
+    "import": [],
+    "language": "en,pt,pt_BR"
+}
